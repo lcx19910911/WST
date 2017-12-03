@@ -1,0 +1,75 @@
+[data-type=date] .mui-ohter.mui-dtpicker-title h5, [data-type=date] .mui-ohter.mui-picker {
+	width: 100%;
+}	
+.mui-btn, button {
+	border: none;
+}
+.mui-btn-blue {
+	background: #fff;
+	color: #53e3a5;
+}
+.mui-dtpicker-header .mui-btn {
+	color: #53e3a5;
+}
+.mui-dtpicker, .mui-poppicker {
+	background: #fff;
+}
+.mui-dtpicker-header button {
+	font-size: 14px;
+	padding: 3px 8px;
+}
+.mui-btn-blue.mui-active:enabled, .mui-btn-blue:enabled:active, .mui-btn-primary.mui-active:enabled, .mui-btn-primary:enabled:active, input[type=submit].mui-active:enabled, input[type=submit]:enabled:active {
+    color: #53e3a5;
+    border: 1px solid #fff;
+    background-color: #fff;
+}
+.mui-btn.mui-active:enabled, .mui-btn:enabled:active, button.mui-active:enabled, button:enabled:active, input[type=button].mui-active:enabled, input[type=button]:enabled:active, input[type=reset].mui-active:enabled, input[type=reset]:enabled:active, input[type=submit].mui-active:enabled, input[type=submit]:enabled:active {
+	color: #53e3a5;
+    border: 1px solid #fff;
+    background-color: #fff;
+}
+.mui-dtpicker-title h5 {
+ 	background-color: #fff; 
+ 	border:none; 
+	padding: 0 8px 8px 8px;
+	color: #000;
+	font-size: 18px;	
+}
+.mui-dtpicker-header {
+	padding-bottom: 0;
+}
+.mui-picker {
+	background: #fff;
+}
+.mui-pciker-rule-ft {
+    border-top: solid 1px rgba(0,0,0,.2);
+    border-bottom: solid 1px rgba(0,0,0,.2);
+}
+input[type=text] {
+    padding: 0 10% 0 5%;
+    line-height: 2.8rem;
+    outline: none;
+    background: #262626;
+    border: none;
+    margin-bottom: 0;
+}
+.btn {
+	padding:0;
+}
+.mui-backdrop {
+   background-color: rgba(0,0,0,.5);
+}
+.mui-other-bg {
+	display: none;
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,0,0,.5);
+	z-index: 9998;
+}
+.mui-other-div {
+	/*display: none;*/
+	bottom: -500px;
+}

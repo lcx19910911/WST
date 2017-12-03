@@ -1,0 +1,138 @@
+.head-div {
+	background: #232323;
+}
+.wrap, .cont {
+	background: #181818;
+} 
+.wrap, .cont {
+	background: #323232;
+} 
+.cont {
+	padding-top: 2.8rem;
+	padding-bottom: 2rem;
+}
+.spc-div {
+	padding: 3.5rem 5% 0;
+}
+.spc-tit {
+	margin-bottom: 2rem;
+	color: #fff;
+	font-size: 1.3rem;
+}
+.spc-radius {
+	color: #fff;
+	/*padding: 0 .5rem;*/
+	font-size: 1.2rem;
+}
+.spc-item {
+	display: block;
+	height: 45vw;
+	margin-top: .5rem;
+	font-size: 1.2rem;
+	text-align: center;
+	/*line-height: 45vw;*/
+	font-weight: bold;
+	letter-spacing: 1px;
+}
+.spc-item.spc-item-card {
+	background: url(../img/set_card_2.png) no-repeat center;
+	background-size: 100% 100%;
+}
+.spc-item.spc-item-obct {
+	background: url(../img/set_card_1.png) no-repeat center;
+	background-size: 100% 100%;
+}
+.spc-item strong {
+	float: left;
+	width: 100%;
+	height: 4rem;
+}
+.spc-item-card strong {
+	background: url(../img/scm_img_2.png) no-repeat center;
+	background-size: auto 88%;
+}
+.spc-item-obct strong {
+	background: url(../img/scm_img_1.png) no-repeat center;
+	background-size: auto 88%;
+}
+.spc-item div {
+	overflow: hidden;
+	height: 100%;
+	padding: 2rem 0;
+}
+.spc-item span {
+	/*margin-left: 8px;*/
+	float: left;
+	width: 100%;
+	font-size: 1.2rem;
+	margin-bottom: .2rem;
+	color: #fff;
+}
+.spc-item i:before {
+	/*content: "\a030";*/
+	color: #fff;
+}
+.spc-item .spc-word {
+	font-size: 12px;
+}
+.spc-item.spc-item-sel i:before {
+	/*content: "\a029";*/
+	color: #53e3a5;
+}
+.next-step-btn {
+	display: block;
+    width: 45%;
+    padding: .8rem 0;
+    margin: 5rem auto 0;
+    font-size: 1.1rem;
+    color: #53e3a5;
+    background: #000;
+    text-align: center;
+    border-radius: 5px;
+    letter-spacing: 2px;
+}
+.head-div em {
+	position: absolute;
+    top: .3rem;
+    right: 0;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    padding: 0 .5rem;
+    font-size: 1.1rem;
+    color: #53e3a5;
+}
+.spc-user-data {
+	text-align: center;
+	color: #fff;
+	font-size: 1.2rem;
+}
+.spcud-img {
+	height: 4rem;
+}
+.spcud-img img {
+	height: 100%;
+	border-radius: 50%;
+	border: 1px solid #53e3a5;
+}
+.spcud-name {
+	font-weight: bold;
+	margin-top: 1rem;
+	margin-bottom: 1.5rem;
+}
+.spcud-balance span {
+	color: #53e3a5;
+}
+.spcud-balance {
+	margin-bottom: 2rem;
+}
+.sign-btn {
+	width: 50%;
+	height: 3rem;
+	line-height: 3rem;
+	margin: 8rem auto 0;
+	text-align: center;
+	color: #fff;
+	background: #53e3a5;
+	border-radius: 3rem;
+	font-weight: bold;
+}

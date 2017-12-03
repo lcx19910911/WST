@@ -1,0 +1,66 @@
+﻿@{
+    var currentUser = LoginHelper.GetCurrentUser();
+    var url = Request.Url.AbsoluteUri;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+
+    <title>@CustomHelper.GetValue("Website-Titlte")-@ViewBag.Title</title>
+
+    <link rel="stylesheet" href="~/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/swiper-3.4.2.min.css">
+    <link rel="stylesheet" href="~/css/reset.css">
+
+    <link rel="stylesheet" href="~/css/BOX.css">
+    <link rel="stylesheet" href="~/css/footer.css">
+    @RenderSection("linkcss", required: false)
+    <script src="~/js/jquery.min.js"></script>
+    <script src="~/js/bootstrap.min.js"></script>
+    @*<script src="~/js/pay.js"></script>*@
+    <script src="~/js/swiper-3.4.2.jquery.min.js"></script>
+
+</head>
+<body>
+    <!-- 弹窗 -->
+    <div class="window-infor">
+        <div class="prompt-box">
+            <div class="pb-txt">这是一个提示框！</div>
+            <div class="pb-btn">确 定</div>
+        </div>
+        <div class="select-box">
+            <div class="sb-img">
+                <i class="sb-btn-no"></i>
+                支付
+            </div>
+            <div class="sb-txt">这是一个选择框？</div>
+            <div class="sb-btn">
+                <span class="sb-btn-ok">确认支付</span>
+            </div>
+        </div>
+    </div>
+    @RenderBody()
+    
+
+    <div class="footer-nav" style="@(!ViewBag.isShowFooter?"display:none":"")">
+        <a href="/home/index" class="footer-btn @(url.Contains("/home/index")||Request.Url.AbsolutePath=="/"?"fb-sel":"")">首页</a>
+        <a href="#"  class="footer-btn @(url.Contains("/course/index")?"fb-sel":"")">课程</a>
+        <a href="#"  class="footer-btn @(url.Contains("/user/id")?"fb-sel":"")">我的预约</a>
+        <a href="/user/index"  class="footer-btn @(url.Contains("/user/index")?"fb-sel":"")">MY卡</a>
+    </div>
+
+    <script src="~/js/common.js"></script>
+    <script src="~/js/BOX.js"></script>
+    <script src="~/Areas/Admin/Scripts/utility.js"></script>
+
+    @RenderSection("scripts", false)
+</body>
+</html>

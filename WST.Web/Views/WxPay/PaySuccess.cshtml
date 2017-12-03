@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "支付成功";
+}
+@section linkcss
+{
+    <link rel="stylesheet" href="~/css/PaySuccess.css">
+}
+
+<div class="wrap" id="Index">
+    <div class="cont set-pre-card">
+        <div class="spc-div">
+            <div class="spc-img">
+                <img src="~/img/zhifu-success.png" alt="">
+            </div>
+            <div class="spc-txt">支付成功</div>
+            <div class="spc-price">@(Request["fee"])</div>
+            <div class="spc-merber">
+                <span>收款人</span>
+                <strong>@CustomHelper.GetValue("Website-Titlte")</strong>
+            </div>
+            <div class="sure-btn">完 成</div>
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+<script type="text/javascript">
+
+
+    $(".summation-btn").click(function () {
+        window.location.href = '/user/index';
+    });
+
+</script>
+    }

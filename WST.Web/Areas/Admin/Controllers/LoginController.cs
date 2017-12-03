@@ -1,0 +1,106 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Globalization;
+using WST.Web.Framework;
+using WST.IService;
+using WST.Core.Extensions;
+using WST.Core.Web;
+using WST.Core;
+using WST.Core.Model;
+using WST.Core.Code;
+using WST.Core.Helper;
+
+namespace WST.Web.Areas.Admin.Controllers
+{
+    public class LoginController : BaseAdminController
+    {
+
+        public IAdminService IAdminService;
+        public IRoleService IRoleService;
+
+        public LoginController(IAdminService _IAdminService, IRoleService _IRoleService)
+        {
+            this.IAdminService = _IAdminService;
+            this.IRoleService = _IRoleService;
+        }
+
+        
+        // GET: Login
+        public ActionResult Index()
+        {
+            return View();
+        }
+
+        #region 验证码
+        /// <summary>
+        /// 验证码
+        /// </summary>
+        public void ValidateCode()
+        {
+            ValidateCodeGenertor v = ValidateCodeGenertor.Default;
+            CacheHelper.Remove("validate_code" + this.IP);
+            var code = v.CreateValidateCode();
+            CacheHelper.Set<string>("validate_code" + this.IP, code, CacheTimeOption.SixMinutes);
+            var tuple = new Tuple<ValidateCodeGenertor, string>(v, code);
+            HttpContext.Response.Cache.SetCacheability(HttpCacheability.NoCache);
+            HttpContext.Response.ClearContent();
+            HttpContext.Response.ContentType = "image/Jpeg";
+            HttpContext.Response.BinaryWrite(tuple.Item1.CreateImageStream(tuple.Item2));    //  输出图片
+        }
+        #endregion
+
+        /// <summary>
+        /// 登录提交
+        /// </summary>
+        /// <param name="account">账号</param>
+        /// <param name="password">密码</param> 
+        /// <returns></returns>
+        public JsonResult Submit(string account, string password,string code)
+        {
+            var result = IAdminService.Login(account, password, code);
+            if (result.Success)
+            {
+
+                if (result.Result == null)
+                    return JResult(new WebResult<bool> { Code = ErrorCode.sys_fail, Result = false, Append = "账号密码错误" });
+                else
+                {
+                    if (result.Result.IsDelete)
+                    {
+                        return JResult(new WebResult<bool> { Code = ErrorCode.sys_fail, Result = false, Append = "该账户已被删除" });
+                    }
+                    else
+                    {
+                        if (result.Result.IsSuperAdmin)
+                        {
+                            this.LoginAdmin = new Core.Model.LoginUser(result.Result, "","");
+                        }
+                        else
+                        {
+                            var role = IRoleService.Find(result.Result.RoleID);
+                            this.LoginAdmin = new Core.Model.LoginUser(result.Result,role.MenuIDStr,role.OperateStr);
+                        }
+                    }
+                }
+                
+            }
+            return JResult(result);
+
+        }
+
+        /// <summary>
+        /// 退出登录
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult Quit()
+        {
+            this.LoginAdmin = null;
+            return View("Index");
+        }
+    }
+}

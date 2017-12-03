@@ -1,0 +1,37 @@
+﻿<div class="am-cf am-padding">
+    <div class="am-fl am-cf"><small>选择用户</small></div>
+</div>
+<div id="searchUserDomain">
+
+    <div class="am-g">
+        <div class="am-u-lg-12">
+            <div class="am-input-group am-input-group-sm">
+                <span class="am-input-group-label">用户名称</span>
+                <input type="text" class="am-form-field" placeholder="按用户名称搜索" name="name" ;>
+                <span class="am-input-group-label  am-margin-left-sm">手机号码</span>
+                <input type="text" class="am-form-field" placeholder="按手机号码搜索" name="phone" ;>
+                <span class="am-input-group-btn am-margin-left-sm">
+                    <button class="am-btn am-btn-default" id="btnUserSearch" type="button">搜索</button>
+                    <button class="am-btn am-btn-default" onclick="ClearUserFilter()" type="button">清除</button>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="grid_container">
+    <table id="userDataTable" class="am-table am-table-striped am-table-hover table-main">
+        <thead>
+            <tr>
+                <th dataname="ID" type="checkbox"></th>
+                <th dataname="RealName">用户名称</th>
+                <th render="ShowSex">性别</th>
+                <th dataname="MobilePhone">手机号</th>
+                <th dataname="CardNO">会员卡号</th>
+                <th dataname="IDCard">身份证号码</th>
+                <th dataname="CreatedTime" datatype="jsondate">创建日期</th>
+                <th type="eventlist"></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>

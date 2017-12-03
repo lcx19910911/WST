@@ -1,0 +1,94 @@
+﻿@model User 
+@{
+    ViewBag.Title = "确认进场";
+}
+
+@section linkcss
+{
+    <link rel="stylesheet" href="~/css/ConfirmApproach.css">
+}
+
+<div class="wrap" id="Index">
+    <div class="head-div">
+        <a href="javascript:history.go(-1);"><i></i></a>
+        <span>确认进场</span>
+    </div>
+    <div class="cont set-pre-card">
+        <div class="spc-div">
+            <div class="spc-user-data">
+                <div class="spcud-img">
+                    <img src="@Model.HeadImgUrl" alt="">
+                </div>
+                <div class="spcud-name">@Model.RealName</div>
+                <div class="spcud-balance">
+                    <strong>签到时间：@ViewBag.SignTime</strong>
+                    <span></span>
+                </div>
+
+                <div class="sign-btn">@(ViewBag.StateStr=="已入场"? "确 认 出 场" : "确 认 进 场")</div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+<script src="~/Areas/Admin/Scripts/jquery.signalR-2.1.2.min.js"></script>
+<script src="~/signalr/hubs"></script>
+<script>
+		$(function() {
+			var myDate = new Date();
+			var nowdate = myDate.getFullYear() + '-' + (myDate.getMonth()+1) + '-' + myDate.getDate();
+			console.log(nowdate);
+			var nowtime = myDate.getHours() + ':' + myDate.getMinutes() + ':' + myDate.getSeconds();
+			console.log(nowtime);
+			var txt = nowdate + ' ' +　nowtime;
+			$('.spcud-balance span').text(txt);
+		})
+
+		$.connection.hub.logging = true;
+		$.connection.hub.start()
+            .done(function (data) {
+                //console.log("当前clientID=" + data.id);
+            })
+            .fail(function () { console.log("Could not Connect!"); });;
+
+		var chatHub = $.connection.ChatHub;
+		var hadComeIn = '@(ViewBag.StateStr == "已入场"?"1":"0")' == '1';
+		$(document).on('click', '.sign-btn', function () {
+		    $.ajax({
+		        type: "Post",
+		        url: hadComeIn ? "/wxadmin/AllowOut" : "/wxadmin/AllowApproach",
+		        data: { userId: "@Request["userId"]", storeId: "@Request["storeId"]" },
+		        beforeSend: function () {
+		            $(".sign-btn").attr({ "disabled": "disabled" });//获取到配置之前，禁止点击付款按钮
+		        },
+		        success: function (postData) {
+		            if (postData.Code == 0) {
+		                if (!hadComeIn) {
+		                    chatHub.server.allowApproach("@Request["userId"]");
+		                }
+		                else {
+		                    chatHub.server.allowOut("@Request["userId"]");
+		                }
+		                window.location.href = "/wxadmin/index";
+		            }
+		            else {
+		                if (!hadComeIn) {
+		                chatHub.server.rejectApproach("@Request["userId"]");
+		                }
+		                else {
+		                chatHub.server.rejectOut("@Request["userId"]");
+		                }
+		                var boxObj1 = BOXOPEN({
+		                    type: 1,
+		                    txt: postData.ErrorDesc
+		                });
+		            }
+		        }
+		    })
+
+	    });
+</script>
+}

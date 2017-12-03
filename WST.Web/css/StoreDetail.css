@@ -1,0 +1,76 @@
+html {
+	background: #181818;
+}
+.sdv-list {
+	padding:  0 5%;
+}
+.store-detail-div {
+	margin-bottom: 3rem;
+}
+.sdv-banner img {
+	width: 100%;
+}
+.sdv-item {
+	padding: 1rem 0 1rem;
+	border-bottom: 1px solid #808080;
+}
+.sdv-item:nth-last-child(1) {
+	border-bottom: 0;
+}
+
+.sdv-tit {
+	overflow-y: hidden;
+	margin-bottom: .5rem;
+}
+.sdvt-img {
+	float: left;
+	width: 3rem;
+	height: 3rem;
+	padding: .2rem .8rem .6rem 0;
+}
+.sdvt-img img {
+	width: 100%;
+}
+.sdvt-txt {
+	float: left;
+	height: 3rem;
+	line-height: 3rem;
+	color: #fff;
+	font-size: 1.2rem;
+	letter-spacing: 1px;
+}
+.sdvt-txt span {
+	font-size: 1rem;
+	color: #808080;
+	letter-spacing: 0;
+}
+.sdv-txt {
+	font-size: 1rem;
+	color: #808080;
+}
+.sdv-btn {
+	display: inline-block;
+	/*height: 1.6rem;*/
+	padding: 0.3rem .8rem;
+	margin-top: 1rem;
+	/*line-height: 2rem;*/
+	font-size: 12px;
+	background: #fff;
+	color: #181818;
+	border-radius: 3rem;
+}
+.sdv-process img {
+	width: 100%;
+}
+.sub-btn {
+	height: 4rem;
+	line-height: 4rem;
+	text-align: center;
+	color: #fff;
+	font-size: 1.2rem;
+	background: #62e77c;
+	letter-spacing: 2px;
+}
+canvas {
+	width: auto;
+}

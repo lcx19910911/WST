@@ -1,0 +1,128 @@
+Time:2017/12/4 0:25:08-OnException
+Url:http://localhost:52408/Admin/ActivityCategory/Index
+UrlReferrer:http://localhost:52408/admin
+UserHostAddress:::1;;
+WebServer:::1
+Exception:System.InvalidOperationException: 未找到视图“Index”或其母版视图，或没有视图引擎支持搜索的位置。搜索了以下位置: 
+~/Areas/Admin/Views/ActivityCategory/Index.aspx
+~/Areas/Admin/Views/ActivityCategory/Index.ascx
+~/Areas/Admin/Views/Shared/Index.aspx
+~/Areas/Admin/Views/Shared/Index.ascx
+~/Views/ActivityCategory/Index.aspx
+~/Views/ActivityCategory/Index.ascx
+~/Views/Shared/Index.aspx
+~/Views/Shared/Index.ascx
+~/Areas/Admin/Views/ActivityCategory/Index.cshtml
+~/Areas/Admin/Views/ActivityCategory/Index.vbhtml
+~/Areas/Admin/Views/Shared/Index.cshtml
+~/Areas/Admin/Views/Shared/Index.vbhtml
+~/Views/ActivityCategory/Index.cshtml
+~/Views/ActivityCategory/Index.vbhtml
+~/Views/Shared/Index.cshtml
+~/Views/Shared/Index.vbhtml
+   在 System.Web.Mvc.ViewResult.FindView(ControllerContext context)
+   在 System.Web.Mvc.ViewResultBase.ExecuteResult(ControllerContext context)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResult(ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultFilterRecursive(IList`1 filters, Int32 filterIndex, ResultExecutingContext preContext, ControllerContext controllerContext, ActionResult actionResult)
+   在 System.Web.Mvc.ControllerActionInvoker.InvokeActionResultWithFilters(ControllerContext controllerContext, IList`1 filters, ActionResult actionResult)
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<>c__DisplayClass2b.<BeginInvokeAction>b__1c()
+   在 System.Web.Mvc.Async.AsyncControllerActionInvoker.<>c__DisplayClass21.<BeginInvokeAction>b__1e(IAsyncResult asyncResult)
+
+
+Time:2017/12/4 0:42:11-Application Error.
+Url:http://localhost:52408/Admin/Adviser/Index
+UrlReferrer:http://localhost:52408/Admin/Demo/Index
+UserHostAddress:::1;;
+WebServer:::1
+Exception:System.InvalidOperationException: 尝试创建“WST.Web.Areas.Admin.Controllers.AdviserController”类型的控制器时出错。请确保控制器具有无参数公共构造函数。 ---> Microsoft.Practices.Unity.ResolutionFailedException: Resolution of the dependency failed, type = "WST.Web.Areas.Admin.Controllers.AdviserController", name = "(none)".
+Exception occurred while: while resolving.
+Exception is: InvalidOperationException - The current type, WST.IService.IAdviserService, is an interface and cannot be constructed. Are you missing a type mapping?
+-----------------------------------------------
+At the time of the exception, the container was:
+
+  Resolving WST.Web.Areas.Admin.Controllers.AdviserController,(none)
+  Resolving parameter "_IAdviserService" of constructor WST.Web.Areas.Admin.Controllers.AdviserController(WST.IService.IAdviserService _IAdviserService)
+    Resolving WST.IService.IAdviserService,(none)
+ ---> System.InvalidOperationException: The current type, WST.IService.IAdviserService, is an interface and cannot be constructed. Are you missing a type mapping?
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForAttemptingToConstructInterface(IBuilderContext context)
+   在 lambda_method(Closure , IBuilderContext )
+   在 Microsoft.Practices.ObjectBuilder2.DynamicBuildPlanGenerationContext.<>c__DisplayClass1.<GetBuildMethod>b__0(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuilderContext.NewBuildUp(NamedTypeBuildKey newBuildKey)
+   在 Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve(IBuilderContext context)
+   在 lambda_method(Closure , IBuilderContext )
+   在 Microsoft.Practices.ObjectBuilder2.DynamicBuildPlanGenerationContext.<>c__DisplayClass1.<GetBuildMethod>b__0(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name, IEnumerable`1 resolverOverrides)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name, IEnumerable`1 resolverOverrides)
+   在 Microsoft.Practices.Unity.UnityContainer.Resolve(Type t, String name, ResolverOverride[] resolverOverrides)
+   在 Microsoft.Practices.Unity.UnityContainerExtensions.Resolve(IUnityContainer container, Type t, ResolverOverride[] overrides)
+   在 Microsoft.Practices.Unity.Mvc.UnityDependencyResolver.GetService(Type serviceType)
+   在 System.Web.Mvc.DefaultControllerFactory.DefaultControllerActivator.Create(RequestContext requestContext, Type controllerType)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Web.Mvc.DefaultControllerFactory.DefaultControllerActivator.Create(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+
+Time:2017/12/4 0:42:40-Application Error.
+Url:http://localhost:52408/Admin/Adviser/Index
+UrlReferrer:http://localhost:52408/Admin/Demo/Index
+UserHostAddress:::1;;
+WebServer:::1
+Exception:System.InvalidOperationException: 尝试创建“WST.Web.Areas.Admin.Controllers.AdviserController”类型的控制器时出错。请确保控制器具有无参数公共构造函数。 ---> Microsoft.Practices.Unity.ResolutionFailedException: Resolution of the dependency failed, type = "WST.Web.Areas.Admin.Controllers.AdviserController", name = "(none)".
+Exception occurred while: while resolving.
+Exception is: InvalidOperationException - The current type, WST.IService.IAdviserService, is an interface and cannot be constructed. Are you missing a type mapping?
+-----------------------------------------------
+At the time of the exception, the container was:
+
+  Resolving WST.Web.Areas.Admin.Controllers.AdviserController,(none)
+  Resolving parameter "_IAdviserService" of constructor WST.Web.Areas.Admin.Controllers.AdviserController(WST.IService.IAdviserService _IAdviserService)
+    Resolving WST.IService.IAdviserService,(none)
+ ---> System.InvalidOperationException: The current type, WST.IService.IAdviserService, is an interface and cannot be constructed. Are you missing a type mapping?
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodConstructorStrategy.ThrowForAttemptingToConstructInterface(IBuilderContext context)
+   在 lambda_method(Closure , IBuilderContext )
+   在 Microsoft.Practices.ObjectBuilder2.DynamicBuildPlanGenerationContext.<>c__DisplayClass1.<GetBuildMethod>b__0(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuilderContext.NewBuildUp(NamedTypeBuildKey newBuildKey)
+   在 Microsoft.Practices.Unity.ObjectBuilder.NamedTypeDependencyResolverPolicy.Resolve(IBuilderContext context)
+   在 lambda_method(Closure , IBuilderContext )
+   在 Microsoft.Practices.ObjectBuilder2.DynamicBuildPlanGenerationContext.<>c__DisplayClass1.<GetBuildMethod>b__0(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.DynamicMethodBuildPlan.BuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.BuildPlanStrategy.PreBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.ObjectBuilder2.StrategyChain.ExecuteBuildUp(IBuilderContext context)
+   在 Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name, IEnumerable`1 resolverOverrides)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 Microsoft.Practices.Unity.UnityContainer.DoBuildUp(Type t, Object existing, String name, IEnumerable`1 resolverOverrides)
+   在 Microsoft.Practices.Unity.UnityContainer.Resolve(Type t, String name, ResolverOverride[] resolverOverrides)
+   在 Microsoft.Practices.Unity.UnityContainerExtensions.Resolve(IUnityContainer container, Type t, ResolverOverride[] overrides)
+   在 Microsoft.Practices.Unity.Mvc.UnityDependencyResolver.GetService(Type serviceType)
+   在 System.Web.Mvc.DefaultControllerFactory.DefaultControllerActivator.Create(RequestContext requestContext, Type controllerType)
+   --- 内部异常堆栈跟踪的结尾 ---
+   在 System.Web.Mvc.DefaultControllerFactory.DefaultControllerActivator.Create(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.GetControllerInstance(RequestContext requestContext, Type controllerType)
+   在 System.Web.Mvc.DefaultControllerFactory.CreateController(RequestContext requestContext, String controllerName)
+   在 System.Web.Mvc.MvcHandler.ProcessRequestInit(HttpContextBase httpContext, IController& controller, IControllerFactory& factory)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContextBase httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.BeginProcessRequest(HttpContext httpContext, AsyncCallback callback, Object state)
+   在 System.Web.Mvc.MvcHandler.System.Web.IHttpAsyncHandler.BeginProcessRequest(HttpContext context, AsyncCallback cb, Object extraData)
+   在 System.Web.HttpApplication.CallHandlerExecutionStep.System.Web.HttpApplication.IExecutionStep.Execute()
+   在 System.Web.HttpApplication.ExecuteStep(IExecutionStep step, Boolean& completedSynchronously)
+
+

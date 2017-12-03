@@ -1,0 +1,6 @@
+Time:2017/12/3 13:00:56-本次请求耗时 2.325 秒.
+Url:http://localhost:52408/admin
+UserHostAddress:::1;;
+WebServer:::1
+
+

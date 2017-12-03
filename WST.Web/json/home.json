@@ -1,0 +1,199 @@
+{
+	"storeRegional" : [
+		{
+			"storeCityValue" : "福州",
+			"storeArea" : [
+				{
+					"storeAreaValue" : "福州全城",
+					"storeAreaId" : 1,
+					"areaAll" : 1
+				},
+				{
+					"storeAreaValue" : "鼓楼区",
+					"storeAreaId" : 2,
+					"areaAll" : 0
+				},
+				{
+					"storeAreaValue" : "马尾区",
+					"storeAreaId" : 3,
+					"areaAll" : 0
+				},
+				{
+					"storeAreaValue" : "仓山区",
+					"storeAreaId" : 4,
+					"areaAll" : 0
+				},
+				{
+					"storeAreaValue" : "晋安区",
+					"storeAreaId" : 5,
+					"areaAll" : 0
+				},
+				{
+					"storeAreaValue" : "台江区",
+					"storeAreaId" : 6,
+					"areaAll" : 0
+				}
+			]
+		},
+		{
+			"storeCityValue" : "厦门",
+			"storeArea" : [
+				{
+					"storeAreaValue" : "厦门全城",
+					"storeAreaId" : 11,
+					"areaAll" : 1
+				},
+				{
+					"storeAreaValue" : "岛内",
+					"storeAreaId" : 12,
+					"areaAll" : 0
+				},
+				{
+					"storeAreaValue" : "岛外",
+					"storeAreaId" : 13,
+					"areaAll" : 0
+				}
+			]
+		},
+		{
+			"storeCityValue" : "泉州",
+			"storeArea" : [
+				{
+					"storeAreaValue" : "泉州全城",
+					"storeAreaId" : 21,
+					"areaAll" : 1
+				},
+				{
+					"storeAreaValue" : "丰泽区",
+					"storeAreaId" : 22,
+					"areaAll" : 0
+				},
+				{
+					"storeAreaValue" : "鲤城区",
+					"storeAreaId" : 23,
+					"areaAll" : 0
+				},
+				{
+					"storeAreaValue" : "泉港区",
+					"storeAreaId" : 24,
+					"areaAll" : 0
+				}
+			]
+		}
+	],
+	"storeType" : [
+		{
+			"storeTypeValue" : "全部门店",
+			"storeTypeId" : 1,
+			"typeAll" : 1
+		},
+		{
+			"storeTypeValue" : "全能店",
+			"storeTypeId" : 2,
+			"typeAll" : 0
+		},
+		{
+			"storeTypeValue" : "单车店",
+			"storeTypeId" : 3,
+			"typeAll" : 0
+		},
+		{
+			"storeTypeValue" : "瑜伽店",
+			"storeTypeId" : 4,
+			"typeAll" : 0
+		}
+	],
+	"storeList" : [
+		{
+			"storeId" : 1,
+			"storeName" : "迈健身-鼓楼店1",
+			"storeAdress" : "XX市鼓楼区东街路100号",
+			"storeImgUrl" : "images/home_list_1.jpg",
+			"storeCollect" : 1,
+			"storeAreaId" : 2,
+			"storeTypeId" : 2
+		},
+		{
+			"storeId" : 2,
+			"storeName" : "迈健身-鼓楼店2",
+			"storeAdress" : "XX市鼓楼100号",
+			"storeImgUrl" : "images/home_list_2.jpg",
+			"storeCollect" : 0,
+			"storeAreaId" : 2,
+			"storeTypeId" : 3
+		},
+		{
+			"storeId" : 3,
+			"storeName" : "迈健身-鼓楼店3",
+			"storeAdress" : "XX市鼓楼区100号",
+			"storeImgUrl" : "images/home_list_3.jpg",
+			"storeCollect" : 0,
+			"storeAreaId" : 2,
+			"storeTypeId" : 4
+		},
+		{
+			"storeId" : 4,
+			"storeName" : "迈健身-马尾店1",
+			"storeAdress" : "XX市马尾区101号",
+			"storeImgUrl" : "images/home_list_3.jpg",
+			"storeCollect" : 1,
+			"storeAreaId" : 3,
+			"storeTypeId" : 2
+		},
+		{
+			"storeId" : 5,
+			"storeName" : "迈健身-仓山店1",
+			"storeAdress" : "XX市仓山100号",
+			"storeImgUrl" : "images/home_list_1.jpg",
+			"storeCollect" : 0,
+			"storeAreaId" : 4,
+			"storeTypeId" : 2
+		},
+		{
+			"storeId" : 6,
+			"storeName" : "迈健身-岛内店1",
+			"storeAdress" : "XX市岛内101号",
+			"storeImgUrl" : "images/home_list_3.jpg",
+			"storeCollect" : 1,
+			"storeAreaId" : 12,
+			"storeTypeId" : 2
+		},
+		{
+			"storeId" : 7,
+			"storeName" : "迈健身-岛内店2",
+			"storeAdress" : "XX市岛内100号",
+			"storeImgUrl" : "images/home_list_2.jpg",
+			"storeCollect" : 0,
+			"storeAreaId" : 12,
+			"storeTypeId" : 3
+		},
+		{
+			"storeId" : 8,
+			"storeName" : "迈健身-丰泽店1",
+			"storeAdress" : "XX市丰泽100号",
+			"storeImgUrl" : "images/home_list_1.jpg",
+			"storeCollect" : 0,
+			"storeAreaId" : 22,
+			"storeTypeId" : 4
+		},
+		{
+			"storeId" : 9,
+			"storeName" : "迈健身-鲤城店1",
+			"storeAdress" : "XX市鲤城101号",
+			"storeImgUrl" : "images/home_list_2.jpg",
+			"storeCollect" : 1,
+			"storeAreaId" : 23,
+			"storeTypeId" : 4
+		},
+		{
+			"storeId" : 10,
+			"storeName" : "迈健身-泉港店1",
+			"storeAdress" : "XX市泉港100号",
+			"storeImgUrl" : "images/home_list_3.jpg",
+			"storeCollect" : 0,
+			"storeAreaId" : 24,
+			"storeTypeId" : 4
+		}
+	]
+	
+}

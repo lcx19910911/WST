@@ -1,0 +1,167 @@
+.head-div {
+	background: #232323;
+}
+.wrap, .cont {
+	background: #fff;
+} 
+.wrap, .cont {
+	background: #fff;
+} 
+.cont {
+	/*padding-top: 2.8rem;*/
+	padding-bottom: 2rem;
+}
+.spc-div {
+	padding: 3rem 5% 0;
+	/*background: #fff;*/
+}
+
+.spc-orlist .strong-color-red {
+	color: rgba(255,68,68,.76);
+}
+.spc-tit {
+	margin-bottom: .8rem;
+	padding: .2rem 0 .5rem;
+	/*border-bottom: 1px solid #ccc;*/
+	color: #333;
+	/*font-weight: bold;*/
+	font-size: 1.2rem;
+	text-align: left;
+	background: #fff;
+}
+.spc-item {
+	background: #fff;
+	/*margin-bottom:1.5rem;*/
+}
+.spc-item.mtop-1 {
+	margin-top: 1rem;
+}
+.spc-orlist {
+	overflow: hidden;
+	margin-bottom: 2rem;
+	padding-top: 3rem;
+	border-bottom: 1px solid #ccc;
+}
+.spc-orlist span {
+	margin-right: .2rem;
+	color: #aaa;
+	font-size: 1.1rem;
+}
+.spc-orlist strong {
+	float: right;
+	color: #999;
+	font-size: 1.1rem;
+}
+.spc-orlist.sor-none {
+	margin-bottom: 1rem;
+	padding-top: 0;
+	border-bottom: 0;
+}
+.spc-good {
+	position: relative;
+	/*margin-bottom: .5rem;*/
+	padding: .5rem 0 .5rem 10rem;
+	background: #fff;
+	
+}
+.spcg-img {
+	position: absolute;
+	top: .5rem;
+	left: 0rem;
+	width: 8rem;
+	height: 8rem;
+	/*padding: .2rem;*/
+}
+.spcg-img img {
+	width: 100%;
+	height: 100%;
+}
+.spcg-name {
+	overflow: hidden;	
+	height: 5rem;
+	font-size: 1.2rem;
+	line-height: 2.5rem;
+	color: #888;
+}
+.spcg-con {
+	overflow: hidden;
+	height: 3rem;
+	line-height: 3rem;
+	font-size: 1.1rem;
+	border-bottom: 1px solid #ddd;
+}
+.spcg-price {
+	font-size: 1.2rem;
+	float: left;
+	color: #000;
+	/*font-weight: bold;*/
+}
+.spcg-price:before {
+	content: "¥ ";
+}
+.spcg-num {
+	float: right;
+	margin-right: 1rem;
+	color: #000;
+}
+.spcg-num:before {
+	content: "×";
+}
+.spc-orlist.spc-all-price span {
+	float: left;
+	width: 100%;
+	font-size: 1.3rem;
+	color: #666;
+	margin-right: 0;
+	text-align: center;
+	/*font-weight: bold;*/
+}
+.spc-orlist.spc-all-price strong {
+	float: left;
+	width: 100%;
+	padding-bottom: 3rem;
+	font-size: 3.2rem;
+	color: #000;
+	text-align: center;
+}
+
+.spc-orlist.spc-all-price strong:before {
+	content: "¥ ";
+	/*font-size: 1rem;*/
+}
+.eq-img {
+	margin-top: 2rem;
+	width: 55%;
+	margin: 3rem auto 0;
+}
+.eq-img img {
+	width: 100%;
+}
+.eq-txt {
+	color: #f00;
+	font-size: 1rem;
+	font-weight: bold;
+	text-align: center;
+}
+.do-btn {
+	overflow: hidden;
+	width: 80%;
+	margin: 2rem auto 0;
+}
+.do-btn div {
+	float: left;
+	width: 47%;
+	height: 3rem;
+	line-height: 3rem;
+	color: #fff;
+	text-align: center;
+	font-size: 1.2rem;
+}
+.refund-btn {
+	background: rgba(255,68,68,.76);
+	margin-right: 3%;
+}
+.confirm-btn {
+	background: #62E77C;
+	margin-left: 3%;
+}

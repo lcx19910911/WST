@@ -1,0 +1,207 @@
+﻿@using WST.Core.Extensions
+@using WST.Domain
+@model PayOrder
+@{
+    var currentUser = LoginHelper.GetCurrentUser();
+    ViewBag.Title = "订单详情";
+    var orderItems = ViewBag.OrderItems as List<OrderItem>;
+    var code = (OrderCode)(Request["type"].GetInt());
+    var url = "";
+    switch (code)
+    {
+        case OrderCode.Card:
+            url = "/user/index";
+            break;
+        case OrderCode.Recharge:
+            url = "/store/balance?storeId=" + Request["storeId"];
+            break;
+        case OrderCode.Course:
+            url = "/user/index";
+            break;
+        case OrderCode.Goods:
+            url = "/store/balance?storeId=" + Request["storeId"];
+            break;
+        default:
+            url = "javascript:history.go(-1);";
+            break;
+    }
+}
+
+    @section linkcss
+    {
+    <link rel="stylesheet" href="~/css/OrderDetail.css">
+}
+
+<div class="wrap" id="Index">
+    <div class="head-div">
+        <a href="@(url)"><i></i></a>
+        <span>订单详情</span>
+    </div>
+    <div class="cont set-pre-card">
+        <div class="spc-div">
+
+            <div class="spc-item">
+                <div class="spc-orlist spc-all-price">
+                    <span>订单总额</span>
+                    <strong>@Model.Amount</strong>
+                </div>
+            </div>
+
+            <div class="spc-tit">商品信息</div>
+            <div class="spc-item">
+                @if (orderItems != null && orderItems.Count > 0)
+                {
+                    foreach (var item in orderItems)
+                    {
+
+                        <div class="spc-good">
+                            <div class="spcg-img">
+                                <img src="~/img/statement.png" alt="">
+                            </div>
+                            <div class="spcg-txt">
+                                <div class="spcg-name">@item.Name</div>
+                                <div class="spcg-con">
+                                    <div class="spcg-price">@item.Money</div>
+                                    <div class="spcg-num">@item.Count</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    }
+                }
+            </div>
+            <div class="spc-item mtop-1">
+                <div class="spc-orlist  sor-none">
+                    <span>订单编号</span>
+                    <strong>@Model.NO</strong>
+                </div>
+                <div class="spc-orlist  sor-none">
+                    <span>下单时间</span>
+                    <strong>@Model.CreatedTime.ToString("yyyy-MM-dd")</strong>
+                </div>
+                <div class="spc-orlist  sor-none">
+                    <span>订单状态</span>
+                    <strong class="strong-color-red">@(Model.State.GetDescription())</strong>
+                </div>
+            </div>
+
+            @if (Model.Code == OrderCode.Goods)
+            {
+                if (currentUser.AdminID.IsNullOrEmpty())
+                {
+                    if (Model.State == PayState.Success)
+                    {
+
+            <!-- 二维码 -->
+                        <div class="eq-img">
+                            <div class="code-img">
+                            </div>
+                            <div class="eq-txt">将二维码给管理员扫描</div>
+                            <div class="eq-txt">确认付款成功</div>
+                        </div>
+                    }
+                }
+                else
+                {
+            <!-- 按钮 -->
+                    <div class="do-btn">
+                        @if (Model.State == PayState.Taken || Model.State == PayState.Success)
+                    {
+                            <div class="refund-btn">退 款</div>
+                        }
+                        @if (Model.State == PayState.Success)
+                    {
+                            <div class="confirm-btn">确 认</div>
+                        }
+                    </div>
+                }
+            }
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script src="~/Areas/Admin/Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Areas/Admin/Scripts/jquery.qrcode.min.js"></script>
+    <script>
+        $.connection.hub.logging = true;
+        $.connection.hub.start()
+            .done(function (data) {
+                //console.log("当前clientID=" + data.id);
+            })
+            .fail(function () { console.log("Could not Connect!"); });;
+
+        var chatHub = $.connection.ChatHub;
+        //刷新订单
+        chatHub.client.RefreshOrder = function (data) {
+            window.location.reload();
+        }
+        var isUser = "@(currentUser.AdminID.IsNullOrEmpty()?"1":"0")" == "1";
+        if (isUser) {
+            $(".code-img").html("");
+            $(".code-img").qrcode({
+                width: 154, //宽度
+                height: 154, //高度
+
+                typeNumber: -1,//计算模式
+                correctLevel: 2,//二维码纠错级别
+                background: "#ffffff",//背景颜色
+                foreground: "#000000",  //二维码颜色
+                text: "@(Params.SiteUrl)/order/detail?orderId=@Request["orderId"]"
+                //任意内容
+            });
+            $('.eq-img').show();
+        }
+
+        $(document).on('click', '.refund-btn', function () {
+            $.ajax({
+                type: "Post",
+                url: "/wxadmin/Refund",
+                data: { orderId: "@Request["orderId"]" },
+                beforeSend: function () {
+                    $(".refund-btn").attr({ "disabled": "disabled" });//获取到配置之前，禁止点击付款按钮
+                },
+                success: function (postData) {
+                    if (postData.Code == 0) {
+                        chatHub.server.refreshOrder("@Model.UserID", "@Request["orderId"]");
+                        window.location.reload();
+                    }
+                    else {
+                        var boxObj1 = BOXOPEN({
+                            type: 1,
+                            txt: postData.ErrorDesc
+                        });
+                    }
+                }
+            })
+        });
+
+
+        $(document).on('click', '.confirm-btn', function () {
+            $.ajax({
+                type: "Post",
+                url: "/wxadmin/Taken",
+                data: { orderId: "@Request["orderId"]" },
+                beforeSend: function () {
+                    $(".confirm-btn").attr({ "disabled": "disabled" });//获取到配置之前，禁止点击付款按钮
+                },
+                success: function (postData) {
+                    if (postData.Code == 0) {
+                        chatHub.server.refreshOrder("@Model.UserID", "@Request["orderId"]");
+                        window.location.reload();
+                    }
+                    else {
+                        var boxObj1 = BOXOPEN({
+                            type: 1,
+                            txt: postData.ErrorDesc
+                        });
+                    }
+                }
+            })
+
+        });
+    </script>
+}

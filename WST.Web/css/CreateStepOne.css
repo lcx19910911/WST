@@ -1,0 +1,114 @@
+.wrap, .cont {
+	background: #323232;
+} 
+.cont {
+	padding-top: 2.8rem;
+	padding-bottom: 2rem;
+}
+.spc-div {
+	padding: 2.5rem 5%;
+}
+.spc-tit {
+	margin-bottom: 4rem;
+	color: #fff;
+	font-size: 1.3rem;
+}
+.spc-radius {
+	color: #fff;
+	/*padding: 0 .5rem;*/
+	font-size: 1.2rem;
+}
+.spc-item {
+	float: left;
+	display: block;
+	width: 50%;
+	height: 45vw;
+	/*line-height: 45vw;*/
+	/*margin-bottom: .8rem;*/
+	font-size: 1.2rem;
+	text-align: center;
+	/*line-height: 45vw;*/
+	font-weight: bold;
+	letter-spacing: 1px;
+	background: #62E77C;
+}
+.spc-item span {
+	height: 45vw;
+	line-height: 60vw;
+	background: url(../img/aqmsz_2.png) no-repeat top 20% center;
+	background-size: auto 40%;
+}
+.spc-item.spc-item-sel {
+	background: #2FCBBA;
+}
+.spc-item.spc-item-sel span {
+	background: url(../img/aqmsz_1.png) no-repeat top 20% center;
+	background-size: auto 40%;
+}
+.spc-item.spc-item-card {
+	background: url(../img/set_card_1.png) no-repeat center;
+	background-size: 100% 100%;
+}
+.spc-item.spc-item-obct {
+	background: url(../img/set_card_2.png) no-repeat center;
+	background-size: 100% 100%;
+}
+.spc-item strong {
+	float: left;
+	width: 100%;
+	height: 4rem;
+}
+.spc-item-card strong {
+	background: url(../img/aqmsz_1.png) no-repeat center;
+	background-size: auto 100%;
+}
+.spc-item-obct strong {
+	background: url(../img/aqmsz_2.png) no-repeat center;
+	background-size: auto 100%;
+}
+.spc-item div {
+	overflow: hidden;
+	height: 100%;
+	padding: 2rem 0;
+}
+.spc-item span {
+	/*margin-left: 8px;*/
+	float: left;
+	width: 100%;
+	font-size: 1.2rem;
+	margin-bottom: .2rem;
+	color: #fff;
+}
+.spc-item i:before {
+	/*content: "\a030";*/
+	color: #fff;
+}
+.spc-item .spc-word {
+	font-size: 12px;
+}
+.spc-item.spc-item-sel i:before {
+	/*content: "\a029";*/
+	color: #53e3a5;
+}
+.next-step-btn {
+	display: block;
+    width: 45%;
+    padding: .8rem 0;
+    margin: 5rem auto 0;
+    font-size: 1.1rem;
+    color: #53e3a5;
+    background: #000;
+    text-align: center;
+    border-radius: 5px;
+    letter-spacing: 2px;
+}
+.head-div em {
+	position: absolute;
+    top: .3rem;
+    right: 0;
+    height: 2.2rem;
+    line-height: 2.2rem;
+    padding: 0 .5rem;
+    font-size: 1.1rem;
+    color: #53e3a5;
+}

@@ -1,0 +1,7 @@
+Time:2017/12/4 1:02:42-本次请求耗时 9.672 秒.
+Url:http://localhost:52408/Admin/User/AddMember
+UrlReferrer:http://localhost:52408/Admin/User/Index
+UserHostAddress:::1;;
+WebServer:::1
+
+

@@ -1,0 +1,306 @@
+﻿@model List<SelectItem>
+@{
+    var goodsDic = ViewBag.GoodsList as Dictionary<string, List<Goods>>;
+    var index = 0;
+    var selectName = "";
+    ViewBag.Title = "购买商品";
+}
+
+@section linkcss
+{
+    <link rel="stylesheet" href="~/css/ManageConsumeShop.css">
+}
+<div class="page-header">
+    <a href="javascript:history.go(-1);"></a>
+    购买商品
+</div>
+<div class="wrap">
+    <!-- 左边 -->
+    <div class="left-nav">
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <span class="@(index==0?"select":"")" data-value="@item.Value">@item.Text</span>
+                if (index == 0)
+                {
+                    selectName = item.Text;
+                }
+                index++;
+            }
+        }
+    </div>
+    <!-- 右边 -->
+    <div class="right-con">
+        <h2>@selectName</h2>
+        @if (goodsDic.Keys.Count > 0)
+        {
+            index = 1;
+            foreach (var item in goodsDic.Keys)
+            {
+
+                <div class="details">
+                    <h3>@(Model.FirstOrDefault(x => x.Value == item)?.Text)</h3>
+                    <div class="details-con">
+                        @foreach (var goods in goodsDic[item])
+                        {
+                            <div class="dc-item">
+                                <div class="dci-img">
+                                    <img src="@goods.Picture" alt="">
+                                </div>
+                                <div class="dci-con">
+                                    <div class="dci-name">@goods.Name</div>
+                                    <div class="dci-txt">
+                                        <div class="dci-price">@goods.Price</div>
+                                        <div class="dci-num">
+                                            <span class="dci-del"></span>
+                                            <span class="dci-number" data-id="@goods.ID" data-price="@goods.Price" data-name="@goods.Name">0</span>
+                                            <span class="dci-add"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+    </div>
+
+</div>
+
+<div class="settlement">
+    <div class="slt-img">
+        <div class="slt-num">0</div>
+    </div>
+    <div class="slt-price">0.00</div>
+    <div class="slt-btn">去结算</div>
+</div>
+@section scripts
+{
+    @*<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+            <script src="~/Areas/Admin/Scripts/jquery.signalR-2.1.2.min.js"></script>
+        <script src="~/signalr/hubs"></script>*@
+    <script>
+
+        $(function () {
+            var lastImgH = $('.details').eq($('.details').length - 1).outerHeight(true) + 60;
+            // console.log(279)
+            if ($(window).height() > lastImgH) {
+                $('.details').eq($('.details').length - 1).css({
+                    paddingBottom: $(window).height() - lastImgH + 'px'
+                })
+            }
+            var cnameTopArr = [];
+            for (var i = 0; i < $('.details h3').length; i++) {
+                cnameTopArr.push(parseInt($('.details h3')[i].getBoundingClientRect().top) - 60);
+            }
+            // console.log(cnameTopArr);
+
+            $('.left-nav span').on('click', function () {
+                $('.left-nav span').removeClass('select');
+                $(this).addClass('select');
+                $(window).scrollTop(cnameTopArr[$(this).index()]);
+                $('.right-con h2').text($(this).text());
+            })
+
+            function judgeTop() {
+                for (var i = 0; i < cnameTopArr.length; i++) {
+                    if (i == cnameTopArr.length - 1) {
+                        if ($(window).scrollTop() >= cnameTopArr[i]) {
+                            $('.left-nav span').removeClass('select').eq(i).addClass('select');
+                            $('.right-con h2').text($('.left-nav span').eq(i).text());
+                        }
+                    }
+                    else {
+                        if ($(window).scrollTop() >= cnameTopArr[i] && $(window).scrollTop() < cnameTopArr[i + 1]) {
+                            $('.left-nav span').removeClass('select').eq(i).addClass('select');
+                            $('.right-con h2').text($('.left-nav span').eq(i).text());
+                        }
+                    }
+                }
+            }
+
+            $(window).on('scroll', function () {
+                // console.log($(window).scrollTop());
+                judgeTop();
+            });
+
+            $(document).on('click', '.dci-add', function () {
+                var dciNum = parseInt($(this).siblings('.dci-number').text());
+                dciNum++;
+                $(this).siblings('.dci-number').text(dciNum);
+                $(this).siblings('.dci-number, .dci-del').show();
+                $('.slt-price').text(calculateShop());
+            });
+            $(document).on('click', '.dci-del', function () {
+                var dciNum = parseInt($(this).siblings('.dci-number').text());
+                dciNum--;
+                $(this).siblings('.dci-number').text(dciNum);
+                if (dciNum == 0) {
+                    $(this).siblings('.dci-number').hide();
+                    $(this).hide();
+                };
+                $('.slt-price').text(calculateShop());
+            });
+            function calculateShop() {
+                var summation = 0;
+                for (var i = 0; i < $('.dc-item').length; i++) {
+                    summation = summation + parseFloat($('.dc-item').eq(i).find('.dci-price').text()) * parseFloat($('.dc-item').eq(i).find('.dci-number').text());
+                };
+                summation = summation.toFixed(2);
+                // console.log(summation);
+                return summation;
+            }
+
+            @*$.connection.hub.logging = true;
+            $.connection.hub.start()
+                .done(function (data) {
+                    //console.log("当前clientID=" + data.id);
+                })
+                .fail(function () { console.log("Could not Connect!"); });;
+
+            var chatHub = $.connection.ChatHub;
+            //允许进场
+            chatHub.client.AllowApproach = function (msg) {
+                window.location.href = "/store/signin?storeId=" + storeId + "&userId=@LoginHelper.GetCurrentUser().ID "
+            }
+
+            //已支付
+            chatHub.client.HadPay = function (data) {
+                window.location.href = '/order/Detail?orderId=' + data.orderId;
+            }
+            //未支付
+            chatHub.client.NoPay = function (orderId) {
+                window.location.href = '/order/Detail?orderId=' + data.orderId;
+            }*@
+
+            //wx.ready(function () {
+            //    wx.checkJsApi({
+            //        jsApiList: [
+            //          'scanQRCode'
+            //        ],
+            //        success: function (res) {
+            //            if (!IsWeiXin()) {
+            //                var boxObj1 = BOXOPEN({
+            //                    type: 1,
+            //                    txt: "请在微信中使用"
+            //                });
+            //                return false;
+            //            }
+
+            //var userId = res.resultStr.split('_')[0];
+            //var storeId = res.resultStr.split('_')[1];
+
+            //        }
+            //    });
+            //})
+
+
+            // 弹窗“是”的事件
+            $(document).on('click', '.sb-btn-no', function() {
+                $('.window-infor, .select-box').hide();
+            });
+            // 弹窗“否”的事件
+            $(document).on('click', '.sb-btn-ok', function () {
+                if(state==1)
+                {
+                    window.location.href = '/store/recharge?storeId=@Request["storeId"]';
+                }
+                else
+                {
+                    var summations = parseFloat($('.slt-price').text());
+                    var storeId = "@Request["storeId"]";
+
+                    var ary = new Array();
+                    var nameAry = new Array();
+                    $(".dci-num .dci-number").each(function (index, item) {
+                        var num = parseInt($(item).text());
+                        if (num != 0) {
+                            ary.push({
+                                ID: $(item).attr("data-id"),
+                                Count: num,
+                                Money: $(item).attr("data-price"),
+                                Name: $(item).attr("data-Name"),
+                            });
+                            nameAry.push($(item).attr("data-name") + "_" + num + "_" + (num * parseFloat($(item).attr("data-price"))));
+                        }
+                    })
+
+                    $.ajax({
+                        type: "Post",
+                        url: "/store/BuyGoods",
+                        data: { goods: ary, storeId: storeId },
+                        beforeSend: function () {
+                            $(".slt-btn").attr({ "disabled": "disabled" });//获取到配置之前，禁止点击付款按钮
+                        },
+                        success: function (postData) {
+                            if (postData.Code == 0) {
+                                if (postData.Result.Result.State == 1) {
+                                    window.location.href = '/order/Detail?type=3&storeId=@(Request["storeId"])&orderId=' + postData.Result.Result.ID;
+                                    //chatHub.server.successPay(userId, postData.Result.Result.ID)
+                                }
+                                else {
+
+                                    var remark = "购买商品" + nameAry.join() + ",总价" + summations + "元";
+                                    window.location.href = "/WxPay/Pay?orderId=" + postData.Result.Result.ID + "&storeId=@(Request["storeId"])&fee=" + summations + "&remark=" + remark
+                                    + "&name=" + nameAry.join() + "&type=3";
+
+                                    //var remark = "购买商品" + nameAry.join() + ",总价" + summations + "元";
+                                    //chatHub.server.waitPay(userId, "", postData.Result.Result.ID, remark, summations, nameAry.join(), "3");
+                                }
+                            }
+                            else {
+                                var boxObj1 = BOXOPEN({
+                                    type: 1,
+                                    txt: postData.ErrorDesc
+                                });
+                            }
+                        }
+                    });
+                }
+                //$('.window-infor, .select-box').hide();
+            });
+            var state=0;
+            $(".slt-btn").click(function () {
+
+                //判断是否选择商品
+                var summations = parseFloat($('.slt-price').text());
+                if (summations > 0) {
+
+                    var balance=@ViewBag.ShopBalance;
+                    if(balance>0)
+                    {
+                        state=0;
+                        // 调取弹窗函数
+                        var boxObj1 = BOXOPEN({
+                            type : 2,
+                            txt : {
+                                "blod" : "¥" + $('.slt-price').text(),
+                                "normal" : "确认支付后，消费金额将从消费卡中直接扣除!"
+                            }
+                        });
+                    }
+                    else
+                    {
+                        $(".sb-btn-ok").text("去充值");
+                        state=1;
+                        var boxObj1 = BOXOPEN({
+                            type : 2,
+                            txt : {
+                                "blod" : "¥" + $('.slt-price').text(),
+                                "normal" : "消费卡余额不足，请先充值!"
+                            }
+                        });
+                    }
+
+                } else {
+                    var boxObj1 = BOXOPEN({
+                        type : 1,
+                        txt : "请选择商品!"
+                    });
+                }
+            });
+        })
+    </script>
+}

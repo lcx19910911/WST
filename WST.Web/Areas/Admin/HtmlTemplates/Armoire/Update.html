@@ -1,0 +1,71 @@
+﻿<div class="admin-content">
+    <form id="form" class="am-form am-form-horizontal">
+        <div class="admin-content-body">
+            <div class="am-margin">
+                <div class="am-g am-margin-top">
+                    <div class="am-u-md-3 am-text-right">
+                        名称：
+                    </div>
+                    <div class="am-u-md-5">
+                        <input type="text" name="Name" class="am-input-sm" maxlength="32" placeholder="请输入名称">
+                    </div>
+                    <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm"><strong class="am-text-danger am-text-sm">*</strong></strong>必填，不能超过32个字符</div>
+                </div>
+                <div class="am-g am-margin-top">
+                    <div class="am-u-md-3 am-text-right">
+                        编号：
+                    </div>
+                    <div class="am-u-md-5">
+                        <input type="text" name="NO" class="am-input-sm" maxlength="32" placeholder="请输入编号">
+                    </div>
+                    <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm"><strong class="am-text-danger am-text-sm">*</strong></strong>必填，不能超过32个字符</div>
+                </div>
+
+                <div class="am-g am-margin-top">
+                    <div class="am-u-md-3 am-text-right">
+                        价格：
+                    </div>
+                    <div class="am-u-md-5">
+                        <input type="number" name="Price" class="am-input-sm" min="0">
+                    </div>
+                    <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong></div>
+                </div>
+
+                <div class="am-g am-margin-top">
+                    <div class="am-u-md-3 am-text-right">
+                        所属门店 :
+                    </div>
+                    <div class="am-u-md-5  am-u-end ">
+                        <select name="StoreID" data-am-selected="{btnWidth: '120px',btnSize: 'sm'}"></select>
+                    </div>
+                    <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong></div>
+
+                </div>
+                <div class="am-g am-margin-top">
+                    <div class="am-u-md-3 am-text-right">
+                        用户：
+                    </div>
+                    <div class="am-u-md-5 am-text-center">
+                        <input type="hidden" name="UserID" readonly="" value="">
+                        <label for="user-name" name="UserName" class="am-form-label am-margin-right"></label>
+                        <button class="am-btn am-btn-success am-btn-xs" onclick="SelectUser(this)">选择</button>
+                    </div>
+                    <div class="am-hide-sm-only am-u-md-4 am-text-left"></div>
+                </div>
+                <div class="am-g am-margin-top">
+                    <div class="am-u-md-3 am-text-right">
+                        使用时间 :
+                    </div>
+                    <div class="am-u-md-7">
+                        <input id="d4311" type="text" name="StartTime" style="width:160px;float:left;" readonly onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss', maxDate: '#F{$dp.$D(\'d4312\')}' })" datatype="jsondate" />
+                        <label class="am-u-md-1 am-text-left">-</label>
+                        <input id="d4312" type="text" name="EndTime" style="width:160px;float:left;" readonly onfocus="WdatePicker({ dateFmt: 'yyyy-MM-dd HH:mm:ss', minDate: '#F{$dp.$D(\'d4311\')}' })" datatype="jsondate" />
+
+                    </div>
+                    <div class="am-hide-sm-only am-u-md-2 am-text-left"></div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>

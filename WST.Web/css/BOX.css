@@ -1,0 +1,125 @@
+.prompt-box {
+	display: none;
+}
+.select-box {
+	display: none;
+}
+.window-infor {
+	display: none;
+	max-width: 650px;
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	z-index: 100001;
+	background: rgba(0,0,0,.5);
+}
+.select-box, .prompt-box {
+	position: relative;
+	width: 80%;
+	margin: 30% auto 0;
+	background: #fff;
+	overflow: hidden;
+	border-radius: 5px;
+}
+.prompt-box {
+	margin: 60% auto 0;
+}
+.pb-txt {
+	/*width: 80%;*/
+	margin: 0 auto 0;
+	padding: 1rem 1rem 1rem;
+	font-size: 1.6rem;
+	color: #575757;
+	text-align: center;
+	font-weight: bold;
+}
+.pb-btn {
+	display: none;
+	padding: .5rem 0;
+	background: #53e3a5;
+	opacity: .8;
+	text-align: center;
+	font-size: 1.2rem;
+	color: #fff;
+}
+.sb-img {
+	height: 3.5rem;
+	line-height: 1.5rem;
+	padding: 1rem 0 0 0;
+	text-align: center;
+	font-size: 1.2rem;
+	border-bottom: 1px solid #53e3a5;
+	font-weight: bold;	
+	letter-spacing: 3px;
+}
+.sb-img img {
+	height: 100%;
+}
+.sb-txt {
+	width: 90%;
+	margin: 0 auto;
+	padding: 1rem 0 2rem;
+	font-size: 1.6rem;
+	color: #575757;
+	text-align: center;
+	font-weight: bold;
+}
+.sb-btn {
+	overflow: hidden;
+	margin: 0 5% 1rem;
+	border-radius: .5rem;
+}
+.sb-btn span {
+	float: left;
+	width: 100%;
+	padding: .8rem 0;
+	text-align: center;
+	color: #fff;
+	font-size: 1.2rem;
+	letter-spacing: 2px;
+}
+/*.sb-btn .sb-btn-no {
+	display: none;
+	background: #D0D0D0;
+}*/
+.sb-btn .sb-btn-ok {
+	background: #06BF04;
+}
+.sbtxt-normal {
+	margin-top: 15px;
+	padding: 0 3rem 15px 3rem;
+	border-bottom: 1px solid #eaeaea;
+	color: #333;
+	font-size: 14px;
+	font-weight: normal;
+	text-align: left;
+	font-family: "SimSun";
+	letter-spacing: 1px;
+} 
+.sb-img i {
+	position: absolute;
+    height: 2rem;
+    line-height: 2rem;
+    top: 1rem;
+    left: 0;
+    margin-left: 1rem;
+    /*padding: 0 5px;*/
+}
+.sb-img i:before {
+    /*position: absolute;*/
+    float: left;
+    height: 2rem;
+    line-height: 2rem;
+    content: "\e6f2";
+    font-size: 1.4rem;
+    color: #ccc;
+}
+.sbtxt-blod {
+	color: #000;
+	padding-bottom: .3rem;
+	border-bottom: 1px solid #eaeaea;
+	font-weight: normal;
+	font-size: 3rem;
+}

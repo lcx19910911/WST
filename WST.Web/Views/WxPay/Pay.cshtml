@@ -1,0 +1,211 @@
+﻿@using WST.Core.Extensions
+
+@{
+    ViewBag.Title = "支付";
+    var nameList = new string[100];
+    if (Request["name"] != "")
+    {
+        nameList = Request["name"].Split(',');
+    }
+    var code = (OrderCode)(Request["type"].GetInt());
+    var url = "";
+    switch (code)
+    {
+        case OrderCode.Card:
+            url = "/user/index";
+            break;
+        case OrderCode.Recharge:
+            url = "/store/balance?storeId=" + Request["storeId"];
+            break;
+        case OrderCode.Course:
+            url = "/user/index";
+            break;
+        case OrderCode.Goods:
+            break;
+        default:
+            url = "/user/index";
+            break;
+    }
+}
+@section linkcss
+{
+    <link rel="stylesheet" href="~/css/PayDetail.css">
+}
+
+<div class="wrap" id="Index">
+    <div class="shop-div">
+
+        @if (nameList != null && nameList.Length > 0)
+        {
+            if (code == OrderCode.Card)
+            {
+                for (var i = 0; i < nameList.Length; i++)
+                {
+                    <div class="sd-item">
+                        <div class="sd-img">
+                            <img src="~/img/statement.png" alt="">
+                        </div>
+                        <div class="sd-txt">
+                            <div class="sd-name">会员卡开通-@nameList[i]-@(Request["cardName"])</div>
+                            <div class="sd-con">
+                                <div class="sd-price">@(Request["fee"].GetDecimal() / nameList.Length)</div>
+                                <div class="sd-nunm">1</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else if (code == OrderCode.Recharge)
+            {
+                <div class="sd-item">
+                    <div class="sd-img">
+                        <img src="~/img/statement.png" alt="">
+                    </div>
+                    <div class="sd-txt">
+                        <div class="sd-name">消费余额充值-@(Request["fee"])元</div>
+                        <div class="sd-con">
+                            <div class="sd-price">@(Request["fee"])</div>
+                            <div class="sd-nunm">1</div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else if (code == OrderCode.Goods)
+            {
+                for (var i = 0; i < nameList.Length; i++)
+                {
+                    <div class="sd-item">
+                        <div class="sd-img">
+                            <img src="~/img/statement.png" alt="">
+                        </div>
+                        <div class="sd-txt">
+                            <div class="sd-name">商品购买-@nameList[i].Split('_')[0]</div>
+                            <div class="sd-con">
+                                <div class="sd-price">@nameList[i].Split('_')[2]</div>
+                                <div class="sd-nunm">@nameList[i].Split('_')[1]</div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        }
+    </div>
+    <div class="sum-price">
+        <span>合计：</span>
+        <strong>@(Request["fee"])</strong>
+    </div>
+    <div class="pay-type">
+        <div class="pt-div type-wx">
+            <div class="pt-img">
+                <img src="~/img/shop_type_wx.jpg" alt="">
+            </div>
+            <div class="pt-txt">
+                <div class="pt-name">微信支付</div>
+                <div class="pt-dex">推荐已安装微信的用户使用</div>
+            </div>
+            <i class="pt-sel"></i>
+        </div>
+    </div>
+    <div class="clearance">更多支付方式正在努力开通中</div>
+</div>
+<div class="summation">
+    <div class="summation-price">
+        <span>应付：</span>
+        <strong>@(Request["fee"])</strong>
+    </div>
+    <div class="summation-btn">确认支付</div>
+</div>
+
+@section scripts
+{
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+@*<script src="~/Areas/Admin/Scripts/jquery.signalR-2.1.2.min.js"></script>
+<script src="~/signalr/hubs"></script>*@
+    <script type="text/javascript">
+        //$.connection.hub.logging = true;
+        //$.connection.hub.start()
+        //    .done(function (data) {
+        //        //console.log("当前clientID=" + data.id);
+        //    })
+        //    .fail(function () { console.log("Could not Connect!"); });;
+
+        //var chatHub = $.connection.ChatHub;
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: "@ViewBag.AppId", // 必填，公众号的唯一标识
+            timestamp: "@ViewBag.TimeStamp", // 必填，生成签名的时间戳
+            nonceStr: "@ViewBag.NonceStr", // 必填，生成签名的随机串
+            signature: "@ViewBag.Signature",// 必填，签名，见附录1
+            jsApiList: ['jsApiList', 'chooseWXPay', 'scanQRCode'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function () {
+            wx.checkJsApi({
+                jsApiList: [
+                  'scanQRCode',
+                   'chooseWXPay'
+                ],
+                success: function (res) {
+
+                    if (!IsWeiXin()) {
+                        var boxObj1 = BOXOPEN({
+                            type: 1,
+                            txt: "请在微信中使用"
+                        });
+                        return false;
+                    }
+
+                    $(".summation-btn").click(function () {
+                        $.ajax({
+                            type: "GET",
+                            url: "/WxPay/GetPayParms?fee=@(Request["fee"])&orderId=@(Request["orderId"])&remark=@(Request["remark"])",
+                            success: function (data) {
+                                if (data.Code == 0) {
+                                    var resultObj = eval("(" + data.Result + ")")
+                                    wx.chooseWXPay({
+                                        "timestamp": resultObj.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                                        "nonceStr": resultObj.nonceStr, // 支付签名随机串，不长于 32 位
+                                        "package": resultObj.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                                        "signType": resultObj.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                                        "paySign": resultObj.paySign, // 支付签名
+                                        success: function (res) {
+                                            // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+                                            //购买商品推送消息给管理人员
+                                            @*if ("@Request["type"]" == "3")
+                                            {
+                                                chatHub.server.hadPay("@(Request["adminId"])", "@(Request["orderId"])");
+                                            }*@
+                                            @*if ("@Request["type"]" == "0") {
+                                                window.location.href = '/user/index';
+                                            }
+                                            else {
+                                                window.location.href = '@(Params.SiteUrl)/order/Detail?orderId=@(Request["orderId"])';
+                                            }*@
+                                            if ("@Request["type"]" == "@(OrderCode.Goods.GetInt())") {
+                                                window.location.href = '@(Params.SiteUrl)/order/Detail?type=@(code.GetInt())&orderId=@(Request["orderId"])&storeId=@(Request["storeId"])';
+                                            }
+                                            else {
+                                                window.location.href = '@(Params.SiteUrl)' + url;
+                                            }
+                                        },
+                                        cancel: function () {
+                                            window.location.href = '@(Params.SiteUrl)/order/Detail?type=@(code.GetInt())&orderId=@(Request["orderId"])&storeId=@(Request["storeId"])';
+                                            @*chatHub.server.noPay("@(Request["adminId"])", "@(Request["orderId"])");*@
+                                        },
+                                    });
+
+                                }
+                                else {
+                                    var boxObj1 = BOXOPEN({
+                                        type: 1,
+                                        txt: data.ErrorDesc
+                                    });
+                                }
+                            }
+                        });
+                    });
+                }
+            });
+        });
+
+    </script>
+}
