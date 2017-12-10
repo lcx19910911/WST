@@ -36,17 +36,6 @@ namespace WST.Model
         [Description("余额")]
         Recharge = 2
     }
-
-    public enum CourseCode
-    {
-        [Description("免费团课")]
-        Free = 0,
-
-        [Description("收费团课")]
-        League = 1,
-        [Description("私教")]
-        Coach = 2,
-    }
     
 
     public enum PayState
@@ -65,7 +54,18 @@ namespace WST.Model
         [Description("已拿走")]
         Taken =4,
     }
-    
+
+    public enum RedPackCode
+    {
+        [Description("等待领取")]
+        Wait = 0,
+        [Description("发送红包失败")]
+        Failed = 1,
+        [Description("领取成功")]
+        Success = 2,
+        [Description("过期退还")]
+        Return = 3,   
+    }
     /// <summary>
     /// 字典分组
     /// </summary>
@@ -79,10 +79,15 @@ namespace WST.Model
         Area = 1,
 
         /// <summary>
-        /// 来源
+        /// 音乐
         /// </summary>
-        [Description("来源")]
-        Source = 2,
+        [Description("音乐")]
+        Music = 2,
+        /// <summary>
+        /// 特效
+        /// </summary>
+        [Description("特效")]
+        Function = 3,
     }
 
 
@@ -102,46 +107,42 @@ namespace WST.Model
         Recharge = 1,
 
         /// <summary>
-        /// 商品消费
+        /// 活动
         /// </summary>
-        [Description("商品消费")]
+        [Description("活动")]
         Activity = 2,
     }
 
 
-    /// <summary>
-    /// 回复类型
-    /// </summary>
-    public enum Enum_AutoReplay_Type
-    {
-        关注 = 1,
-        默认 = 2,
-        关键字 = 3
-    }
 
     /// <summary>
-    /// 素材类别
+    /// 活动类型
     /// </summary>
-    public enum Enum_Material_Type
+    public enum TargetCode
     {
-        文本 = 1,
-        图片 = 2
+        None = 0,
+        /// <summary>
+        /// 拼团
+        /// </summary>
+        [Description("拼团")]
+        Pintuan = 1,
+
+        /// <summary>
+        /// 秒杀
+        /// </summary>
+        [Description("秒杀")]
+        Miaosha = 2,
+        /// <summary>
+        /// 助力
+        /// </summary>
+        [Description("助力")]
+        Zhuli = 3,
+        /// <summary>
+        /// 砍价
+        /// </summary>
+        [Description("砍价")]
+        Kanjia = 3,
     }
 
-    /// <summary>
-    /// 页面按钮类型
-    /// </summary>
-    public enum Enum_Button_Type
-    {
-        点击事件 = 1,
-        跳转页面 = 2
-    }
-    /// <summary>
-    /// 图文素材类型枚举
-    /// </summary>
-    public enum Enum_MpNews_Type
-    {
-        单图文素材 = 1,
-        多图文素材 = 2
-    }
+
 }

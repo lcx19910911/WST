@@ -51,5 +51,7 @@ namespace WST.IService
         /// <param name="model"></param>
         /// <returns></returns>
         WebResult<bool> TakenPayOrder(string id);
+
+        WebResult<string> JoinPintuan(string id);
     }
 }

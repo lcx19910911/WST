@@ -57,6 +57,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IKanJiaService.cs" />
+    <Compile Include="IUserActivityService.cs" />
+    <Compile Include="ICarouselService.cs" />
+    <Compile Include="IPinTuanService.cs" />
+    <Compile Include="IUserWechatService.cs" />
+    <Compile Include="ITemplateService.cs" />
+    <Compile Include="ITemplateCategoryService.cs" />
     <Compile Include="IAdviserService.cs" />
     <Compile Include="IAdminService.cs" />
     <Compile Include="IActivityCategoryService.cs" />

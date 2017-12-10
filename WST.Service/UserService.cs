@@ -114,10 +114,6 @@ namespace WST.Service
                 //顾问
                 var adviserIdList = list.Select(x => x.AdviserID).ToList();
                 var adviserDic = db.Adviser.Where(x => !x.IsDelete && adviserIdList.Contains(x.ID)).ToDictionary(x => x.ID, x => x.Name);
-
-
-                //来源
-                var sourceDic = db.DataDictionary.Where(x => x.GroupCode == GroupCode.Source).ToDictionary(x => x.ID);
                 list.ForEach(x =>
                 {
                     if (x.AdviserID.IsNotNullOrEmpty() && adviserDic.ContainsKey(x.AdviserID))

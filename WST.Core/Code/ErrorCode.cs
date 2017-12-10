@@ -236,5 +236,34 @@ namespace WST.Core.Code
         [Description("邀请码号码过期")]
         no_had_time_out= 803,
 
+        /// <summary>
+        /// 不在活动时间内
+        /// </summary>
+        [Description("不在活动时间内.")]
+        activity_time_out = 804,
+
+
+        /// <summary>
+        /// 已参加活动
+        /// </summary>
+        [Description("已参加活动.")]
+        had_join_in = 805,
+        /// <summary>
+        /// 礼物已全部发放
+        /// </summary>
+        [Description("礼物已全部发放.")]
+        prize_not_had = 806,
+
+
+        /// <summary>
+        /// 没到砍价间隔时间
+        /// </summary>
+        [Description("没到砍价间隔时间.")]
+        time_limit_error = 807,
+        /// <summary>
+        /// 已到砍价次数限制
+        /// </summary>
+        [Description("已到砍价次数限制.")]
+        count_limit_error = 808,
     }
 }

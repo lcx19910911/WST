@@ -54,7 +54,13 @@ namespace WST.DB
         public virtual DbSet<Adviser> Adviser { get; set; }
 
         public virtual DbSet<Role> Role { get; set; }
+
+
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<UserWechat> UserWechat { get; set; }
+
+
+
         public virtual DbSet<Operate> Operate { get; set; }
         public virtual DbSet<Menu> Menu { get; set; }
 
@@ -67,6 +73,16 @@ namespace WST.DB
 
         public virtual DbSet<ActivityCategory> ActivityCategory { get; set; }
 
+
+        public virtual DbSet<Template> Template { get; set; }
+        public virtual DbSet<TemplateCategory> TemplateCategory { get; set; }
+
+
+        public virtual DbSet<PinTuan> PinTuan { get; set; }
+        public virtual DbSet<Carousel> Carousel { get; set; }
+        public virtual DbSet<UserActivity> UserActivity { get; set; }
+        public virtual DbSet<KanJia> KanJia { get; set; }
+        
         public override int SaveChanges()
         {
             try

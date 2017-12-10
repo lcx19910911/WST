@@ -119,6 +119,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\BaseAdminController.cs" />
+    <Compile Include="Controllers\BaseShopController.cs" />
     <Compile Include="Controllers\BaseUserController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Filters\ExceptionFilterAttribute.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="Filters\UserLoginFilterAttribute.cs" />
     <Compile Include="Filters\AdminLoginFilterAttribute.cs" />
     <Compile Include="Filters\TimerAttribute.cs" />
+    <Compile Include="Filters\ShopLoginFilterAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

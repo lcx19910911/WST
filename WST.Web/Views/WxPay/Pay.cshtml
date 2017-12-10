@@ -11,16 +11,11 @@
     var url = "";
     switch (code)
     {
-        case OrderCode.Card:
+        case OrderCode.Activity:
             url = "/user/index";
             break;
         case OrderCode.Recharge:
             url = "/store/balance?storeId=" + Request["storeId"];
-            break;
-        case OrderCode.Course:
-            url = "/user/index";
-            break;
-        case OrderCode.Goods:
             break;
         default:
             url = "/user/index";
@@ -37,32 +32,14 @@
 
         @if (nameList != null && nameList.Length > 0)
         {
-            if (code == OrderCode.Card)
-            {
-                for (var i = 0; i < nameList.Length; i++)
-                {
-                    <div class="sd-item">
-                        <div class="sd-img">
-                            <img src="~/img/statement.png" alt="">
-                        </div>
-                        <div class="sd-txt">
-                            <div class="sd-name">会员卡开通-@nameList[i]-@(Request["cardName"])</div>
-                            <div class="sd-con">
-                                <div class="sd-price">@(Request["fee"].GetDecimal() / nameList.Length)</div>
-                                <div class="sd-nunm">1</div>
-                            </div>
-                        </div>
-                    </div>
-                }
-            }
-            else if (code == OrderCode.Recharge)
+            if (code == OrderCode.Recharge)
             {
                 <div class="sd-item">
                     <div class="sd-img">
                         <img src="~/img/statement.png" alt="">
                     </div>
                     <div class="sd-txt">
-                        <div class="sd-name">消费余额充值-@(Request["fee"])元</div>
+                        <div class="sd-name">余额充值-@(Request["fee"])元</div>
                         <div class="sd-con">
                             <div class="sd-price">@(Request["fee"])</div>
                             <div class="sd-nunm">1</div>
@@ -70,23 +47,20 @@
                     </div>
                 </div>
             }
-            else if (code == OrderCode.Goods)
+            else if (code == OrderCode.Activity)
             {
-                for (var i = 0; i < nameList.Length; i++)
-                {
-                    <div class="sd-item">
-                        <div class="sd-img">
-                            <img src="~/img/statement.png" alt="">
-                        </div>
-                        <div class="sd-txt">
-                            <div class="sd-name">商品购买-@nameList[i].Split('_')[0]</div>
-                            <div class="sd-con">
-                                <div class="sd-price">@nameList[i].Split('_')[2]</div>
-                                <div class="sd-nunm">@nameList[i].Split('_')[1]</div>
-                            </div>
+                <div class="sd-item">
+                    <div class="sd-img">
+                        <img src="~/img/statement.png" alt="">
+                    </div>
+                    <div class="sd-txt">
+                        <div class="sd-name">活动参与费用-@nameList[0]</div>
+                        <div class="sd-con">
+                            <div class="sd-price">@nameList[1]</div>
+                            <div class="sd-nunm">1</div>
                         </div>
                     </div>
-                }
+                </div>
             }
         }
     </div>
@@ -138,6 +112,13 @@
             signature: "@ViewBag.Signature",// 必填，签名，见附录1
             jsApiList: ['jsApiList', 'chooseWXPay', 'scanQRCode'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
         });
+        function scanOrder() {
+            $.ajax({
+                url: "/order/scan",
+                method: "post",
+                data: { orderId: '@(Request["orderId"])' },
+            });
+        }
         wx.ready(function () {
             wx.checkJsApi({
                 jsApiList: [
@@ -155,6 +136,7 @@
                     }
 
                     $(".summation-btn").click(function () {
+                        setInterval("scanOrder", "3000");
                         $.ajax({
                             type: "GET",
                             url: "/WxPay/GetPayParms?fee=@(Request["fee"])&orderId=@(Request["orderId"])&remark=@(Request["remark"])",
@@ -168,28 +150,10 @@
                                         "signType": resultObj.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
                                         "paySign": resultObj.paySign, // 支付签名
                                         success: function (res) {
-                                            // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
-                                            //购买商品推送消息给管理人员
-                                            @*if ("@Request["type"]" == "3")
-                                            {
-                                                chatHub.server.hadPay("@(Request["adminId"])", "@(Request["orderId"])");
-                                            }*@
-                                            @*if ("@Request["type"]" == "0") {
-                                                window.location.href = '/user/index';
-                                            }
-                                            else {
-                                                window.location.href = '@(Params.SiteUrl)/order/Detail?orderId=@(Request["orderId"])';
-                                            }*@
-                                            if ("@Request["type"]" == "@(OrderCode.Goods.GetInt())") {
-                                                window.location.href = '@(Params.SiteUrl)/order/Detail?type=@(code.GetInt())&orderId=@(Request["orderId"])&storeId=@(Request["storeId"])';
-                                            }
-                                            else {
-                                                window.location.href = '@(Params.SiteUrl)' + url;
-                                            }
+                                            window.location.href = '@(Params.SiteUrl)/order/Detail?type=@(code.GetInt())&orderId=@(Request["orderId"])';
                                         },
                                         cancel: function () {
-                                            window.location.href = '@(Params.SiteUrl)/order/Detail?type=@(code.GetInt())&orderId=@(Request["orderId"])&storeId=@(Request["storeId"])';
-                                            @*chatHub.server.noPay("@(Request["adminId"])", "@(Request["orderId"])");*@
+                                            window.location.href = '@(Params.SiteUrl)/order/Detail?type=@(code.GetInt())&orderId=@(Request["orderId"])';
                                         },
                                     });
 

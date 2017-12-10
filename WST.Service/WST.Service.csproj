@@ -58,6 +58,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="KanJiaService.cs" />
+    <Compile Include="UserActivityService.cs" />
+    <Compile Include="CarouselService.cs" />
+    <Compile Include="PinTuanService.cs" />
+    <Compile Include="UserWechatService.cs" />
+    <Compile Include="TemplateService.cs" />
+    <Compile Include="TemplateCategoryService.cs" />
     <Compile Include="AdvisernService.cs" />
     <Compile Include="AdminService.cs" />
     <Compile Include="ActivityCategoryService.cs" />

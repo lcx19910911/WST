@@ -125,10 +125,6 @@
       <HintPath>..\packages\NLog.4.4.12\lib\net45\NLog.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
-      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -254,6 +250,8 @@
     <Content Include="Areas\Admin\Content\zTreeStyle\img\zTreeStandard.gif" />
     <Content Include="Areas\Admin\Content\zTreeStyle\img\zTreeStandard.png" />
     <Content Include="Areas\Admin\Content\zTreeStyle\zTreeStyle.css" />
+    <Content Include="Areas\Admin\HtmlTemplates\Carousel\Update.html" />
+    <Content Include="Areas\Admin\HtmlTemplates\TemplateCategory\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Adviser\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Admin\ChangePassword.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Admin\Update.html" />
@@ -735,6 +733,10 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
+    <Compile Include="Areas\Admin\Controllers\CarouselController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PinTuanController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TemplateController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TemplateCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdviserController.cs" />
     <Compile Include="Areas\Admin\Controllers\ConfigController.cs" />
     <Compile Include="Areas\Admin\Controllers\ActivityCategoryController.cs" />
@@ -751,8 +753,14 @@
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\UploadController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Controllers\KanJiaController.cs" />
+    <Compile Include="Controllers\PinTuanController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\ConfigController.cs" />
+    <Compile Include="Controllers\ShopController.cs" />
+    <Compile Include="Controllers\UserWechatController.cs" />
     <Compile Include="Controllers\WxPayController.cs" />
     <Compile Include="Controllers\UploadController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -807,9 +815,11 @@
     <Content Include="icofonts\iconfont.ttf" />
     <Content Include="icofonts\iconfont.woff" />
     <Content Include="Areas\Admin\Views\ActivityCategory\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Goods\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Template\Index.cshtml" />
     <Content Include="json\home.json" />
     <Content Include="Areas\Admin\Views\Demo\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\TemplateCategory\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\Carousel\Index.cshtml" />
     <None Include="Properties\PublishProfiles\WST.pubxml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -893,7 +903,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52408/</IISUrl>
+          <IISUrl>http://localhost:63303/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -135,16 +135,5 @@ namespace WST.Web.Areas.Admin.Controllers
             }
             return JResult(result);
         }
-
-
-
-        /// <summary>
-        /// 获取下拉框
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult GetSourceSelectItem(string value="")
-        {
-            return JResult(IDataDictionaryService.GetSelectList(GroupCode.Source,value));
-        }
     }
 }

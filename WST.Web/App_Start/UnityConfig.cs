@@ -52,6 +52,20 @@ namespace WST.Web.App_Start
             container.RegisterType<IDataDictionaryService, DataDictionaryService>();
             container.RegisterType<IPayOrderService, PayOrderService>();
             container.RegisterType<IRechargePlanService, RechargePlanService>();
+
+            
+            container.RegisterType<ITemplateService, TemplateService>();
+            container.RegisterType<ITemplateCategoryService, TemplateCategoryService>();
+            container.RegisterType<IUserWechatService, UserWechatService>();
+
+            container.RegisterType<IPinTuanService, PinTuanService>();
+            container.RegisterType<ICarouselService, CarouselService>();
+
+            container.RegisterType<IUserActivityService, UserActivityService>();
+
+            container.RegisterType<IKanJiaService, KanJiaService>();
+
         }
+        
     }
 }

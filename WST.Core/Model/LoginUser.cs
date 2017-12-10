@@ -19,6 +19,8 @@ namespace WST.Core.Model
             this.ID = user.ID;
             this.Account = user.NickName;
             this.HeadImgUrl = user.HeadImgUrl;
+            this.IsMember = user.IsMember;
+            this.EndTime = user.EndTime;
         }
 
         public LoginUser(Admin admin,string menuIDStr,string opreateSrt)
@@ -39,7 +41,6 @@ namespace WST.Core.Model
         /// 
         /// </summary>
         public string ID { get; set; }
-
         /// <summary>
         /// 账号
         /// </summary>
@@ -49,10 +50,16 @@ namespace WST.Core.Model
         /// </summary>
         public string HeadImgUrl { get; set; }
 
+        public DateTime? EndTime { get; set; }
+
 
         public string MenuIDStr { get; set; }
 
         public string OpreateSrt { get; set; }
+        /// <summary>
+        /// 权限值
+        /// </summary>
+        public bool IsMember { get; set; } = false;
 
         /// <summary>
         /// 权限值

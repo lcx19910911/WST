@@ -41,11 +41,6 @@ namespace WST.Web.Framework.Filters
                     }
                 }
             }
-            //else if (controller.LoginUser.AdminID.IsNotNullOrEmpty()&& !controllerName.Equals("login", StringComparison.OrdinalIgnoreCase))
-            //{
-            //        RedirectResult redirectResult = new RedirectResult("/wxadmin/index");
-            //        filterContext.Result = redirectResult;
-            //}
         }
 
     }

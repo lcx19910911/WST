@@ -62,8 +62,29 @@ namespace WST.Web
 
                     dbcontext.SaveChanges();
                 }
-            } 
+            }
+            limitTime = new System.Timers.Timer(1000 * 3600);
+            limitTime.Elapsed += new System.Timers.ElapsedEventHandler(TimeSkip); //到达时间的时候执行事件；   
+            limitTime.AutoReset = true;   //设置是执行一次（false）还是一直执行(true)；   
+            limitTime.Enabled = true;     //是否执行System.Timers.Timer.Elapsed事件；   
         }
+
+        //开始的时间控件
+        System.Timers.Timer limitTime = new System.Timers.Timer();
+
+        public void TimeSkip(object source, System.Timers.ElapsedEventArgs e)
+        {
+            if (DateTime.Now.Day == 1)
+            {
+                using (var dbcontext = new DbRepository())
+                {
+                    dbcontext.Database.ExecuteSqlCommand("delete from UserStoreSign", new SqlParameter[] { });
+                }
+            }
+            //执行事件
+        }
+        
+
         protected void Application_End(object sender, EventArgs e)
         {
             var runtime = (HttpRuntime)typeof(HttpRuntime).InvokeMember("_theRuntime", BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.GetField, null, null, null);

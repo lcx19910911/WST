@@ -16,7 +16,6 @@ using WST.Core.Util;
 using WxPayAPI;
 using System.Web.Security;
 using WST.Core.Helper;
-using WST.Core.Extensions;
 using System.Net;
 using System.Text;
 using System.IO;
