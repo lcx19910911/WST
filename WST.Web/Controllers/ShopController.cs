@@ -24,16 +24,18 @@ namespace WST.Web.Controllers
         public IRechargePlanService IRechargePlanService;
         public IPayOrderService IPayOrderService;
         public IPinTuanService IPinTuanService;
+        public IKanJiaService IKanJiaService;
         public IUserActivityService IUserActivityService;
 
         public ShopController(IUserService _IUserService, IRechargePlanService _IRechargePlanService, IPayOrderService _IPayOrderService,
-            IPinTuanService _IPinTuanService, IUserActivityService _IUserActivityService)
+            IPinTuanService _IPinTuanService, IUserActivityService _IUserActivityService, IKanJiaService _IKanJiaService)
         {
             this.IUserService = _IUserService;
             this.IRechargePlanService = _IRechargePlanService;
             this.IPayOrderService = _IPayOrderService;
             this.IUserActivityService = _IUserActivityService;
             this.IPinTuanService = _IPinTuanService;
+            this.IKanJiaService = _IKanJiaService;
         }
 
         // GET: User
@@ -42,7 +44,7 @@ namespace WST.Web.Controllers
             var user = IUserService.Find(LoginUser.ID);
             if (user != null)
             {
-               
+
             }
             else
             {
@@ -74,6 +76,75 @@ namespace WST.Web.Controllers
         public ActionResult Recharge(decimal amount)
         {
             return JResult(IPayOrderService.Recharge(amount));
+        }
+
+
+        /// <summary>
+        /// 获取分页列表
+        /// </summary>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">分页大小</param>
+        /// <param name="key"> 搜索项</param>
+        /// <param name="value">搜索项</param>
+        /// <returns></returns>
+        public ActionResult GetPageList(int pageIndex, int pageSize, string targetId)
+        {
+            return JResult(IUserActivityService.GetPageList(pageIndex, pageSize, targetId,LoginUser.ID, "","", null));
+        }
+
+
+        /// <summary>
+        ///核销
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ToUsed(string id)
+        {
+            var userActivityModel = IUserActivityService.Find(x => x.ID == id);
+            if (userActivityModel == null || userActivityModel.IsDelete||userActivityModel.ShopUserID!=LoginUser.ID)
+            {
+                return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
+            }
+            userActivityModel.IsUsedOnLine = true;
+            if (userActivityModel.Code == TargetCode.Pintuan)
+            {
+                var model = IPinTuanService.Find(x => x.ID == userActivityModel.TargetID);
+                if (model == null || model.IsDelete || userActivityModel.Code != TargetCode.Pintuan)
+                {
+                    return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
+                }
+                var priceDic = model.PinTuanItemJson.DeserializeJson<List<PinTuanItem>>().OrderBy(x => x.Count).ToDictionary(x => x.Count);
+                var price = 0M;
+                for (var index = 1; index <= priceDic.Count; index++)
+                {
+                    if (index < priceDic.Count)
+                    {
+                        if (model.JoinCount > priceDic[index - 1].Count && model.JoinCount < priceDic[index].Count)
+                        {
+                            price = priceDic[index - 1].Amount;
+                        }
+                    }
+                    else
+                    {
+                        price = priceDic[index - 1].Amount;
+                    }
+                }
+                userActivityModel.Amount = price;
+                userActivityModel.IsUsedOnLine = true;
+                userActivityModel.UsedTime = DateTime.Now;
+            }
+            else if (userActivityModel.Code == TargetCode.Kanjia)
+            {
+                var model = IKanJiaService.Find(x => x.ID == userActivityModel.TargetID);
+                if (model == null || model.IsDelete || userActivityModel.Code != TargetCode.Kanjia)
+                {
+                    return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
+                }
+                userActivityModel.IsUsedOnLine = true;
+                userActivityModel.UsedTime = DateTime.Now;
+            }
+            return JResult(IUserActivityService.Update(userActivityModel));
         }
     }
 }

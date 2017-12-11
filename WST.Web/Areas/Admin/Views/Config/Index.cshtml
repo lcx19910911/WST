@@ -46,69 +46,11 @@
             <button onclick="Save('WeixinPaySecret')" type="button" class="am-btn am-btn-sm "><span class="am-icon-save"></span> 保存</button>
         </div>
     </div>
-
-    <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
-    <div class="am-g am-margin-top">
-        <div class="am-u-md-12 am-text-left">
-            <label for="user-name" class="am-form-label">邀请券设置：</label>
-        </div>
-    </div>
-    <div class="am-g am-margin-top">
-        <div class="am-u-md-2 am-text-right">
-            创建后几分钟内结束可用<strong class="am-text-danger am-text-sm am-text-left">*</strong>：
-        </div>
-        <div class="am-u-md-3 am-text-left">
-            <input type="number" name="InviteStartTimeCount" class="am-input-sm" min="0" style="width:160px;" value="@(ConfigHelper.GetValue("InviteStartTimeCount"))">
-            <button onclick="Save('InviteStartTimeCount')" type="button" class="am-btn am-btn-sm "><span class="am-icon-save"></span> 保存</button>
-        </div>
-        <div class="am-u-md-1"></div>
-        <div class="am-u-md-2 am-text-right">
-            创建后几分钟内结束可用<strong class="am-text-danger am-text-sm am-text-left">*</strong>：
-        </div>
-        <div class="am-u-md-4 am-text-left  am-u-end">
-            <input type="text" name="InviteEndTimeCount" class="am-input-sm" min="1"  value="@(ConfigHelper.GetValue("InviteEndTimeCount"))">
-            <button onclick="Save('InviteEndTimeCount')" type="button" class="am-btn am-btn-sm "><span class="am-icon-save"></span> 保存</button>
-        </div>
-    </div>
-
-
-    <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
-    <div class="am-g am-margin-top">
-        <div class="am-u-md-12 am-text-left">
-            <label for="user-name" class="am-form-label">来源设置：</label>
-        </div>
-    </div>
-    <div class="am-g am-margin-top">
-        <div class="am-u-md-2 am-text-right">
-            来源出现会员下拉框<strong class="am-text-danger am-text-sm am-text-left">*</strong>：
-        </div>
-        <div class="am-u-md-3 am-text-left">
-            <select name="ShowSourceId" data-am-selected="{btnWidth: '120px',btnSize: 'sm'}" style="width:120px;"></select>
-            <button onclick="Save('ShowSourceId')" type="button" class="am-btn am-btn-sm "><span class="am-icon-save"></span> 保存</button>
-        </div>
-        <div class="am-u-md-1"></div>
-        <div class="am-u-md-2 am-text-right">
-            @*AppSecret<strong class="am-text-danger am-text-sm am-text-left">*</strong>：*@
-        </div>
-        <div class="am-u-md-4 am-text-left  am-u-end">
-            @*<input type="text" name="WeixinAppSecret" class="am-input-sm" maxlength="32" value="@(ConfigHelper.GetValue("WeixinAppSecret"))">
-            <button onclick="Save('WeixinAppSecret')" type="button" class="am-btn am-btn-sm "><span class="am-icon-save"></span> 保存</button>*@
-        </div>
-    </div>
-    <hr data-am-widget="divider" style="" class="am-divider am-divider-default" />
 </form>
 
 @section scripts
 {
     <script type="text/javascript">
-
-        var sourceId = '@(ConfigHelper.GetValue("ShowSourceId"))';
-
-        $.Nuoya.action("/Admin/DataDictionary/GetSourceSelectItem", {}, function (json) {
-            $(json).each(function () {
-                $("#form select[name='ShowSourceId']").append("<option " + (sourceId == this.Value ? "selected" : "") + " value='" + this.Value + "'>" + this.Text + "</option>");
-            });
-        });
 
         function Save(key) {
             var value = $("#form [name='" + key + "']").val();

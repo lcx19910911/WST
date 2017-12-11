@@ -39,8 +39,14 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Configuration.Install" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Design" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -50,9 +56,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbRepository.cs" />
-    <Compile Include="Migrations\201712101721126_434dsd.cs" />
-    <Compile Include="Migrations\201712101721126_434dsd.Designer.cs">
-      <DependentUpon>201712101721126_434dsd.cs</DependentUpon>
+    <Compile Include="Migrations\201712111148118_config.cs" />
+    <Compile Include="Migrations\201712111148118_config.Designer.cs">
+      <DependentUpon>201712111148118_config.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712111255591_343dd.cs" />
+    <Compile Include="Migrations\201712111255591_343dd.Designer.cs">
+      <DependentUpon>201712111255591_343dd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -72,8 +82,11 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712101721126_434dsd.resx">
-      <DependentUpon>201712101721126_434dsd.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712111148118_config.resx">
+      <DependentUpon>201712111148118_config.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712111255591_343dd.resx">
+      <DependentUpon>201712111255591_343dd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

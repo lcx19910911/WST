@@ -1,286 +1,307 @@
 ﻿@using WST.Core.Extensions
 @model User
 @{
-    ViewBag.Title = "会员中心";
-    var storeList = ViewBag.StoreList as List<Store>;
-    var userStoreIdList = new List<string>();
-    if (Model != null && Model.UserStores != null && Model.UserStores.Count > 0)
-    {
-        userStoreIdList = Model.UserStores.Select(x => x.StoreID).ToList();
-    }
+    ViewBag.Title = "个人中心";
+    Layout = null;
 }
 
 @section linkcss
 {
-    <link rel="stylesheet" href="~/css/Index.css">
 }
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewBag.Title </title>
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <link rel="stylesheet" href="~/assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style1.css">
+    <script src="~/assets/js/jquery-2.1.4.min.js"></script>
+    <style>
+        html {
+            background: #fff;
+        }
 
-<div class="wrap" id="Index">
-    <!-- 会员结构 （已开通）-->
-    <div class="cont vip-cont swiper-container3 swiper-container-horizontal" id="swiper-container3">
-        <div class="card-div">
-            <div class="swiper-container swiper-container-c swiper-container-horizontal" id="swiper-container-c">
-                <div class="swiper-wrapper">
-                    @if (storeList != null && storeList.Count > 0)
-                    {
-                        foreach (var item in storeList)
-                        {
-                            <div class="swiper-slide swiper-slide-active" style="width: 375px;" data-id="@item.ID" data-userStoreId="@item.UserStoreID">
-                                <div class="ss-outer">
-                                    <div class="ss-inner">
-                                        @if (userStoreIdList.Contains(item.ID))
-                                        {
-                                            <div class="approach">
-                                                <div class="a-btn"></div>
-                                                <div class="a-adress">
-                                                    <span>@item.Name </span>
-                                                    @if (item.TodayHadSign)
-                                                    {
-                                                        <strong>@(item.TodayHadSign ? "已入场" : "未入场")</strong>
-                                                    }
-                                                </div>
+        .wrap {
+            /*padding-bottom: 3.87em;*/
+        }
+        /*头部*/
+        .icon {
+            position: relative;
+            top: 0.08em;
+        }
 
-                                            </div>
-                                            <div class="user-img">
-                                                <img src="@Model.HeadImgUrl" alt="">
-                                            </div>
-                                            <div class="time-remain">
-                                                @if (item.EndTime.Value > DateTime.Now)
-                                                {
-                                                    <div class="sstr-tit">剩余时间</div>
-                                                    <div class="sstr-num">@((item.EndTime.Value - DateTime.Now).Days)</div>
-                                                }
-                                                else
-                                                {
-                                                    <div class="sstr-tit">剩余时间</div>
-                                                    <div class="sstr-tit">已到期</div>
-                                                }
-                                            </div>
-                                            <div class="card-number">
-                                                <div class="cn-number">@(Model.CardNO.IsNotNullOrEmpty() ? "NO." + Model.CardNO : "")</div>
-                                                <a href="/store/BuyCard?isBuy=false"><div class="cn-recharge-btn">立 即 充 值</div></a>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            <div class="approach">
-                                                <div class="a-adress">@item.Name</div>
-                                            </div>
-                                            <div class="user-img">
-                                                <img src="@Model.HeadImgUrl" alt="">
-                                            </div>
-                                            <div class="time-remain">
-                                                <div class="sstr-tit">剩余时间</div>
-                                                <div class="a-state">尚未开通</div>
-                                            </div>
-                                            <div class="card-number">
-                                                <div class="cn-number">@(Model.CardNO.IsNotNullOrEmpty() ? "NO." + Model.CardNO : "")</div>
-                                                <a href="/store/BuyCard?isBuy=true"><div class="cn-recharge-btn">开通</div></a>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    }
+        .head {
+            position: relative;
+            overflow: hidden;
+            height: 12em;
+            padding: 0.6em 1em;
+            background: #fff;
+            background: url(~/assets/img/banner/BG.jpg) center center no-repeat;
+            background-size: 100% 100%;
+        }
+
+        .my-portrait {
+            position: absolute;
+            overflow: hidden;
+            left: 23%;
+            bottom: -5%;
+            margin-left: -2em;
+            width: 30em;
+            height: 8em;
+        }
+
+            .my-portrait .headimg {
+                overflow: hidden;
+                float: left;
+                width: 7em;
+                height: 7em;
+                border-radius: 50%;
+                border: 2px solid #608DA4;
+            }
+
+                .my-portrait .headimg img {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    border: 0.27em solid #fff;
+                    border-radius: 50%;
+                    box-sizing: border-box;
+                }
+
+        .head p {
+            float: left;
+            height: 1.3em;
+            padding: 0 0.2em;
+            margin-top: 2em;
+            margin-left: 0.5em;
+            font-size: 1.1em;
+            color: #608DA4;
+        }
+
+        .head a {
+            float: right;
+            width: 60px;
+            height: 46px;
+            line-height: 46px;
+            font-size: 14px;
+            color: #929292;
+        }
+        /*特权卡*/
+        .privilege-card {
+            padding: 1em;
+            width: 90%;
+            margin: 0 auto;
+            font-size: 1.1em;
+            background: #fff;
+            border-radius: 7px;
+            box-shadow: 0px 1px 4px 0px #608DA4;
+        }
+
+        .privilege-tit span {
+            color: #4261B9;
+            font-weight: bold;
+        }
+
+        .privilege-tit {
+            margin-bottom: 1.2em;
+        }
+
+            .privilege-tit a {
+                /*float: right;*/
+                color: #4261B9;
+            }
+
+        .privilege-con {
+            color: #333;
+            text-align: center;
+        }
+
+        .balance-div {
+            float: left;
+            width: 50%;
+        }
+
+            .balance-div strong, .balance-div span {
+                display: block;
+                color: #608DA4;
+            }
+
+            .balance-div:nth-child(1) strong {
+                -webkit-box-shadow: 1px 0 0 0 #ccc;
+                box-shadow: 1px 0 0 0 #ccc;
+                color: #608DA4;
+            }
+
+            .balance-div:nth-child(2) strong {
+                -webkit-box-shadow: -1px 0 0 0 #ccc;
+                box-shadow: -1px 0 0 0 #ccc;
+                color: #608DA4;
+            }
+        /*内容*/
+        .content {
+            margin-bottom: 15px;
+            background: #fff;
+            font-size: 16px;
+        }
+
+            .content .ico-outer {
+                float: left;
+                width: 46%;
+                padding: 2%;
+            }
+
+        .con-ico-bor1 {
+            -webkit-box-shadow: 0 1px 0 0 #ddd;
+            box-shadow: 0 1px 0 0 #ddd;
+        }
+
+        .con-ico-bor {
+            -webkit-box-shadow: 1px 0 0 0 #ddd;
+            box-shadow: 1px 0 0 0 #ddd;
+        }
+
+        .content .ico-outer div {
+            padding-left: 47px;
+        }
+
+            .content .ico-outer div p span, .content > div div p em {
+                color: #000;
+                display: block;
+            }
+
+            .content .ico-outer div p em {
+                font-size: 12px;
+                color: #666;
+            }
+
+        .favorite-wrapper {
+            padding: 1em 0;
+        }
+
+        .favorite {
+            width: 93%;
+            margin: 0 auto;
+            line-height: 2.5em;
+            padding: 0 1em;
+            font-size: 1.1em;
+            text-indent: 0.5em;
+            color: #000;
+            background: #fff;
+            border-bottom: 1px dashed #ddd;
+        }
+
+            .favorite a {
+                display: block;
+                overflow: hidden;
+                color: #777;
+            }
+
+                .favorite a span {
+                    float: right;
+                    color: #ccc;
+                }
+
+        .foot-wrapper {
+            padding-bottom: 2em;
+            margin-top: 1em;
+            overflow: hidden;
+        }
+
+            .foot-wrapper .button {
+                background: #608DA4;
+                width: 79%;
+                color: #fff;
+                text-align: center;
+                font-weight: bold;
+                line-height: 2.5em;
+                height: 2.5em;
+                padding: 0;
+                border-radius: 0.5em;
+            }
+    </style>
+</head>
+<body>
+    <div class="wrap l">
+        <div class="head clearfix">
+            <div class="my-portrait">
+                <div class="headimg">
+                    <img src="@(Model.HeadImgUrl)" alt="头像丢失">
                 </div>
-                <div class="swiper-pagination swiper-pagination-bullets"><span class="swiper-pagination-bullet swiper-pagination-bullet-active"></span><span class="swiper-pagination-bullet"></span></div>
-            </div>
-        </div>
-        <div class="cont-main">
-            <div class="swiper-container swiper-container-h swiper-container-horizontal">
-                <div class="swiper-wrapper">
-                    @if (storeList != null && storeList.Count > 0)
+                <p>
+                    @if (Model.IsMember)
                     {
-                        foreach (var item in storeList)
-                        {
-                            <div class="swiper-slide swiper-slide-active" style="width: 375px;">
-                                <div class="ss-outer">
-                                    <div class="cm-div">
-                                        @if (userStoreIdList.Contains(item.ID) && item.EndTime.HasValue && item.EndTime.Value > DateTime.Now)
-                                        {
-                                            <a href="/store/courselist?storeId=@(item.ID)" class="cm-btn">
-                                                <div class="cm-img"></div>
-                                                <div class="cm-tit">本周课程</div>
-
-                                            </a>
-                                            <a href="/store/mastersort?storeId=@(item.ID)" class="cm-btn">
-                                                <div class="cm-img"></div>
-                                                <div class="cm-tit">达人排名</div>
-
-                                            </a>
-                                            <a href="/store/balance?storeId=@(item.ID)" class="cm-btn">
-                                                <div class="cm-img"></div>
-                                                <div class="cm-tit">购买商品</div>
-                                            </a>
-                                        }
-                                        else
-                                        {
-                                            <a href="/store/BuyCard?isBuy=true" class="cm-btn cm-recharge">
-                                                <div class="cm-tit">立即开通</div>
-                                            </a>
-                                        }
-                                    </div>
-                                </div>
-                            </div>
-                        }
-                    }
-                </div>
-            </div>
-
-        </div>
-    </div>
-</div>
-<!-- 入场二维码 -->
-<div class="eq-img">
-    <div class="eqi-div">
-        <div class="eqi-tx">
-            <img src="@Model.HeadImgUrl" alt="">
-        </div>
-        <div class="eqi-node">@Model.CardNO</div>
-        <div class="eqi-name">用户昵称：<span>@Model.RealName</span></div>
-        @if (storeList != null && storeList.Count > 0)
-            {
-                foreach (var item in storeList)
-                {
-                    if (item.EndTime.HasValue)
-                    {
-                        if (item.EndTime.Value > DateTime.Now)
-                        {
-                        <div id="store_@(item.ID)" style="display:none;" class="store-div">
-                            <div class="eqi-times">
-                                剩余时间：
-                                <span>@((item.EndTime.Value - DateTime.Now).Days)天</span>
-                            </div>
-                            <div class="eqi-word">TURN ON THE DAILY PASSION MOMENT</div>
-                            <div class="eqi-eqimg code-img">
-
-                            </div>
-                            <div class="eqi-txt">凭此二维码进入场馆</div>
-                        </div>
+                    <span class="user-name fB f11">沃商通商户</span><br>
+                    <span class="user-phone">@(Model.NickName)</span><br>
+                    <span class="user-phone f08 c-f00">过期时间：@(Model.EndTime)</span>
                     }
                     else
                     {
-                        <div id="store_@(item.ID)" style="display:none;" class="store-div">
-                            <div class="eqi-times">
-                                剩余时间：
-                                <span>已到期</span>
-                            </div>
-                        </div>
+                        <span class="user-name fB f11">沃商通用户</span><br>
+                        <span class="user-phone">@(Model.NickName)</span><br>
                     }
-                }
-                else
-                {
-                    <div class="eqi-times" id="store_@(item.ID)" style="display:none;">
-                        剩余时间：<span>未开通</span>
-                    </div>
-                }
-            }
-        }
+                </p>
+            </div>
+            @*<a href="#" class="fl c-000"><i class="icon icon icon-loginout"></i> 退出</a>*@
+        </div>
+        @*<div class="privilege-card">
+            <div class="privilege-tit clearfix">
+                <a href="#"><i class="icon icon-payment"></i> 进入钱包</a>
+            </div>
+            <div class="privilege-con clearfix">
+                <div class="balance-div">
+                    <strong>收入</strong>
+                    <span>0.00</span>
+                </div>
+                <div class="balance-div">
+                    <strong>支出</strong>
+                    <span>0.00</span>
+                </div>
+            </div>
+        </div>*@
+        <div class="favorite-wrapper">
+            <div class="favorite pic-ico">
+                <a href="">活动教程<span>></span></a>
+            </div>
+
+            @*<div class="favorite pic-ico">
+                <a href="">邀请有礼<span>></span></a>
+            </div>*@
+
+            <div class="favorite pic-ico">
+                <a href="">付费方式<span>></span></a>
+            </div>
+
+            <div class="favorite pic-ico">
+                <a href="">常见问题<span>></span></a>
+            </div>
+
+            <div class="favorite pic-ico">
+                <a href="">联系客服<span>></span></a>
+            </div>
+        </div>
+
+        <div class="foot-wrapper">
+            <div class="w47 fl">
+                <div class="button fr"><a href="/home/index">制作活动</a></div>
+            </div>
+            <div class="w47 fr">
+                <div class="button fl"><a href="#">我的活动</a></div>
+            </div>
+        </div>
+
+
+
     </div>
-
-    <div class="eqi-close"></div>
-
-</div>
+</body>
+</html>
 
 @section scripts
 {
-    <script src="~/Areas/Admin/Scripts/jquery.signalR-2.1.2.min.js"></script>
-    <script src="~/signalr/hubs"></script>
-    <script src="~/Areas/Admin/Scripts/jquery.qrcode.min.js"></script>
-    <script>
 
-        var Swiper1 = new Swiper('.swiper-container-c', {
-            pagination: '.swiper-pagination',
-            onSlideChangeEnd: function (swiper) {
-                console.log(swiper.activeIndex);
-                PageIndex = swiper.activeIndex;
-                localStorage.setItem('PageIndex', PageIndex);
-            }
-        });
-        var Swiper2 = new Swiper('.swiper-container-h', {
-        });
-        // console.log(Swiper1);
-        Swiper1.params.control = Swiper2;
-        Swiper2.params.control = Swiper1;
-        var Swiper3 = new Swiper('.swiper-container3', {
-            control: [Swiper1, Swiper2],
-
-        })
-
-        var PageIndex = localStorage.getItem('PageIndex');
-        if (!PageIndex && PageIndex != 0) {
-            console.log('第一次进入');
-        } else {
-            console.log(PageIndex);
-            Swiper1.slideTo(PageIndex, 800, false);
-        }
-
-
-        $('.user-img').on('click', function () {
-            window.location.href = '/user/perfectinfo';
-        });
-        var storeId = "";
-        $(document).on('click', '.a-btn', function () {
-            storeId = $(".swiper-slide-active").attr("data-id");
-            var userStoreId = $(".swiper-slide-active").attr("data-userStoreId");
-            $(".code-img").html("");
-            $(".store-div").hide();
-            $("#store_" + storeId).show();
-            $("#store_" + storeId + " .code-img").qrcode({
-                width: 154, //宽度
-                height: 154, //高度
-
-                typeNumber: -1,//计算模式
-                correctLevel: 2,//二维码纠错级别
-                background: "#ffffff",//背景颜色
-                foreground: "#000000",  //二维码颜色
-                text: "@(Params.SiteUrl)?id=" + userStoreId
-                //任意内容
-            });
-            $('.eq-img').show();
-        });
-        $(document).on('click', '.eqi-close', function () {
-            $('.eq-img').hide();
-        });
-
-        $.connection.hub.logging = true;
-        $.connection.hub.start()
-            .done(function (data) {
-                //console.log("当前clientID=" + data.id);
-            })
-            .fail(function () { console.log("Could not Connect!"); });;
-
-        var chatHub = $.connection.ChatHub;
-        //允许进场
-        chatHub.client.AllowApproach = function (msg) {
-            window.location.href = "/store/signin?storeId=" + storeId;
-        }
-
-        //不允许进场
-        chatHub.client.RejectApproach = function (msg) {
-
-            var boxObj1 = BOXOPEN({
-                type: 1,
-                txt: "很抱歉，管理人员不让你进场"
-            });
-        }
-
-
-        //不允许出场
-        chatHub.client.RejectOut = function (msg) {
-
-            var boxObj1 = BOXOPEN({
-                type: 1,
-                txt: "很抱歉，管理人员不让你出场"
-            });
-        }
-
-
-        //允许出场
-        chatHub.client.AllowOut = function (msg) {
-            window.location.reload();
-        }
-    </script>
 
 }

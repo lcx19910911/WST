@@ -12,6 +12,8 @@ using WST.Core.Extensions;
 using WST.Core.Web;
 using WST.Core;
 using WST.Core.Util;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace WST.Web.Controllers
 {
@@ -46,13 +48,15 @@ namespace WST.Web.Controllers
         {
             this.LoginUser = new Core.Model.LoginUser()
             {
-                ID = "988c120554be4d6cb13d377a171152f8",
+                ID = "e98a0a152bd7465ba45351264914486d",
                 Account = "宸默先生",
                 HeadImgUrl = "http://wx.qlogo.cn/mmhead/XFJ8HdGGwGAP0g9KE2BuxsmsGJzfRQP2tic1RHCxpQGZMnCbF7hOwMA/0",
+                IsMember=true,
+                EndTime=DateTime.Now.AddYears(2)
             };
             return RedirectToAction("Index", "Home");
         }
-
+        
         public void WeixinLoginAction()
         {
             string code = this.Request.QueryString["code"];
@@ -126,6 +130,62 @@ namespace WST.Web.Controllers
         }
 
 
+        //用于申请“成为开发者”时向微信发送验证信息。
+        public void Valid()
+        {
+            string echoStr = Request.QueryString["echoStr"];
+            if (string.IsNullOrEmpty(echoStr))
+            {
+                return;
+            }
+            string signature = Request.QueryString["signature"];
+            string timestamp = Request.QueryString["timestamp"];
+            string nonce = Request.QueryString["nonce"];
+            if (CheckSignature(signature, timestamp, nonce))
+            {
+                Response.Write(echoStr);
+                Response.End();
+            }
+        }
+        public  bool CheckSignature(string signature, string timestamp, string nonce)
+        {
+            if (string.IsNullOrEmpty(signature) || string.IsNullOrEmpty(timestamp) || string.IsNullOrEmpty(nonce))
+            {
+                return false;
+            }
+            //这个变量要与网页里面填写的接口配置信息中填写的Token一致
+            string Token = "Eioa5C5oj3S32qhH";
+            string[] ArrTmp = { Token, timestamp, nonce };
+            Array.Sort(ArrTmp);//排序
+            string tmpStr = string.Join("", ArrTmp);
+            tmpStr = SHA1_Hash(tmpStr);//对该字符串进行sha1加密
+            tmpStr = tmpStr.ToLower();
+
+            //获得加密后的字符串可与signature对比
+            //通过检验signature对请求进行校验，若正确，则原样返回echostr参数内容，接入生效，否则接入失败
+            if (tmpStr == signature)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        /// <summary>
+        /// 字符串转换SHA1
+        /// </summary>
+        /// <param name="str_sha1_in"></param>
+        /// <returns></returns>
+        public  string SHA1_Hash(string str_sha1_in)
+        {
+            SHA1 sha1 = new SHA1CryptoServiceProvider();
+            byte[] bytes_sha1_in = UTF8Encoding.Default.GetBytes(str_sha1_in);
+            byte[] bytes_sha1_out = sha1.ComputeHash(bytes_sha1_in);
+            string str_sha1_out = BitConverter.ToString(bytes_sha1_out);
+            str_sha1_out = str_sha1_out.Replace("-", "");
+            return str_sha1_out;
+        }
         public string GetApplicationPath()
         {
             string applicationPath = "/";

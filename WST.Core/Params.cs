@@ -55,17 +55,8 @@ namespace WST.Core
         public static readonly string WeixinPaySecret = ConfigHelper.GetValue("WeixinPaySecret");
         
 
-        public static readonly string Cache_Prefix_Key = "gym_";
+        public static readonly string Cache_Prefix_Key = "wst_";
 
-
-
-        /// 邀请券开始时间值  几分钟后
-        /// </summary>
-        public static readonly string InviteStartTimeCount = ConfigHelper.GetValue("InviteStartTimeCount");
-
-        /// 邀请券结束时间值 几分钟内
-        /// </summary>
-        public static readonly string InviteEndTimeCount = ConfigHelper.GetValue("InviteEndTimeCount");
 
     }
 }

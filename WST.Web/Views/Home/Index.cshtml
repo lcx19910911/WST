@@ -1,299 +1,120 @@
 ﻿@{
-    ViewBag.Title = "首页";
+    ViewBag.Title = "制作活动";
+    Layout = null;
 }
 @section linkcss
 {
-    <link rel="stylesheet" href="~/css/Home.css">
+   
 }
 
-    <!-- 市区下拉 -->
-    <div class="area-div select-model">
-        <div class="sl-close"><i></i></div>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewBag.Title
+    </title>
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <link rel="stylesheet" href="~/assets/css/reset.css">
+    <script src="~/assets/js/jquery-2.1.4.min.js"></script>
+    <style>
+        html {
+            background: #efefff;
+        }
 
-        <div class="area-model"></div>
+        .activity-list {
+            margin-bottom: 1em;
+            background: #fff;
+            padding: 1em 0;
+        }
 
-        <div class="area-btm-tit">更多门店，敬请期待</div>
-    </div>
+        .list-item-top {
+            overflow: hidden;
+        }
 
-    <!-- 门店类型下拉 -->
-    <div class="store-div select-model">
-        <div class="sl-close"><i></i></div>
+        .list-item-bottom {
+            overflow: hidden;
+            margin-top: 1em;
+        }
 
-        <div class="store-model">
-            <div class="store-list">
-                <div class="store-tit"><span></span></div>
-                <div class="store-item"></div>
+        .list-item-top img {
+            display: block;
+            width: 75%;
+            margin: 0.3em auto;
+            border-radius: 5px;
+        }
+
+        .list-item-top p {
+            /*padding: 0.5em;*/
+        }
+
+        .list-item-bottom .button {
+            width: 80%;
+            float: none;
+            margin: 0 auto;
+            padding: 0;
+            height: 2.2em;
+            line-height: 2.2em;
+            border-radius: 0.5em;
+            background: #eee;
+            color: #777;
+            border: 1px solid #aaa;
+        }
+
+        .list-item-bottom > div:nth-child(2) .button {
+            background: #608DA4;
+            color: #fff;
+            border-color: #608DA4;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap l">
+
+        <div class="activity-list">
+            <div class="list-item-top">
+                <div class="w50 fl">
+                    <img src="~/assets/images/group_booking/banner1.gif">
+                </div>
+                <div class="w50 fl p05">
+                    <h3>全民拼团</h3>
+                    <p class="c-999 f08">简易描述简易描述简易描述简易描述简易描述简易描述简易描述</p>
+                </div>
+            </div>
+            <div class="list-item-bottom">
+                <div class="w50 fl">
+                    <div class="button"><a href="/">查看示例</a></div>
+                </div>
+                <div class="w50 fl">
+                    <div class="button"><a href="/kanjia/add">马上制作</a></div>
+                </div>
             </div>
         </div>
 
-        <div class="store-btm-tit">更多门店，敬请期待</div>
-    </div>
-
-    <div class="wrap" id="Home">
-        <div class="cont home-con">
-            <div class="home-div">
-
-                <div class="home-banner">
-                    <div class="swiper-container">
-                        <div class="swiper-wrapper">
-                            <div class="swiper-slide">
-                                <img src="~/images/home_page.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
+        <div class="activity-list">
+            <div class="list-item-top">
+                <div class="w50 fl">
+                    <img src="~/assets/images/group_booking/banner1.gif">
                 </div>
-
-                <div class="home-select">
-                    <div class="hst-item area-btn">
-                        <span></span>
-                    </div>
-                    <div class="hst-item store-btn">
-                        <span></span>
-                    </div>
+                <div class="w50 fl p05">
+                    <h3>双十二砍价</h3>
+                    <p class="c-999 f08">简易描述简易描述简易描述简易描述简易描述简易描述简易描述</p>
                 </div>
-
-                <div class="home-page-list">
-                    <div class="home-clt-y"></div>
-                    <div class="home-clt-n"></div>
-
+            </div>
+            <div class="list-item-bottom">
+                <div class="w50 fl">
+                    <div class="button"><a href="groupBooking1.html">查看示例</a></div>
                 </div>
-
+                <div class="w50 fl">
+                    <div class="button"><a href="/pintuan/add">马上制作</a></div>
+                </div>
             </div>
         </div>
+
+
     </div>
-  
-@section scripts
-{
-<script>
-		var Swiper1 = new Swiper('.swiper-container',{
-
-		});
-		$(function() {
-			// 门店区域id
-			var AreaId;
-			// 门店类型id
-			var TypeId;
-			// areaDefault门店区域默认值
-        	var areaDefault = 0;
-        	// 门店区域选择值是否是全城
-        	var areaAll;
-        	// 门店类型选择值是否是全部
-        	var typeAll;
-			// 门店数据
-			var s;
-
-			function init () {
-				// 加载城市下拉
-            	for (var i = 0; i < s.storeRegional.length; i++) {
-            		$('.area-model').append(
-            			'<div class="area-list">' +
-							'<div class="area-tit"><span>'+s.storeRegional[i].storeCityValue+'</span></div>' +
-							'<div class="area-item"></div>' +
-						'</div>'
-        			)
-        			for (var j = 0; j < s.storeRegional[i].storeArea.length; j++) {
-        				$('.area-item').eq(i).append('<span areaAll="'+s.storeRegional[i].storeArea[j].areaAll+'" storeAreaId="'+s.storeRegional[i].storeArea[j].storeAreaId+'">'+s.storeRegional[i].storeArea[j].storeAreaValue+'</span>');
-
-        			};
-
-            	};
-            	// 加载门店类型
-            	for (var i = 0; i < s.storeType.length; i++) {
-            		$('.store-item').append('<span typeAll="'+s.storeType[i].typeAll+'" storeTypeId="'+s.storeType[i].storeTypeId+'">'+s.storeType[i].storeTypeValue+'</span>');
-            	};
-
-
-            	// 默认地区为第一个“福州全城,只后要改为根据定位设置默认值”
-
-            	$('.store-tit span').text(s.storeType[0].storeTypeValue);
-            	$('.area-item').eq(areaDefault).find('span').eq(0).addClass('ait-sel');
-            	$('.store-item').eq(0).find('span').eq(0).addClass('ait-sel');
-            	$('.area-btn span').text(s.storeRegional[areaDefault].storeArea[0].storeAreaValue);
-            	$('.store-btn span').text(s.storeType[0].storeTypeValue);
-
-            	AreaId = s.storeRegional[areaDefault].storeArea[0].storeAreaId;
-				TypeId = s.storeType[0].storeTypeId;
-				getAreaIndex(AreaId);
-				getTypeIndex(TypeId);
-            	loadHome(AreaId,TypeId);
-			}
-
-			$.ajax({
-				type: "GET",
-				url: "/store/GetHomeData",
-	            dataType: "json",
-	            data: "",
-	            success: function(res) {
-	            	s = res.Result;
-	            	console.log(s);
-	            	init();
-	            }
-			})
-
-
-			// 筛选
-
-			function loadHome(areaId,typeId) {
-				// console.log(areaId);
-				// console.log(typeId);
-
-				$('.home-clt-y, .home-clt-n').html('');
-				for (var i = 0; i < s.storeList.length; i++) {
-					var htmls = '<div class="hpl-item" storeId="'+s.storeList[i].storeId+'" storeAreaId="'+s.storeList[i].storeAreaId+'" storeTypeId="'+s.storeList[i].storeTypeId+'">'+
-									'<a href="/store/index?id='+s.storeList[i].storeId+'" class="hpl-img">'+
-										'<img src="'+s.storeList[i].storeImgUrl+'" alt="">'+
-									'</a>'+
-									'<div class="hpl-con">'+
-										'<div class="hpl-txt">'+
-											'<div class="hpl-name">'+s.storeList[i].storeName+'</div>'+
-											'<div class="hpk-address">'+s.storeList[i].storeAdress+'</div>'+
-										'</div>'+
-										'<i class=""></i>'+
-									'</div>'+
-								'</div>';
-
-					if (areaAll && typeAll) {
-						for (var j = 0; j < s.storeRegional[areaDefault].storeArea.length; j++) {
-							if (s.storeList[i].storeAreaId == s.storeRegional[areaDefault].storeArea[j].storeAreaId) {
-								appendEle(i);
-							};
-						};
-					} else if (areaAll && !typeAll) {
-					    for (var j = 0; j < s.storeRegional[areaDefault].storeArea.length; j++) {
-							if (s.storeList[i].storeAreaId == s.storeRegional[areaDefault].storeArea[j].storeAreaId && s.storeList[i].storeTypeId == typeId) {
-								appendEle(i);
-							};
-						};
-					} else if (!areaAll && typeAll) {
-						if (s.storeList[i].storeAreaId == areaId) {
-							appendEle(i);
-						};
-					} else {
-					    debugger
-						if (s.storeList[i].storeAreaId == areaId && s.storeList[i].storeTypeId == typeId) {
-							appendEle(i);
-						};
-					}
-				};
-				function appendEle(index) {
-					if (s.storeList[index].storeCollect) {
-						$('.home-clt-y').append(htmls);
-						$('.home-clt-y .hpl-item').find('i').addClass('hpl-collect');
-					} else {
-						$('.home-clt-n').append(htmls);
-					}
-				}
-
-			}
-
-			// 获取当前的地区值
-			function getAreaIndex(areaid) {
-				for (var i = 0; i < s.storeRegional.length; i++) {
-        			for (var j = 0; j < s.storeRegional[i].storeArea.length; j++) {
-        				if (areaid == s.storeRegional[i].storeArea[j].storeAreaId) {
-        					areaDefault = i;
-        					areaAll = s.storeRegional[i].storeArea[j].areaAll;
-        					return false;
-        				};
-        			};
-            	};
-			}
-			// 获取当前的类型值
-			function getTypeIndex(typeid) {
-				for (var i = 0; i < s.storeType.length; i++) {
-					if (typeid == s.storeType[i].storeTypeId) {
-						typeAll = s.storeType[i].typeAll;
-						return false;
-					};
-            	};
-			}
-
-
-			$(document).on('click', '.area-btn', function() {
-				$('.area-div').show();
-			});
-			$(document).on('click', '.area-div .sl-close i', function() {
-				$('.area-div').hide();
-			});
-			$(document).on('click', '.store-btn', function() {
-				$('.store-div').show();
-			});
-			$(document).on('click', '.store-div .sl-close i', function() {
-				$('.store-div').hide();
-			});
-
-
-			$(document).on('click', '.area-item span', function() {
-				$('.area-item span').removeClass('ait-sel');
-				$(this).addClass('ait-sel');
-				$('.area-div').hide();
-				$('.area-btn span').text($(this).text());
-
-				AreaId = $(this).attr('storeareaid');
-				getAreaIndex(AreaId);
-				getTypeIndex(TypeId);
-            	loadHome(AreaId,TypeId);
-			});
-
-			$(document).on('click', '.store-item span', function() {
-				$('.store-item span').removeClass('ait-sel');
-				$(this).addClass('ait-sel');
-				$('.store-div').hide();
-				$('.store-btn span').text($(this).text());
-
-				TypeId = $(this).attr('storetypeid');
-				getAreaIndex(AreaId);
-				getTypeIndex(TypeId);
-            	loadHome(AreaId,TypeId);
-			});
-
-			$(document).on('click', '.hpl-con i', function() {
-				// ajax之后，成功函数里面执行以下代码。
-			    var obj = $(this);
-			    var storeId=obj.parents('.hpl-item').attr('storeId');
-				$.ajax({
-					type: "POST",
-					url: "/store/BeCollect",
-		            dataType: "json",
-		            data: {
-		                "storeId" : storeId
-		            },
-		            success: function(result) {
-		            	if (result.Result) {
-
-		            	    var hplHtmls = obj.parents('.hpl-item').html();
-		            	    var hplAreaId = obj.parents('.hpl-item').attr('storeAreaId');
-		            	    var hplTypeId = obj.parents('.hpl-item').attr('storeTypeId');
-
-		            	    if (!obj.hasClass('hpl-collect')) {
-		            	        $('.home-clt-y').prepend('<div class="hpl-item" storeId="' + storeId + '" storeAreaId="' + hplAreaId + '" storeTypeId="' + hplAreaId + '">' + hplHtmls + '</div>');
-								obj.parents('.hpl-item').remove();
-								$('.home-clt-y i').addClass('hpl-collect');
-								for (var i = 0; i < s.storeList.length; i++) {
-								    if (storeId == s.storeList[i].storeId) {
-										s.storeList[i].storeCollect = 1;
-									};
-								};
-							} else {
-		            	        $('.home-clt-n').prepend('<div class="hpl-item" storeId="' + storeId + '" storeAreaId="' + hplAreaId + '" storeTypeId="' + hplAreaId + '">' + hplHtmls + '</div>');
-								obj.parents('.hpl-item').remove();
-								$('.home-clt-n i').removeClass('hpl-collect');
-								for (var i = 0; i < s.storeList.length; i++) {
-								    if (storeId == s.storeList[i].storeId) {
-										s.storeList[i].storeCollect = 0;
-									};
-								};
-							}
-
-		            	};
-		            }
-				})
-
-
-
-
-			});
-
-		})
-</script>
-}
+</body>
+</html>

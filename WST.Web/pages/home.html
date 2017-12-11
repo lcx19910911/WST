@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+	<script type="text/javascript" src="../assets/js/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<h1>{{msg}}</h1>
+		<div v-newfn="color">{{num}}</div>
+		<button class="aaa" @click="add">add</button>
+	</div>
+	<script type="text/javascript">
+		Vue.directive("newfn", {
+			bind: function() {//被绑定
+				console.log('1 - bind');
+			},
+			inserted: function() {//绑定到节点
+				console.log('2 - inserted');
+			},
+			update: function() {//组件更新
+				console.log('3 - update');
+			},
+			componentUpdated: function() {//组件更新完成
+				console.log('4 - componentUpdated');
+			},
+			unbind: function() {//解绑
+				console.log('5 - unbind');
+			}
+		})
+		// el.style="color:" + binding.value;
+		var app = new Vue({
+			el:'#app',
+			data:{
+				msg: "hello vue2!",
+				num: 0,
+				color: "green"
+			},
+			methods: {
+				add :function() {
+					this.num++;
+				}
+			}
+		})
+	</script>
+</body>
+</html>

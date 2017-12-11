@@ -73,8 +73,6 @@ namespace WST.Web.Controllers
             return JResult(IPayOrderService.Recharge(amount));
         }
 
-
-
         /// <summary>
         ///参加人数
         /// </summary>
@@ -131,7 +129,6 @@ namespace WST.Web.Controllers
             }));
         }
 
-
         /// <summary>
         ///参加人数
         /// </summary>
@@ -172,6 +169,18 @@ namespace WST.Web.Controllers
             }));
         }
 
+        /// <summary>
+        /// 获取分页列表
+        /// </summary>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">分页大小</param>
+        /// <param name="key"> 搜索项</param>
+        /// <param name="value">搜索项</param>
+        /// <returns></returns>
+        public ActionResult GetActPageList(int pageIndex, int pageSize, string targetId)
+        {
+            return JResult(IUserActivityService.GetPageList(pageIndex, pageSize, targetId,"", LoginUser.ID, "", null));
+        }
 
         /// <summary>
         ///参加人数
@@ -214,5 +223,6 @@ namespace WST.Web.Controllers
             IUserActivityService.Add(toKanjiaModel);
             return JResult(IUserActivityService.Update(userActivityModel));
         }
+
     }
 }
