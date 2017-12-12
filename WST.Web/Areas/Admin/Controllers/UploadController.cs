@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using WST.Core.Extensions;
 
 namespace WST.Web.Areas.Admin.Controllers
 {
@@ -20,6 +21,16 @@ namespace WST.Web.Areas.Admin.Controllers
             }
             else
                 return Content("");
+        }
+
+        // GET: Upload
+        public ActionResult UploadFile(string mark)
+        {
+            var fileList = Request.Files;
+            string name = "";
+            string path = UploadHelper.Save(Request.Files[0], mark, out name);
+            return Content(new { Name = name, Path = path }.ToJson());
+
         }
     }
 }

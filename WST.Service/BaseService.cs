@@ -211,7 +211,22 @@ namespace WST.Service
                         return query.Take(takeCount).ToList();
                 }
             }
-        }       
+        }
+
+
+        /// <summary>
+        /// 查找所有
+        /// </summary>
+        /// <returns></returns>
+        public List<string> GetIDS(Expression<Func<T, bool>> predicate)
+        {
+            using (DbRepository db = new DbRepository())
+            {
+                DbSet<T> dbSet = db.Set<T>();
+                return  dbSet.Where(x => !x.IsDelete).Where(predicate).Select(x=>x.ID).ToList();
+
+            }
+        }
 
         /// <summary>
         /// 更新

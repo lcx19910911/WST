@@ -1,0 +1,210 @@
+﻿@model KanJia
+@{
+    ViewBag.Title = "拼团";
+    Layout = null;
+}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>拼团</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script type="text/javascript" src="~/assets/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/import.js"></script>
+
+</head>
+<body>
+    <div class="app l edit">
+        <!-- global -->
+        <div class="global-btn-wrapper">
+            <div class="btn music-btn c-fff f10">
+                <span><i class="icon icon-music"></i> 音乐</span>
+            </div>
+            <!-- <div class="btn effects-btn c-fff f10">
+                <span><i class="icon icon-effects"></i> 特效</span>
+            </div> -->
+            <div class="btn admin-center f08">
+                <a class="c-fff" href="/user/index">个人中心</a>
+            </div>
+        </div>
+
+        <!-- head -->
+        <div class="head-wrapper">
+            <div class="head-bg-wrapper">
+                <img src="~/assets/images/group_booking/banner1.gif">
+                <input id="headImg" type="file" name="" class="hidden">
+            </div>
+            <div class="head-bg-edit">
+                <div class="w47 fl">
+                    <span class="btn c-fff change-bg-btn fr"><i class="icon icon-convert"></i> 换一张</span>
+                </div>
+                <div class="w47 fr">
+                    <label for="headImg" class="btn c-fff fl e-label"><i class="icon icon-upload"></i> 上传</label>
+                </div>
+                <span class="f08 fr w45 mt05 c-fff txt-left">建议尺寸：640*360</span>
+            </div>
+        </div>
+
+        <!-- title -->
+        <div class="title-wrapper mt15">
+            <div class="m00 w90">
+                <textarea id="title" class="textarea e-textarea f16 fB txt-center c-f00">喜迎购物节，课程低价疯狂抢</textarea>
+                <p class="v-p f16 fB txt-center c-f00">喜迎购物节，课程低价疯狂抢</p>
+            </div>
+        </div>
+
+        <!-- activity -->
+        <div class="activity-wrapper mt15">
+            <span for="startTime">活动时间:</span>
+            <input type="text" name="startTime" id="startTime" class="input e-input timeinput" />
+            <span class="v-span input timeinput"></span>
+            <span>到</span>
+            <input type="text" name="endTime" id="endTime" class="input e-input timeinput" />
+            <span class="v-span input timeinput"></span>
+        </div>
+
+        <!-- groupBooking -->
+        <div class="groupBooking-wrapper mt15 w90 m10 f11">
+            <div class="groupBooking-list">
+                <span>原价：</span>
+                <input type="text" id="oldPrice" name="oldPrice" class="input e-input c-f00 w30" value="999">
+                <span class="v-span input w30"></span>
+                <span class="c-f00">元</span>
+            </div>
+
+            @*<div class="groupBooking-list">
+                <span>参与拼团需预付：</span>
+                <input type="text" id="prepay" name="prepay" class="input e-input c-f00 w20" value="6">
+                <span class="v-span c-f00 w20 input"></span>
+                <span class="c-f00">元</span>
+            </div>*@
+
+            <div class="groupBooking-list">
+                <div class="groupBooking-list-item">
+                    <div class="list-item-left">
+                        <input type="number" id="groupNum3" name="groupNum3" value="3" class="input e-input">
+                        <span class="v-span input"></span>
+                        <span>人团</span>
+                    </div>
+                    <div class="list-item-right">
+                        <span>拼团价</span>
+                        <input type="number" id="groupPrice5" name="groupPrice5" value="200" class="input e-input c-fff">
+                        <span class="v-span input c-fff"></span>
+                        <span>元/人</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="groupBooking-list">
+                <div class="groupBooking-list-item">
+                    <div class="list-item-left">
+                        <input type="number" id="groupNum5" name="groupNum5" value="5" class="input e-input">
+                        <span class="v-span input"></span>
+                        <span>人团</span>
+                    </div>
+                    <div class="list-item-right">
+                        <span>拼团价</span>
+                        <input type="number" id="groupPrice3" name="groupPrice3" value="500" class="input e-input c-fff">
+                        <span class="v-span input c-fff"></span>
+                        <span>元/人</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="groupBooking-list">
+                <div class="groupBooking-list-item">
+                    <div class="list-item-left">
+                        <input type="number" id="groupNum8" name="groupNum8" value="8" class="input e-input">
+                        <span class="v-span input"></span>
+                        <span>人团</span>
+                    </div>
+                    <div class="list-item-right">
+                        <span>拼团价</span>
+                        <input type="number" id="groupPrice3" name="groupPrice3" value="800" class="input e-input c-fff">
+                        <span class="v-span input c-fff"></span>
+                        <span>元/人</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- body -->
+        <div class="body-wrapper">
+
+            <div class="model-list goodsDescribe-item">
+                <div class="model-list-title">
+                    <span>商品描述</span>
+                </div>
+                <div class="model-list-body">
+                    <textarea id="" class="textarea e-textarea c-f00">拼团抢购，人越多越划算。</textarea>
+                    <p class="v-p c-f00"></p>
+                    <img src="~/assets/images/group_booking/banner2.gif">
+                    <label for="uploadImg" class="upload-img-label e-label">(请上传最多5张图片)</label>
+                    <input type="file" name="uploadImg" id="uploadImg" class="hidden">
+                </div>
+            </div>
+
+            <div class="model-list activityRule-item">
+                <div class="model-list-title">
+                    <span>活动规则</span>
+                </div>
+                <div class="model-list-body">
+                    <textarea id="" class="textarea e-textarea c-f00">1、点击底部按钮“我要开团”进行开团报名					2、注意填写真实姓名和电话。					3、评团成功联系商家安平图案价格消费。					4、本次活动优惠限量，超出无效。</textarea>
+                    <p class="v-p c-f00"></p>
+                </div>
+            </div>
+
+            <div class="model-list acceptPrize-item">
+                <div class="model-list-title">
+                    <span>领取信息</span>
+                </div>
+                <div class="model-list-body">
+                    <textarea id="" class="textarea e-textarea c-f00">
+                        1、领奖时间。
+                        2、领奖地址。
+                        3、领奖电话
+                    </textarea>
+                    <p class="v-p c-f00"></p>
+                </div>
+            </div>
+
+            <div class="model-list introduce-item">
+                <div class="model-list-title">
+                    <span>商家介绍</span>
+                </div>
+                <div class="model-list-body">
+                    <textarea id="" class="textarea e-textarea c-f00" placeholder="此处填写机构介绍"></textarea>
+                    <p class="v-p c-f00"></p>
+                </div>
+            </div>
+
+            <div class="model-list introduce-item">
+                <div class="model-list-title">
+                    <span>咨询电话</span>
+                </div>
+                <div class="model-list-body">
+                    <div class="phone-number c-f00 txt-left">
+                        <i class="icon icon-hotline f12"></i>
+                        <input type="text" class="input e-input" placeholder="请输入手机号码" value="15059702031">
+                        <span class="v-span"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- foot -->
+        <div class="foot-wrapper">
+            <!-- <div class="button apply-btn">我要参团</div> -->
+            <div class="w47 fl">
+                <div class="button view-btn fr" data-status="view">预览活动</div>
+            </div>
+            <div class="w47 fr">
+                <div class="button save-btn fl">保存活动</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -163,7 +163,7 @@ UploadAssist.prototype = {
 
             var fileSize;
             var errorTxt = null;
-
+            
             //选中后的回调
             var chosenStatus = that.settings.onChosen(this.value, this, fileSize, errorTxt);
             if (typeof chosenStatus === "boolean" && !chosenStatus) {

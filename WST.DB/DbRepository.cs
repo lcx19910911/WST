@@ -82,6 +82,7 @@ namespace WST.DB
         public virtual DbSet<Carousel> Carousel { get; set; }
         public virtual DbSet<UserActivity> UserActivity { get; set; }
         public virtual DbSet<KanJia> KanJia { get; set; }
+        public virtual DbSet<Music> Music { get; set; }
         
         public override int SaveChanges()
         {

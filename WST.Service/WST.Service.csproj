@@ -58,6 +58,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MusicService.cs" />
     <Compile Include="KanJiaService.cs" />
     <Compile Include="UserActivityService.cs" />
     <Compile Include="CarouselService.cs" />

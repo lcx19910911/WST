@@ -25,6 +25,10 @@ namespace WST.Web.Controllers
         {
             return View();
         }
+        public ViewResult Add()
+        {
+            return View();
+        }
 
         /// <summary>
         /// 新增
@@ -128,6 +132,21 @@ namespace WST.Web.Controllers
             return JResult(IKanJiaService.GetPageList(pageIndex, pageSize,LoginUser.ID, name));
         }
 
+
+        /// <summary>
+        /// 查找实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult Detail(string ID)
+        {
+            var model = IKanJiaService.Find(ID);
+            //if (model != null)
+            //{
+            //    model.PriceList = IKanJiaPriceService.GetListByKanJiaID(ID);
+            //}         
+            return JResult(model);
+        }
 
         /// <summary>
         /// 查找实体

@@ -69,7 +69,7 @@ namespace WST.IService
         /// </summary>
         /// <returns></returns>
         List<T> GetAll();
-        
+        List<string> GetIDS(Expression<Func<T, bool>> predicate);
 
         /// <summary>
         /// 查找集合
