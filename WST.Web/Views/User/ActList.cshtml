@@ -1,6 +1,5 @@
-﻿
-@{
-    var list=ViewBag.List as List<Tuple<string, string, string, DateTime, DateTime,bool, string, TargetCode>>;
+﻿@{
+    var list=ViewBag.List as List<Tuple<string, string, string, DateTime, DateTime,bool, TargetCode>>;
     ViewBag.Title = "我的活动";
     Layout = null;
 }
@@ -164,10 +163,10 @@
 
         <div class="tap-cont-wrapper">
             @{
-                var noStartList = new List<Tuple<string, string, string, DateTime, DateTime,bool, string, TargetCode>>();
-                var startList = new List<Tuple<string, string, string, DateTime, DateTime, bool, string, TargetCode>>();
-                var endList = new List<Tuple<string, string, string, DateTime, DateTime, bool, string, TargetCode>>();
-                var deleteList = new List<Tuple<string, string, string, DateTime, DateTime, bool, string, TargetCode>>();
+                var noStartList = new List<Tuple<string, string, string, DateTime, DateTime,bool, TargetCode>>();
+                var startList = new List<Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>>();
+                var endList = new List<Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>>();
+                var deleteList = new List<Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>>();
                 if (list != null && list.Count > 0)
                 {
                     noStartList = list.Where(x => x.Item4 < DateTime.Now).ToList();
@@ -182,9 +181,19 @@
 
                     foreach (var item in list)
                     {
+                        var name = "";
+                        switch (item.Item7)
+                        {
+                            case TargetCode.Kanjia:
+                                name = "kanjia";
+                                break;
+                            case TargetCode.Pintuan:
+                                name = "pintuan";
+                                break;
+                        }
                         <li>
                             <div class="item-top">
-                                <a href="@item.Item6">
+                                <a href="/user/@(name)?id=@(item.Item3)">
                                     <div class="img">
                                         <img src="@item.Item2" alt="图片丢失">
                                     </div>
@@ -211,9 +220,19 @@
                 {
                     foreach (var item in noStartList)
                     {
+                        var name = "";
+                        switch (item.Item7)
+                        {
+                            case TargetCode.Kanjia:
+                                name = "kanjia";
+                                break;
+                            case TargetCode.Pintuan:
+                                name = "pintuan";
+                                break;
+                        }
                         <li>
                             <div class="item-top">
-                                <a href="@item.Item6">
+                                <a href="/user/@(name)?id=@(item.Item3)">
                                     <div class="img">
                                         <img src="@item.Item2" alt="图片丢失">
                                     </div>
@@ -237,9 +256,19 @@
                 {
                     foreach (var item in startList)
                     {
+                        var name = "";
+                        switch (item.Item7)
+                        {
+                            case TargetCode.Kanjia:
+                                name = "kanjia";
+                                break;
+                            case TargetCode.Pintuan:
+                                name = "pintuan";
+                                break;
+                        }
                         <li>
                             <div class="item-top">
-                                <a href="@item.Item6">
+                                <a href="/user/@(name)?id=@(item.Item3)">
                                     <div class="img">
                                         <img src="@item.Item2" alt="图片丢失">
                                     </div>
@@ -263,9 +292,19 @@
                 {
                     foreach (var item in endList)
                     {
+                        var name = "";
+                        switch (item.Item7)
+                        {
+                            case TargetCode.Kanjia:
+                                name = "kanjia";
+                                break;
+                            case TargetCode.Pintuan:
+                                name = "pintuan";
+                                break;
+                        }
                         <li>
                             <div class="item-top">
-                                <a href="@item.Item6">
+                                <a href="/user/@(name)?id=@(item.Item3)">
                                     <div class="img">
                                         <img src="@item.Item2" alt="图片丢失">
                                     </div>
@@ -289,9 +328,19 @@
                 {
                     foreach (var item in deleteList)
                     {
+                        var name = "";
+                        switch (item.Item7)
+                        {
+                            case TargetCode.Kanjia:
+                                name = "kanjia";
+                                break;
+                            case TargetCode.Pintuan:
+                                name = "pintuan";
+                                break;
+                        }
                         <li>
                             <div class="item-top">
-                                <a href="@item.Item6">
+                                <a href="/user/@(name)?id=@(item.Item3)">
                                     <div class="img">
                                         <img src="@item.Item2" alt="图片丢失">
                                     </div>
@@ -317,14 +366,14 @@
     <script type="text/javascript">
 		$(function() {
 			$(document).on('click', '.tab-title-list', function() {
-				var that = this;
+                        var that = this;
 				$(this).addClass('on').siblings().removeClass('on');
 				$.each($('.tap-cont-wrapper .tap-cont-list'), function(i, obj) {
-					if($(obj).attr('data-tap') == $(that).attr('data-tap')) {
+                            if($(obj).attr('data-tap') == $(that).attr('data-tap')) {
 						$(obj).addClass('show').siblings().removeClass('show');
-						return false;
-					}
-				})
+                                return false;
+                            }
+                        })
 			})
 		})
 

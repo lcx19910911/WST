@@ -68,6 +68,10 @@
     <Compile Include="Migrations\201712120131055_89ii.Designer.cs">
       <DependentUpon>201712120131055_89ii.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201712121539463_34331212.cs" />
+    <Compile Include="Migrations\201712121539463_34331212.Designer.cs">
+      <DependentUpon>201712121539463_34331212.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -94,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201712120131055_89ii.resx">
       <DependentUpon>201712120131055_89ii.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712121539463_34331212.resx">
+      <DependentUpon>201712121539463_34331212.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

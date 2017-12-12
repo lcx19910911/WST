@@ -1,0 +1,6 @@
+Time:2017/12/12 21:21:56-本次请求耗时 6.443 秒.
+Url:http://localhost:50979/pintuan/add
+UserHostAddress:::1;;
+WebServer:::1
+
+

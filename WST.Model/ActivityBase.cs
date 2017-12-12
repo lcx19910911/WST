@@ -85,6 +85,14 @@ namespace WST.Model
         [MaxLength(1024)]
         public string Connact { get; set; }
 
+
+        /// <summary>
+        /// 联系电话
+        /// </summary>
+        [Required(ErrorMessage = "联系电话不能为空")]
+        [MaxLength(11)]
+        public string PhoneNumber { get; set; }
+
         /// <summary>
         /// 规则
         /// </summary>
@@ -162,22 +170,24 @@ namespace WST.Model
     /// <summary>
     /// 商品类
     /// </summary>
-    public class GoodsItem
+    public class TypeContentItem
     {
-        [Display(Name = "商品名称"), MaxLength(32)]
-        public string Name { get; set; }
+        //[Display(Name = "商品名称"), MaxLength(32)]
+        //public string Name { get; set; }
 
-        /// <summary>
-        /// 排序
-        /// </summary>
-        public int Sort { get; set; }
+        ///// <summary>
+        ///// 排序
+        ///// </summary>
+        //public int Sort { get; set; }
 
-        [Display(Name = "商品图片集合"), MaxLength(1024)]
-        public string Pictures { get; set; }
+        //[Display(Name = "商品图片集合"), MaxLength(1024)]
+        //public string Pictures { get; set; }
+
+        public string Type { get; set; }
 
         /// <summary>
         /// 介绍
         /// </summary>
-        public string Description { get; set; }
+        public string Content { get; set; }
     }
 }

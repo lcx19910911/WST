@@ -1,0 +1,12 @@
+Time:2017/12/13 4:07:36-SaveChanges
+Url:http://localhost:56262/user/JoinPinTuan?id=f8b9f30d0b63406d8a380e085f8f6792&mobile=11111111111&name=12&filedJson=
+UrlReferrer:http://localhost:56262/user/pintuan?id=f8b9f30d0b63406d8a380e085f8f6792
+UserHostAddress:::1;;
+WebServer:::1
+Exception:System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 WST.DB.DbRepository.SaveChanges() 位置 G:\WST\WST.DB\DbRepository.cs:行号 103
+
+

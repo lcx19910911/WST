@@ -76,7 +76,7 @@ namespace WST.Web.Controllers
                 return View(model);
             }
             else
-                return RedirectToAction("_505", "base");
+                return RedirectToAction("_500", "base");
         }
 
     }

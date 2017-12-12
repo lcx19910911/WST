@@ -1,0 +1,45 @@
+Time:2017/12/13 4:00:53-本次请求耗时 7.41 秒.
+Url:http://localhost:56262/user/pintuan?id=f8b9f30d0b63406d8a380e085f8f6792
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 4:03:46-本次请求耗时 17.94 秒.
+Url:http://localhost:56262/user/JoinPinTuan?id=f8b9f30d0b63406d8a380e085f8f6792&mobile=11111111111&name=12&filedJson=
+UrlReferrer:http://localhost:56262/user/pintuan?id=f8b9f30d0b63406d8a380e085f8f6792
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 4:05:55-本次请求耗时 36.317 秒.
+Url:http://localhost:56262/user/JoinPinTuan?id=f8b9f30d0b63406d8a380e085f8f6792&mobile=11111111111&name=12&filedJson=
+UrlReferrer:http://localhost:56262/user/pintuan?id=f8b9f30d0b63406d8a380e085f8f6792
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 4:07:39-本次请求耗时 12.106 秒.
+Url:http://localhost:56262/user/JoinPinTuan?id=f8b9f30d0b63406d8a380e085f8f6792&mobile=11111111111&name=12&filedJson=
+UrlReferrer:http://localhost:56262/user/pintuan?id=f8b9f30d0b63406d8a380e085f8f6792
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 4:15:12-本次请求耗时 28.236 秒.
+Url:http://localhost:56262/
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 4:16:48-本次请求耗时 4.898 秒.
+Url:http://localhost:56262/user/actlist
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 4:16:48-本次请求耗时 4.898 秒.
+Url:http://localhost:56262/User/ActList
+UserHostAddress:::1;;
+WebServer:::1
+
+

@@ -43,7 +43,7 @@ namespace WST.Web.Framework
 
         
 
-        public ActionResult _505()
+        public ActionResult _500()
         {
             return View();
         }

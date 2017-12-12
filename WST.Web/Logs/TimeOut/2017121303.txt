@@ -1,0 +1,25 @@
+Time:2017/12/13 3:11:53-本次请求耗时 11.544 秒.
+Url:http://localhost:50979/pintuan/manage
+UrlReferrer:http://localhost:50979/PinTuan/Manage?id=f56a2205b5e64c18852f774ecf8ba2e2
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 3:47:00-本次请求耗时 11.763 秒.
+Url:http://localhost:50979/user/pintuan?id=f8b9f30d0b63406d8a380e085f8f6792
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 3:48:37-本次请求耗时 5.008 秒.
+Url:http://localhost:50979/user/pintuan?id=f8b9f30d0b63406d8a380e085f8f6792
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 3:51:41-本次请求耗时 2.2 秒.
+Url:http://localhost:50979/user/pintuan?id=f8b9f30d0b63406d8a380e085f8f6792
+UserHostAddress:::1;;
+WebServer:::1
+
+

@@ -1,0 +1,28 @@
+Time:2017/12/12 23:44:20-本次请求耗时 38.579 秒.
+Url:http://localhost:50979/pintuan/add
+UrlReferrer:http://localhost:50979/pintuan/add
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/12 23:45:04-本次请求耗时 16.771 秒.
+Url:http://localhost:50979/pintuan/add
+UrlReferrer:http://localhost:50979/pintuan/add
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/12 23:57:02-本次请求耗时 28.33 秒.
+Url:http://localhost:50979/pintuan/add
+UrlReferrer:http://localhost:50979/pintuan/add
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/12 23:58:47-本次请求耗时 17.394 秒.
+Url:http://localhost:50979/pintuan/add
+UrlReferrer:http://localhost:50979/pintuan/add
+UserHostAddress:::1;;
+WebServer:::1
+
+

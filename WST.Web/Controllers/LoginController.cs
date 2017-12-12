@@ -52,7 +52,8 @@ namespace WST.Web.Controllers
                 Account = "宸默先生",
                 HeadImgUrl = "http://wx.qlogo.cn/mmhead/XFJ8HdGGwGAP0g9KE2BuxsmsGJzfRQP2tic1RHCxpQGZMnCbF7hOwMA/0",
                 IsMember=true,
-                EndTime=DateTime.Now.AddYears(2)
+                Openid= "ojLuqwikV8T-nCd2VMAihJEqSOzw",
+                EndTime =DateTime.Now.AddYears(2)
             };
             return RedirectToAction("Index", "Home");
         }

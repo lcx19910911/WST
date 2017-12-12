@@ -20,7 +20,7 @@ namespace WST.Web.Framework.Filters
             filterContext.ExceptionHandled = true;
             
             LogHelper.WriteException(ex);
-            RedirectResult redirectResult = new RedirectResult("/base/_505");
+            RedirectResult redirectResult = new RedirectResult("/base/_500");
             filterContext.Result = redirectResult;
         }
     }

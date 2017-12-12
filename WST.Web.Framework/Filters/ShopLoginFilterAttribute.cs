@@ -23,7 +23,7 @@ namespace WST.Web.Framework.Filters
 
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
-            var controller = filterContext.Controller as BaseUserController;
+            var controller = filterContext.Controller as BaseShopController;
 
             if (!controller.LoginUser.IsMember)
             {

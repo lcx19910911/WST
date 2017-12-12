@@ -21,6 +21,7 @@ namespace WST.Core.Model
             this.HeadImgUrl = user.HeadImgUrl;
             this.IsMember = user.IsMember;
             this.EndTime = user.EndTime;
+            this.Openid = user.OpenID;
         }
 
         public LoginUser(Admin admin,string menuIDStr,string opreateSrt)
@@ -41,6 +42,11 @@ namespace WST.Core.Model
         /// 
         /// </summary>
         public string ID { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Openid { get; set; }
         /// <summary>
         /// 账号
         /// </summary>

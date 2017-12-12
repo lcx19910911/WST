@@ -664,6 +664,7 @@
     <Content Include="assets\js\index - 副本.js" />
     <Content Include="assets\js\index.js" />
     <Content Include="assets\js\jquery-2.1.4.min.js" />
+    <Content Include="assets\js\jquery.form.js" />
     <Content Include="assets\js\my.js" />
     <Content Include="assets\js\swiper-3.3.1.jquery.min.js" />
     <Content Include="assets\js\vue-resource.js" />
@@ -814,7 +815,7 @@
     <Content Include="Views\Base\Forbidden.cshtml" />
     <Content Include="Areas\Admin\Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Base\_404.cshtml" />
-    <Content Include="Views\Base\_505.cshtml" />
+    <Content Include="Views\Base\_500.cshtml" />
     <Content Include="Areas\Admin\Views\Login\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Content\fonts\fontawesome-webfont.eot" />
@@ -874,10 +875,9 @@
     <Content Include="Views\Store\Shop.cshtml" />
     <Content Include="Views\Store\Index.cshtml" />
     <Content Include="Views\Store\Location.cshtml" />
-    <Content Include="Views\Course\Index.cshtml" />
     <Content Include="Views\KanJia\Add.cshtml" />
     <Content Include="Views\User\ActList.cshtml" />
-    <Content Include="Views\PinTuan\Add.cshtml" />
+    <Content Include="Views\PinTuan\Manage.cshtml" />
     <Content Include="Views\User\KanJia.cshtml" />
     <Content Include="Views\User\PinTuan.cshtml" />
     <None Include="Web.Debug.config">
@@ -945,7 +945,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:63303/</IISUrl>
+          <IISUrl>http://localhost:56262/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

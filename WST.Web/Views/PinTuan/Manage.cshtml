@@ -1,0 +1,407 @@
+﻿@using WST.Core.Extensions
+@model PinTuan
+@{
+    ViewBag.Title = Model.Name;
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/reset.css?v=pintuan1">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/edit.css?v=pintuan1">
+    <script type="text/javascript" src="~/assets/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/import.js"></script>
+    <script src="~/assets/js/jquery.form.js"></script>
+    <script>
+        $(function () {
+            var music = '@(Model.MusicUrl)'
+            $.ajax({
+                url: '/config/getmusiclist',
+                success: function (data) {
+                    $(data.Result).each(function (i, item) {
+                        if (item.Url == music) {
+                            $(".music-component-wrapper ul").append('<li class="music-list" data-music="' + item.Value + '"><i class="icon icon-music"></i>' + item.Text + '</li>');
+                        }
+                        else {
+                            $(".music-component-wrapper ul").append('<li class="music-list play" data-music="' + item.Value + '"><i class="icon icon-music"></i>' + item.Text + '</li>')
+                        }
+                    })
+                }
+            })
+
+        })
+    </script>
+</head>
+<body>
+    <div class="app l edit">
+        <!-- global -->
+        <div class="global-btn-wrapper">
+            <div class="btn music-btn c-fff f10">
+                <span><i class="icon icon-music"></i> 音乐</span>
+            </div>
+            <!-- <div class="btn effects-btn c-fff f10">
+                <span><i class="icon icon-effects"></i> 特效</span>
+            </div> -->
+            <div class="btn admin-center f08">
+                <a class="c-fff" href="/user/index">个人中心</a>
+            </div>
+        </div>
+
+        <div class="global-component-wrapper">
+            <form class="uploadImgForm hidden" id="uploadImgForm" method="POST" action="/upload/UploadImage" target="exportimg" enctype="multipart/form-data">
+                <input id="uploadImg" type="file" name="upload_file">
+            </form>
+            <iframe class="hidden" id="exportimg" name="exportimg"></iframe>
+
+            <div class="music-component-wrapper hidden">
+                <ul>
+                    @*<!-- data-music: 完整的音乐文件路径 -->
+                        <li class="music-list play" data-music="">无背景音乐</li>
+                        <!-- 音乐列表 -->
+                        <li class="music-list" data-music="http://wst.com/assets/music/music1.mp3"><i class="icon icon-music"></i>音乐1</li>
+                        <li class="music-list" data-music="http://wst.com/assets/music/music2.mp3"><i class="icon icon-music"></i>音乐2</li>
+                        <li class="music-list" data-music="http://wst.com/assets/music/music3.mp3"><i class="icon icon-music"></i>音乐3</li>*@
+
+                    <div class="btn">
+                        <span class="cancel">取消</span>
+                        <span class="sure">确认</span>
+                    </div>
+                </ul>
+            </div>
+
+            <div class="audio-component-wrapper hidden">
+                <audio id="audio" oldsrc="@(Model.MusicUrl)" src="@(Model.MusicUrl)" autoplay="autoplay" preload="preload" loop="loop"></audio>
+            </div>
+        </div>
+
+        <!-- head -->
+        <div class="head-wrapper">
+            <div class="head-bg-wrapper">
+                <img id="banner" src="@(Model.Picture.IsNullOrEmpty()?"../../assets/images/group_booking/banner1.gif":Model.Picture)">
+            </div>
+            <div class="head-bg-edit">
+                <!-- <div class="w47 fl">
+                    <span class="btn c-fff change-bg-btn fr"><i class="icon icon-convert"></i> 换一张</span>
+                </div> -->
+                <div class="w40 m00 mb05">
+                    <label for="uploadImg" data-target="banner" class="uploadImgLabel btn c-fff e-label"><i class="icon icon-convert"></i> 更换</label>
+                </div>
+                <span class="f08 w45 mt05 c-fff txt-left">建议尺寸：640*360</span>
+            </div>
+        </div>
+
+        <!-- title -->
+        <div class="title-wrapper mt15">
+            <div class="m00 w90">
+                <!-- <textarea id="title" class="textarea e-textarea f16 fB txt-center" value="喜迎购物节，课程低价疯狂抢">喜迎购物节，课程低价疯狂抢</textarea> -->
+                <div id="title" contenteditable="true" class="textarea e-textarea f16 fB txt-center">@(Model.ID.IsNullOrEmpty()? "喜迎购物节，课程低价疯狂抢":Model.Name)</div>
+
+                <!-- <p class="v-p f16 fB txt-center"></p> -->
+            </div>
+        </div>
+
+        <!-- activity -->
+        <div class="activity-wrapper mt15">
+            <span for="startTime">活动时间:</span>
+            <input type="text" name="startTime" id="startTime" value="@(Model.ID.IsNullOrEmpty()?"":Model.StartTime.ToString())" class="input e-input timeinput" />
+            <!-- <span class="v-span input timeinput"></span> -->
+            <span>到</span>
+            <input type="text" name="endTime" id="endTime" value="@(Model.ID.IsNullOrEmpty()?"":Model.EndTime.ToString())" class="input e-input timeinput" />
+            <!-- <span class="v-span input timeinput"></span> -->
+        </div>
+
+        <!-- groupBooking -->
+        <div class="groupBooking-wrapper mt15 w90 m10 f11">
+            <div class="groupBooking-list">
+                <span>原价：</span>
+                <input type="text" id="oldPrice" name="oldPrice" class="input e-input w30" value="@(Model.OldPrice==0?999:Model.OldPrice)">
+                <!-- <span class="v-span input w30"></span> -->
+                <span class="">元</span>
+            </div>
+
+            <!-- <div class="groupBooking-list">
+                <span>参与拼团需预付：</span>
+                <input type="text" id="prepay" name="prepay" class="input e-input w20" value="6">
+                <span class="v-span w20 input"></span>
+                <span class="">元</span>
+            </div> -->
+            @if (Model.ID.IsNullOrEmpty())
+            {
+                <div class="groupBooking-list sub-group">
+                    <div class="groupBooking-list-item">
+                        <div class="list-item-left">
+                            <input type="number" id="groupNum1" name="groupNum1" value="3" class="input e-input sub-group-num">
+                            <!-- <span class="v-span input"></span> -->
+                            <span>人团</span>
+                        </div>
+                        <div class="list-item-right">
+                            <span>拼团价</span>
+                            <input type="number" id="groupPrice1" name="groupPrice1" value="800" class="input e-input c-fff sub-group-price">
+                            <!-- <span class="v-span input c-fff"></span> -->
+                            <span>元/人</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="groupBooking-list sub-group">
+                    <div class="groupBooking-list-item">
+                        <div class="list-item-left">
+                            <input type="number" id="groupNum2" name="groupNum2" value="5" class="input e-input sub-group-num">
+                            <!-- <span class="v-span input"></span> -->
+                            <span>人团</span>
+                        </div>
+                        <div class="list-item-right">
+                            <span>拼团价</span>
+                            <input type="number" id="groupPrice2" name="groupPrice2" value="500" class="input e-input c-fff sub-group-price">
+                            <!-- <span class="v-span input c-fff"></span> -->
+                            <span>元/人</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="groupBooking-list sub-group">
+                    <div class="groupBooking-list-item">
+                        <div class="list-item-left">
+                            <input type="number" id="groupNum3" name="groupNum3" value="8" class="input e-input sub-group-num">
+                            <!-- <span class="v-span input"></span> -->
+                            <span>人团</span>
+                        </div>
+                        <div class="list-item-right">
+                            <span>拼团价</span>
+                            <input type="number" id="groupPrice3" name="groupPrice3" value="200" class="input e-input c-fff sub-group-price">
+                            <!-- <span class="v-span input c-fff"></span> -->
+                            <span>元/人</span>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                foreach (var item in Model.PinTuanItemJson.DeserializeJson<List<PinTuanItem>>())
+                {
+                    <div class="groupBooking-list sub-group">
+                        <div class="groupBooking-list-item">
+                            <div class="list-item-left">
+                                <input type="number" id="groupNum1" name="groupNum1" value="@(item.Count)" class="input e-input sub-group-num">
+                                <!-- <span class="v-span input"></span> -->
+                                <span>人团</span>
+                            </div>
+                            <div class="list-item-right">
+                                <span>拼团价</span>
+                                <input type="number" id="groupPrice1" name="groupPrice1" value="@(item.Amount)" class="input e-input c-fff sub-group-price">
+                                <!-- <span class="v-span input c-fff"></span> -->
+                                <span>元/人</span>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>
+
+        <!-- body -->
+        <div class="body-wrapper">
+
+            <div class="model-list goodsDescribe-item">
+                <div class="model-list-title">
+                    <span>商品描述</span>
+                </div>
+                <div class="model-list-body">
+                    @if (Model.ID.IsNotNullOrEmpty())
+                    {
+                        var index = 0;
+                        foreach (var item in Model.GoodsItemsJson.DeserializeJson<List<TypeContentItem>>())
+                        {
+                            if (item.Type == "txt")
+                            {
+                                <div class="uploadImgLabel">
+                                    <div contenteditable="true" id="subIntro_@(index)" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@item.Content</div>
+                                    <p class="v-p"></p><span class="close">x</span>
+                                </div>
+                            }
+                            else
+                            {
+                                <label for="uploadImg" data-target="subIntro_@(index)" class="uploadImgLabel">
+                                    <img id="subIntro_@(index)" class="sub-intro nosrc" data-type="img" src="@(item.Content)" alt="上传图片">
+                                    <span class="close">x</span>
+                                </label>
+                            }
+                        }
+                    }
+                    else
+                    {
+                    <!-- sub-intro: 数据载体  data-type：类型-->
+                        <div class="uploadImgLabel">
+                            <!-- <textarea id="subIntro0" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本"></textarea> -->
+                            <div id="subIntro0" contenteditable="true" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本"></div>
+                            <!-- <p class="v-p"></p> -->
+                            <span class="close">x</span>
+                        </div>
+                        <label for="uploadImg" data-target="subIntro1" class="uploadImgLabel">
+                            <img id="subIntro1" class="sub-intro nosrc" data-type="img" src="" alt="上传图片">
+                            <span class="close">x</span>
+                        </label>
+                    }
+                    <!-- <textarea id="goodsDescribe3" data-type="video" class="sub-intro textarea e-textarea" placeholder="请输入视频地址"></textarea> -->
+                    <!-- <p class="v-p"></p> -->
+
+                    <div class="add-child">
+                        <span class="addtxt" add-type="txt">添加文本</span>
+                        <span class="addimg" add-type="img">添加图片</span>
+                        <!-- <span class="addvideo" add-type="video">添加视频</span> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="model-list activityRule-item">
+                <div class="model-list-title">
+                    <span>活动规则</span>
+                </div>
+                <div class="model-list-body">
+                    <!-- <textarea id="rules" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本"></textarea> -->
+                    <div id="rules" contenteditable="true" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@(Model.Rules)</div>
+                    <!-- <textarea id="" class="textarea e-textarea">1、点击底部按钮“我要开团”进行开团报名					2、注意填写真实姓名和电话。					3、评团成功联系商家安平图案价格消费。					4、本次活动优惠限量，超出无效。</textarea> -->
+                    <!-- <p class="v-p"></p> -->
+                </div>
+            </div>
+
+            <div class="model-list acceptPrize-item">
+                <div class="model-list-title">
+                    <span>领取信息</span>
+                </div>
+                <div class="model-list-body">
+                    <!-- <textarea id="connact" class="textarea e-textarea" placeholder="输入领奖信息方便用户领奖，例：领奖时间、领奖地址、领奖电话"></textarea> -->
+                    <div id="connact" contenteditable="true" class="textarea e-textarea" placeholder="输入领奖信息方便用户领奖，例：领奖时间、领奖地址、领奖电话">@(Model.Connact)</div>
+                    <!-- <p class="v-p"></p> -->
+                </div>
+            </div>
+
+            <div class="model-list introduce-item">
+                <div class="model-list-title">
+                    <span>商家介绍</span>
+                </div>
+                <div class="model-list-body">
+                    @if (Model.ID.IsNotNullOrEmpty())
+                    {
+                        var index = 0;
+                        foreach (var item in Model.IntroduceTxtJson.DeserializeJson<List<TypeContentItem>>())
+                        {
+                            if (item.Type == "txt")
+                            {
+                    <div class="uploadImgLabel">
+                        <div contenteditable="true" id="subIntro_@(index)" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@item.Content</div>
+                        <p class="v-p"></p><span class="close">x</span>
+                    </div>
+                            }
+                            else if (item.Type == "img")
+                            {
+                    <label for="uploadImg" data-target="subIntro_@(index)" class="uploadImgLabel">
+                        <img id="subIntro_@(index)" class="sub-intro nosrc" data-type="img" src="@(item.Content)" alt="上传图片">
+                        <span class="close">x</span>
+                    </label>
+                            }
+                        }
+                    }
+                    else
+                    {
+                    <div class="uploadImgLabel">
+                        <!-- <textarea id="subIntro3" data-type="txt" class="sub-intro textarea e-textarea" placeholder="此处填写机构介绍"></textarea> -->
+                        <div id="subIntro3" contenteditable="true" data-type="txt" class="sub-intro textarea e-textarea" placeholder="此处填写机构介绍"></div>
+                        <!-- <p class="v-p"></p> -->
+                        <span class="close">x</span>
+                    </div>
+                    }
+                    <div class="add-child">
+                        <span class="addtxt" add-type="txt">添加文本</span>
+                        <span class="addimg" add-type="img">添加图片</span>
+                        <!-- <span class="addvideo" add-type="video">添加视频</span> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="model-list phone-item">
+                <div class="model-list-title">
+                    <span>咨询电话</span>
+                </div>
+                <div class="model-list-body pb10">
+                    <div class="phone-number txt-left">
+                        <i class="icon icon-hotline f12"></i>
+                        <input id="phoneNumber" type="number" class="input e-input" min="199999999999" max="199999999999" placeholder="请输入手机号码" value="@(Model.PhoneNumber)">
+                        <!-- <span class="v-span"></span> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- foot -->
+        <div class="foot-wrapper">
+            <!-- <div class="button apply-btn">我要参团</div> -->
+            <div class="w47 fl">
+                <div class="button view-btn fr" data-status="view">预览活动</div>
+            </div>
+            <div class="w47 fr">
+                <div class="button save-btn fl">保存活动</div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="form hidden">
+        <form id="submit-form" class="submit-form" method="POST" action="/pintuan/add" target="export" enctype="multipart/form-data">
+
+            <input type="text" name="ID" value="@(Model.ID.IsNullOrEmpty()?"":Model.ID)">
+            <!-- 大图 -->
+            <input type="text" name="Picture" class="Picture required" data-required="请上传图片">
+
+            <!-- 活动名称(大标题) -->
+            <input type="text" name="Name" class="Name required" data-required="请填写大标题（活动名称）">
+
+            <!-- 开始时间 -->
+            <input type="text" name="StartTime" class="StartTime required" data-required="请选择活动开始时间">
+
+            <!-- 结束时间 -->
+            <input type="text" name="EndTime" class="EndTime required" data-required="请选择活动结束时间">
+
+            <!-- 原价 -->
+            <input type="text" name="OldPrice" class="OldPrice required" data-required="请填写原价">
+
+            <!-- 拼团人数和价格json集合 -->
+            <input type="text" name="PinTuanItemJSON" class="PinTuanItemJSON required" data-required="请上传图片">
+
+            <!-- 拼团描述 -->
+            <!-- <input type="text" name="PinTuanItemInfo" class="PinTuanItemInfo"> -->
+            <!-- 商品json集合 -->
+            <input type="text" name="GoodsItemsJson" class="GoodsItemsJson required" data-required="请填写商品描述">
+
+            <!-- 规则 -->
+            <input type="text" name="Rules" class="Rules required" data-required="请填写活动规则">
+
+            <!-- 商家介绍集合 -->
+            <input type="text" name="IntroduceTxtJson" class="IntroduceTxtJson required" data-required="请填写商家介绍">
+
+            <!-- 商家介绍图片集合 -->
+            <!-- <input type="text" name="IntroducePicturesJson" class="IntroducePicturesJson"> -->
+            <!-- 商家介绍视频集合 -->
+            <!-- <input type="text" name="IntroduceVediosJson" class="IntroduceVediosJson"> -->
+            <!-- 联系 -->
+            <input type="text" name="Connact" class="Connact required" data-required="请填写领取信息">
+
+            <!-- 咨询电话 -->
+            <input type="text" name="PhoneNumber" class="phoneNumber required" data-required="请填写咨询电话">
+
+
+            <!-- 背景音乐 -->
+            <input type="text" name="MusicUrl" class="MusicUrl">
+
+            <!-- 特效名称 -->
+            <!-- <input type="text" name="FunctionName" class="FunctionName"> -->
+            <!-- 特效方向 -->
+            <!-- <input type="text" name="Direction" class="Direction"> -->
+
+        </form>
+    </div>
+</body>
+</html>

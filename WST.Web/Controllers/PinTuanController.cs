@@ -26,86 +26,83 @@ namespace WST.Web.Controllers
             return View();
         }
 
-        /// <summary>
-        /// 新增
-        /// </summary>
-        /// <param name="entity"></param>
-        /// <returns></returns>
-        [ValidateInput(false)]
-        public JsonResult Add(PinTuan entity)
+        public ViewResult Manage(string id)
         {
-            ModelState.Remove("ID");
-            ModelState.Remove("CreatedTime");
-            ModelState.Remove("UpdatedTime");
-            ModelState.Remove("IsDelete");
-            ModelState.Remove("IsNeedPay");
-            ModelState.Remove("IsNeedReport");
-            if (ModelState.IsValid)
-            {
-                entity.IsNeedPay = true;
-                entity.IsNeedReport = false;
-                entity.UserID = LoginUser.ID;
-                entity.CreatedTime = entity.UpdatedTime = DateTime.Now;
-                return JResult(IPinTuanService.Add(entity));
-            }
+            if (id.IsNullOrEmpty())
+                return View(new PinTuan());
             else
-            {
-                return ParamsErrorJResult(ModelState);
-            }
+                return View(IPinTuanService.Find(id));
         }
-
         /// <summary>
-        /// 修改
+        /// 编辑
         /// </summary>
         /// <param name="entity"></param>
         /// <returns></returns>
         [ValidateInput(false)]
-        public JsonResult Update(PinTuan entity)
+        [HttpPost]
+        public JsonResult Manage(PinTuan entity)
         {
             ModelState.Remove("CreatedTime");
             ModelState.Remove("UpdatedTime");
             ModelState.Remove("IsDelete");
             ModelState.Remove("IsNeedPay");
             ModelState.Remove("IsNeedReport");
+            ModelState.Remove("UserID");
             if (ModelState.IsValid)
             {
-                var model = IPinTuanService.Find(entity.ID);
-                if (model == null || (model != null && model.IsDelete))
+                if (entity.ID.IsNullOrEmpty())
                 {
-                    return DataErorrJResult();
+                    entity.IsNeedPay = true;
+                    entity.IsNeedReport = false;
+                    entity.UserID = LoginUser.ID;
+                    entity.CreatedTime = entity.UpdatedTime = DateTime.Now;
+                    entity.ID = Guid.NewGuid().ToString("N");
+                    if (IPinTuanService.Add(entity) > 0)
+                        return JResult(entity.ID);
+                    else
+                        return DataErorrJResult();
                 }
-                if (model.UserID != LoginUser.ID)
+                else
                 {
-                    return DataErorrJResult();
-                }
+                    var model = IPinTuanService.Find(entity.ID);
+                    if (model == null || (model != null && model.IsDelete))
+                    {
+                        return DataErorrJResult();
+                    }
+                    if (model.UserID != LoginUser.ID)
+                    {
+                        return DataErorrJResult();
+                    }
 
-                if (IPinTuanService.IsExits(x => x.Name == entity.Name && x.ID != entity.ID))
-                {
-                    return JResult(Core.Code.ErrorCode.store_city__namealready_exist, "");
+                    //if (IPinTuanService.IsExits(x => x.Name == entity.Name && x.ID != entity.ID))
+                    //{
+                    //    return JResult(Core.Code.ErrorCode.store_city__namealready_exist, "");
+                    //}
+                    model.PhoneNumber = entity.PhoneNumber;
+                    model.Name = entity.Name;
+                    model.Picture = entity.Picture;
+                    model.StartTime = entity.StartTime;
+                    model.EndTime = entity.EndTime;
+                    model.Amount = entity.Amount;
+                    model.Connact = entity.Connact;
+                    model.Rules = entity.Rules;
+                    model.MusicUrl = entity.MusicUrl;
+                    model.FunctionName = entity.FunctionName;
+                    model.OldPrice = entity.OldPrice;
+                    model.IntroduceTxtJson = entity.IntroduceVediosJson;
+                    model.IntroducePicturesJson = entity.IntroducePicturesJson;
+                    model.IntroduceVediosJson = entity.IntroduceVediosJson;
+                    model.Direction = entity.Direction;
+                    var result = IPinTuanService.Update(model);
+                    return JResult(result);
                 }
-
-                model.Name = entity.Name;
-                model.Picture = entity.Picture;
-                model.StartTime = entity.StartTime;
-                model.EndTime = entity.EndTime;
-                model.Amount = entity.Amount;
-                model.Connact = entity.Connact;
-                model.Rules = entity.Rules;
-                model.MusicUrl = entity.MusicUrl;
-                model.FunctionName = entity.FunctionName;
-                model.OldPrice = entity.OldPrice;
-                model.IntroduceTxtJson = entity.IntroduceVediosJson;
-                model.IntroducePicturesJson = entity.IntroducePicturesJson;
-                model.IntroduceVediosJson = entity.IntroduceVediosJson;
-                model.Direction = entity.Direction;
-                var result = IPinTuanService.Update(model);
-                return JResult(result);
             }
             else
             {
                 return ParamsErrorJResult(ModelState);
             }
         }
+        
 
 
         /// <summary>

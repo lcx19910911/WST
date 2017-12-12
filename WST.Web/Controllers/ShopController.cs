@@ -116,20 +116,27 @@ namespace WST.Web.Controllers
                 {
                     return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
                 }
-                var priceDic = model.PinTuanItemJson.DeserializeJson<List<PinTuanItem>>().OrderBy(x => x.Count).ToDictionary(x => x.Count);
+                var priceList = model.PinTuanItemJson.DeserializeJson<List<PinTuanItem>>().OrderBy(x => x.Count).ToList();
+                var countList = priceList.Select(x => x.Count).ToList();
                 var price = 0M;
-                for (var index = 1; index <= priceDic.Count; index++)
+                for (var index = 1; index <= countList.Count; index++)
                 {
-                    if (index < priceDic.Count)
+                    if (index < countList.Count)
                     {
-                        if (model.JoinCount > priceDic[index - 1].Count && model.JoinCount < priceDic[index].Count)
+                        if (model.JoinCount < countList[index - 1])
                         {
-                            price = priceDic[index - 1].Amount;
+                            price = priceList[index - 1].Amount;
+                            break;
+                        }
+                        else if (model.JoinCount > countList[index - 1] && model.JoinCount < countList[index])
+                        {
+                            price = priceList[index - 1].Amount;
+                            break;
                         }
                     }
                     else
                     {
-                        price = priceDic[index - 1].Amount;
+                        price = priceList[index - 1].Amount;
                     }
                 }
                 userActivityModel.Amount = price;

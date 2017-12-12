@@ -10,7 +10,7 @@ html {
 }
 
 /*global-wrapper*/
-.global-btn-wrapper {
+.global-btn-wrapper, .global-component-wrapper {
     width: 0;
     height: 0;
 }
@@ -40,6 +40,71 @@ html {
     padding: 0.5em;
     line-height: 1em;
 }
+
+
+/*music-component-wrapper*/
+.music-component-wrapper {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 5em 2em;
+    background: rgba(0,0,0,.6);
+    z-index: 1000;
+}
+.music-component-wrapper ul {
+    position: relative;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    padding: 0 1em;
+}
+.music-component-wrapper ul li {
+    line-height: 2.5em;
+    text-align: left;
+    text-indent: 1.5em;
+    font-size: 1.2em;
+    color: #ccc;
+    border-bottom: 1px dashed #eee;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.music-component-wrapper ul .play {
+    color: #608DA4;
+}
+.music-component-wrapper ul li .icon {
+    margin-right: 0.5em;
+}
+.music-component-wrapper ul .btn {
+    position: absolute;
+    overflow: hidden;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3em;
+    line-height: 3em;
+    border-top: 1px solid #608DA4;
+}
+.music-component-wrapper ul .btn span {
+    float: left;
+    width: 50%;
+    text-align: center;
+    font-size: 1.1em;
+    background: #608DA4;
+    color: #fff;
+}
+.music-component-wrapper ul .btn .cancel {
+    -webkit-box-shadow: 1px 0 0 0 #608DA4;
+    box-shadow: 1px 0 0 0 #608DA4;
+    background: #fff;
+    color: #608DA4;
+}
+
 
 /*head-wrapper*/
 .head-wrapper {
@@ -73,10 +138,21 @@ html {
     padding: 0.2em 0.8em;
 }
 
+.head-bg-standby {
+
+}
+
+
 
 /*title-wrapper*/
 .title-wrapper {
     
+}
+.title-wrapper *, .l .textarea, .l .input, .icon, .v-p, .v-span {
+    color: #f00;
+}
+.music-btn .icon, .head-bg-edit .icon {
+    color: #fff;
 }
 
 
@@ -139,8 +215,15 @@ html {
     font-size: 1.2em;
     font-weight: bold;
     text-align: center;
-    background: url(../images/group_booking/title1.png) center center no-repeat;
+    background: url(../images/group_booking/title_bottom1.png) center bottom no-repeat;
     background-size: 100% auto;
+}
+.model-list-title span {
+    display: block;
+    width: 10em;
+    margin: 0 auto;
+    background: url(../images/group_booking/title_top1.png) left center no-repeat;
+    background-size: auto 90%;
 }
 .model-list-body {
     text-align: center;
@@ -148,22 +231,22 @@ html {
     overflow: hidden;
     width: 94%;
     margin: 1em auto 0;
-    padding: 5%;
+    padding: 5% 5% 0%;
     border: 0.1rem solid #EDD1AB;
     border-radius: 6px;
 }
 .model-list-body .textarea {
     text-align: left;
     min-height: 6em;
+    margin-bottom: 1em;
 }
 .model-list-body .v-p {
     text-align: left;
 }
 .model-list-body img {
     width: 100%;
-    margin-top: 1em;
 }
-.model-list-body .upload-img-label {
+/*.model-list-body .upload-img-label {
     overflow: hidden;
     display: block;
     width: 100%;
@@ -174,7 +257,7 @@ html {
     margin-top: 1em;
     background: url('../img/add.svg') center 1em no-repeat;
     background-size: 15%;
-}
+}*/
 .phone-number .icon {
     vertical-align: top;
     margin: 0;
@@ -211,16 +294,95 @@ html {
     border: 1px solid #ccc;
 }
 
+
 /*foot-wrapper end*/
+
+
+.add-child {
+    padding-bottom: 1em;
+    overflow: hidden;
+}
+.add-child span {
+    float: left;
+    /*width: 30%;*/
+    /*margin-right: 4.95%;*/
+    width: 45%;
+    margin-right: 10%;
+    height: 2.5em;
+    text-align: center;
+    line-height: 2.5em;
+    color: #fff;
+    border-radius: 3px;
+    background: #F6865A;
+}
+.add-child .addimg {
+    margin-right: 0;
+}
+.add-child .addvideo {
+    margin-right: 0;
+}
+
+
+.model-list-body .uploadImgLabel {
+    margin-bottom: 1em;
+}
+.uploadImgLabel {
+    position: relative;
+    display: block;
+}
+.uploadImgLabel .nosrc {
+    border: 1px dashed #ccc;
+    width: 100%;
+    height: 9em;
+    overflow: hidden;
+    line-height: 15em;
+    font-size: 0.9em;
+    color: #aaa;
+    background: url(../img/add.svg) center 1em no-repeat;
+    background-size: 20% ;
+    display: block;
+    box-sizing: border-box;
+}
+.uploadImgLabel .close {
+    position: absolute;
+    right: -0.7em;
+    top: 0.2em;
+    width: 1.7em;
+    height: 1.7em;
+    line-height: 1.5em;
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    font-size: 1.5em;
+    background: rgba(0,0,0,0.6);
+}
+
+.v-p {
+    margin-bottom: 1em;
+}
 .v-span {
     display: inline-block;
 }
-.view .e-input, .view .e-textarea, .view .e-label {
-    display: none !important;
+.view .e-input, .view .e-textarea {
+    min-height: auto!important;
+    border: 0!important;
 }
-.edit .v-span, .edit .v-p {
-    display: none !important;
+.l .textarea * {
+    font-size: inherit!important;
 }
-.v-span, .v-p {
+.view .e-label, .view .add-child, .view .close, .view .global-btn-wrapper, .view .head-bg-edit {
+    display: none!important;
+}
+.view .uploadImgLabel img {
+    background: none!important;
+    height: auto!important;
+    line-height: 0!important;
+    border: 0!important;
+}
+
+/*.edit .v-span, .edit .v-p {
+    display: none !important;
+}*/
+/*.v-span, .v-p {
     border-color: transparent!important;
-}
+}*/

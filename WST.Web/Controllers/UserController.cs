@@ -44,7 +44,7 @@ namespace WST.Web.Controllers
             var user = IUserService.Find(LoginUser.ID);
             if (user != null)
             {
-               
+
             }
             else
             {
@@ -85,7 +85,7 @@ namespace WST.Web.Controllers
             {
                 return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
             }
-            if (model.StartTime < DateTime.Now || model.EndTime > model.EndTime)
+            if ((model.StartTime < DateTime.Now&&model.EndTime < DateTime.Now) || (model.EndTime > DateTime.Now&&model.StartTime>DateTime.Now))
             {
                 return JResult(Core.Code.ErrorCode.activity_time_out, "");
             }
@@ -99,33 +99,42 @@ namespace WST.Web.Controllers
                 return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
             }
             model.JoinCount++;
-            var priceDic = itemList.OrderBy(x => x.Count).ToDictionary(x => x.Count);
+            IPinTuanService.Update(model);
+            var priceList = model.PinTuanItemJson.DeserializeJson<List<PinTuanItem>>().OrderBy(x => x.Count).ToList();
+            var countList = priceList.Select(x => x.Count).ToList();
             var price = 0M;
-            for (var index = 1; index <= priceDic.Count; index++)
+            for (var index = 1; index <= countList.Count; index++)
             {
-                if (index < priceDic.Count)
+                if (index < countList.Count)
                 {
-                    if (model.JoinCount > priceDic[index - 1].Count && model.JoinCount < priceDic[index].Count)
+                    if (model.JoinCount < countList[index - 1])
                     {
-                        price = priceDic[index - 1].Amount;
+                        price = priceList[index - 1].Amount;
+                        break;
+                    }
+                    else if (model.JoinCount > countList[index - 1] && model.JoinCount < countList[index])
+                    {
+                        price = priceList[index - 1].Amount;
+                        break;
                     }
                 }
                 else
                 {
-                    price = priceDic[index - 1].Amount;
+                    price = priceList[index - 1].Amount;
                 }
             }
             return JResult(IUserActivityService.Add(new UserActivity()
             {
                 Code = TargetCode.Pintuan,
                 JoinUserID = LoginUser.ID,
+                Openid =LoginUser.Openid,
                 JoinUserName = name,
                 IsPrize = false,
                 PrizeInfo = $"团购价{price}",
                 ShopUserID = model.UserID,
                 Mobile = mobile,
                 TargetID = id,
-                FiledItemJson=filedJson
+                FiledItemJson = filedJson
             }));
         }
 
@@ -141,7 +150,7 @@ namespace WST.Web.Controllers
             {
                 return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
             }
-            if (model.StartTime < DateTime.Now || model.EndTime > model.EndTime)
+            if ((model.StartTime < DateTime.Now && model.EndTime < DateTime.Now) || (model.EndTime > DateTime.Now && model.StartTime > DateTime.Now))
             {
                 return JResult(Core.Code.ErrorCode.activity_time_out, "");
             }
@@ -156,16 +165,17 @@ namespace WST.Web.Controllers
             return JResult(IUserActivityService.Add(new UserActivity()
             {
                 Code = TargetCode.Kanjia,
+                Openid = LoginUser.Openid,
                 JoinUserID = LoginUser.ID,
                 JoinUserName = name,
-                Amount=model.OldPrice,
+                Amount = model.OldPrice,
                 IsPrize = true,
                 IsUsedOnLine = false,
                 PrizeInfo = $"用户{LoginUser.Account}创建砍价{model.Name}，原价{model.OldPrice}",
                 ShopUserID = model.UserID,
                 Mobile = mobile,
                 TargetID = id,
-                FiledItemJson=filedJson
+                FiledItemJson = filedJson
             }));
         }
 
@@ -179,7 +189,21 @@ namespace WST.Web.Controllers
         /// <returns></returns>
         public ActionResult GetActPageList(int pageIndex, int pageSize, string targetId)
         {
-            return JResult(IUserActivityService.GetPageList(pageIndex, pageSize, targetId,"", LoginUser.ID, "", null));
+            return JResult(IUserActivityService.GetPageList(pageIndex, pageSize, targetId, "", LoginUser.ID, "", null));
+        }
+
+
+        /// <summary>
+        /// 获取分页列表
+        /// </summary>
+        /// <param name="pageIndex">页码</param>
+        /// <param name="pageSize">分页大小</param>
+        /// <param name="key"> 搜索项</param>
+        /// <param name="value">搜索项</param>
+        /// <returns></returns>
+        public ActionResult GetUserPageList(int pageIndex, int pageSize, string targetId)
+        {
+            return JResult(IUserActivityService.GetPageList(pageIndex, pageSize, targetId, "", "", "", null));
         }
 
         /// <summary>
@@ -196,16 +220,16 @@ namespace WST.Web.Controllers
                 return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
             }
             var model = IKanJiaService.Find(x => x.ID == userActivityModel.TargetID);
-            if (model.StartTime < DateTime.Now || model.EndTime > model.EndTime)
+            if ((model.StartTime < DateTime.Now && model.EndTime < DateTime.Now) || (model.EndTime > DateTime.Now && model.StartTime > DateTime.Now))
             {
                 return JResult(Core.Code.ErrorCode.activity_time_out, "");
             }
             var startTime = DateTime.Now.AddHours(-(model.LimitHour));
-            if (IUserActivityService.IsExits(x => x.TargetID == userActivityModel.TargetID && x.TargetUserID ==LoginUser.ID&&x.CreatedTime> startTime))
+            if (IUserActivityService.IsExits(x => x.TargetID == userActivityModel.TargetID && x.TargetUserID == LoginUser.ID && x.CreatedTime > startTime))
             {
                 return JResult(Core.Code.ErrorCode.time_limit_error, "");
             }
-            if (IUserActivityService.GetCount(x => x.TargetID == userActivityModel.TargetID&&!string.IsNullOrEmpty(x.TargetUserID))<model.CountLimit)
+            if (IUserActivityService.GetCount(x => x.TargetID == userActivityModel.TargetID && !string.IsNullOrEmpty(x.TargetUserID)) < model.CountLimit)
             {
                 return JResult(Core.Code.ErrorCode.count_limit_error, "");
             }
@@ -218,8 +242,9 @@ namespace WST.Web.Controllers
             var toKanjiaModel = new UserActivity()
             {
                 Code = TargetCode.Kanjia,
-                TargetUserID=LoginUser.ID,
-                IsPrize =false,
+                TargetUserID = LoginUser.ID,
+                Openid = LoginUser.Openid,
+                IsPrize = false,
                 IsUsedOnLine = false,
                 PrizeInfo = $"用户{LoginUser.Account}帮助用户{userActivityModel.JoinUserName}创建砍价{model.OncePrice}，现价{userActivityModel.Amount}",
                 ShopUserID = model.UserID,
@@ -233,20 +258,19 @@ namespace WST.Web.Controllers
 
         public ActionResult ActList()
         {
-            var model = new List<Tuple<string, string, string, DateTime, DateTime, bool, string, TargetCode>>();
+            var model = new List<Tuple<string, string, string, DateTime, DateTime, bool,TargetCode>>();
             if (LoginUser.IsMember)
             {
                 var kanjiaList = IKanJiaService.GetList(x => x.UserID == LoginUser.ID).Select(x =>
                 {
-                    return new Tuple<string, string, string, DateTime, DateTime, bool, string, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, "/user/kanjia?id=" + x.ID, TargetCode.Kanjia);
+                    return new Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete,TargetCode.Kanjia);
                 }).ToList();
                 model.AddRange(kanjiaList);
-
-                var pintuanList = IPinTuanService.GetList(x => x.UserID == LoginUser.ID).Select(x =>
+                var list = IPinTuanService.GetList(x => x.UserID == LoginUser.ID);
+                list.ForEach(x=>
                 {
-                    return new Tuple<string, string, string, DateTime, DateTime, bool, string, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, "/user/pintuan?id=" + x.ID, TargetCode.Pintuan);
-                }).ToList();
-                model.AddRange(pintuanList);
+                     model.Add(new Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, TargetCode.Pintuan));
+                });
             }
             else
             {
@@ -255,17 +279,18 @@ namespace WST.Web.Controllers
                 var pintuanIdList = actIdList.Where(x => x.Code == TargetCode.Kanjia).Select(x => x.TargetID).ToList();
                 var kanjiaList = IKanJiaService.GetList(x => kanjiaIdList.Contains(x.ID)).Select(x =>
                 {
-                    return new Tuple<string, string, string, DateTime, DateTime, bool, string, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, "/user/kanjia?id=" + x.ID, TargetCode.Kanjia);
+                    return new Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, TargetCode.Kanjia);
                 }).ToList();
                 model.AddRange(kanjiaList);
 
                 var pintuanList = IPinTuanService.GetList(x => kanjiaIdList.Contains(x.ID)).Select(x =>
                 {
-                    return new Tuple<string, string, string, DateTime, DateTime, bool, string, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, "/user/pintuan?id=" + x.ID, TargetCode.Pintuan);
+                    return new Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, TargetCode.Pintuan);
                 }).ToList();
                 model.AddRange(pintuanList);
             }
-            return View(model);
+            ViewBag.List = model;
+            return View();
         }
 
 
@@ -276,9 +301,39 @@ namespace WST.Web.Controllers
         }
 
         // GET: User
-        public ActionResult Pintuan()
+        public ActionResult Pintuan(string id)
         {
-            return View();
+            var model = IPinTuanService.Find(id);
+            if (model == null || model.IsDelete)
+            {
+                return Forbidden();
+            }
+
+            var priceList = model.PinTuanItemJson.DeserializeJson<List<PinTuanItem>>().OrderBy(x => x.Count).ToList();
+            var countList = priceList.Select(x=>x.Count).ToList();
+            var price = 0M;
+            for (var index = 1; index <= countList.Count; index++)
+            { 
+                if (index < countList.Count)
+                {
+                    if (model.JoinCount < countList[index - 1])
+                    {
+                        price = priceList[index - 1].Amount;
+                        break;
+                    }
+                    else if (model.JoinCount > countList[index - 1] && model.JoinCount < countList[index])
+                    {
+                        price = priceList[index-1].Amount;
+                        break;
+                    }
+                }
+                else
+                {
+                    price = priceList[index - 1].Amount;
+                }
+            }
+            ViewBag.Price = price;
+            return View(model);
         }
     }
 }

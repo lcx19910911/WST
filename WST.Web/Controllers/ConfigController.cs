@@ -34,15 +34,13 @@ namespace WST.Web.Controllers
             this.IRechargePlanService = _IRechargePlanService;
             this.IMusicService = _IMusicService;
         }
-
-        [HttpPost]
+    
         public ActionResult GetFuncList()
         {
             return JResult(IDataDictionaryService.GetSelectList(GroupCode.Function,""));
         }
 
-
-        [HttpPost]
+        
         public ActionResult GetMusicList()
         {
             return JResult(IMusicService.GetSelectList());

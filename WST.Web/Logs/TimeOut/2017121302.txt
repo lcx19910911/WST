@@ -1,0 +1,21 @@
+Time:2017/12/13 2:43:19-本次请求耗时 5.351 秒.
+Url:http://localhost:50979/pintuan/manage
+UrlReferrer:http://localhost:50979/pintuan/manage
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 2:44:02-本次请求耗时 13.058 秒.
+Url:http://localhost:50979/pintuan/manage
+UrlReferrer:http://localhost:50979/pintuan/manage
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 2:50:14-本次请求耗时 25.116 秒.
+Url:http://localhost:50979/pintuan/manage
+UrlReferrer:http://localhost:50979/pintuan/manage
+UserHostAddress:::1;;
+WebServer:::1
+
+
