@@ -57,14 +57,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ICarouselService.cs" />
     <Compile Include="IMusicService.cs" />
     <Compile Include="IKanJiaService.cs" />
-    <Compile Include="IUserActivityService.cs" />
-    <Compile Include="ICarouselService.cs" />
-    <Compile Include="IPinTuanService.cs" />
-    <Compile Include="IUserWechatService.cs" />
-    <Compile Include="ITemplateService.cs" />
-    <Compile Include="ITemplateCategoryService.cs" />
     <Compile Include="IAdviserService.cs" />
     <Compile Include="IAdminService.cs" />
     <Compile Include="IActivityCategoryService.cs" />
@@ -72,12 +67,17 @@
     <Compile Include="IOperateService.cs" />
     <Compile Include="IMenuService.cs" />
     <Compile Include="IPayOrderService.cs" />
+    <Compile Include="IPinTuanService.cs" />
     <Compile Include="IRechargePlanService.cs" />
     <Compile Include="IRoleService.cs" />
+    <Compile Include="ITemplateCategoryService.cs" />
+    <Compile Include="ITemplateService.cs" />
     <Compile Include="IUEditorService.cs" />
     <Compile Include="IDataDictionaryService.cs" />
     <Compile Include="IBaseService.cs" />
+    <Compile Include="IUserActivityService.cs" />
     <Compile Include="IUserService.cs" />
+    <Compile Include="IUserWechatService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

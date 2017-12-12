@@ -58,14 +58,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CarouselService.cs" />
     <Compile Include="MusicService.cs" />
     <Compile Include="KanJiaService.cs" />
-    <Compile Include="UserActivityService.cs" />
-    <Compile Include="CarouselService.cs" />
-    <Compile Include="PinTuanService.cs" />
-    <Compile Include="UserWechatService.cs" />
-    <Compile Include="TemplateService.cs" />
-    <Compile Include="TemplateCategoryService.cs" />
     <Compile Include="AdvisernService.cs" />
     <Compile Include="AdminService.cs" />
     <Compile Include="ActivityCategoryService.cs" />
@@ -73,13 +68,18 @@
     <Compile Include="OperateService.cs" />
     <Compile Include="MenuService.cs" />
     <Compile Include="PayOrderService.cs" />
+    <Compile Include="PinTuanService.cs" />
     <Compile Include="RechargePlanService.cs" />
     <Compile Include="RoleService.cs" />
+    <Compile Include="TemplateCategoryService.cs" />
+    <Compile Include="TemplateService.cs" />
     <Compile Include="UEditorService.cs" />
     <Compile Include="DataDictionaryService.cs" />
+    <Compile Include="UserActivityService.cs" />
     <Compile Include="UserService.cs" />
     <Compile Include="BaseService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UserWechatService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
