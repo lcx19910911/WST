@@ -250,9 +250,8 @@
     <Content Include="Areas\Admin\Content\zTreeStyle\img\zTreeStandard.gif" />
     <Content Include="Areas\Admin\Content\zTreeStyle\img\zTreeStandard.png" />
     <Content Include="Areas\Admin\Content\zTreeStyle\zTreeStyle.css" />
-    <Content Include="Areas\Admin\HtmlTemplates\Music\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Carousel\Update.html" />
-    <Content Include="Areas\Admin\HtmlTemplates\TemplateCategory\Update.html" />
+    <Content Include="Areas\Admin\HtmlTemplates\Music\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Adviser\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Admin\ChangePassword.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Admin\Update.html" />
@@ -264,6 +263,7 @@
     <Content Include="Areas\Admin\HtmlTemplates\GoodsCategory\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Department\SelectDepartment.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Goods\Update.html" />
+    <Content Include="Areas\Admin\HtmlTemplates\TemplateCategory\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\User\Index.html" />
     <Content Include="Areas\Admin\HtmlTemplates\User\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Department\Update.html" />
@@ -589,6 +589,8 @@
     <Content Include="Areas\Admin\Scripts\UEditor\ueditor.parse.min.js" />
     <Content Include="Areas\Admin\Scripts\utility.js" />
     <Content Include="Areas\Admin\Scripts\ztree-select.js" />
+    <Content Include="Areas\Admin\Views\Carousel\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PinTuan\Index.cshtml" />
     <Content Include="assets\css\edit.css" />
     <Content Include="assets\css\fonts1\icomoon.svg" />
     <Content Include="assets\css\fonts\icomoon.svg" />
@@ -758,12 +760,12 @@
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\MusicController.cs" />
     <Compile Include="Areas\Admin\Controllers\CarouselController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MusicController.cs" />
     <Compile Include="Areas\Admin\Controllers\PinTuanController.cs" />
-    <Compile Include="Areas\Admin\Controllers\UserActivityController.cs" />
-    <Compile Include="Areas\Admin\Controllers\TemplateController.cs" />
     <Compile Include="Areas\Admin\Controllers\TemplateCategoryController.cs" />
+    <Compile Include="Areas\Admin\Controllers\TemplateController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UserActivityController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdviserController.cs" />
     <Compile Include="Areas\Admin\Controllers\ConfigController.cs" />
     <Compile Include="Areas\Admin\Controllers\ActivityCategoryController.cs" />
@@ -780,12 +782,12 @@
     <Compile Include="Areas\Admin\Controllers\LoginController.cs" />
     <Compile Include="Areas\Admin\Controllers\UploadController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminController.cs" />
+    <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\KanJiaController.cs" />
-    <Compile Include="Controllers\PinTuanController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
-    <Compile Include="Controllers\ConfigController.cs" />
+    <Compile Include="Controllers\PinTuanController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\UserWechatController.cs" />
     <Compile Include="Controllers\WxPayController.cs" />
@@ -825,7 +827,6 @@
     <Content Include="Areas\Admin\Views\Role\Index.cshtml" />
     <Content Include="Areas\Admin\Views\RechargePlan\Index.cshtml" />
     <Content Include="Areas\Admin\Views\DataDictionary\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\PinTuan\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Operate\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Menu\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Menu\PartialMenu.cshtml" />
@@ -846,7 +847,6 @@
     <Content Include="json\home.json" />
     <Content Include="Areas\Admin\Views\Demo\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TemplateCategory\Index.cshtml" />
-    <Content Include="Areas\Admin\Views\Carousel\Index.cshtml" />
     <Content Include="Areas\Admin\Views\KanJia\Index.cshtml" />
     <Content Include="Areas\Admin\Views\UserActivity\Index.cshtml" />
     <Content Include="assets\css\fonts1\icomoon.eot" />
