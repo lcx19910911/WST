@@ -124,10 +124,10 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Filters\ExceptionFilterAttribute.cs" />
     <Compile Include="Filters\LogAttribute.cs" />
+    <Compile Include="Filters\ShopLoginFilterAttribute.cs" />
     <Compile Include="Filters\UserLoginFilterAttribute.cs" />
     <Compile Include="Filters\AdminLoginFilterAttribute.cs" />
     <Compile Include="Filters\TimerAttribute.cs" />
-    <Compile Include="Filters\ShopLoginFilterAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
