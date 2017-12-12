@@ -238,13 +238,13 @@ namespace WST.Web.Controllers
             {
                 var kanjiaList = IKanJiaService.GetList(x => x.UserID == LoginUser.ID).Select(x =>
                 {
-                    return new Tuple<string, string, string, DateTime, DateTime, bool, string, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, "/kanjia/detail?id=" + x.ID, TargetCode.Kanjia);
+                    return new Tuple<string, string, string, DateTime, DateTime, bool, string, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, "/user/kanjia?id=" + x.ID, TargetCode.Kanjia);
                 }).ToList();
                 model.AddRange(kanjiaList);
 
                 var pintuanList = IPinTuanService.GetList(x => x.UserID == LoginUser.ID).Select(x =>
                 {
-                    return new Tuple<string, string, string, DateTime, DateTime, bool, string, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, "/pintuan/detail?id=" + x.ID, TargetCode.Pintuan);
+                    return new Tuple<string, string, string, DateTime, DateTime, bool, string, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, "/user/pintuan?id=" + x.ID, TargetCode.Pintuan);
                 }).ToList();
                 model.AddRange(pintuanList);
             }
@@ -255,17 +255,30 @@ namespace WST.Web.Controllers
                 var pintuanIdList = actIdList.Where(x => x.Code == TargetCode.Kanjia).Select(x => x.TargetID).ToList();
                 var kanjiaList = IKanJiaService.GetList(x => kanjiaIdList.Contains(x.ID)).Select(x =>
                 {
-                    return new Tuple<string, string, string, DateTime, DateTime, bool, string, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, "/kanjia/detail?id=" + x.ID, TargetCode.Kanjia);
+                    return new Tuple<string, string, string, DateTime, DateTime, bool, string, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, "/user/kanjia?id=" + x.ID, TargetCode.Kanjia);
                 }).ToList();
                 model.AddRange(kanjiaList);
 
                 var pintuanList = IPinTuanService.GetList(x => kanjiaIdList.Contains(x.ID)).Select(x =>
                 {
-                    return new Tuple<string, string, string, DateTime, DateTime, bool, string, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, "/pintuan/detail?id=" + x.ID, TargetCode.Pintuan);
+                    return new Tuple<string, string, string, DateTime, DateTime, bool, string, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, "/user/pintuan?id=" + x.ID, TargetCode.Pintuan);
                 }).ToList();
                 model.AddRange(pintuanList);
             }
             return View(model);
+        }
+
+
+        // GET: User
+        public ActionResult KanJia()
+        {
+            return View();
+        }
+
+        // GET: User
+        public ActionResult Pintuan()
+        {
+            return View();
         }
     }
 }

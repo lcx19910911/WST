@@ -877,6 +877,9 @@
     <Content Include="Views\Course\Index.cshtml" />
     <Content Include="Views\KanJia\Add.cshtml" />
     <Content Include="Views\User\ActList.cshtml" />
+    <Content Include="Views\PinTuan\Add.cshtml" />
+    <Content Include="Views\User\KanJia.cshtml" />
+    <Content Include="Views\User\PinTuan.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
