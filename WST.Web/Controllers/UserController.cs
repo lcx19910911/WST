@@ -41,16 +41,19 @@ namespace WST.Web.Controllers
         // GET: User
         public ActionResult Index()
         {
-            var user = IUserService.Find(LoginUser.ID);
-            if (user != null)
+            var userModel = IUserService.Find(LoginUser.ID);
+            if (userModel != null)
             {
-
+                if ((userModel.IsMember && !LoginUser.IsMember) || (userModel.EndTime < DateTime.Now && LoginUser.IsMember))
+                {
+                    this.LoginUser = new Core.Model.LoginUser(userModel);
+                }
             }
             else
             {
                 return RedirectToAction("index", "login");
             }
-            return View(user);
+            return View(userModel);
         }
 
         [HttpPost]

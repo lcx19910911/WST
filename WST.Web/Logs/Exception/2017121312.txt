@@ -1,0 +1,84 @@
+Time:2017/12/13 12:37:03-SaveChanges
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/kanJia/Manage?id=5d5532657d0541bbbdec34255c393480
+UserHostAddress:::1;;
+WebServer:::1
+Exception:System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 WST.DB.DbRepository.SaveChanges() 位置 G:\WST\WST.DB\DbRepository.cs:行号 103
+
+
+Time:2017/12/13 12:38:15-SaveChanges
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/kanJia/Manage?id=5d5532657d0541bbbdec34255c393480
+UserHostAddress:::1;;
+WebServer:::1
+Exception:System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 WST.DB.DbRepository.SaveChanges() 位置 G:\WST\WST.DB\DbRepository.cs:行号 103
+
+
+Time:2017/12/13 12:41:06-SaveChanges
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/kanJia/Manage?id=5d5532657d0541bbbdec34255c393480
+UserHostAddress:::1;;
+WebServer:::1
+Exception:System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 WST.DB.DbRepository.SaveChanges() 位置 G:\WST\WST.DB\DbRepository.cs:行号 103
+
+
+Time:2017/12/13 12:41:56-SaveChanges
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/kanJia/Manage?id=5d5532657d0541bbbdec34255c393480
+UserHostAddress:::1;;
+WebServer:::1
+Exception:System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 WST.DB.DbRepository.SaveChanges() 位置 G:\WST\WST.DB\DbRepository.cs:行号 103
+
+
+Time:2017/12/13 12:42:52-SaveChanges
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/kanJia/Manage?id=5d5532657d0541bbbdec34255c393480
+UserHostAddress:::1;;
+WebServer:::1
+Exception:System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 WST.DB.DbRepository.SaveChanges() 位置 G:\WST\WST.DB\DbRepository.cs:行号 103
+
+
+Time:2017/12/13 12:43:29-SaveChanges
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/kanJia/Manage?id=5d5532657d0541bbbdec34255c393480
+UserHostAddress:::1;;
+WebServer:::1
+Exception:System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 WST.DB.DbRepository.SaveChanges() 位置 G:\WST\WST.DB\DbRepository.cs:行号 103
+
+
+Time:2017/12/13 12:45:41-SaveChanges
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/kanJia/Manage?id=5d5532657d0541bbbdec34255c393480
+UserHostAddress:::1;;
+WebServer:::1
+Exception:System.Data.Entity.Validation.DbEntityValidationException: Validation failed for one or more entities. See 'EntityValidationErrors' property for more details.
+   在 System.Data.Entity.Internal.InternalContext.SaveChanges()
+   在 System.Data.Entity.Internal.LazyInternalContext.SaveChanges()
+   在 System.Data.Entity.DbContext.SaveChanges()
+   在 WST.DB.DbRepository.SaveChanges() 位置 G:\WST\WST.DB\DbRepository.cs:行号 103
+
+

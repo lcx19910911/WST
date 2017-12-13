@@ -178,6 +178,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\公众号菜单.txt" />
     <Content Include="Areas\Admin\Content\admin.css" />
     <Content Include="Areas\Admin\Content\css\amazeui.css" />
     <Content Include="Areas\Admin\Content\css\amazeui.datetimepicker.css" />
@@ -592,6 +593,7 @@
     <Content Include="Areas\Admin\Views\Carousel\Index.cshtml" />
     <Content Include="Areas\Admin\Views\PinTuan\Index.cshtml" />
     <Content Include="assets\css\edit.css" />
+    <Content Include="assets\css\editkanjia.css" />
     <Content Include="assets\css\fonts1\icomoon.svg" />
     <Content Include="assets\css\fonts\icomoon.svg" />
     <Content Include="assets\css\index - 副本.css" />
@@ -659,7 +661,9 @@
     <Content Include="assets\img\banner\logo.png" />
     <Content Include="assets\img\logo.png" />
     <Content Include="assets\js\edit.js" />
+    <Content Include="assets\js\editkanjia.js" />
     <Content Include="assets\js\import.js" />
+    <Content Include="assets\js\importkanjia.js" />
     <Content Include="assets\js\index - 副本 %282%29.js" />
     <Content Include="assets\js\index - 副本.js" />
     <Content Include="assets\js\index.js" />
@@ -686,47 +690,8 @@
     <Content Include="assets\svg\upload.svg" />
     <Content Include="assets\svg\upload1.svg" />
     <Content Include="assets\svg\view.svg" />
-    <Content Include="css\Addressreset.css" />
-    <Content Include="css\animate.min.css" />
-    <Content Include="css\app.css" />
-    <Content Include="css\bootstrap.min.css" />
-    <Content Include="css\BOX.css" />
-    <Content Include="css\ConfirmApproach.css" />
-    <Content Include="css\CourseList.css" />
-    <Content Include="css\CreateStepOne.css" />
-    <Content Include="css\ExpenseCard.css" />
-    <Content Include="css\ExpenseCardPay.css" />
-    <Content Include="css\FJL.css" />
-    <Content Include="css\FJL.picker.css" />
-    <Content Include="css\footer.css" />
-    <Content Include="css\Home.css" />
-    <Content Include="css\Index.css" />
-    <Content Include="css\LeaderBoard.css" />
-    <Content Include="css\ManageAdvantageCard.css" />
-    <Content Include="css\ManageConsumeShop.css" />
-    <Content Include="css\mui.min.css" />
-    <Content Include="css\OrderDetail.css" />
-    <Content Include="css\PayDetail.css" />
-    <Content Include="css\PaySuccess.css" />
-    <Content Include="css\StoreAddress.css" />
-    <Content Include="css\StoreDetail.css" />
     <Content Include="images\12.png" />
     <Content Include="images\kanjia.png" />
-    <Content Include="js\mui.min.js" />
-    <Content Include="css\mui.picker.css" />
-    <Content Include="js\mui.picker.min.js" />
-    <Content Include="css\mui.poppicker.css" />
-    <Content Include="js\mui.poppicker.js" />
-    <Content Include="css\muiOther.css" />
-    <Content Include="css\PayClubCard.css" />
-    <Content Include="css\PersonalData.css" />
-    <Content Include="css\reset.css" />
-    <Content Include="css\SetPreCard.css" />
-    <Content Include="css\SetPreCardDetail.css" />
-    <Content Include="css\SetPreCardDiscount.css" />
-    <Content Include="css\SignInCourse.css" />
-    <Content Include="css\styles.css" />
-    <Content Include="css\swiper-3.4.2.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="icofonts\demo.css" />
@@ -736,17 +701,6 @@
     <Content Include="icofonts\iconfont.css" />
     <Content Include="icofonts\iconfont.js" />
     <Content Include="icofonts\iconfont.svg" />
-    <Content Include="js\bootstrap.min.js" />
-    <Content Include="js\BOX.js" />
-    <Content Include="js\clipboard.min.js" />
-    <Content Include="js\common.js" />
-    <Content Include="js\FJL.min.js" />
-    <Content Include="js\FJL.picker.min.js" />
-    <Content Include="js\jquery-ui.min.js" />
-    <Content Include="js\jquery.min.js" />
-    <Content Include="js\pay.js" />
-    <Content Include="js\swiper-3.4.2.jquery.min.js" />
-    <Content Include="js\swiper.animate1.0.2.min.js" />
     <Content Include="pages\home.html" />
     <Content Include="pages\img\img.html" />
     <Content Include="Web.config">
@@ -875,7 +829,7 @@
     <Content Include="Views\Store\Shop.cshtml" />
     <Content Include="Views\Store\Index.cshtml" />
     <Content Include="Views\Store\Location.cshtml" />
-    <Content Include="Views\KanJia\Add.cshtml" />
+    <Content Include="Views\KanJia\Manage.cshtml" />
     <Content Include="Views\User\ActList.cshtml" />
     <Content Include="Views\PinTuan\Manage.cshtml" />
     <Content Include="Views\User\KanJia.cshtml" />
@@ -892,7 +846,6 @@
     <Content Include="WXCert\rootca.pem" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Admin\Scripts\UEditor\third-party\snapscreen\" />
     <Folder Include="assets\component\" />

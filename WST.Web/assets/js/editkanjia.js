@@ -108,30 +108,28 @@ $(function () {
             return false;
         }
         console.log('pass');
-        var $form=$('#submit-form');
+        var $form = $('#submit-form');
         var jsonData = serialize($form);
         setTimeout(function () {
             $form.ajaxSubmit({
-                url: '/pintuan/manage',
+                url: '/kanjia/manage',
                 method: 'Post',
                 data: { jsonData },
-                success: function (data) {
-                    if (data.Code == 0) {
-
+                        success: function (data) {
+    	                if (data.Code == 0) {
                         if (jsonData.ID != "") {
-                            window.location.href = "/user/pintuan?id=" + jsonData.ID;
+                            window.location.href = "/user/kanjia?id=" + jsonData.ID;
                         }
                         else {
                             alert("生成成功");
-                            window.location.href = "/user/pintuan?id=" + data.Result;
+                            window.location.href = "/user/kanjia?id=" + data.Result;
                         }
-                    }
-                    else
-                        alert(data.ErrorDesc);
-                }
+    	                }
+    	                else
+    	                    alert(data.ErrorDesc);
+                        }
             })
         }, 800);
-      
     })
     // 上传图片
     .on('click', '.uploadImgLabel', function () {
@@ -147,8 +145,7 @@ $(function () {
         var ele = $(window.frames['exportimg'].document.body);
         console.log(ele);
         if (ele.text() == '') return false;
-        //var res = JSON.parse(ele.text());
-        var res =ele.text();
+        var res = ele.text();
         console.log(res);
         console.log($("#" + uploadImgTarget))
         $("#" + uploadImgTarget).attr('src', res);
@@ -161,7 +158,7 @@ $(function () {
     function serialize(formObj) {
         var map = {};
         formObj.find("input[name]:not(input[type='file']),select[name],textarea[name]").each(function (index, item) {
-            
+
             var $item = $(item);
             var name = $item.attr("name");
             var value = $item.val();
@@ -209,18 +206,21 @@ $(function () {
         $('.submit-form .OldPrice').val(oldPrice)
         console.log(oldPrice, '-----oldPrice');
 
-        // 拼团人数和价格json集合
-        var groupObj = [];
-        $.each($('.groupBooking-wrapper .sub-group'), function (i, obj) {
-            var o = {
-                Count: $(obj).find('.sub-group-num').val(),
-                Amount: $(obj).find('.sub-group-price').val()
-            };
-            groupObj.push(o);
-        });
-        groupObj = JSON.stringify(groupObj);
-        $('.submit-form .PinTuanItemJSON').val(groupObj);
-        console.log(groupObj, '----groupObj1111');
+        // 最低价
+        var lessPrice = $('#lessPrice').val();
+        $('.submit-form .LessPrice').val(lessPrice)
+        console.log(lessPrice, '-----lessPrice');
+
+        // 单次砍价价格
+        var oncePrice = $('#oncePrice').val();
+        $('.submit-form .OncePrice').val(oncePrice)
+        console.log(oncePrice, '-----oncePrice');
+
+        // 砍价间隔时间
+        var limitHour = $('#limitHour').val();
+        $('.submit-form .LimitHour').val(limitHour)
+        console.log(limitHour, '-----limitHour');
+
         // // 拼团描述
         // var name = $('#title').html();
         // $('.submit-form .PinTuanItemInfo').val( $('#startTime').val() )
@@ -317,37 +317,21 @@ $(function () {
 
         var len = $('#submit-form .required').length;
         for (var i = 0; i < len; i++) {
-            if ($('#submit-form .required').eq(i).val().length <= 1) {
+            if ($('#submit-form .required').eq(i).val().length < 1) {
                 alert($('#submit-form .required').eq(i).attr('data-required'));
-                return false;
-            }
-        }
-
-        var len = $('.groupBooking-wrapper .sub-group').length;
-        for (var i = 0; i < len; i++) {
-            var num = $('.groupBooking-wrapper .sub-group').eq(i).find('.sub-group-num').val();
-            var price = $('.groupBooking-wrapper .sub-group').eq(i).find('.sub-group-price').val();
-            if (Number(num) < 1) {
-                alert('请填好拼团信息');
-                $('.groupBooking-wrapper .sub-group').eq(i).find('.sub-group-num').focus();
-                return false;
-            }
-            if (Number(price) < 1) {
-                alert('请填好拼团信息');
-                $('.groupBooking-wrapper .sub-group').eq(i).find('.sub-group-price').focus();
                 return false;
             }
         }
 
         var GoodsItemsJson = JSON.parse($('#submit-form .GoodsItemsJson').val());
         if (GoodsItemsJson.length <= 0 || GoodsItemsJson[0].cont == '') {
-            alert('请填写第一条商品描述或添加一张商品图片');
+            alert('请填写第一条商品描述');
             return false;
         }
 
         var IntroduceTxtJson = JSON.parse($('#submit-form .IntroduceTxtJson').val());
         if (IntroduceTxtJson.length <= 0 || IntroduceTxtJson[0].cont == '') {
-            alert('请填写第一条商家介绍信息或添加一张商家图片');
+            alert('请填写第一条商家介绍信息');
             return false;
         }
 

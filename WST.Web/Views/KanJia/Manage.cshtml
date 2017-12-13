@@ -1,9 +1,10 @@
 ﻿@using WST.Core.Extensions
-@model PinTuan
+@model KanJia
 @{
     ViewBag.Title = Model.Name;
     Layout = null;
 }
+
 
 <!DOCTYPE html>
 <html>
@@ -11,10 +12,10 @@
     <title>@ViewBag.Title</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="~/assets/css/reset.css?v=pintuan1">
-    <link rel="stylesheet" type="text/css" href="~/assets/css/edit.css?v=pintuan1">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/reset.css?v=kanjia1">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/editkanjia.css?v=kanjia1">
     <script type="text/javascript" src="~/assets/js/jquery-2.1.4.min.js"></script>
-    <script type="text/javascript" src="~/assets/js/import.js"></script>
+    <script type="text/javascript" src="~/assets/js/importkanjia.js"></script>
     <script src="~/assets/js/jquery.form.js"></script>
     <script>
         $(function () {
@@ -98,12 +99,11 @@
         <div class="title-wrapper mt15">
             <div class="m00 w90">
                 <!-- <textarea id="title" class="textarea e-textarea f16 fB txt-center" value="喜迎购物节，课程低价疯狂抢">喜迎购物节，课程低价疯狂抢</textarea> -->
-                <div id="title" contenteditable="true" class="textarea e-textarea f16 fB txt-center">@(Model.ID.IsNullOrEmpty()? "喜迎购物节，课程低价疯狂抢":Model.Name)</div>
+                <div id="title" contenteditable="true" class="textarea e-textarea f16 fB txt-center">@(Model.ID.IsNullOrEmpty() ? "喜迎购物节，课程低价疯狂抢" : Model.Name)</div>
 
                 <!-- <p class="v-p f16 fB txt-center"></p> -->
             </div>
         </div>
-
         <!-- activity -->
         <div class="activity-wrapper mt15">
             <span for="startTime">活动时间:</span>
@@ -113,93 +113,36 @@
             <input type="text" name="endTime" id="endTime" value="@(Model.ID.IsNullOrEmpty()?DateTime.Now.AddDays(2).ToString("yyyy-MM-dd hh:mm"):Model.EndTime.ToString())" class="input e-input timeinput" />
             <!-- <span class="v-span input timeinput"></span> -->
         </div>
+        <div class="groupBooking-wrapper mt10 w90 m10 f11">
+            <div class="groupBooking-list clearfix">
+                <div class="w100 fl">
+                    <span>原价与底价：</span>
+                </div>
+                <div class="w50 fl pl10">
+                    <span>原价：</span>
+                    <input type="number" id="oldPrice" name="oldPrice" class="input e-input w40" value="@(Model.OldPrice==0?999:Model.OldPrice)">
+                    <span class="">元</span>
+                </div>
+                <div class="w50 fl">
+                    <span>底价：</span>
+                    <input type="number" id="lessPrice" name="lessPrice" class="input e-input w40" value="@(Model.LessPrice==0?20:Model.LessPrice)">
+                    <span class="">元</span>
+                </div>
+            </div>
 
-        <!-- groupBooking -->
-        <div class="groupBooking-wrapper mt15 w90 m10 f11">
-            <div class="groupBooking-list">
-                <span>原价：</span>
-                <input type="text" id="oldPrice" name="oldPrice" class="input e-input w30" value="@(Model.OldPrice==0?999:Model.OldPrice)">
-                <!-- <span class="v-span input w30"></span> -->
+            <div class="groupBooking-list mt10">
+                <span>每次砍价价格：</span>
+                <input type="number" id="oncePrice" name="oncePrice" class="input e-input w20" value="@(Model.OncePrice==0?10:Model.OncePrice)">
                 <span class="">元</span>
             </div>
 
-            <!-- <div class="groupBooking-list">
-                <span>参与拼团需预付：</span>
-                <input type="text" id="prepay" name="prepay" class="input e-input w20" value="6">
-                <span class="v-span w20 input"></span>
-                <span class="">元</span>
-            </div> -->
-            @if (Model.ID.IsNullOrEmpty())
-            {
-                <div class="groupBooking-list sub-group">
-                    <div class="groupBooking-list-item">
-                        <div class="list-item-left">
-                            <input type="number" id="groupNum1" name="groupNum1" value="3" class="input e-input sub-group-num">
-                            <!-- <span class="v-span input"></span> -->
-                            <span>人团</span>
-                        </div>
-                        <div class="list-item-right">
-                            <span>拼团价</span>
-                            <input type="number" id="groupPrice1" name="groupPrice1" value="800" class="input e-input c-fff sub-group-price">
-                            <!-- <span class="v-span input c-fff"></span> -->
-                            <span>元/人</span>
-                        </div>
-                    </div>
-                </div>
+            <div class="groupBooking-list mt10">
+                <span>报名者每隔</span>
+                <input id="limitHour" type="number" name="limitHour" class="input e-input w10" value="@(Model.LimitHour==0?2:Model.LimitHour)">
+                <span>小时可再次给自己减价</span>
+                <p class="info">每个报名者可在活动时间内多次为自己减价，帮忙者仅有一次机会。</p>
+            </div>
 
-                <div class="groupBooking-list sub-group">
-                    <div class="groupBooking-list-item">
-                        <div class="list-item-left">
-                            <input type="number" id="groupNum2" name="groupNum2" value="5" class="input e-input sub-group-num">
-                            <!-- <span class="v-span input"></span> -->
-                            <span>人团</span>
-                        </div>
-                        <div class="list-item-right">
-                            <span>拼团价</span>
-                            <input type="number" id="groupPrice2" name="groupPrice2" value="500" class="input e-input c-fff sub-group-price">
-                            <!-- <span class="v-span input c-fff"></span> -->
-                            <span>元/人</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="groupBooking-list sub-group">
-                    <div class="groupBooking-list-item">
-                        <div class="list-item-left">
-                            <input type="number" id="groupNum3" name="groupNum3" value="8" class="input e-input sub-group-num">
-                            <!-- <span class="v-span input"></span> -->
-                            <span>人团</span>
-                        </div>
-                        <div class="list-item-right">
-                            <span>拼团价</span>
-                            <input type="number" id="groupPrice3" name="groupPrice3" value="200" class="input e-input c-fff sub-group-price">
-                            <!-- <span class="v-span input c-fff"></span> -->
-                            <span>元/人</span>
-                        </div>
-                    </div>
-                </div>
-            }
-            else
-            {
-                foreach (var item in Model.PinTuanItemJson.DeserializeJson<List<PinTuanItem>>())
-                {
-                    <div class="groupBooking-list sub-group">
-                        <div class="groupBooking-list-item">
-                            <div class="list-item-left">
-                                <input type="number" id="groupNum1" name="groupNum1" value="@(item.Count)" class="input e-input sub-group-num">
-                                <!-- <span class="v-span input"></span> -->
-                                <span>人团</span>
-                            </div>
-                            <div class="list-item-right">
-                                <span>拼团价</span>
-                                <input type="number" id="groupPrice1" name="groupPrice1" value="@(item.Amount)" class="input e-input c-fff sub-group-price">
-                                <!-- <span class="v-span input c-fff"></span> -->
-                                <span>元/人</span>
-                            </div>
-                        </div>
-                    </div>
-                }
-            }
         </div>
 
         <!-- body -->
@@ -291,28 +234,28 @@
                         {
                             if (item.Type == "txt")
                             {
-                    <div class="uploadImgLabel">
-                        <div contenteditable="true" id="subIntro_@(index)" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@item.Content</div>
-                        <p class="v-p"></p><span class="close">x</span>
-                    </div>
+                                <div class="uploadImgLabel">
+                                    <div contenteditable="true" id="subIntro_@(index)" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@item.Content</div>
+                                    <p class="v-p"></p><span class="close">x</span>
+                                </div>
                             }
                             else if (item.Type == "img")
                             {
-                    <label for="uploadImg" data-target="subIntro_@(index)" class="uploadImgLabel">
-                        <img id="subIntro_@(index)" class="sub-intro nosrc" data-type="img" src="@(item.Content)" alt="上传图片">
-                        <span class="close">x</span>
-                    </label>
+                                <label for="uploadImg" data-target="subIntro_@(index)" class="uploadImgLabel">
+                                    <img id="subIntro_@(index)" class="sub-intro nosrc" data-type="img" src="@(item.Content)" alt="上传图片">
+                                    <span class="close">x</span>
+                                </label>
                             }
                         }
                     }
                     else
                     {
-                    <div class="uploadImgLabel">
-                        <!-- <textarea id="subIntro3" data-type="txt" class="sub-intro textarea e-textarea" placeholder="此处填写机构介绍"></textarea> -->
-                        <div id="subIntro3" contenteditable="true" data-type="txt" class="sub-intro textarea e-textarea" placeholder="此处填写机构介绍"></div>
-                        <!-- <p class="v-p"></p> -->
-                        <span class="close">x</span>
-                    </div>
+                        <div class="uploadImgLabel">
+                            <!-- <textarea id="subIntro3" data-type="txt" class="sub-intro textarea e-textarea" placeholder="此处填写机构介绍"></textarea> -->
+                            <div id="subIntro3" contenteditable="true" data-type="txt" class="sub-intro textarea e-textarea" placeholder="此处填写机构介绍"></div>
+                            <!-- <p class="v-p"></p> -->
+                            <span class="close">x</span>
+                        </div>
                     }
                     <div class="add-child">
                         <span class="addtxt" add-type="txt">添加文本</span>
@@ -350,7 +293,7 @@
     </div>
 
     <div class="form hidden">
-        <form id="submit-form" class="submit-form" method="POST" action="/pintuan/add" target="export" enctype="multipart/form-data">
+        <form id="submit-form" class="submit-form" method="POST" action="" target="export" enctype="multipart/form-data">
 
             <input type="text" name="ID" value="@(Model.ID.IsNullOrEmpty()?"":Model.ID)">
             <!-- 大图 -->
@@ -368,8 +311,14 @@
             <!-- 原价 -->
             <input type="text" name="OldPrice" class="OldPrice required" data-required="请填写原价">
 
-            <!-- 拼团人数和价格json集合 -->
-            <input type="text" name="PinTuanItemJSON" class="PinTuanItemJSON required" data-required="请上传图片">
+            <!-- 最低价 -->
+            <input type="text" name="LessPrice" class="LessPrice required" data-required="请填写最低价">
+
+            <!-- 单次砍价价格 -->
+            <input type="text" name="OncePrice" class="OncePrice required" data-required="请填写单次砍价价格">
+
+            <!-- 砍价间隔时间 -->
+            <input type="text" name="LimitHour" class="LimitHour required" data-required="请填写砍价间隔小时">
 
             <!-- 拼团描述 -->
             <!-- <input type="text" name="PinTuanItemInfo" class="PinTuanItemInfo"> -->
@@ -390,7 +339,7 @@
             <input type="text" name="Connact" class="Connact required" data-required="请填写领取信息">
 
             <!-- 咨询电话 -->
-            <input type="text" name="PhoneNumber" class="phoneNumber required" data-required="请填写咨询电话">
+            <input type="text" name="phoneNumber" class="phoneNumber required" data-required="请填写咨询电话">
 
 
             <!-- 背景音乐 -->

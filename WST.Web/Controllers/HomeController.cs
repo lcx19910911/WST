@@ -22,8 +22,12 @@ namespace WST.Web.Controllers
         // GET: Home
         public ActionResult Index(string id)
         {
-
-            return View();   
+            var userModel = IUserService.Find(LoginUser.ID);
+            if ((userModel.IsMember && !LoginUser.IsMember) || (userModel.EndTime < DateTime.Now && LoginUser.IsMember))
+            {
+                this.LoginUser = new Core.Model.LoginUser(userModel);
+            }
+            return View();
         }
 
 

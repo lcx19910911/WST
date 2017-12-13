@@ -89,10 +89,11 @@ namespace WST.Web.Controllers
                     model.MusicUrl = entity.MusicUrl;
                     model.FunctionName = entity.FunctionName;
                     model.OldPrice = entity.OldPrice;
-                    model.IntroduceTxtJson = entity.IntroduceVediosJson;
+                    model.IntroduceTxtJson = entity.IntroduceTxtJson;
                     model.IntroducePicturesJson = entity.IntroducePicturesJson;
                     model.IntroduceVediosJson = entity.IntroduceVediosJson;
                     model.Direction = entity.Direction;
+                    model.GoodsItemsJson = entity.GoodsItemsJson;
                     var result = IPinTuanService.Update(model);
                     return JResult(result);
                 }

@@ -1,0 +1,61 @@
+
+https://mp.weixin.qq.com/debug  
+{
+    "button": [
+        {
+            "name": "沃商通", 
+            "sub_button": [
+                {
+                    "type": "view", 
+                    "name": "付费方式", 
+                    "url": "https://mp.weixin.qq.com/s/tTi6fndmI49zQ7AjHnCynQ"
+                }, 
+                {
+                    "type": "view", 
+                    "name": "常见问题", 
+                    "url": "https://mp.weixin.qq.com/s/_QFZp-L6yAI9Lt3gJ5zYIw"
+                }, 
+                {
+                    "type": "view", 
+                    "name": "联系客服", 
+                    "url": "https://mp.weixin.qq.com/s/j-RS2UP-qF6CFrKoasAB3A"
+                }
+            ]
+        }, 
+        {
+            "name": "我是商家", 
+            "sub_button": [
+                {
+                    "type": "view", 
+                    "name": "制作活动", 
+                    "url": "http://wst.fjyouwo.com/home/index"
+                }, 
+                {
+                    "type": "view", 
+                    "name": "我的活动", 
+                    "url": "http://wst.fjyouwo.com/user/ActList"
+                }, 
+                {
+                    "type": "view", 
+                    "name": "套餐购买", 
+                    "url": "http://wst.fjyouwo.com/user/buytime"
+                }
+            ]
+        }, 
+        {
+            "name": "我是用户", 
+            "sub_button": [
+                {
+                    "type": "view", 
+                    "name": "我的活动", 
+                    "url": "http://wst.fjyouwo.com/user/ActList"
+                }, 
+                {
+                    "type": "view", 
+                    "name": "成为商家", 
+                    "url": "http://wst.fjyouwo.com/user/buytime"
+                }
+            ]
+        }
+    ]
+}
