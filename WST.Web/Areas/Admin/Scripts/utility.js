@@ -264,7 +264,72 @@ function isCardID(obj) {
     }
     return false;
 }
+function isCard(sId) {
+    if (sId != "") {
+        if (sId.length == 10) {
 
+            if (!/^\d{6}19\d{2}$/.test(sId) && !/^\d{6}20\d{2}$/.test(sId)) {
+
+                //10位全数字 澳门
+                if (/^[1|5|7][0-9]{2}/.test(sId.substr(0, 3))) {
+                    if (!/^[1|5|7][0-9]{6}\([0-9Aa]\)/.test(sId)) {
+                        return "你输入的澳门身份证身份证长度或格式错误";
+                    } else {
+                        return true;
+                    }
+                }
+                    //台湾和香港为第一位引英文。但是台湾后面全为数字 香港后面跟着6个数字
+                    //台湾
+                else if (/^[a-zA-Z][0-9]{7}$/.test(sId.substr(0, 8))) {
+                    if (!/^[a-zA-Z][0-9]{9}$/.test(sId)) {
+                        return "你输入的台湾身份证身份证长度或格式错误";
+                    }
+                    else {
+                        return true;
+                    }
+                }
+                else if (!/^((\s?[A-Za-z])|([A-Za-z]{2}))\d{6}\(([0−9aA])|([0-9aA])\)$/.test(sId)) {
+                    return "你输入的香港身份证身份证长度或格式错误";
+                    return false;
+                }
+                else {
+                    return true;
+                }
+
+            }
+        }
+        else if (sId.length == 18) {
+            var iSum = 0;
+            var info = "";
+
+            if (!/^\d{17}(\d|x)$/i.test(sId)) {
+                return "你输入的身份证长度或格式错误";
+                return false;
+            }
+            sId = sId.replace(/x$/i, "a");
+            if (parseInt(sId.substr(0, 2)) == null) {
+                return "你的身份证地区非法";
+                return false;
+            }
+            var sBirthday = sId.substr(6, 4) + "-" + Number(sId.substr(10, 2)) + "-" + Number(sId.substr(12, 2));
+            var d = new Date(sBirthday.replace(/-/g, "/"));
+            if (sBirthday != (d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate())) {
+                return "身份证上的出生日期非法";
+                return false;
+            }
+            for (var i = 17; i >= 0; i--) iSum += (Math.pow(2, i) % 11) * parseInt(sId.charAt(17 - i), 11);
+            if (iSum % 11 != 1) {
+                return "你输入的身份证号非法";
+                return false;
+            }
+            return "";
+        }
+        else {
+            return "长度错误";
+        }
+    }
+    return "请输入身份证号码";
+}
 function newGuid() {
     var guid = "";
     for (var i = 1; i <= 32; i++) {

@@ -235,9 +235,9 @@
                 <p>
                     @if (Model.IsMember)
                     {
-                    <span class="user-name fB f11">沃商通商户</span><br>
-                    <span class="user-phone">@(Model.NickName)</span><br>
-                    <span class="user-phone f08 c-f00">过期时间：@(Model.EndTime)</span>
+                        <span class="user-name fB f11">沃商通商户</span><br>
+                        <span class="user-phone">@(Model.NickName)</span><br>
+                        <span class="user-phone f08 c-f00">过期时间：@(Model.EndTime)</span>
                     }
                     else
                     {
@@ -248,29 +248,29 @@
             </div>
             @*<a href="#" class="fl c-000"><i class="icon icon icon-loginout"></i> 退出</a>*@
         </div>
-        @*<div class="privilege-card">
-            <div class="privilege-tit clearfix">
-                <a href="#"><i class="icon icon-payment"></i> 进入钱包</a>
-            </div>
-            <div class="privilege-con clearfix">
-                <div class="balance-div">
-                    <strong>收入</strong>
-                    <span>0.00</span>
+        <div class="privilege-card">
+                <div class="privilege-tit clearfix">
+                    <a href="#"><i class="icon icon-payment"></i> 进入钱包</a>
                 </div>
-                <div class="balance-div">
-                    <strong>支出</strong>
-                    <span>0.00</span>
+                <div class="privilege-con clearfix">
+                    <div class="balance-div">
+                        <strong>收入</strong>
+                        <span>0.00</span>
+                    </div>
+                    <div class="balance-div">
+                        <strong>支出</strong>
+                        <span>0.00</span>
+                    </div>
                 </div>
             </div>
-        </div>*@
         <div class="favorite-wrapper">
             @*<div class="favorite pic-ico">
-                <a href="">活动教程<span>></span></a>
-            </div>*@
+                    <a href="">活动教程<span>></span></a>
+                </div>*@
 
             @*<div class="favorite pic-ico">
-                <a href="">邀请有礼<span>></span></a>
-            </div>*@
+                    <a href="">邀请有礼<span>></span></a>
+                </div>*@
 
             <div class="favorite pic-ico">
                 <a href="https://mp.weixin.qq.com/s/tTi6fndmI49zQ7AjHnCynQ">付费方式<span>></span></a>
@@ -286,16 +286,22 @@
         </div>
 
         <div class="foot-wrapper">
-            <div class="w47 fl">
-                <div class="button fr"><a href="/home/index">制作活动</a></div>
-            </div>
-            <div class="w47 fr">
-                <div class="button fl"><a href="/user/actlist">我的活动</a></div>
-            </div>
+            @if (Model.IsMember)
+            {
+                <div class="w47 fl">
+                    <div class="button fr"><a href="/home/index">制作活动</a></div>
+                </div>
+                <div class="w47 fr">
+                    <div class="button fl"><a href="/user/actlist">我的活动</a></div>
+                </div>
+            }
+            else
+            {
+                <div class="w47 fr">
+                    <div class="button fl"><a href="/user/actlist">我的活动</a></div>
+                </div>
+            }
         </div>
-
-
-
     </div>
 </body>
 </html>

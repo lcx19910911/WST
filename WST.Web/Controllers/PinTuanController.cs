@@ -145,10 +145,11 @@ namespace WST.Web.Controllers
             var model = IPinTuanService.Find(id);
             if (model != null && model.UserID == LoginUser.ID)
             {
-                return JResult(IPinTuanService.Delete(id));
+                IPinTuanService.Delete(id);
+                return Redirect("/user/actList");
             }
             else
-                return DataErorrJResult();
+                return Forbidden();
         }
 
     }

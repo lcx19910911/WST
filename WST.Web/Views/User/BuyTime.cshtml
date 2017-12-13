@@ -1,0 +1,334 @@
+﻿@using WST.Core.Extensions
+@model List<RechargePlan>
+@{
+    ViewBag.Title = "个人中心";
+    Layout = null;
+}
+@section linkcss
+{
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>套餐选择</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <link rel="stylesheet" href="~/assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style1.css">
+    <script src="~/assets/js/jquery-2.1.4.min.js"></script>
+    <script src="~/assets/js/my.js"></script>
+    <style>
+        html {
+            background: #fff;
+        }
+
+        .wrap {
+            /*padding-bottom: 3.87em;*/
+        }
+        /*头部*/
+        .icon {
+            position: relative;
+            top: 0.08em;
+        }
+
+        .head {
+            position: relative;
+            overflow: hidden;
+            height: 9em;
+            padding: 0.6em 1em;
+            background: #fff;
+            background: url(./assets/img/banner/BG1.png) center center no-repeat;
+            background-size: 100% 100%;
+            border-bottom: 0.2em solid #fff;
+        }
+
+        .my-portrait {
+            position: absolute;
+            overflow: hidden;
+            left: 23%;
+            bottom: -5%;
+            margin-left: -2em;
+            width: 30em;
+            height: 8em;
+        }
+
+            .my-portrait .headimg {
+                overflow: hidden;
+                float: left;
+                width: 7em;
+                height: 7em;
+                border-radius: 50%;
+                border: 2px solid #608DA4;
+            }
+
+                .my-portrait .headimg img {
+                    display: block;
+                    width: 100%;
+                    height: 100%;
+                    line-height: 6em;
+                    text-align: center;
+                    color: #f00;
+                    border: 0.27em solid #fff;
+                    border-radius: 50%;
+                    box-sizing: border-box;
+                }
+
+        .head p {
+            float: left;
+            height: 1.3em;
+            padding: 0 0.2em;
+            margin-top: 2em;
+            margin-left: 0.5em;
+            font-size: 1.1em;
+            color: #608DA4;
+        }
+
+        .head a {
+            position: absolute;
+            left: 1em;
+            top: 0.5em;
+            width: 4em;
+            height: 3em;
+            line-height: 3em;
+            font-size: 1em;
+            color: #016776;
+        }
+
+        .head h3 {
+            line-height: 5em;
+            text-align: center;
+            font-size: 2em;
+            color: #016776;
+        }
+
+        .favorite-wrapper {
+            padding: 0 0;
+            overflow: hidden;
+        }
+
+        .package-list {
+            float: left;
+            width: 50%;
+            height: 10em;
+            border-bottom: 1px solid #ddd;
+            border-right: 1px solid #ddd;
+            background: #B6F0F2;
+            transition: all 0.5s;
+        }
+
+            .package-list.select {
+                background: #56B6C4;
+            }
+
+            .package-list:nth-child(even) {
+                border-right: 0;
+            }
+
+            .package-list h3 {
+                color: #56B6C4;
+                line-height: 2.5em;
+                padding: 0 1em;
+            }
+
+            .package-list.select h3 {
+                color: #fff;
+            }
+
+            .package-list p {
+                text-align: center;
+            }
+
+            .package-list .btn {
+                display: inline-block;
+                background: #56B6C4;
+                text-align: center;
+                color: #fff;
+                padding: 0.2em 0.8em;
+                border-radius: 2em;
+                margin-left: 0.3em;
+            }
+
+        .select .btn {
+            color: #56B6C4;
+            background: #fff;
+        }
+
+        .package-list .selBtn2 {
+            display: none;
+        }
+
+        .select .selBtn1 {
+            display: none;
+        }
+
+        .select .selBtn2 {
+            display: inline-block;
+        }
+
+        .foot-wrapper {
+            padding-bottom: 2em;
+            margin-top: 2.5em;
+            overflow: hidden;
+        }
+
+            .foot-wrapper .button {
+                background: #608DA4;
+                width: 79%;
+                color: #fff;
+                text-align: center;
+                font-weight: bold;
+                line-height: 2.5em;
+                height: 2.5em;
+                padding: 0;
+                border-radius: 0.5em;
+            }
+
+            .foot-wrapper .button {
+                float: none;
+                margin: 0 auto;
+                width: 90%;
+                text-align: center;
+                color: #fff;
+                padding: 0;
+                margin-top: 1em;
+                background: #56B6C4;
+                box-shadow: 0 2px 3px 0 #2b6a73;
+                border-radius: 1em;
+            }
+    </style>
+</head>
+<body>
+    <div class="wrap l">
+        <div class="head clearfix">
+            <h3>请选择适合您的套餐</h3>
+            <a href="/user/index" class="fl"><i class="icon icon icon-loginout"></i> 返回</a>
+        </div>
+        <div class="favorite-wrapper">
+
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="package-list" data-id="@(item.ID)" data-fee="@(item.Money)" data-name="@(item.Name)" data-day="@(item.Day)">
+                        <h3 class="txt-hidden">@item.Name</h3>
+                        <p><span class="fT"> @(item.Day) 天</span> <span class="btn">5折优惠</span></p>
+                        <p class="f12 fB mt05"><span>活动价</span> <span class="c-f00">￥@(item.Money)</span></p>
+                        <p class="f11 mt05"><span class="btn selBtn1">点击选择</span><span class="btn selBtn2">当前选择</span></p>
+                    </div>
+                }
+            }
+
+        </div>
+
+        <div class="foot-wrapper">
+            <div class="button submit-btn">立即购买</div>
+        </div>
+
+
+
+    </div>
+
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+    <script src="~/Areas/Admin/Scripts/utility.js"></script>
+    <script>
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: "@ViewBag.AppId", // 必填，公众号的唯一标识
+            timestamp: "@ViewBag.TimeStamp", // 必填，生成签名的时间戳
+            nonceStr: "@ViewBag.NonceStr", // 必填，生成签名的随机串
+            signature: "@ViewBag.Signature",// 必填，签名，见附录1
+            jsApiList: ['jsApiList', 'chooseWXPay'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+
+        function scanOrder() {
+            $.ajax({
+                url: "/order/scan",
+                method: "post",
+                data: { orderId: '@(Request["orderId"])' },
+            });
+        }
+        // 选择套餐
+        $('.package-list').click(function () {
+            $(this).addClass('select').siblings().removeClass('select');
+        })
+        // 购买
+       
+        wx.ready(function () {
+            wx.checkJsApi({
+                jsApiList: [
+                   'chooseWXPay'
+                ],
+                success: function (res) {
+
+                    if (!IsWeiXin()) {
+                        alert("请在微信中使用");
+                        return false;
+                    }
+
+                    $('.submit-btn').click(function () {
+                        setInterval("scanOrder", "3000");
+                        var id = $(".package-list.select").attr('data-id');
+                        var fee = $(".package-list.select").attr('data-fee');
+                        var day = $(".package-list.select").attr('data-day');
+                        var name = $(".package-list.select").attr('data-name');
+                        $.ajax({
+                            type: "Post",
+                            url: "/user/BuyTime",
+                            data: { planId: id },
+                            success: function (postData) {
+                                if (postData.Code == 0) {
+                                    var remark = "购买了套餐：" + name + ",天数：" + day + ",价格：" + fee;
+                                    $.ajax({
+                                        type: "GET",
+                                        url: "/WxPay/GetPayParms?fee=" + fee + "&orderId=" + postData.Result.Result + "&remark=" + remark,
+                                        success: function (data) {
+                                            if (data.Code == 0) {
+                                                var resultObj = eval("(" + data.Result + ")")
+                                                wx.chooseWXPay({
+                                                    "timestamp": resultObj.timeStamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                                                    "nonceStr": resultObj.nonceStr, // 支付签名随机串，不长于 32 位
+                                                    "package": resultObj.package, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=***）
+                                                    "signType": resultObj.signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                                                    "paySign": resultObj.paySign, // 支付签名
+                                                    success: function (res) {
+                                                        // 使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回    ok，但并不保证它绝对可靠。
+                                                        //购买商品推送消息给管理人员
+                                                        window.location.href = '@(Params.SiteUrl)/order/Detail?orderId=' + postData.Result.Result;
+
+                                                    },
+                                                    cancel: function () {
+                                                    },
+                                                });
+
+                                            }
+                                            else {
+                                                alert(postData.ErrorDesc);
+                                            }
+                                        }
+                                    });
+                                }
+                                else {
+                                    alert(postData.ErrorDesc);
+                                }
+                            }
+                        });
+                    })
+
+                }
+            });
+
+        });
+
+    </script>
+</body>
+</html>
+
+@section scripts
+{
+
+
+}

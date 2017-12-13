@@ -1,5 +1,564 @@
-﻿@{ 
-    ViewBag.Title = "砍价";
+﻿@using WST.Core.Extensions;
+@model KanJia
+@{
+    ViewBag.Title = Model?.Name;
     Layout = null;
+    var kanjiaList = ViewBag.KanJiaList as List<UserActivity>;
+    var isUser = Model.UserID == LoginHelper.GetCurrentUser().ID;
 }
 
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/reset.css?v=kanjia2">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style1.css?v=kanjia2">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/editkanjia.css?v=kanjia2">
+    <script type="text/javascript" src="~/assets/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/my.js"></script>
+    <style>
+        html {
+        }
+
+        .app {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            overflow-y: auto;
+            padding-bottom: 3em;
+        }
+
+        .apply-user-title {
+            margin-top: -1em;
+            border-bottom: 1px dashed #e5e5e5;
+        }
+
+            .apply-user-title .name {
+                color: #525250;
+                text-indent: 0.5em;
+            }
+
+            .apply-user-title .phone {
+                color: #faa139;
+            }
+
+        .apply-user-list {
+            line-height: 2em;
+            overflow: hidden;
+            text-align: left;
+        }
+
+            .apply-user-list .name {
+                float: left;
+                width: 30%;
+                color: #525250;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .apply-user-list .phone {
+                float: right;
+                width: 35%;
+                color: #faa139;
+                text-align: center;
+            }
+
+        .apply-info-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+        }
+
+            .apply-info-wrapper .amask {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,.7);
+            }
+
+            .apply-info-wrapper ul {
+                position: absolute;
+                top: 45%;
+                left: 50%;
+                margin-top: -5em;
+                margin-left: -40%;
+                width: 80%;
+                min-height: 10em;
+                background: #fff;
+                color: #1f90ca;
+                padding: 0 1em;
+                border-radius: 3px;
+            }
+
+                .apply-info-wrapper ul li h3 {
+                    line-height: 2.5em;
+                    text-indent: 1em;
+                    font-size: 1.2em;
+                    border-bottom: 2px dashed #eee;
+                }
+
+                .apply-info-wrapper ul li {
+                    line-height: 3em;
+                    text-align: center;
+                }
+
+                    .apply-info-wrapper ul li input {
+                        width: 50%;
+                        /* padding: 0 1em; */
+                        padding: 0;
+                        text-indent: 1em;
+                        border: 0;
+                        border-bottom: 1px solid #ccc;
+                        background: none;
+                        outline: none;
+                        color: #43a3d4;
+                    }
+
+                        .apply-info-wrapper ul li input:focus {
+                            border-color: #43a3d4;
+                        }
+
+                    .apply-info-wrapper ul li .msg {
+                        line-height: 1em;
+                    }
+
+                    .apply-info-wrapper ul li .button {
+                        padding: 0;
+                        border-radius: 5px;
+                        width: 80%;
+                        height: 2em;
+                        line-height: 2em;
+                        float: none;
+                        margin: 0 auto 1em;
+                    }
+
+        .foot-btn-wrapper {
+            overflow: hidden;
+            position: fixed;
+            left: 0;
+            bottom: 1em;
+            width: 100%;
+            text-align: center;
+        }
+
+                 .foot-btn-wrapper .button {
+            float: none;
+            display: inline-block;
+            width: 40%;
+            text-align: center;
+            padding: 0;
+            border-radius: 6px;
+            margin-left: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div class="app l view">
+
+        <div class="global-component-wrapper">
+
+            <div class="audio-component-wrapper hidden">
+                <audio id="audio" oldsrc="@(Model.MusicUrl)" src="@(Model.MusicUrl)" autoplay="autoplay" preload="preload" loop="loop"></audio>
+            </div>
+
+            <div class="apply-info-wrapper hidden">
+                <div class="amask"></div>
+                <ul>
+                    <li>
+                        <h3>填写报名信息</h3>
+                    </li>
+                    <li>
+                        <span>姓名：</span>
+                        <input id="userName" type="text" name="" placeholder="请输入姓名" data-rules="请输入姓名">
+                    </li>
+                    <li>
+                        <span>手机：</span>
+                        <input id="userPhone" type="number" name="" placeholder="请输入手机号" data-rules="请输入手机号码">
+                    </li>
+                    <li>
+                        <span class="msg c-f00"></span>
+                        <div class="button submitUserInfo">提交</div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- head -->
+        <div class="head-wrapper">
+            <div class="head-bg-wrapper">
+                <img id="banner" src="@(Model.Picture)">
+            </div>
+
+        </div>
+
+        <!-- title -->
+        <div class="title-wrapper mt15">
+            <div class="m00 w90">
+                <!-- <textarea id="title" class="textarea e-textarea f16 fB txt-center" value="喜迎购物节，课程低价疯狂抢">喜迎购物节，课程低价疯狂抢</textarea> -->
+                <div id="title" class="textarea e-textarea f16 fB txt-center">@(Model.Name)</div>
+
+                <!-- <p class="v-p f16 fB txt-center"></p> -->
+            </div>
+        </div>
+
+        <!-- activity -->
+        <div class="activity-wrapper mt15">
+            <span for="startTime">活动时间:</span>
+            <input id="startTime"
+                   type="text"
+                   disabled="true"
+                   name="startTime"
+                   class="input e-input timeinput"
+                   value="@(Model.StartTime.ToString("yyyy-MM-dd hh:mm"))" />
+            <span>到</span>
+            <input id="endTime"
+                   type="text"
+                   disabled="true"
+                   name="endTime"
+                   class="input e-input timeinput"
+                   value="@(Model.EndTime.ToString("yyyy-MM-dd hh:mm"))" />
+        </div>
+
+        <!-- groupBooking -->
+        <div class="groupBooking-wrapper mt10 w90 m10 f11">
+            <div class="groupBooking-list">
+                <span>当前价格：</span>
+                <span class="input e-input">@(ViewBag.Price)</span>
+                <span>元，</span>
+                <span>共砍价：</span>
+                <span class="input e-input">@(kanjiaList?.Count)</span>
+                <span>次</span>
+            </div>
+            <div class="groupBooking-list clearfix">
+                <div class="w100 fl">
+                    <span>原价与底价：</span>
+                </div>
+                <div class="w50 fl pl10">
+                    <span>原价：</span>
+                    <input id="oldPrice"
+                           type="number"
+                           disabled="true"
+                           name="oldPrice"
+                           class="input e-input w40"
+                           value="@(Model.OldPrice)">
+                    <span class="">元</span>
+                </div>
+                <div class="w50 fl">
+                    <span>底价：</span>
+                    <input id="lessPrice"
+                           type="number"
+                           disabled="true"
+                           name="lessPrice"
+                           class="input e-input w40"
+                           value="@(Model.LessPrice)">
+                    <span class="">元</span>
+                </div>
+            </div>
+
+            <div class="groupBooking-list">
+                <span>每次砍价价格：</span>
+                <input id="oncePrice"
+                       type="number"
+                       disabled="true"
+                       name="oncePrice"
+                       class="input e-input w20"
+                       value="@(Model.OncePrice)">
+                <span class="">元</span>
+            </div>
+
+            <div class="groupBooking-list">
+                <span>报名者每隔</span>
+                <input id="limitHour"
+                       type="number"
+                       disabled="true"
+                       name="limitHour"
+                       class="input e-input w10"
+                       value="@(Model.LimitHour)">
+                <span>小时可再次给自己减价</span>
+                <p class="info">每个报名者可在活动时间内多次为自己减价，帮忙者仅有一次机会。</p>
+            </div>
+            <div class="groupBooking-list mt10 clearfix">
+                <div class="w50 fl">
+                    <span>奖品数量：</span>
+                    <input type="number" id="prizeCount" name="prizeCount" class="input e-input w20" value="@(Model.PrizeCount)">
+                    <span class="">件</span>
+                </div>
+                <div class="w50 fl">
+                    <span>已中奖数量：</span>
+                    <input type="number" id="usedCount" name="usedCount" class="input e-input w20" value="@(Model.UsedCount)">
+                    <span class="">件</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- body -->
+        <div class="body-wrapper">
+
+            <div class="model-list goodsDescribe-item">
+                <div class="model-list-title">
+                    <span>商品描述</span>
+                </div>
+                <div class="model-list-body">
+                    <!-- sub-intro: 数据载体  data-type：类型-->
+                    <!-- 遍历数组 如果当前项type为txt 就生成文本类型 img生成图片类型 -->
+                    @foreach (var item in Model.GoodsItemsJson.DeserializeJson<List<TypeContentItem>>())
+                    {
+                        if (item.Type == "txt")
+                        {
+                              <!-- 文本类型 -->
+                            <div class="uploadImgLabel">
+                                <div id="subIntro0" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@item.Content</div>
+                            </div>
+
+                        }
+                        else
+                        {
+                    <!-- 图片类型 -->
+                            <label for="uploadImg" data-target="subIntro1" class="uploadImgLabel">
+                                <img id="subIntro1" class="sub-intro nosrc" data-type="img" src="@(item.Content)" alt="图片丢失">
+                            </label>
+                        }
+                    }
+
+                    @*<!-- 文本类型 -->
+                        <div class="uploadImgLabel">
+                            <div id="subIntro0" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">商品描述内容填充</div>
+                        </div>
+
+                        <!-- 图片类型 -->
+                        <label for="uploadImg" data-target="subIntro1" class="uploadImgLabel">
+                            <img id="subIntro1" class="sub-intro nosrc" data-type="img" src="图片路径" alt="图片丢失">
+                        </label>*@
+
+                </div>
+
+            </div>
+
+            <div class="model-list activityRule-item">
+                <div class="model-list-title">
+                    <span>活动规则</span>
+                </div>
+                <div class="model-list-body">
+
+                    <div id="rules" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@Model.Rules</div>
+
+                </div>
+            </div>
+
+            <div class="model-list acceptPrize-item">
+                <div class="model-list-title">
+                    <span>领取信息</span>
+                </div>
+                <div class="model-list-body">
+                    <div id="connact" contenteditable="false" class="textarea e-textarea" placeholder="输入领奖信息方便用户领奖，例：领奖时间、领奖地址、领奖电话">@Model.Connact</div>
+                </div>
+            </div>
+
+            <div class="model-list introduce-item">
+                <div class="model-list-title">
+                    <span>商家介绍</span>
+                </div>
+                <div class="model-list-body">
+
+                    @foreach (var item in Model.GoodsItemsJson.DeserializeJson<List<TypeContentItem>>())
+                    {
+                        if (item.Type == "txt")
+                        {
+                    <!-- 文本 -->
+                            <div class="uploadImgLabel">
+                                <div id="subIntro4" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@(item.Content)</div>
+                            </div>
+                        }
+                        else
+                        {
+                    <!-- 图片 -->
+                            <label for="uploadImg" data-target="subIntro1" class="uploadImgLabel">
+                                <img id="subIntro4" class="sub-intro nosrc" data-type="img" src="@(item.Content)" alt="图片丢失">
+                            </label>
+                        }
+                    }
+                    @*<!-- 文本 -->
+                        <div class="uploadImgLabel">
+                            <div id="subIntro4" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">商家介绍内容填充</div>
+                        </div>
+
+                        <!-- 图片 -->
+                        <label for="uploadImg" data-target="subIntro1" class="uploadImgLabel">
+                            <img id="subIntro4" class="sub-intro nosrc" data-type="img" src="" alt="图片丢失">
+                        </label>*@
+
+                </div>
+            </div>
+
+            <div class="model-list phone-item">
+                <div class="model-list-title">
+                    <span>咨询电话</span>
+                </div>
+                <div class="model-list-body pb10">
+                    <div class="phone-number txt-left">
+                        <i class="icon icon-hotline f12"></i>
+                        <input id="phoneNumber"
+                               type="number"
+                               disabled="true"
+                               class="input e-input"
+                               placeholder="请输入手机号码"
+                               value="@(Model.PhoneNumber)">
+                        <!-- <span class="v-span"></span> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="model-list apply-item">
+                <div class="model-list-title">
+                    <span>砍价人员</span>
+                </div>
+                <div class="model-list-body pb10">
+                    <div class="apply-user-list apply-user-title">
+                        <span class="name">名字</span>
+                        <span class="phone">手机号</span>
+                    </div>
+                    <!-- <div class="apply-user-list">
+                        <span class="name">龙傲天</span>
+                        <span class="phone">15000000000</span>
+                    </div> -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- foot -->
+        <div class="foot-btn-wrapper">
+            @if (!isUser)
+            {
+                <div class="button apply-btn">我要报名</div>
+            }
+            <div class="button help-btn">帮忙砍价</div>
+        </div>
+
+    </div>
+    <script type="text/javascript">
+        $(function () {
+            var pageIndex = 0, // 当前页索引
+					pageSize = 10, // 每页数量
+					RecordCount, // 全部数据总数
+					PageCount, // 总页面数
+					IsLastPage = false; // 最后一页
+
+            var timer,
+					loadJudge = true;
+
+            // 下拉加载
+            $('.app').scroll(function (e) {
+
+                if (IsLastPage) {
+                    console.log('IsLastPage');
+                    return false;
+                }
+                if (!loadJudge) {
+                    console.log('loadJudge');
+                    return false;
+                }
+                if (this.scrollHeight < this.scrollTop + this.clientHeight + 20) {
+                    loadJudge = false;
+                    setTimeout(function () {
+                        loadJudge = true;
+                    }, 2000)
+
+
+                    $.ajax({
+                        url: '/user/GetUserPageList',
+                        data: {
+                            pageIndex: ++pageIndex,
+                            pageSize: pageSize,
+                            targetId: '@(Model.ID)'
+                        },
+                        success: function (data) {
+                            if (data.Code == 0) {
+                                IsLastPage = data.Result.IsLastPage;
+                                RecordCount = data.Result.RecordCount;
+                                PageCount = data.Result.PageCount;
+                                var list = data.Result.List;
+                                $.each(list, function (i, obj) {
+                                    $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="phone">' + obj.Mobile + '</span></div>')
+                                })
+                            }
+                            else
+                                alert(data.ErrorDesc);
+                        }
+                    })
+                }
+            })
+
+            // 点击报名
+            $(document).on('click', '.apply-btn', function () {
+                $('.apply-info-wrapper').removeClass('hidden');
+            })
+			.on('click', '.apply-info-wrapper .amask', function () {
+			    $('.apply-info-wrapper').addClass('hidden');
+			})
+			// 提交报名信息
+			.on('click', '.submitUserInfo', function () {
+			    for (var i = 0; i < $('.apply-info-wrapper input').length; i++) {
+			        if ($('.apply-info-wrapper input').eq(i).val().length < 2) {
+			            $('.apply-info-wrapper .msg').text($('.apply-info-wrapper input').eq(i).attr('data-rules'));
+			            if (timer) clearTimeout(timer);
+			            timer = setTimeout(function () {
+			                $('.apply-info-wrapper .msg').text('');
+			            }, 5000)
+			            return false;
+			        }
+			    }
+			    $('.apply-info-wrapper .msg').text('');
+			    console.log('pass');
+
+			    $.ajax({
+			        url: '/user/JoinkanJia',
+			        data: {
+			            id: '@(Model.ID)',
+			            mobile: $('#userPhone').val(),
+			            name: $('#userName').val(),
+			            filedJson: ''
+			        },
+			        success: function (data) {
+			            if (data.Code == 0) {
+			                alert("报名成功");
+			                window.location.href = "/user/kanjia?id=@(Model.ID)&userActId=" + data.Result;
+			            }
+			            else
+			                alert(data.ErrorDesc);
+			        }
+			    })
+			})
+            //砍价
+            $(document).on('click', '.help-btn', function () {
+                $.ajax({
+                    method: 'post',
+                    url: '/user/ToKanJia',
+                    data: {
+                        id: '@(Request["userActId"])',
+                    },
+                    success: function (data) {
+                        debugger
+                        if (data.Code == 0) {
+                            alert("砍价成功");
+                            window.location.reload();
+                        }
+                        else
+                            alert(data.ErrorDesc);
+                    }
+                })
+            })
+
+        })
+    </script>
+</body>
+</html>

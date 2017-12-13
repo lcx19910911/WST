@@ -1,0 +1,153 @@
+﻿@using WST.Core.Extensions
+@model User
+@{
+    ViewBag.Title = "个人资料";
+    Layout = null;
+}
+
+@section linkcss
+{
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>个人资料</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <link rel="stylesheet" href="~/assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style.css">
+    <script src="~/assets/js/jquery-2.1.4.min.js"></script>
+    <script src="~/Areas/Admin/Scripts/utility.js"></script>
+    <style>
+        html {
+            background: #f9f9ff;
+        }
+
+        .nav-wrapper {
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 0.4em 1em;
+            width: 100%;
+            height: 2.8em;
+            line-height: 2em;
+            border-bottom: 1px dashed #eee;
+            background: #fff;
+            z-index: 10;
+        }
+
+            .nav-wrapper a {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 2.8em;
+                line-height: 2.8em;
+                padding: 0 1em;
+                color: #608DA4;
+            }
+
+            .nav-wrapper h3 {
+                position: absolute;
+                width: 100%;
+                text-align: center;
+                color: #608DA4;
+                font-size: 1.1em;
+            }
+
+        .data {
+            padding-top: 5em;
+        }
+
+        .l .input {
+            border: 1px solid #ccc;
+            width: 100%;
+            text-align: left;
+            padding: 0 1em;
+        }
+
+        .data p {
+            line-height: 3em;
+            padding: 0 1em;
+        }
+
+        .l .button {
+            padding: 0;
+            float: none;
+            width: 60%;
+            text-align: center;
+            border-radius: 6px;
+            margin-top: 3em;
+        }
+    </style>
+</head>
+<body>
+    <div class="l">
+        <div class="nav-wrapper">
+            <h3>完善资料</h3>
+            <a href="javascript:history.go(-1);" class="backhome fl"><返回</a>
+        </div>
+
+        <div class="data">
+            <p>门店名:</p>
+            <p><input id="StoreName" class="input" type="text" name="StoreName" placeholder="请填写门店名"></p>
+            <p>身份证:</p>
+            <p><input id="IDCard" class="input" type="text" name="IDCard" placeholder="请填写身份证"></p>
+            <p>顾问:</p>
+            <p><input id="AdviserName" class="input" type="text" name="AdviserName" placeholder="请填写顾问"></p>
+            <div class="button submit-btn">提交</div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+		$(function() {
+
+			// 点击加载更多
+			$(document).on('click', '.submit-btn', function() {
+				for(var i = 0; i < $('.input').length-1; i++) {
+					if($.trim($('.input').eq(i).val()).length < 2) {
+						$('.input').eq(i).focus();
+						return false;
+					}
+				}
+				var msg = isCard($("[name='StoreName']").val());
+				if (msg == "")
+				{
+				    alert(msg);
+				    return false;
+				}
+				$.ajax({
+				    url: '/user/PersonData',
+                    method:'post',
+				    data: {
+				        IDCard: $("[name='StoreName']").val(),
+				        StoreName: $("[name='StoreName']").val(),
+				        AdviserName: $("[name='AdviserName']").val()
+				    },
+				    success: function (data) {
+				        if (data.Code == 0) {
+				            window.location.href = "/user/buytime";
+				        }
+				        else
+				            alert(data.ErrorDesc);
+				    }
+				})
+
+			})
+
+		})
+
+    </script>
+
+</body>
+</html>
+@section scripts
+{
+
+
+}

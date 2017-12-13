@@ -59,7 +59,7 @@ namespace WST.Model
         public int PrizeCount { get; set; }
 
         /// <summary>
-        /// 已领取数量  不需传值
+        /// 已中奖数量  不需传值
         /// </summary>
         public int UsedCount { get; set; }
     }

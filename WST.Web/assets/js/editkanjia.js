@@ -221,6 +221,13 @@ $(function () {
         $('.submit-form .LimitHour').val(limitHour)
         console.log(limitHour, '-----limitHour');
 
+        // 砍价间隔时间
+        var prizeCount = $('#prizeCount').val();
+        $('.submit-form .PrizeCount').val(prizeCount)
+        console.log(prizeCount, '-----prizeCount');
+
+        
+
         // // 拼团描述
         // var name = $('#title').html();
         // $('.submit-form .PinTuanItemInfo').val( $('#startTime').val() )

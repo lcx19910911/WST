@@ -26,9 +26,10 @@ namespace WST.Web.Controllers
         public IPinTuanService IPinTuanService;
         public IUserActivityService IUserActivityService;
         public IKanJiaService IKanJiaService;
+        public IAdviserService IAdviserService;
 
         public UserController(IUserService _IUserService, IRechargePlanService _IRechargePlanService, IPayOrderService _IPayOrderService,
-            IPinTuanService _IPinTuanService, IUserActivityService _IUserActivityService, IKanJiaService _IKanJiaService)
+            IPinTuanService _IPinTuanService, IUserActivityService _IUserActivityService, IKanJiaService _IKanJiaService, IAdviserService _IAdviserService)
         {
             this.IUserService = _IUserService;
             this.IRechargePlanService = _IRechargePlanService;
@@ -36,6 +37,7 @@ namespace WST.Web.Controllers
             this.IUserActivityService = _IUserActivityService;
             this.IPinTuanService = _IPinTuanService;
             this.IKanJiaService = _IKanJiaService;
+            this.IAdviserService = _IAdviserService;
         }
 
         // GET: User
@@ -61,19 +63,28 @@ namespace WST.Web.Controllers
         {
             return JResult(IPayOrderService.JoinPintuan(id));
         }
-        /// <summary>
-        /// 余额充值
-        /// </summary>
-        /// <returns></returns>
-        public ActionResult Recharge()
+
+
+        // GET: User
+        public ActionResult BuyTime()
         {
-            return View();
+            var user = IUserService.Find(LoginUser.ID);
+            if (user.IDCard.IsNullOrEmpty())
+            {
+                return RedirectToAction("PersonData", "user");
+            }
+            ViewBag.AppId = Params.WeixinAppId;
+            string cacheToken = WxPayApi.GetCacheToken(Params.WeixinAppId, Params.WeixinAppSecret);
+            ViewBag.TimeStamp = WxPayApi.GenerateTimeStamp();
+            ViewBag.NonceStr = WxPayApi.GenerateNonceStr();
+            ViewBag.Signature = WxPayApi.GetSignature(Params.SiteUrl, cacheToken, ViewBag.TimeStamp, ViewBag.NonceStr);
+            return View(IRechargePlanService.GetList());
         }
 
         [HttpPost]
-        public ActionResult Recharge(decimal amount)
+        public ActionResult BuyTime(string planId)
         {
-            return JResult(IPayOrderService.Recharge(amount));
+            return JResult(IPayOrderService.BuyTime(planId));
         }
 
         /// <summary>
@@ -159,14 +170,16 @@ namespace WST.Web.Controllers
             }
             if (model.UsedCount == model.PrizeCount)
             {
-                return JResult(Core.Code.ErrorCode.activity_time_out, "");
+                return JResult(Core.Code.ErrorCode.prize_not_had, "");
             }
             if (IUserActivityService.IsExits(x => x.TargetID == id && x.JoinUserID == LoginUser.ID))
             {
                 return JResult(Core.Code.ErrorCode.had_join_in, "");
             }
-            return JResult(IUserActivityService.Add(new UserActivity()
+            var newId = Guid.NewGuid().ToString("N");
+            var result = IUserActivityService.Add(new UserActivity()
             {
+                ID= newId,
                 Code = TargetCode.Kanjia,
                 Openid = LoginUser.Openid,
                 JoinUserID = LoginUser.ID,
@@ -179,7 +192,13 @@ namespace WST.Web.Controllers
                 Mobile = mobile,
                 TargetID = id,
                 FiledItemJson = filedJson
-            }));
+            });
+            if (result > 0)
+            {
+                return JResult(newId);
+            }
+            else
+                return DataErorrJResult();
         }
 
         /// <summary>
@@ -193,6 +212,33 @@ namespace WST.Web.Controllers
         public ActionResult GetActPageList(int pageIndex, int pageSize, string targetId)
         {
             return JResult(IUserActivityService.GetPageList(pageIndex, pageSize, targetId, "", LoginUser.ID, "", null));
+        }
+
+
+        public ActionResult PersonData()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult PersonData(string IDCard, string StoreName, string AdviserName)
+        {
+            var user = IUserService.Find(LoginUser.ID);
+            if (user == null && user.IsDelete)
+            {
+                return DataErorrJResult();
+            }
+            user.IDCard = IDCard;
+            user.StoreName = StoreName;
+            if (AdviserName.IsNotNullOrEmpty())
+            {
+                var advserModel = IAdviserService.Find(x => x.Name == AdviserName);
+                if (advserModel != null && !advserModel.IsDelete)
+                {
+                    user.AdviserID = advserModel.ID;
+                }
+            }
+            user.AdviserName = AdviserName;
+            return JResult(IUserService.Update(user));
         }
 
 
@@ -227,10 +273,20 @@ namespace WST.Web.Controllers
             {
                 return JResult(Core.Code.ErrorCode.activity_time_out, "");
             }
-            var startTime = DateTime.Now.AddHours(-(model.LimitHour));
-            if (IUserActivityService.IsExits(x => x.TargetID == userActivityModel.TargetID && x.TargetUserID == LoginUser.ID && x.CreatedTime > startTime))
+            if (userActivityModel.JoinUserID == LoginUser.ID)
             {
-                return JResult(Core.Code.ErrorCode.time_limit_error, "");
+                var startTime = DateTime.Now.AddHours(-(model.LimitHour));
+                if (IUserActivityService.IsExits(x => x.TargetID == userActivityModel.TargetID && x.TargetUserID == LoginUser.ID && x.CreatedTime > startTime))
+                {
+                    return JResult(Core.Code.ErrorCode.time_limit_error, "");
+                }
+            }
+            else
+            {
+                if (IUserActivityService.IsExits(x => x.TargetID == userActivityModel.TargetID && x.TargetUserID == LoginUser.ID))
+                {
+                    return JResult(Core.Code.ErrorCode.had_kanjia, "");
+                }
             }
             if (IUserActivityService.GetCount(x => x.TargetID == userActivityModel.TargetID && !string.IsNullOrEmpty(x.TargetUserID)) < model.CountLimit)
             {
@@ -245,62 +301,94 @@ namespace WST.Web.Controllers
             var toKanjiaModel = new UserActivity()
             {
                 Code = TargetCode.Kanjia,
-                TargetUserID = LoginUser.ID,
+                TargetUserID = userActivityModel.JoinUserID,
+                JoinUserID = LoginUser.ID,
                 Openid = LoginUser.Openid,
                 IsPrize = false,
                 IsUsedOnLine = false,
-                PrizeInfo = $"用户{LoginUser.Account}帮助用户{userActivityModel.JoinUserName}创建砍价{model.OncePrice}，现价{userActivityModel.Amount}",
+                PrizeInfo = $"用户{LoginUser.Account}帮助用户{userActivityModel.JoinUserName}砍价{model.OncePrice}，现价{userActivityModel.Amount}",
+                Amount=userActivityModel.Amount,
                 ShopUserID = model.UserID,
+                JoinUserName=LoginUser.Account,
                 TargetID = userActivityModel.TargetID
             };
             IUserActivityService.Add(toKanjiaModel);
             return JResult(IUserActivityService.Update(userActivityModel));
         }
 
+        public ActionResult JoinUser()
+        {
+            return View();
+        }
 
-
+        /// <summary>
+        /// 用户活动列表
+        /// </summary>
+        /// <returns></returns>
         public ActionResult ActList()
         {
-            var model = new List<Tuple<string, string, string, DateTime, DateTime, bool,TargetCode>>();
-            if (LoginUser.IsMember)
-            {
-                var kanjiaList = IKanJiaService.GetList(x => x.UserID == LoginUser.ID).Select(x =>
-                {
-                    return new Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete,TargetCode.Kanjia);
-                }).ToList();
-                model.AddRange(kanjiaList);
-                var list = IPinTuanService.GetList(x => x.UserID == LoginUser.ID);
-                list.ForEach(x=>
-                {
-                     model.Add(new Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, TargetCode.Pintuan));
-                });
-            }
-            else
-            {
-                var actIdList = IUserActivityService.GetList(x => x.JoinUserID == LoginUser.ID);
-                var kanjiaIdList = actIdList.Where(x => x.Code == TargetCode.Kanjia).Select(x => x.TargetID).ToList();
-                var pintuanIdList = actIdList.Where(x => x.Code == TargetCode.Kanjia).Select(x => x.TargetID).ToList();
-                var kanjiaList = IKanJiaService.GetList(x => kanjiaIdList.Contains(x.ID)).Select(x =>
-                {
-                    return new Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, TargetCode.Kanjia);
-                }).ToList();
-                model.AddRange(kanjiaList);
+            var model = new List<Tuple<string, string, string, string, DateTime?, bool, TargetCode>>();
 
-                var pintuanList = IPinTuanService.GetList(x => kanjiaIdList.Contains(x.ID)).Select(x =>
+            var actIdList = IUserActivityService.GetList(x => x.JoinUserID == LoginUser.ID);
+            var kanjiaIdList = actIdList.Where(x => x.Code == TargetCode.Kanjia&&string.IsNullOrEmpty(x.TargetUserID)).Select(x => x.TargetID).ToList();
+            var kanjiaDic = actIdList.Where(x => x.Code == TargetCode.Kanjia && string.IsNullOrEmpty(x.TargetUserID)).ToDictionary(x => x.TargetID);
+            var pintuanIdList = actIdList.Where(x => x.Code == TargetCode.Pintuan).Select(x => x.TargetID).ToList();
+            var pintuanDic = actIdList.Where(x => x.Code == TargetCode.Pintuan).ToDictionary(x => x.TargetID);
+            var kanjiaList = IKanJiaService.GetList(x => kanjiaIdList.Contains(x.ID)).Select(x =>
+            {
+                if (kanjiaDic.ContainsKey(x.ID))
                 {
-                    return new Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, TargetCode.Pintuan);
-                }).ToList();
-                model.AddRange(pintuanList);
-            }
-            ViewBag.List = model;
+                    var item = kanjiaDic[x.ID];
+                    return new Tuple<string, string, string, string, DateTime?, bool, TargetCode>(x.Name, x.Picture, x.ID, item.ID, item.UsedTime, item.IsPrize, TargetCode.Kanjia);
+                }
+                else
+                    return null;
+            }).ToList();
+
+            model.AddRange(kanjiaList);
+
+            var pintuanList = IPinTuanService.GetList(x => pintuanIdList.Contains(x.ID)).Select(x =>
+            {
+                if (pintuanDic.ContainsKey(x.ID))
+                {
+                    var item = pintuanDic[x.ID];
+                    return new Tuple<string, string, string, string, DateTime?, bool, TargetCode>(x.Name, x.Picture, x.ID, item.ID, item.UsedTime, item.IsPrize, TargetCode.Pintuan);
+                }
+                else
+                    return null;
+            }).ToList();
+            model.AddRange(pintuanList);
+            ViewBag.List = model.Where(x=>x!=null).ToList();
             return View();
         }
 
 
         // GET: User
-        public ActionResult KanJia()
+        public ActionResult KanJia(string id, string userActId)
         {
-            return View();
+            var model = IKanJiaService.Find(id);
+            if (model == null || model.IsDelete)
+            {
+                return Forbidden();
+            }
+            if (userActId.IsNotNullOrEmpty())
+            {
+                var userAct = IUserActivityService.Find(x => x.ID == userActId);
+                if (userAct == null || userAct.IsDelete)
+                {
+                    return Forbidden();
+                }
+                //帮砍价人列表
+                ViewBag.KanJiaList = IUserActivityService.GetList(x => x.TargetID == id && x.JoinUserID == userAct.JoinUserID && !string.IsNullOrEmpty(x.TargetID));
+                ViewBag.Price = userAct.Amount;
+            }
+            else
+            {
+                //帮砍价人列表
+                ViewBag.KanJiaList = new List<UserActivity>();
+                ViewBag.Price = model.OldPrice;
+            }
+            return View(model);
         }
 
         // GET: User

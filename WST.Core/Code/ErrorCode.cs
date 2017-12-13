@@ -265,5 +265,10 @@ namespace WST.Core.Code
         /// </summary>
         [Description("已到砍价次数限制.")]
         count_limit_error = 808,
+        /// <summary>
+        /// 你已帮砍
+        /// </summary>
+        [Description("你已帮砍.")]
+        had_kanjia = 809,
     }
 }

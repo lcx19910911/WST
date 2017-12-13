@@ -143,6 +143,11 @@
                 <p class="info">每个报名者可在活动时间内多次为自己减价，帮忙者仅有一次机会。</p>
             </div>
 
+            <div class="groupBooking-list mt10">
+                <span>奖品数量：</span>
+                <input type="number" id="prizeCount" name="prizeCount" class="input e-input w20" value="@(Model.PrizeCount==0?1:Model.PrizeCount)">
+                <span class="">件</span>
+            </div>
         </div>
 
         <!-- body -->
@@ -318,8 +323,10 @@
             <input type="text" name="OncePrice" class="OncePrice required" data-required="请填写单次砍价价格">
 
             <!-- 砍价间隔时间 -->
-            <input type="text" name="LimitHour" class="LimitHour required" data-required="请填写砍价间隔小时">
-
+            <input type="text" name="LimitHour" class="LimitHour required" data-required="请填写砍价间隔小时">      
+                  <!-- 砍价间隔时间 -->
+            <input type="text" name="PrizeCount" class="PrizeCount required" data-required="请填写奖品数量">
+            
             <!-- 拼团描述 -->
             <!-- <input type="text" name="PinTuanItemInfo" class="PinTuanItemInfo"> -->
             <!-- 商品json集合 -->

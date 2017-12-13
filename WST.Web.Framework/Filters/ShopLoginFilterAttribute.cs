@@ -27,7 +27,7 @@ namespace WST.Web.Framework.Filters
 
             if (!controller.LoginUser.IsMember)
             {
-                RedirectResult redirectResult = new RedirectResult("/user/index");
+                RedirectResult redirectResult = new RedirectResult("/user/buytime");
                 filterContext.Result = redirectResult;
             }
 

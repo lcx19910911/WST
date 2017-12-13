@@ -1,0 +1,20 @@
+Time:2017/12/13 19:36:09-本次请求耗时 11.872 秒.
+Url:http://localhost:56262/user/JoinkanJia?id=5d5532657d0541bbbdec34255c393480&mobile=11111111111&name=1111&filedJson=
+UrlReferrer:http://localhost:56262/user/kanjia?id=5d5532657d0541bbbdec34255c393480
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 19:47:28-本次请求耗时 10.202 秒.
+Url:http://localhost:56262/user/ToKanJia
+UrlReferrer:http://localhost:56262/user/kanjia?id=5d5532657d0541bbbdec34255c393480
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 19:52:57-本次请求耗时 2.324 秒.
+Url:http://localhost:56262/User/KanJia
+UserHostAddress:::1;;
+WebServer:::1
+
+

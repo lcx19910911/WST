@@ -52,17 +52,6 @@ namespace WST.Web.Controllers
             }
             return View(user);
         }
-        // GET: User
-        public ActionResult BuyTime()
-        {
-            return View(IRechargePlanService.GetList());
-        }
-
-        [HttpPost]
-        public ActionResult BuyTime(string planId)
-        {
-            return JResult(IPayOrderService.BuyTime(planId));
-        }
         /// <summary>
         /// 余额充值
         /// </summary>
@@ -100,11 +89,10 @@ namespace WST.Web.Controllers
         /// </summary>
         /// <param name="ids"></param>
         /// <returns></returns>
-        [HttpPost]
         public ActionResult ToUsed(string id)
         {
             var userActivityModel = IUserActivityService.Find(x => x.ID == id);
-            if (userActivityModel == null || userActivityModel.IsDelete||userActivityModel.ShopUserID!=LoginUser.ID)
+            if (userActivityModel == null || userActivityModel.IsDelete||userActivityModel.ShopUserID!=LoginUser.ID||!userActivityModel.IsPrize)
             {
                 return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
             }
@@ -154,6 +142,36 @@ namespace WST.Web.Controllers
                 userActivityModel.UsedTime = DateTime.Now;
             }
             return JResult(IUserActivityService.Update(userActivityModel));
+        }
+
+
+        /// <summary>
+        /// 商家活动
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult ActList()
+        {
+            var model = new List<Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>>();
+
+            var kanjiaList = IKanJiaService.GetList(x => x.UserID == LoginUser.ID).Select(x =>
+            {
+                return new Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, TargetCode.Kanjia);
+            }).ToList();
+            model.AddRange(kanjiaList);
+            var list = IPinTuanService.GetList(x => x.UserID == LoginUser.ID);
+            list.ForEach(x =>
+            {
+                model.Add(new Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, TargetCode.Pintuan));
+            });
+            
+            ViewBag.AppId = Params.WeixinAppId;
+            string cacheToken = WxPayApi.GetCacheToken(Params.WeixinAppId, Params.WeixinAppSecret);
+            ViewBag.TimeStamp = WxPayApi.GenerateTimeStamp();
+            ViewBag.NonceStr = WxPayApi.GenerateNonceStr();
+            ViewBag.Signature = WxPayApi.GetSignature(Params.SiteUrl + "/shop/ActList", cacheToken, ViewBag.TimeStamp, ViewBag.NonceStr);
+
+            ViewBag.List = model;
+            return View();
         }
     }
 }

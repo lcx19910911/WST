@@ -1,0 +1,39 @@
+Time:2017/12/13 22:02:27-本次请求耗时 10.312 秒.
+Url:http://localhost:56262/user/ToKanJia
+UrlReferrer:http://localhost:56262/user/kanjia?id=5d5532657d0541bbbdec34255c393480&=userActId552cbbfcacf64b01bef9d950978d64e4
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 22:03:35-本次请求耗时 11.825 秒.
+Url:http://localhost:56262/user/kanjia?id=5d5532657d0541bbbdec34255c393480&userActId=552cbbfcacf64b01bef9d950978d64e4
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 22:04:03-本次请求耗时 8.175 秒.
+Url:http://localhost:56262/user/kanjia?id=5d5532657d0541bbbdec34255c393480
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 22:05:23-本次请求耗时 11.856 秒.
+Url:http://localhost:56262/user/ToKanJia
+UrlReferrer:http://localhost:56262/user/kanjia?id=5d5532657d0541bbbdec34255c393480&userActId=107900c26c7940cda2650edb0698595a
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 22:18:01-本次请求耗时 43.166 秒.
+Url:http://localhost:56262/user/buytime
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 22:21:55-本次请求耗时 8.518 秒.
+Url:http://localhost:56262/user/PersonData
+UrlReferrer:http://localhost:56262/user/PersonData
+UserHostAddress:::1;;
+WebServer:::1
+
+

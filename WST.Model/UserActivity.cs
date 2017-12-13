@@ -45,7 +45,7 @@ namespace WST.Model
         /// <summary>
         /// 为谁砍价
         /// </summary>
-        [MaxLength(11)]
+        [MaxLength(32)]
         public string TargetUserID { get; set; }
         /// <summary>
         /// 店家

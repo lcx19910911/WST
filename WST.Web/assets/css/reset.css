@@ -76,6 +76,12 @@ a {text-decoration: none;color: inherit;} a:link, a:hover, a:active, a:visited {
     outline: none;
     border-radius: 3px;
 }
+
+.l .input:focus, .l .textarea:focus {
+    border-color: #f00;
+}
+
+
 .l-input {border: 1px solid #ccc;padding: 0 0.5em;outline: none;}
 .txt-hidden {overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
 .fl {float: left;}.fr {float:right;}
@@ -93,6 +99,8 @@ a {text-decoration: none;color: inherit;} a:link, a:hover, a:active, a:visited {
 .l .fB {font-weight: bold;}
 .l .fI {font-style: italic;}
 .l .fU {text-decoration: underline;}
+.l .fT {text-decoration: line-through;}
+.l .fO {text-decoration: overline;}
 
 .l .l1 {line-height: 1.1rem;}.l .l2 {line-height: 1.2rem;}.l .l3 {line-height: 1.3rem;}.l .l4 {line-height: 1.4rem;}.l .l5 {line-height: 1.5rem;}.l .l6 {line-height: 1.6rem;}.l .l7 {line-height: 1.7rem;}.l .l8 {line-height: 1.8rem;}.l .l9 {line-height: 1.9rem;}.l .l10 {line-height: 1rem;}.l .l20 {line-height: 2rem;}.l .l30 {line-height: 3rem;}.l .l40 {line-height: 4rem;}.l .l50 {line-height: 5rem;}
 .l .h1 {height: 1.1rem;line-height: 1.1rem;}.l .h2 {height: 1.2rem;line-height: 1.2rem;}.l .h3 {height: 1.3rem;line-height: 1.3rem;}.l .h4 {height: 1.4rem;line-height: 1.4rem;}.l .h5 {height: 1.5rem;line-height: 1.5rem;}.l .h6 {height: 1.6rem;line-height: 1.6rem;}.l .h7 {height: 1.7rem;line-height: 1.7rem;}.l .h8 {height: 1.8rem;line-height: 1.8rem;}.l .h9 {height: 1.9rem;line-height: 1.9rem;}.l .h10 {height: 1rem;line-height: 1rem;}.l .h20 {height: 2rem;line-height: 2rem;}.l .h30 {height: 3rem;line-height: 3rem;}.l .h40 {height: 4rem;line-height: 4rem;}.l .h50 {height: 5rem;line-height: 5rem;}
@@ -111,9 +119,10 @@ a {text-decoration: none;color: inherit;} a:link, a:hover, a:active, a:visited {
 .l .p00 {padding: 0;}.l .p10 {padding: 1rem;}.l .p20 {padding: 2rem;}.l .p30 {padding: 3rem;}.l .p40 {padding: 4rem;}.l .p50 {padding: 5rem;}
 .l .p05 {padding: 0.5rem;}
 .l .pt00 {padding-top: 0;}.l .pt10 {padding-top: 1rem;}.l .pt20 {padding-top: 2rem;}.l .pt30 {padding-top: 3rem;}.l .pt40 {padding-top: 4rem;}.l .pt50 {padding-top: 5rem;}
-.l .pl00 {padding-left: 0;}.l .pl110 {padding-left: 1rem;}.l .pl20 {padding-left: 2rem;}.l .pl30 {padding-left: 3rem;}.l .pl40 {padding-left: 4rem;}.l .pl50 {padding-left: 5rem;}
+.l .pl00 {padding-left: 0;}.l .pl10 {padding-left: 1rem;}.l .pl20 {padding-left: 2rem;}.l .pl30 {padding-left: 3rem;}.l .pl40 {padding-left: 4rem;}.l .pl50 {padding-left: 5rem;}
 .l .pr00 {padding-right: 0;}.l .pr10 {padding-right: 1rem;}.l .pr20 {padding-right: 2rem;}.l .pr30 {padding-right: 3rem;}.l .pr40 {padding-right: 4rem;}.l .pr50 {padding-right: 5rem;}
-.l .pb00 {padding-bottom: 0;}.l .pb10 {padding-bottom: 1rem;}.l .pb20 {padding-bottom: 2rem;}.l .pb30 {padding-bottom: 3rem;}.l .pb40 {padding-bottom: 4rem;}.l .pb50 {padding-bottom: 5rem;}
+.l .pbh00 {padding-bottom: 0;}.l .pbh10 {padding-bottom: 1rem;}.l .pbh20 {padding-bottom: 2rem;}.l .pbh30 {padding-bottom: 3rem;}.l .pbh40 {padding-bottom: 4rem;}.l .pbh50 {padding-bottom: 5rem;}
+.l .pb10 {padding-bottom: 1em;}.l .pb20 {padding-bottom: 2em;}.l .pb30 {padding-bottom: 3em;}.l .pb40 {padding-bottom: 4em;}.l .pb50 {padding-bottom: 5em;}
 .l .c-000 {color: #000 !important;}.l .c-fff {color: #fff !important;}.l .c-f00 {color: #f00 !important;}.l .c-0f0 {color: #0f0 !important;}.l .c-00f {color: #00f !important;}.l .c-ff0 {color: #ff0 !important;}.l .c-f0f {color: #f0f !important;}.l .c-0ff {color: #0ff !important;}.l .c-39f {color: #39f !important;}.l .c-ccc {color: #ccc !important;}.l .c-666 {color: #666 !important;}.l .c-999 {color: #999 !important;}
 .l .bc-000 {background-color: #000;}.l .bc-fff {background-color: #fff;}.l .bc-f00 {background-color: #f00;}.l .bc-0f0 {background-color: #0f0;}.l .bc-00f {background-color: #00f;}.l .bc-ff0 {background-color: #ff0;}.l .bc-f0f {background-color: #f0f;}.l .bc-0ff {background-color: #0ff;}.l .bc-39f {background-color: #39f;}.l .bc-ccc {background-color: #ccc;}.l .bc-666 {background-color: #666;}.l .bc-999 {background-color: #999;}
 .hidden {display: none !important;}
@@ -132,6 +141,8 @@ a {text-decoration: none;color: inherit;} a:link, a:hover, a:active, a:visited {
     color: #fff;
     font-size: 1em;
     cursor: pointer;
+    text-align: center;
+    margin: 0 auto;
     transition: background 0.3s;
 }
 .button0 {

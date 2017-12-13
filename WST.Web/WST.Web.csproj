@@ -815,25 +815,18 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
-    <Content Include="Views\Store\BuyCard.cshtml" />
-    <Content Include="Views\Store\Recharge.cshtml" />
     <Content Include="Views\WxPay\Pay.cshtml" />
-    <Content Include="Views\Store\Balance.cshtml" />
-    <Content Include="Views\Store\MasterSort.cshtml" />
-    <Content Include="Views\Store\CourseList.cshtml" />
     <Content Include="Views\Order\Detail.cshtml" />
-    <Content Include="Views\WxAdmin\Approach.cshtml" />
     <Content Include="Views\WxPay\PaySuccess.cshtml" />
-    <Content Include="Views\WxAdmin\Index.cshtml" />
-    <Content Include="Views\Store\SignIn.cshtml" />
-    <Content Include="Views\Store\Shop.cshtml" />
-    <Content Include="Views\Store\Index.cshtml" />
-    <Content Include="Views\Store\Location.cshtml" />
     <Content Include="Views\KanJia\Manage.cshtml" />
     <Content Include="Views\User\ActList.cshtml" />
     <Content Include="Views\PinTuan\Manage.cshtml" />
     <Content Include="Views\User\KanJia.cshtml" />
     <Content Include="Views\User\PinTuan.cshtml" />
+    <Content Include="Views\User\BuyTime.cshtml" />
+    <Content Include="Views\Shop\ActList.cshtml" />
+    <Content Include="Views\User\PersonData.cshtml" />
+    <Content Include="Views\User\JoinUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -852,6 +845,7 @@
     <Folder Include="assets\img\temp\" />
     <Folder Include="Lib\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\WxAdmin\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\WST.Core\WST.Core.csproj">

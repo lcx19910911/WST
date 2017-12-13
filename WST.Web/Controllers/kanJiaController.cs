@@ -162,10 +162,11 @@ namespace WST.Web.Controllers
             var model = IKanJiaService.Find(id);
             if (model != null && model.UserID == LoginUser.ID)
             {
-                return JResult(IKanJiaService.Delete(id));
+                IKanJiaService.Delete(id);
+                return Redirect("/user/actList");
             }
             else
-                return DataErorrJResult();
+                return Forbidden();
         }
         
     }

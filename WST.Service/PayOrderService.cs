@@ -145,7 +145,7 @@ namespace WST.Service
                     ID = orderId,
                     NO = DateTime.Now.ToString("yyyyMMddhhmmssfff" + new Random().Next(1000, 2000)),
                     Amount =rechargePlan.Money,
-                    Remark = $"{Client.LoginUser.Account}在{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}购买了的套餐{rechargePlan.Name}，金额{rechargePlan.Money}",
+                    Remark = $"{Client.LoginUser.Account}在{DateTime.Now.ToString("yyyy-MM-dd hh:mm:ss")}购买了的套餐{rechargePlan.Name},天数{rechargePlan.Day}，金额{rechargePlan.Money}",
                     Code = OrderCode.Time,
                     TargetID=planId,
                     UserID = Client.LoginUser.ID,

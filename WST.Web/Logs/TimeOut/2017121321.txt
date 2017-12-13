@@ -1,0 +1,36 @@
+Time:2017/12/13 21:48:30-本次请求耗时 3.011 秒.
+Url:http://localhost:56262/shop/actlist
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 21:50:13-本次请求耗时 17.799 秒.
+Url:http://localhost:56262/user/kanjia?id=5d5532657d0541bbbdec34255c393480&userActId=552cbbfcacf64b01bef9d950978d64e4
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 21:52:14-本次请求耗时 2.262 秒.
+Url:http://localhost:56262/user/kanjia?id=5d5532657d0541bbbdec34255c393480&userActId=552cbbfcacf64b01bef9d950978d64e4
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 21:56:48-本次请求耗时 2.668 秒.
+Url:http://localhost:56262/
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 21:56:48-本次请求耗时 2.793 秒.
+Url:http://localhost:56262/user/actlist
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/13 21:56:48-本次请求耗时 2.808 秒.
+Url:http://localhost:56262/user/actlist
+UserHostAddress:::1;;
+WebServer:::1
+
+
