@@ -1,0 +1,225 @@
+﻿@using WST.Core.Extensions
+@model User
+@{
+    ViewBag.Title = "我的钱包";
+    Layout = null;
+    var payList = ViewBag.PayOrderList as List<PayOrder>;
+}
+@section linkcss
+{
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>我的钱包</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <link rel="stylesheet" href="~/assets/css/reset.css">
+    <script src="~/assets/js/jquery-2.1.4.min.js"></script>
+    <style>
+        .nav-wrapper {
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 0.4em 1em;
+            width: 100%;
+            height: 2.8em;
+            line-height: 2em;
+            border-bottom: 1px dashed #eee;
+            background: #fff;
+        }
+
+            .nav-wrapper a {
+                color: #56B6C4;
+            }
+
+        .tap-title-wrapper {
+            position: fixed;
+            top: 5.8em;
+            left: 0;
+            width: 100%;
+            height: 2.5em;
+            border-bottom: 1px solid #ccc;
+            background: #fff;
+            box-shadow: 0 1px 2px 0 #ccc;
+        }
+
+            .tap-title-wrapper span {
+                float: left;
+                width: 50%;
+                text-align: center;
+                height: 2.5em;
+                line-height: 2.5em;
+                color: #333;
+                background: #eee;
+                transition: all 0.5s;
+            }
+
+            .tap-title-wrapper .on {
+                color: #fff;
+                background: #56B6C4;
+                border-bottom: 2px solid orange;
+            }
+
+        .tap-cont-list {
+            display: none;
+        }
+
+        .tap-cont-wrapper {
+            padding-top: 8.6em;
+        }
+
+            .tap-cont-wrapper .show {
+                display: block;
+            }
+
+        .tap-cont-list li {
+            padding: 0 1em;
+        }
+
+            .tap-cont-list li span {
+                display: block;
+                padding: 0 1em;
+                line-height: 2.5em;
+                color: #777;
+                border-bottom: 1px dashed #eee;
+            }
+
+        .info {
+            display: block;
+            line-height: 3em;
+            text-align: center;
+            color: #999;
+            margin-bottom: 1em;
+        }
+
+        .balance-wrapper {
+            position: fixed;
+            top: 2.8em;
+            left: 0;
+            width: 100%;
+            height: 3em;
+            line-height: 3em;
+            padding: 0 1em;
+            font-weight: bold;
+        }
+
+            .balance-wrapper .btn {
+                float: right;
+                padding: 0 0.7em;
+                line-height: 1.5em;
+                background: #56B6C4;
+                color: #fff;
+                border-radius: 0.5em;
+                margin-left: 1em;
+                margin-top: 0.8em;
+                font-weight: 100;
+            }
+
+        .recharge-wrapper {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            overflow-y: auto;
+        }
+
+            .recharge-wrapper img {
+                display: block;
+                width: 100%;
+            }
+    </style>
+</head>
+<body>
+    <div class="l">
+        <div class="nav-wrapper">
+            <a href="userCenter.html" class="backhome fl"><返回主页</a>
+        </div>
+
+        <div class="balance-wrapper">
+            <span>账户余额</span>
+            <span class="c-f00">￥</span>
+            <span class="c-f00">@Model.Balance</span>
+            <span>元</span>
+            @*<a href="/user/recharge"><span class="btn recharge">充值</span></a>
+            <span class="btn withdraw">提现</span>*@
+        </div>
+
+        <div class="tap-title-wrapper clearfix">
+            <span data-tap="income" class="tab-title-list on">收入</span>
+            <span data-tap="expend" class="tab-title-list">支出</span>
+        </div>
+
+        <div class="tap-cont-wrapper">
+            <ul data-tap="income" class="tap-cont-list show">
+                <li><span>这是收入信息</span></li>
+            </ul>
+            <ul data-tap="expend" class="tap-cont-list">
+                @if (payList != null && payList.Count > 0)
+                {
+                    foreach (var item in payList)
+                    {
+                        <li><span>@item.Remark</span></li>
+                    }
+                }
+
+            </ul>
+            <span class="info">没有更多了</span>
+        </div>
+
+        <div class="recharge-wrapper">
+            <img src="~/assets/img/banner/recharge.jpg">
+        </div>
+    </div>
+
+    <script type="text/javascript">
+		$(function() {
+			var judge = true;
+			$(document).on('click', '.tab-title-list', function() {
+				var that = this;
+				$(this).addClass('on').siblings().removeClass('on');
+				$.each($('.tap-cont-wrapper .tap-cont-list'), function(i, obj) {
+					if($(obj).attr('data-tap') == $(that).attr('data-tap')) {
+						$(obj).addClass('show').siblings().removeClass('show');
+						return false;
+					}
+				})
+			})
+			// 提现
+			.on('click', '.recharge', function() {
+				// $('.recharge-wrapper').removeClass('hidden');
+				if(!judge) return false;
+				$('.recharge-wrapper').fadeIn(400);
+				judge = false;
+				setTimeout(function() {
+					judge = true;
+				},1000)
+			})
+			.on('click', '.recharge-wrapper', function() {
+				// $('.recharge-wrapper').addClass('hidden');
+				if(!judge) return false;
+				$('.recharge-wrapper').fadeOut(400);
+				judge = false;
+				setTimeout(function() {
+					judge = true;
+				},1000)
+			})
+		})
+
+    </script>
+
+</body>
+</html>
+@section scripts
+{
+
+
+}

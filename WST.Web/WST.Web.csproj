@@ -827,6 +827,7 @@
     <Content Include="Views\Shop\ActList.cshtml" />
     <Content Include="Views\User\PersonData.cshtml" />
     <Content Include="Views\User\JoinUser.cshtml" />
+    <Content Include="Views\User\Wallet.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -220,7 +220,7 @@ namespace WST.Web.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult PersonData(string IDCard, string StoreName, string AdviserName)
+        public ActionResult PersonData(string IDCard, string StoreName, string AdviserName,string Mobile)
         {
             var user = IUserService.Find(LoginUser.ID);
             if (user == null && user.IsDelete)
@@ -229,6 +229,7 @@ namespace WST.Web.Controllers
             }
             user.IDCard = IDCard;
             user.StoreName = StoreName;
+            user.Mobile = Mobile;
             if (AdviserName.IsNotNullOrEmpty())
             {
                 var advserModel = IAdviserService.Find(x => x.Name == AdviserName);
@@ -321,6 +322,19 @@ namespace WST.Web.Controllers
             return View();
         }
 
+
+        public ActionResult Wallet()
+        {
+            var user = IUserService.Find(LoginUser.ID);
+            if (user == null && user.IsDelete)
+            {
+                return DataErorrJResult();
+            }
+            ViewBag.PayOrderList = IPayOrderService.GetList(x => x.UserID == LoginUser.ID&&!x.IsDelete&&x.State==PayState.Success);
+            return View(user);
+        }
+        
+
         /// <summary>
         /// 用户活动列表
         /// </summary>
@@ -409,7 +423,7 @@ namespace WST.Web.Controllers
                 {
                     if (model.JoinCount < countList[index - 1])
                     {
-                        price = priceList[index - 1].Amount;
+                        price = model.OldPrice;
                         break;
                     }
                     else if (model.JoinCount > countList[index - 1] && model.JoinCount < countList[index])

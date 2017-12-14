@@ -250,16 +250,16 @@
         </div>
         <div class="privilege-card">
                 <div class="privilege-tit clearfix">
-                    <a href="#"><i class="icon icon-payment"></i> 进入钱包</a>
+                    <a href="/user/wallet"><i class="icon icon-payment"></i> 进入钱包</a>
                 </div>
                 <div class="privilege-con clearfix">
                     <div class="balance-div">
-                        <strong>收入</strong>
-                        <span>0.00</span>
+                        <strong>余额</strong>
+                        <span>@(Model.Balance)</span>
                     </div>
                     <div class="balance-div">
-                        <strong>支出</strong>
-                        <span>0.00</span>
+                        <strong>总充值</strong>
+                        <span>@(Model.TotalRecharge)</span>
                     </div>
                 </div>
             </div>

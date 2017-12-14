@@ -33,7 +33,7 @@ https://mp.weixin.qq.com/debug
                 {
                     "type": "view", 
                     "name": "我的活动", 
-                    "url": "http://wst.fjyouwo.com/user/ActList"
+                    "url": "http://wst.fjyouwo.com/shop/ActList"
                 }, 
                 {
                     "type": "view", 
@@ -45,6 +45,12 @@ https://mp.weixin.qq.com/debug
         {
             "name": "我是用户", 
             "sub_button": [
+				
+                {
+                    "type": "view", 
+                    "name": "个人中心", 
+                    "url": "http://wst.fjyouwo.com/user/"
+                },
                 {
                     "type": "view", 
                     "name": "我的活动", 

@@ -345,7 +345,7 @@
                 </div>
                 <div class="model-list-body">
 
-                    @foreach (var item in Model.GoodsItemsJson.DeserializeJson<List<TypeContentItem>>())
+                    @foreach (var item in Model.IntroduceTxtJson.DeserializeJson<List<TypeContentItem>>())
                     {
                         if (item.Type == "txt")
                         {

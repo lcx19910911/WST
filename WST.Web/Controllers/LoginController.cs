@@ -46,16 +46,12 @@ namespace WST.Web.Controllers
 
         public ActionResult DefaultUser()
         {
-            this.LoginUser = new Core.Model.LoginUser()
+            var user = IUserService.FindByOpenId("ojLuqwulfHDp2lxuoK_8j8Ch1BKs");
+            if (user != null)
             {
-                ID = "e98a0a152bd7465ba45351264914486d",
-                Account = "宸默先生",
-                HeadImgUrl = "http://wx.qlogo.cn/mmhead/XFJ8HdGGwGAP0g9KE2BuxsmsGJzfRQP2tic1RHCxpQGZMnCbF7hOwMA/0",
-                IsMember=true,
-                Openid= "ojLuqwikV8T-nCd2VMAihJEqSOzw",
-                EndTime =DateTime.Now.AddYears(2)
-            };
-            return RedirectToAction("Index", "Home");
+                this.LoginUser = new Core.Model.LoginUser(user);
+            }
+                return RedirectToAction("Index", "Home");
         }
         
         public void WeixinLoginAction()

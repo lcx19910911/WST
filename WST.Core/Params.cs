@@ -25,14 +25,14 @@ namespace WST.Core
         /// <summary>
         /// 登陆cookie
         /// </summary>
-        public static readonly string UserCookieName = "website_user";
+        public static readonly string UserCookieName = "user_cookie";
         /// <summary>
         /// 登陆cookie
         /// </summary>
         public static readonly string UserTokenCookieName = "token";
         /// 登陆cookie
         /// </summary>
-        public static readonly string AdminCookieName = "website_admin";
+        public static readonly string AdminCookieName = "website_admin_cookie";
 
 
         /// 跟平台通信密钥
