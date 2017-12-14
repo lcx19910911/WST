@@ -4,7 +4,8 @@
     ViewBag.Title = Model?.Name;
     Layout = null;
     var kanjiaList = ViewBag.KanJiaList as List<UserActivity>;
-    var isUser = Model.UserID == LoginHelper.GetCurrentUser().ID;
+    var user = LoginHelper.GetCurrentUser();
+    var isUser = Model.UserID == user.ID;
 }
 
 <!DOCTYPE html>
@@ -463,7 +464,10 @@
         <div class="foot-btn-wrapper">
             @if (!isUser)
             {
-                <div class="button apply-btn">我要报名</div>
+                if (user.ID != ViewBag.JoinUserID)
+                {
+                    <div class="button apply-btn">我要报名</div>
+                }
                 if (Request["userActId"].IsNotNullOrEmpty())
                 {
                     <div class="button help-btn">帮忙砍价</div>

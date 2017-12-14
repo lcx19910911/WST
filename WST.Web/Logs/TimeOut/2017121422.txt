@@ -12,3 +12,10 @@ UserHostAddress:::1;;
 WebServer:::1
 
 
+Time:2017/12/14 22:47:14-本次请求耗时 2.247 秒.
+Url:http://localhost:56262/user/ToKanJia
+UrlReferrer:http://localhost:56262/user/kanjia?id=018a2874164c46be86788918973c4a89&userActId=1acd35119d714312811668e1c6a400cf
+UserHostAddress:::1;;
+WebServer:::1
+
+

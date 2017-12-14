@@ -131,7 +131,6 @@ $(function () {
                 method: 'Post',
                 data: { jsonData },
                 success: function (data) {
-debugger
                 if(data.Code == 0)
                 {
                     if (jsonData.ID != "") {

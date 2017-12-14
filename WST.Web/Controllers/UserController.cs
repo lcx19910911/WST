@@ -433,12 +433,14 @@ namespace WST.Web.Controllers
                 //帮砍价人列表
                 ViewBag.KanJiaList = IUserActivityService.GetList(x => x.TargetID == id && x.JoinUserID == userAct.JoinUserID && !string.IsNullOrEmpty(x.TargetID));
                 ViewBag.Price = userAct.Amount;
+                ViewBag.JoinUserID = userAct.JoinUserID;
             }
             else
             {
                 //帮砍价人列表
                 ViewBag.KanJiaList = new List<UserActivity>();
                 ViewBag.Price = model.OldPrice;
+                ViewBag.JoinUserID = "";
             }
 
             ViewBag.AppId = Params.WeixinAppId;
