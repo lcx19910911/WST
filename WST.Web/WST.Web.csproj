@@ -658,7 +658,9 @@
     <Content Include="assets\images\秒杀图片\秒杀banner4.gif" />
     <Content Include="assets\img\add.svg" />
     <Content Include="assets\img\banner\BG.jpg" />
+    <Content Include="assets\img\banner\BG1.png" />
     <Content Include="assets\img\banner\logo.png" />
+    <Content Include="assets\img\banner\recharge.jpg" />
     <Content Include="assets\img\logo.png" />
     <Content Include="assets\js\edit.js" />
     <Content Include="assets\js\editkanjia.js" />

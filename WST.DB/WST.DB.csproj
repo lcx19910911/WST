@@ -56,26 +56,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbRepository.cs" />
-    <Compile Include="Migrations\201712111148118_config.cs" />
-    <Compile Include="Migrations\201712111148118_config.Designer.cs">
-      <DependentUpon>201712111148118_config.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712111255591_343dd.cs" />
-    <Compile Include="Migrations\201712111255591_343dd.Designer.cs">
-      <DependentUpon>201712111255591_343dd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712120131055_89ii.cs" />
-    <Compile Include="Migrations\201712120131055_89ii.Designer.cs">
-      <DependentUpon>201712120131055_89ii.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712121539463_34331212.cs" />
-    <Compile Include="Migrations\201712121539463_34331212.Designer.cs">
-      <DependentUpon>201712121539463_34331212.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712131200288_dsds1.cs" />
-    <Compile Include="Migrations\201712131200288_dsds1.Designer.cs">
-      <DependentUpon>201712131200288_dsds1.cs</DependentUpon>
-    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -92,23 +72,6 @@
       <Project>{1d8d9894-75bb-42fa-bc27-296fcf42ad76}</Project>
       <Name>WST.Model</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712111148118_config.resx">
-      <DependentUpon>201712111148118_config.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712111255591_343dd.resx">
-      <DependentUpon>201712111255591_343dd.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712120131055_89ii.resx">
-      <DependentUpon>201712120131055_89ii.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712121539463_34331212.resx">
-      <DependentUpon>201712121539463_34331212.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712131200288_dsds1.resx">
-      <DependentUpon>201712131200288_dsds1.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

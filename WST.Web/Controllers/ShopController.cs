@@ -113,7 +113,7 @@ namespace WST.Web.Controllers
                     {
                         if (model.JoinCount < countList[index - 1])
                         {
-                            price = priceList[index - 1].Amount;
+                            price = model.OldPrice;
                             break;
                         }
                         else if (model.JoinCount > countList[index - 1] && model.JoinCount < countList[index])

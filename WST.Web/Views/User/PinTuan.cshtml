@@ -148,12 +148,35 @@
                         float: none;
                         margin: 0 auto 1em;
                     }
+                    
+                 .l .block {
+display: block!important;
+width: 100%;
+}
+.l .block .btn {
+width: 100%;
+text-align: left;
+border-radius: 0;
+}
+.l .block .btn span:nth-child(even) {
+margin-right: 1em;
+}
     </style>
 </head>
 <body>
     <div class="app l view">
         <!-- global -->
 
+        <div class="global-btn-wrapper block">
+            <div class="btn c-fff f09">
+                <span>浏览量：</span>
+                <span>@Model.ClickCount</span>
+                <span>分享量：</span>
+                <span>@Model.ShareCount</span>
+                <span>报名人数：</span>
+                <span>@Model.JoinCount</span>
+            </div>
+        </div>
         <div class="global-component-wrapper">
 
             <div class="audio-component-wrapper hidden">
@@ -418,7 +441,91 @@
 
     </div>
 
-    <script type="text/javascript">
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+    <script src="~/Areas/Admin/Scripts/utility.js"></script>
+    <script>
+        wx.config({
+            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: "@ViewBag.AppId", // 必填，公众号的唯一标识
+            timestamp: "@ViewBag.TimeStamp", // 必填，生成签名的时间戳
+            nonceStr: "@ViewBag.NonceStr", // 必填，生成签名的随机串
+            signature: "@ViewBag.Signature",// 必填，签名，见附录1
+            jsApiList: ['jsApiList',
+                  'onMenuShareTimeline',
+                  'onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+        wx.ready(function(){
+            //wx.hideOptionMenu();/***隐藏分享菜单****/
+            wx.checkJsApi({
+                jsApiList: [
+                  'onMenuShareTimeline',
+                  'onMenuShareAppMessage'
+                ],
+                success: function (res) {
+                    //alert(res.errMsg);
+                }
+            });
+
+            wx.onMenuShareAppMessage({
+                title: '@(Model.Name)',
+                desc: '@(Model.Name)',
+                link: '@(Params.SiteUrl)/user/pintuan?id=@(Model.ID)',
+                imgUrl: '@(Params.SiteUrl)@(Model.Picture)',
+                success: function (res) {
+                    addShareCount();
+                },
+                cancel: function (res) {
+                    //alert('已取消');
+                },
+                fail: function (res) {
+                    alert(res.errMsg);
+                }
+            });
+
+            // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+            wx.onMenuShareTimeline({
+                title: '@(Model.Name)',
+                desc: '@(Model.Name)',
+                link: '@(Params.SiteUrl)/user/pintuan?id=@(Model.ID)',
+                imgUrl: '@(Params.SiteUrl)@(Model.Picture)',
+                success: function (res) {
+                    addShareCount();
+                },
+                cancel: function (res) {
+                    //alert('已取消');
+                },
+                fail: function (res) {
+                    alert(res.errMsg);
+                }
+            });
+
+            wx.error(function (res) {
+                alert(res.errMsg);
+            });
+
+        });
+
+
+        function addShareCount()
+        {
+            //砍价
+            $.ajax({
+                method: 'post',
+                url: '/user/AddShare',
+                data: {
+                    id: '@(Model.ID)',
+                    code:@(TargetCode.Pintuan.GetInt()),
+                },
+                success: function (data) {
+                    if (data.Code == 0) {
+                        alert("砍价成功");
+                        window.location.reload();
+                    }
+                    else
+                        alert(data.ErrorDesc);
+                }
+            })
+        }
 		$(function() {
 			var pageIndex = 0, // 当前页索引
 					pageSize = 10, // 每页数量
@@ -445,24 +552,29 @@
 					setTimeout(function() {
 						loadJudge = true;
 					}, 2000)
-					$.post('/user/GetUserPageList', {
-						pageIndex: ++pageIndex,
-						pageSize: pageSize,
-						targetId: '@(Model.ID)'
-					}, function(response) {
-						console.log(response)
-						var res = JSON.parse(response);
-						if(res.Code == 0) {
-							IsLastPage = res.Result.IsLastPage;
-							RecordCount = res.Result.RecordCount;
-							PageCount = res.Result.PageCount;
-							var list = res.Result.List;
-							$.each(list, function(i, obj) {
-							    $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="phone">' + obj.Mobile + '</span></div>')
-							})
-
-						}
+                    
+					$.ajax({
+					    url: '/user/GetUserPageList',
+					    data: {
+					        pageIndex: ++pageIndex,
+					        pageSize: pageSize,
+					        targetId: '@(Model.ID)'
+					    },
+					    success: function (data) {
+					        if (data.Code == 0) {
+					            IsLastPage = data.Result.IsLastPage;
+					            RecordCount = data.Result.RecordCount;
+					            PageCount = data.Result.PageCount;
+					            var list = data.Result.List;
+					            $.each(list, function (i, obj) {
+					                $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="phone">' + obj.Mobile + '</span></div>')
+					            })
+					        }
+					        else
+					            alert(data.ErrorDesc);
+					    }
 					})
+
 				}
 			})
 

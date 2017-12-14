@@ -99,7 +99,7 @@ namespace WST.Web.Controllers
             {
                 return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
             }
-            if ((model.StartTime < DateTime.Now&&model.EndTime < DateTime.Now) || (model.EndTime > DateTime.Now&&model.StartTime>DateTime.Now))
+            if ((model.StartTime < DateTime.Now && model.EndTime < DateTime.Now) || (model.EndTime > DateTime.Now && model.StartTime > DateTime.Now))
             {
                 return JResult(Core.Code.ErrorCode.activity_time_out, "");
             }
@@ -113,6 +113,7 @@ namespace WST.Web.Controllers
                 return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
             }
             model.JoinCount++;
+            model.ReportCount++;
             IPinTuanService.Update(model);
             var priceList = model.PinTuanItemJson.DeserializeJson<List<PinTuanItem>>().OrderBy(x => x.Count).ToList();
             var countList = priceList.Select(x => x.Count).ToList();
@@ -123,7 +124,7 @@ namespace WST.Web.Controllers
                 {
                     if (model.JoinCount < countList[index - 1])
                     {
-                        price = priceList[index - 1].Amount;
+                        price = model.OldPrice;
                         break;
                     }
                     else if (model.JoinCount > countList[index - 1] && model.JoinCount < countList[index])
@@ -141,7 +142,7 @@ namespace WST.Web.Controllers
             {
                 Code = TargetCode.Pintuan,
                 JoinUserID = LoginUser.ID,
-                Openid =LoginUser.Openid,
+                Openid = LoginUser.Openid,
                 JoinUserName = name,
                 IsPrize = false,
                 PrizeInfo = $"团购价{price}",
@@ -176,10 +177,13 @@ namespace WST.Web.Controllers
             {
                 return JResult(Core.Code.ErrorCode.had_join_in, "");
             }
+            model.ReportCount++;
+            IKanJiaService.Update(model);
+
             var newId = Guid.NewGuid().ToString("N");
             var result = IUserActivityService.Add(new UserActivity()
             {
-                ID= newId,
+                ID = newId,
                 Code = TargetCode.Kanjia,
                 Openid = LoginUser.Openid,
                 JoinUserID = LoginUser.ID,
@@ -201,6 +205,32 @@ namespace WST.Web.Controllers
                 return DataErorrJResult();
         }
 
+        //[HttpPost]
+        public ActionResult AddShare(string id, TargetCode code)
+        {
+            if (code == TargetCode.Kanjia)
+            {
+                var kanjia = IKanJiaService.Find(id);
+                if (kanjia == null || kanjia.IsDelete)
+                {
+                    return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
+                }
+                kanjia.ShareCount++;
+                return JResult(IKanJiaService.Update(kanjia));
+            }
+            else if (code == TargetCode.Pintuan)
+            {
+                var pintuan = IPinTuanService.Find(id);
+                if (pintuan == null || pintuan.IsDelete)
+                {
+                    return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
+                }
+                pintuan.ShareCount++;
+                return JResult(IPinTuanService.Update(pintuan));
+            }
+            return DataErorrJResult();
+        }
+
         /// <summary>
         /// 获取分页列表
         /// </summary>
@@ -220,7 +250,7 @@ namespace WST.Web.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult PersonData(string IDCard, string StoreName, string AdviserName,string Mobile)
+        public ActionResult PersonData(string IDCard, string StoreName, string AdviserName, string Mobile)
         {
             var user = IUserService.Find(LoginUser.ID);
             if (user == null && user.IsDelete)
@@ -308,9 +338,9 @@ namespace WST.Web.Controllers
                 IsPrize = false,
                 IsUsedOnLine = false,
                 PrizeInfo = $"用户{LoginUser.Account}帮助用户{userActivityModel.JoinUserName}砍价{model.OncePrice}，现价{userActivityModel.Amount}",
-                Amount=userActivityModel.Amount,
+                Amount = userActivityModel.Amount,
                 ShopUserID = model.UserID,
-                JoinUserName=LoginUser.Account,
+                JoinUserName = LoginUser.Account,
                 TargetID = userActivityModel.TargetID
             };
             IUserActivityService.Add(toKanjiaModel);
@@ -330,10 +360,10 @@ namespace WST.Web.Controllers
             {
                 return DataErorrJResult();
             }
-            ViewBag.PayOrderList = IPayOrderService.GetList(x => x.UserID == LoginUser.ID&&!x.IsDelete&&x.State==PayState.Success);
+            ViewBag.PayOrderList = IPayOrderService.GetList(x => x.UserID == LoginUser.ID && !x.IsDelete && x.State == PayState.Success);
             return View(user);
         }
-        
+
 
         /// <summary>
         /// 用户活动列表
@@ -344,7 +374,7 @@ namespace WST.Web.Controllers
             var model = new List<Tuple<string, string, string, string, DateTime?, bool, TargetCode>>();
 
             var actIdList = IUserActivityService.GetList(x => x.JoinUserID == LoginUser.ID);
-            var kanjiaIdList = actIdList.Where(x => x.Code == TargetCode.Kanjia&&string.IsNullOrEmpty(x.TargetUserID)).Select(x => x.TargetID).ToList();
+            var kanjiaIdList = actIdList.Where(x => x.Code == TargetCode.Kanjia && string.IsNullOrEmpty(x.TargetUserID)).Select(x => x.TargetID).ToList();
             var kanjiaDic = actIdList.Where(x => x.Code == TargetCode.Kanjia && string.IsNullOrEmpty(x.TargetUserID)).ToDictionary(x => x.TargetID);
             var pintuanIdList = actIdList.Where(x => x.Code == TargetCode.Pintuan).Select(x => x.TargetID).ToList();
             var pintuanDic = actIdList.Where(x => x.Code == TargetCode.Pintuan).ToDictionary(x => x.TargetID);
@@ -372,7 +402,7 @@ namespace WST.Web.Controllers
                     return null;
             }).ToList();
             model.AddRange(pintuanList);
-            ViewBag.List = model.Where(x=>x!=null).ToList();
+            ViewBag.List = model.Where(x => x != null).ToList();
             return View();
         }
 
@@ -385,6 +415,8 @@ namespace WST.Web.Controllers
             {
                 return Forbidden();
             }
+            model.ClickCount++;
+            IKanJiaService.Update(model);
             if (userActId.IsNotNullOrEmpty())
             {
                 var userAct = IUserActivityService.Find(x => x.ID == userActId);
@@ -402,6 +434,12 @@ namespace WST.Web.Controllers
                 ViewBag.KanJiaList = new List<UserActivity>();
                 ViewBag.Price = model.OldPrice;
             }
+
+            ViewBag.AppId = Params.WeixinAppId;
+            string cacheToken = WxPayApi.GetCacheToken(Params.WeixinAppId, Params.WeixinAppSecret);
+            ViewBag.TimeStamp = WxPayApi.GenerateTimeStamp();
+            ViewBag.NonceStr = WxPayApi.GenerateNonceStr();
+            ViewBag.Signature = WxPayApi.GetSignature(Params.SiteUrl, cacheToken, ViewBag.TimeStamp, ViewBag.NonceStr);
             return View(model);
         }
 
@@ -413,12 +451,13 @@ namespace WST.Web.Controllers
             {
                 return Forbidden();
             }
-
+            model.ClickCount++;
+            IPinTuanService.Update(model);
             var priceList = model.PinTuanItemJson.DeserializeJson<List<PinTuanItem>>().OrderBy(x => x.Count).ToList();
-            var countList = priceList.Select(x=>x.Count).ToList();
+            var countList = priceList.Select(x => x.Count).ToList();
             var price = 0M;
             for (var index = 1; index <= countList.Count; index++)
-            { 
+            {
                 if (index < countList.Count)
                 {
                     if (model.JoinCount < countList[index - 1])
@@ -428,7 +467,7 @@ namespace WST.Web.Controllers
                     }
                     else if (model.JoinCount > countList[index - 1] && model.JoinCount < countList[index])
                     {
-                        price = priceList[index-1].Amount;
+                        price = priceList[index - 1].Amount;
                         break;
                     }
                 }
@@ -438,6 +477,12 @@ namespace WST.Web.Controllers
                 }
             }
             ViewBag.Price = price;
+
+            ViewBag.AppId = Params.WeixinAppId;
+            string cacheToken = WxPayApi.GetCacheToken(Params.WeixinAppId, Params.WeixinAppSecret);
+            ViewBag.TimeStamp = WxPayApi.GenerateTimeStamp();
+            ViewBag.NonceStr = WxPayApi.GenerateNonceStr();
+            ViewBag.Signature = WxPayApi.GetSignature(Params.SiteUrl, cacheToken, ViewBag.TimeStamp, ViewBag.NonceStr);
             return View(model);
         }
     }

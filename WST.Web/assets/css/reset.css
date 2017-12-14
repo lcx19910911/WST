@@ -1,4 +1,4 @@
-@charset 'utf-8';
+﻿@charset 'utf-8';
 /* CSS reset */
 html{color:#333;background:#FFF;font-family:'Microsoft YaHei';font-size: 14px;}
 body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,form,input,button,textarea,p,strong{padding:0;margin:0;font-family:'Microsoft YaHei';}
@@ -240,3 +240,6 @@ a {text-decoration: none;color: inherit;} a:link, a:hover, a:active, a:visited {
     100% {transform: translateY(-15px);}
 }
 /* Spinner 6 ends here */
+.l .close, .add-child span, .btn, .button, .showqrcode, .tab-title-list, .item-bottom span, .music-list, .btn * {
+    cursor: pointer;
+}
