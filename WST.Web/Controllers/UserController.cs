@@ -112,12 +112,14 @@ namespace WST.Web.Controllers
             {
                 return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
             }
-            model.JoinCount++;
-            model.ReportCount++;
-            IPinTuanService.Update(model);
             var priceList = model.PinTuanItemJson.DeserializeJson<List<PinTuanItem>>().OrderBy(x => x.Count).ToList();
             var countList = priceList.Select(x => x.Count).ToList();
             var price = 0M;
+            var count = priceList.Max(x=>x.Count);
+            if (model.JoinCount >= count)
+            {
+                return JResult(Core.Code.ErrorCode.prize_not_had, "");
+            }
             for (var index = 1; index <= countList.Count; index++)
             {
                 if (index < countList.Count)
@@ -138,6 +140,10 @@ namespace WST.Web.Controllers
                     price = priceList[index - 1].Amount;
                 }
             }
+
+            model.JoinCount++;
+            model.ReportCount++;
+            IPinTuanService.Update(model);
             return JResult(IUserActivityService.Add(new UserActivity()
             {
                 Code = TargetCode.Pintuan,
@@ -169,7 +175,7 @@ namespace WST.Web.Controllers
             {
                 return JResult(Core.Code.ErrorCode.activity_time_out, "");
             }
-            if (model.UsedCount == model.PrizeCount)
+            if (model.ReportCount == model.PrizeCount)
             {
                 return JResult(Core.Code.ErrorCode.prize_not_had, "");
             }
@@ -314,7 +320,7 @@ namespace WST.Web.Controllers
             }
             else
             {
-                if (IUserActivityService.IsExits(x => x.TargetID == userActivityModel.TargetID && x.TargetUserID == LoginUser.ID))
+                if (IUserActivityService.IsExits(x => x.TargetID == userActivityModel.TargetID && x.JoinUserID == LoginUser.ID))
                 {
                     return JResult(Core.Code.ErrorCode.had_kanjia, "");
                 }

@@ -67,11 +67,11 @@
                         <li class="music-list" data-music="http://wst.com/assets/music/music2.mp3"><i class="icon icon-music"></i>音乐2</li>
                         <li class="music-list" data-music="http://wst.com/assets/music/music3.mp3"><i class="icon icon-music"></i>音乐3</li>*@
 
-                    <div class="btn">
-                        <span class="cancel">取消</span>
-                        <span class="sure">确认</span>
-                    </div>
                 </ul>
+                <div class="btn">
+                    <span class="cancel">取消</span>
+                    <span class="sure">确认</span>
+                </div>
             </div>
 
             <div class="audio-component-wrapper hidden">
@@ -359,5 +359,19 @@
 
         </form>
     </div>
+    <script>
+        function audioAutoPlay(id) {
+            var audio = document.getElementById(id);
+            audio.play();
+            document.addEventListener("WeixinJSBridgeReady", function () {
+                audio.play();
+            }, false);
+            document.addEventListener('YixinJSBridgeReady', function () {
+                audio.play();
+            }, false);
+        }
+        audioAutoPlay('audio');
+
+    </script>
 </body>
 </html>

@@ -1,0 +1,82 @@
+Time:2017/12/14 18:21:16-本次请求耗时 36.302 秒.
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/kanjia/Manage
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/14 18:27:08-本次请求耗时 6.661 秒.
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/kanjia/Manage
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/14 18:27:34-本次请求耗时 6.927 秒.
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/kanjia/Manage
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/14 18:29:02-本次请求耗时 23.369 秒.
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/kanjia/Manage
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/14 18:29:54-本次请求耗时 22.979 秒.
+Url:http://localhost:56262/user/kanjia?id=3993b2ccd17440c1bcd20ce5cee3402d
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/14 18:30:58-本次请求耗时 13.51 秒.
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/kanjia/Manage
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/14 18:32:29-本次请求耗时 5.663 秒.
+Url:http://localhost:56262/
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/14 18:32:47-本次请求耗时 23.354 秒.
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/kanjia/Manage
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/14 18:32:55-本次请求耗时 4.337 秒.
+Url:http://localhost:56262/user/kanjia?id=3f2898680c854bb8a2a66e8656dbff0a
+UrlReferrer:http://localhost:56262/kanjia/Manage
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/14 18:35:33-本次请求耗时 84.178 秒.
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/kanjia/Manage
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/14 18:35:44-本次请求耗时 6.271 秒.
+Url:http://localhost:56262/user/kanjia?id=54009df1ea6c4af39f9c5ae5e1f78c83
+UrlReferrer:http://localhost:56262/kanjia/Manage
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/14 18:36:12-本次请求耗时 14.883 秒.
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/kanjia/Manage
+UserHostAddress:::1;;
+WebServer:::1
+
+

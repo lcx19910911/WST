@@ -54,8 +54,13 @@ namespace WST.Service
         {
             using (DbRepository db = new DbRepository())
             {
+                var guid = source.ID;
                 var addEntity = source.AutoMap<T>();
                 db.Entry(addEntity).State = System.Data.Entity.EntityState.Added;
+                if(guid.IsNotNullOrEmpty())
+                {
+                    addEntity.ID = guid;
+                }
                 if (db.SaveChanges() > 0)
                     return 1;
                 else

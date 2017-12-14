@@ -18,18 +18,24 @@
     <script src="~/assets/js/jquery.form.js"></script>
     <script>
         $(function () {
-            var music = '@(Model.MusicUrl)'
+            var music = '@(Model.MusicUrl)';
+            var isExit = false;
             $.ajax({
                 url: '/config/getmusiclist',
                 success: function (data) {
                     $(data.Result).each(function (i, item) {
                         if (item.Url == music) {
+                            isExit = true;
                             $(".music-component-wrapper ul").append('<li class="music-list" data-music="' + item.Value + '"><i class="icon icon-music"></i>' + item.Text + '</li>');
                         }
                         else {
                             $(".music-component-wrapper ul").append('<li class="music-list play" data-music="' + item.Value + '"><i class="icon icon-music"></i>' + item.Text + '</li>')
                         }
                     })
+                    if (isExit)
+                    {
+                        $(".music-component-wrapper ul").append('<li class="music-list play" data-music="">无背景音乐</li>');
+                    }
                 }
             })
 
@@ -65,12 +71,11 @@
                         <li class="music-list" data-music="http://wst.com/assets/music/music1.mp3"><i class="icon icon-music"></i>音乐1</li>
                         <li class="music-list" data-music="http://wst.com/assets/music/music2.mp3"><i class="icon icon-music"></i>音乐2</li>
                         <li class="music-list" data-music="http://wst.com/assets/music/music3.mp3"><i class="icon icon-music"></i>音乐3</li>*@
-
-                    <div class="btn">
-                        <span class="cancel">取消</span>
-                        <span class="sure">确认</span>
-                    </div>
-                </ul>
+                    </ul>
+                <div class="btn">
+                    <span class="cancel">取消</span>
+                    <span class="sure">确认</span>
+                </div>
             </div>
 
             <div class="audio-component-wrapper hidden">
@@ -403,5 +408,19 @@
 
         </form>
     </div>
+    <script>
+        function audioAutoPlay(id) {
+            var audio = document.getElementById(id);
+            audio.play();
+            document.addEventListener("WeixinJSBridgeReady", function () {
+                audio.play();
+            }, false);
+            document.addEventListener('YixinJSBridgeReady', function () {
+                audio.play();
+            }, false);
+        }
+        audioAutoPlay('audio');
+
+    </script>
 </body>
 </html>

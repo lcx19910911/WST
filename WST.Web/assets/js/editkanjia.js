@@ -25,6 +25,18 @@ $(function () {
 
     // 预览活动
     var judge = true;
+    function audioAutoPlay(id) {
+        var audio = document.getElementById(id);
+        audio.play();
+        document.addEventListener("WeixinJSBridgeReady", function () {
+            audio.play();
+        }, false);
+        document.addEventListener('YixinJSBridgeReady', function () {
+            audio.play();
+        }, false);
+    }
+    audioAutoPlay('audio');
+
     $(document).on('click', '.view-btn', function () {
         if (!judge) {
             console.log('操作过于频繁');
@@ -59,6 +71,7 @@ $(function () {
         $(this).addClass('play').siblings().removeClass('play');
 
         $('#audio').attr('src', $(this).attr('data-music'));
+        // audioAutoPlay('audio')
     })
     // 取消
     .on('click', '.music-component-wrapper .cancel', function () {
@@ -67,7 +80,7 @@ $(function () {
     })
     // 确认选择音乐
     .on('click', '.music-component-wrapper .sure', function () {
-        $('#audio').attr('oldsrc', $('#audio').attr('src'));
+        $('#audio').attr('oldsrc', $('.play').attr('data-music'));
         $('.music-component-wrapper').addClass('hidden');
     })
     // 显示图片
@@ -100,6 +113,7 @@ $(function () {
         $(this).parent().remove();
     })
 
+
     // 保存活动
     .on('click', '.save-btn', function () {
         setFormValue();
@@ -107,6 +121,7 @@ $(function () {
         if (!formRules()) {
             return false;
         }
+
         console.log('pass');
         var $form = $('#submit-form');
         var jsonData = serialize($form);
@@ -115,36 +130,41 @@ $(function () {
                 url: '/kanjia/manage',
                 method: 'Post',
                 data: { jsonData },
-                        success: function (data) {
-    	                if (data.Code == 0) {
-                        if (jsonData.ID != "") {
-                            window.location.href = "/user/kanjia?id=" + jsonData.ID;
-                        }
-                        else {
-                            alert("生成成功");
-                            window.location.href = "/user/kanjia?id=" + data.Result;
-                        }
-    	                }
-    	                else
-    	                    alert(data.ErrorDesc);
-                        }
+                success: function (data) {
+debugger
+                if(data.Code == 0)
+                {
+                    if (jsonData.ID != "") {
+                        window.location.href = "/user/kanjia?id=" + jsonData.ID;
+                    }
+                    else {
+                        alert("生成成功");
+                        window.location.href = "/user/kanjia?id=" + data.Result;
+                    }
+                }
+                else
+                    alert(data.ErrorDesc);
+               }
             })
         }, 800);
+
     })
+
     // 上传图片
-    .on('click', '.uploadImgLabel', function () {
-        uploadImgTarget = $(this).attr('data-target');
-        console.log(uploadImgTarget)
-    })
-    .on('change', '#uploadImg', function () {
-        $('#uploadImgForm').submit();
-        console.log('submit complete!');
-    });
+        .on('click', '.uploadImgLabel', function () {
+            uploadImgTarget = $(this).attr('data-target');
+            console.log(uploadImgTarget)
+        })
+        .on('change', '#uploadImg', function () {
+            $('#uploadImgForm').submit();
+            console.log('submit complete!');
+        });
     document.getElementById('exportimg').onload = function () {
         // $(document).on('load', '', function() {
         var ele = $(window.frames['exportimg'].document.body);
         console.log(ele);
         if (ele.text() == '') return false;
+        //var res = JSON.parse(ele.text());
         var res = ele.text();
         console.log(res);
         console.log($("#" + uploadImgTarget))
@@ -154,29 +174,6 @@ $(function () {
     }
 
 
-    //表单序列化
-    function serialize(formObj) {
-        var map = {};
-        formObj.find("input[name]:not(input[type='file']),select[name],textarea[name]").each(function (index, item) {
-
-            var $item = $(item);
-            var name = $item.attr("name");
-            var value = $item.val();
-            if ($item.is("input[type='radio'],input[type='checkbox']")) {
-                if ($item.prop("checked")) {
-                    if (map[name]) {
-                        map[name] += "," + value;
-                    } else {
-                        map[name] = value;
-                    }
-                }
-            } else {
-                map[name] = value;
-            }
-
-        });
-        return map;
-    }
 
     function setFormValue() {
 
@@ -221,12 +218,10 @@ $(function () {
         $('.submit-form .LimitHour').val(limitHour)
         console.log(limitHour, '-----limitHour');
 
-        // 砍价间隔时间
+        // 奖品数量
         var prizeCount = $('#prizeCount').val();
         $('.submit-form .PrizeCount').val(prizeCount)
         console.log(prizeCount, '-----prizeCount');
-
-        
 
         // // 拼团描述
         // var name = $('#title').html();
@@ -319,6 +314,33 @@ $(function () {
     // 	})
     // }
 
+
+
+    //表单序列化
+    function serialize(formObj) {
+        var map = {};
+        formObj.find("input[name]:not(input[type='file']),select[name],textarea[name]").each(function (index, item) {
+
+            var $item = $(item);
+            var name = $item.attr("name");
+            var value = $item.val();
+            if ($item.is("input[type='radio'],input[type='checkbox']")) {
+                if ($item.prop("checked")) {
+                    if (map[name]) {
+                        map[name] += "," + value;
+                    } else {
+                        map[name] = value;
+                    }
+                }
+            } else {
+                map[name] = value;
+            }
+
+        });
+        return map;
+    }
+
+
     function formRules() {
 
 
@@ -345,6 +367,8 @@ $(function () {
         return true;
 
     }
+
+
 
 
     //   function validImgSrc(src) {

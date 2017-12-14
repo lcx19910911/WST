@@ -444,8 +444,20 @@ margin-right: 1em;
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
     <script src="~/Areas/Admin/Scripts/utility.js"></script>
     <script>
-        wx.config({
-            debug: true, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+        function audioAutoPlay(id){  
+            var audio = document.getElementById(id);  
+            audio.play();  
+            document.addEventListener("WeixinJSBridgeReady", function () {  
+                audio.play();  
+            }, false);  
+            document.addEventListener('YixinJSBridgeReady', function() {  
+                audio.play();  
+            }, false);  
+        }
+        audioAutoPlay('audio');
+
+        @*wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
             appId: "@ViewBag.AppId", // 必填，公众号的唯一标识
             timestamp: "@ViewBag.TimeStamp", // 必填，生成签名的时间戳
             nonceStr: "@ViewBag.NonceStr", // 必填，生成签名的随机串
@@ -503,7 +515,7 @@ margin-right: 1em;
                 alert(res.errMsg);
             });
 
-        });
+        });*@
 
 
         function addShareCount()

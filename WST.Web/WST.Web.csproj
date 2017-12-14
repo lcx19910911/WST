@@ -633,6 +633,7 @@
     <Content Include="assets\dateselect\增加中文支持.html" />
     <Content Include="assets\images\bargain1.gif" />
     <Content Include="assets\images\group_booking\banner1.gif" />
+    <Content Include="assets\images\group_booking\banner1.jpg" />
     <Content Include="assets\images\group_booking\banner2.gif" />
     <Content Include="assets\images\group_booking\banner3.gif" />
     <Content Include="assets\images\group_booking\banner4.gif" />
@@ -640,6 +641,16 @@
     <Content Include="assets\images\group_booking\title_bottom1.png" />
     <Content Include="assets\images\group_booking\title_top1.png" />
     <Content Include="assets\images\group_booking\团购样图.jpg" />
+    <Content Include="assets\images\kanjia\banner1.gif" />
+    <Content Include="assets\images\kanjia\banner2.gif" />
+    <Content Include="assets\images\kanjia\banner3.gif" />
+    <Content Include="assets\images\kanjia\banner4.gif" />
+    <Content Include="assets\images\kanjia\banner5.gif" />
+    <Content Include="assets\images\kanjia\title_bottom1.png" />
+    <Content Include="assets\images\kanjia\title_top1.png" />
+    <Content Include="assets\images\kanjia\title_top2.png" />
+    <Content Include="assets\images\kanjia\title_top3.png" />
+    <Content Include="assets\images\kanjia\砍价2样图 .jpg" />
     <Content Include="assets\images\title1.png" />
     <Content Include="assets\images\手机.jpg" />
     <Content Include="assets\images\砍价1\砍价banner1.gif" />
@@ -693,6 +704,7 @@
     <Content Include="assets\svg\upload1.svg" />
     <Content Include="assets\svg\view.svg" />
     <Content Include="images\12.png" />
+    <Content Include="images\kanjia.jpg" />
     <Content Include="images\kanjia.png" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />

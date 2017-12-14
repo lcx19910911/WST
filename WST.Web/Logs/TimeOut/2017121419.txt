@@ -1,0 +1,40 @@
+Time:2017/12/14 19:19:47-本次请求耗时 6.256 秒.
+Url:http://localhost:56262/
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/14 19:19:53-本次请求耗时 11.966 秒.
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/KanJia/Manage
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/14 19:22:08-本次请求耗时 6.91 秒.
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/KanJia/Manage
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/14 19:23:03-本次请求耗时 2.153 秒.
+Url:http://localhost:56262/
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/14 19:23:08-本次请求耗时 7.052 秒.
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/KanJia/Manage
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/14 19:24:43-本次请求耗时 75.629 秒.
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/KanJia/Manage
+UserHostAddress:::1;;
+WebServer:::1
+
+

@@ -57,9 +57,10 @@ namespace WST.Web.Controllers
                     entity.IsNeedReport = false;
                     entity.UserID = LoginUser.ID;
                     entity.CreatedTime = entity.UpdatedTime = DateTime.Now;
-                    entity.ID = Guid.NewGuid().ToString("N");
+                    var guid = Guid.NewGuid().ToString("N");
+                    entity.ID = guid;
                     if (IKanJiaService.Add(entity) > 0)
-                        return JResult(entity.ID);
+                        return JResult(entity.ID.IsNullOrEmpty()?guid:entity.ID);
                     else
                         return DataErorrJResult();
                 }

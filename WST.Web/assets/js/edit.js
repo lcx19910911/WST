@@ -22,6 +22,18 @@ $(function () {
     // 上传图片全局变量
     var uploadImgTarget;
 
+    //解决ios不能自动播放音乐
+    function audioAutoPlay(id){  
+        var audio = document.getElementById(id);  
+        audio.play();  
+        document.addEventListener("WeixinJSBridgeReady", function () {  
+                audio.play();  
+        }, false);  
+        document.addEventListener('YixinJSBridgeReady', function() {  
+            audio.play();  
+        }, false);  
+    }
+    audioAutoPlay('audio');
 
     // 预览活动
     var judge = true;
@@ -67,7 +79,7 @@ $(function () {
     })
     // 确认选择音乐
     .on('click', '.music-component-wrapper .sure', function () {
-        $('#audio').attr('oldsrc', $('#audio').attr('src'));
+        $('#audio').attr('oldsrc', $('.play').attr('data-music'));
         $('.music-component-wrapper').addClass('hidden');
     })
     // 显示图片
@@ -117,9 +129,8 @@ $(function () {
                 data: { jsonData },
                 success: function (data) {
                     if (data.Code == 0) {
-
                         if (jsonData.ID != "") {
-                            window.location.href = "/user/pintuan?id=" + jsonData.ID;
+                            window.location.href = "/user/pintuan?id=" + data.Result;
                         }
                         else {
                             alert("生成成功");

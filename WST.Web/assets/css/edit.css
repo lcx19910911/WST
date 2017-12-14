@@ -80,7 +80,7 @@ html {
 .music-component-wrapper ul li .icon {
     margin-right: 0.5em;
 }
-.music-component-wrapper ul .btn {
+.music-component-wrapper .btn {
     position: absolute;
     overflow: hidden;
     bottom: 0;
@@ -90,7 +90,7 @@ html {
     line-height: 3em;
     border-top: 1px solid #608DA4;
 }
-.music-component-wrapper ul .btn span {
+.music-component-wrapper .btn span {
     float: left;
     width: 50%;
     text-align: center;
@@ -98,7 +98,7 @@ html {
     background: #608DA4;
     color: #fff;
 }
-.music-component-wrapper ul .btn .cancel {
+.music-component-wrapper .btn .cancel {
     -webkit-box-shadow: 1px 0 0 0 #608DA4;
     box-shadow: 1px 0 0 0 #608DA4;
     background: #fff;
@@ -380,9 +380,15 @@ html {
     border: 0!important;
 }
 
-/*.edit .v-span, .edit .v-p {
-    display: none !important;
-}*/
-/*.v-span, .v-p {
-    border-color: transparent!important;
-}*/
+.l .block {
+    display: block!important;
+    width: 100%;
+}
+.l .block .btn {
+    width: 100%;
+    text-align: left;
+    border-radius: 0;
+}
+.l .block .btn span:nth-child(even) {
+    margin-right: 1em;
+}
