@@ -46,7 +46,7 @@ namespace WST.Web.Controllers
 
         public ActionResult DefaultUser()
         {
-            var user = IUserService.FindByOpenId("ojLuqwulfHDp2lxuoK_8j8Ch1BKs");
+            var user = IUserService.FindByOpenId("ojLuqwttT53zlDd3b3gGFzTLSIAQ");
             if (user != null)
             {
                 this.LoginUser = new Core.Model.LoginUser(user);
@@ -93,7 +93,7 @@ namespace WST.Web.Controllers
                                 };
                                 IUserService.Add(model);
                                 this.LoginUser = new Core.Model.LoginUser(model);
-                                this.Response.Redirect("/home/index");
+                                this.Response.Redirect("/user/index");
                             }
                             else
                             {
@@ -103,7 +103,7 @@ namespace WST.Web.Controllers
                         else
                         {
                                 this.LoginUser = new Core.Model.LoginUser(user);
-                                this.Response.Redirect("/home/index");
+                                this.Response.Redirect("/user/index");
                         }
 
                     }

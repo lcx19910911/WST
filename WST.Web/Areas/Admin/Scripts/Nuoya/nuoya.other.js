@@ -1,5 +1,5 @@
 Date.prototype.format = function (format) {
-    format = format == null ? "yyyy-MM-dd hh:mm:ss" : format
+    format = format == null ? "yyyy-MM-dd HH:mm:ss" : format
     var o = {
         "M+": this.getMonth() + 1, //month
         "d+": this.getDate(),    //day

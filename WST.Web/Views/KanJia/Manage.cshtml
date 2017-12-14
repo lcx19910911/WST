@@ -107,10 +107,10 @@
         <!-- activity -->
         <div class="activity-wrapper mt15">
             <span for="startTime">活动时间:</span>
-            <input type="text" name="startTime" id="startTime" value="@(Model.ID.IsNullOrEmpty()?DateTime.Now.AddDays(1).ToString("yyyy-MM-dd hh:mm"):Model.StartTime.ToString())" class="input e-input timeinput" />
+            <input type="text" name="startTime" id="startTime" value="@(Model.ID.IsNullOrEmpty()?DateTime.Now.AddDays(1).ToString("yyyy-MM-dd HH:mm"):Model.StartTime.ToString())" class="input e-input timeinput" />
             <!-- <span class="v-span input timeinput"></span> -->
             <span>到</span>
-            <input type="text" name="endTime" id="endTime" value="@(Model.ID.IsNullOrEmpty()?DateTime.Now.AddDays(2).ToString("yyyy-MM-dd hh:mm"):Model.EndTime.ToString())" class="input e-input timeinput" />
+            <input type="text" name="endTime" id="endTime" value="@(Model.ID.IsNullOrEmpty()?DateTime.Now.AddDays(2).ToString("yyyy-MM-dd HH:mm"):Model.EndTime.ToString())" class="input e-input timeinput" />
             <!-- <span class="v-span input timeinput"></span> -->
         </div>
         <div class="groupBooking-wrapper mt10 w90 m10 f11">

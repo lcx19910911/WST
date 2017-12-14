@@ -597,6 +597,7 @@ namespace WxPayAPI
         public static string GetSignature(string url, string token, string timestamp, string nonce)
         {
             string str3 = GetJsApi_ticket(token);
+           // LogHelper.WriteDebug($"signature={str3}");
             string str4 = "jsapi_ticket=" + str3;
             string str5 = "noncestr=" + nonce;
             string str6 = "timestamp=" + timestamp;
@@ -627,20 +628,25 @@ namespace WxPayAPI
             return str;
         }
 
-
         public static string GetJsApi_ticket(string token)
         {
-            string url = string.Format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type=jsapi", token);
-            string str2 = WebHelper.GetPage(url);
-            if (!string.IsNullOrEmpty(str2))
+            return CacheHelper.Get<string>("weixinTicket", CacheTimeOption.TenMinutes, () =>
             {
-                Dictionary<string, string> dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(str2);
-                if ((dictionary != null) && dictionary.ContainsKey("ticket"))
+                string url = string.Format("https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token={0}&type=jsapi", token);
+                string str2 = WebHelper.GetPage(url);
+                if (!string.IsNullOrEmpty(str2))
                 {
-                    return dictionary["ticket"];
+                    Dictionary<string, string> dictionary = JsonConvert.DeserializeObject<Dictionary<string, string>>(str2);
+                    if ((dictionary != null) && dictionary.ContainsKey("ticket"))
+                    {
+                        return dictionary["ticket"];
+                    }
+                    else
+                        return "";
                 }
-            }
-            return string.Empty;
+                else
+                    return "";
+            });
         }
 
         public static string GetToken_Message(string appid, string secret)

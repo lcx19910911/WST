@@ -232,14 +232,14 @@ margin-right: 1em;
                    disabled="true"
                    name="startTime"
                    class="input e-input timeinput"
-                   value="@(Model.StartTime.ToString("yyyy-MM-dd hh:mm"))" />
+                   value="@(Model.StartTime.ToString("yyyy-MM-dd HH:mm"))" />
             <span>到</span>
             <input id="endTime"
                    type="text"
                    disabled="true"
                    name="endTime"
                    class="input e-input timeinput"
-                   value="@(Model.EndTime.ToString("yyyy-MM-dd hh:mm"))" />
+                   value="@(Model.EndTime.ToString("yyyy-MM-dd HH:mm"))" />
         </div>
 
 
@@ -444,19 +444,19 @@ margin-right: 1em;
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
     <script src="~/Areas/Admin/Scripts/utility.js"></script>
     <script>
-        function audioAutoPlay(id){  
-            var audio = document.getElementById(id);  
-            audio.play();  
-            document.addEventListener("WeixinJSBridgeReady", function () {  
-                audio.play();  
-            }, false);  
-            document.addEventListener('YixinJSBridgeReady', function() {  
-                audio.play();  
-            }, false);  
+        function audioAutoPlay(id){
+            var audio = document.getElementById(id);
+            audio.play();
+            document.addEventListener("WeixinJSBridgeReady", function () {
+                audio.play();
+            }, false);
+            document.addEventListener('YixinJSBridgeReady', function() {
+                audio.play();
+            }, false);
         }
         audioAutoPlay('audio');
 
-        @*wx.config({
+        wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
             appId: "@ViewBag.AppId", // 必填，公众号的唯一标识
             timestamp: "@ViewBag.TimeStamp", // 必填，生成签名的时间戳
@@ -475,39 +475,26 @@ margin-right: 1em;
                 ],
                 success: function (res) {
                     //alert(res.errMsg);
-                }
-            });
 
-            wx.onMenuShareAppMessage({
-                title: '@(Model.Name)',
-                desc: '@(Model.Name)',
-                link: '@(Params.SiteUrl)/user/pintuan?id=@(Model.ID)',
-                imgUrl: '@(Params.SiteUrl)@(Model.Picture)',
-                success: function (res) {
-                    addShareCount();
-                },
-                cancel: function (res) {
-                    //alert('已取消');
-                },
-                fail: function (res) {
-                    alert(res.errMsg);
-                }
-            });
+                    var config = {
+                        title: '@(Model.Name)',
+                        desc: '@(Model.Name)',
+                        link: '@(Params.SiteUrl)/user/pintuan?id=@(Model.ID)',
+                        imgUrl: '@(Params.SiteUrl)@(Model.Picture)',
+                        type: 'link',
+                        dataUrl: '',
+                        success: function () {
+                            addShareCount();
+                        },
+                        cancel: function () {
+                            alert(res.errMsg);
+                        }
+                    }
 
-            // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
-            wx.onMenuShareTimeline({
-                title: '@(Model.Name)',
-                desc: '@(Model.Name)',
-                link: '@(Params.SiteUrl)/user/pintuan?id=@(Model.ID)',
-                imgUrl: '@(Params.SiteUrl)@(Model.Picture)',
-                success: function (res) {
-                    addShareCount();
-                },
-                cancel: function (res) {
-                    //alert('已取消');
-                },
-                fail: function (res) {
-                    alert(res.errMsg);
+                    wx.onMenuShareAppMessage(config);
+
+                    // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+                    wx.onMenuShareTimeline(config);
                 }
             });
 
@@ -515,7 +502,7 @@ margin-right: 1em;
                 alert(res.errMsg);
             });
 
-        });*@
+        });
 
 
         function addShareCount()
@@ -564,7 +551,7 @@ margin-right: 1em;
 					setTimeout(function() {
 						loadJudge = true;
 					}, 2000)
-                    
+
 					$.ajax({
 					    url: '/user/GetUserPageList',
 					    data: {

@@ -243,14 +243,14 @@
                    disabled="true"
                    name="startTime"
                    class="input e-input timeinput"
-                   value="@(Model.StartTime.ToString("yyyy-MM-dd hh:mm"))" />
+                   value="@(Model.StartTime.ToString("yyyy-MM-dd HH:mm"))" />
             <span>到</span>
             <input id="endTime"
                    type="text"
                    disabled="true"
                    name="endTime"
                    class="input e-input timeinput"
-                   value="@(Model.EndTime.ToString("yyyy-MM-dd hh:mm"))" />
+                   value="@(Model.EndTime.ToString("yyyy-MM-dd HH:mm"))" />
         </div>
 
         <!-- groupBooking -->
@@ -479,6 +479,7 @@
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
     <script src="~/Areas/Admin/Scripts/utility.js"></script>
     <script>
+        var isUser="@(isUser?"1":"0")"=="1";
         function audioAutoPlay(id){
             var audio = document.getElementById(id);
             audio.play();
@@ -491,69 +492,47 @@
         }
         audioAutoPlay('audio');
 
-        @*wx.config({
+        wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
             appId: "@ViewBag.AppId", // 必填，公众号的唯一标识
             timestamp: "@ViewBag.TimeStamp", // 必填，生成签名的时间戳
             nonceStr: "@ViewBag.NonceStr", // 必填，生成签名的随机串
             signature: "@ViewBag.Signature",// 必填，签名，见附录1
-            jsApiList: ['jsApiList',
-                  'onMenuShareTimeline',
-                  'hideOptionMenu',
-                  'onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+            jsApiList: ['jsApiList','onMenuShareTimeline','onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
         });
 
         wx.ready(function(){
+
+            var config = {
+                title: '@(Model.Name)',
+                desc: '@(Model.Name)',
+                link: '@(Params.SiteUrl)/user/kanjia?id=@(Model.ID)&userActId=@(Request["userActId"])',
+                imgUrl: '@(Params.SiteUrl)@(Model.Picture)',type: 'link',
+                dataUrl: '',
+                success: function () {
+                    addShareCount();
+                },
+                cancel: function () {
+                    alert(res.errMsg);
+                }
+            }
+
             //wx.hideOptionMenu();/***隐藏分享菜单****/
             wx.checkJsApi({
-                jsApiList: [
-                  'getLocation',
-                  'onMenuShareTimeline',
-                  'onMenuShareAppMessage'
-                ],
+                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'],
                 success: function (res) {
-                    //alert(res.errMsg);
+                    wx.onMenuShareAppMessage(config);
+
+                    // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+                    wx.onMenuShareTimeline(config);
+
                 }
             });
-
-            wx.onMenuShareAppMessage({
-                title: '@(Model.Name)',
-                desc: '@(Model.Name)',
-                link: '@(Params.SiteUrl)/user/kanjia?id=@(Model.ID)&userActId=@(Request["userActId"])',
-                imgUrl: '@(Params.SiteUrl)@(Model.Picture)',
-                success: function (res) {
-                    addShareCount();
-                },
-                cancel: function (res) {
-                    //alert('已取消');
-                },
-                fail: function (res) {
-                    alert(res.errMsg);
-                }
-            });
-
-            // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
-            wx.onMenuShareTimeline({
-                title: '@(Model.Name)',
-                desc: '@(Model.Name)',
-                link: '@(Params.SiteUrl)/user/kanjia?id=@(Model.ID)&userActId=@(Request["userActId"])',
-                imgUrl: '@(Params.SiteUrl)@(Model.Picture)',
-                success: function (res) {
-                    addShareCount();
-                },
-                cancel: function (res) {
-                    //alert('已取消');
-                },
-                fail: function (res) {
-                    alert(res.errMsg);
-                }
-            });
-
             wx.error(function (res) {
                 alert(res.errMsg);
             });
 
-        });*@
+        });
 
         function addShareCount()
         {
@@ -563,7 +542,7 @@
                 url: '/user/AddShare',
                 data: {
                     id: '@(Model.ID)',
-                    code:@(TargetCode.Pintuan.GetInt()),
+                    code:@(TargetCode.Kanjia.GetInt()),
                 },
                 success: function (data) {
                     if (data.Code == 0) {
@@ -617,7 +596,16 @@
                                 PageCount = data.Result.PageCount;
                                 var list = data.Result.List;
                                 $.each(list, function (i, obj) {
-                                    $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
+                                    if(isUser)
+                                    {
+                                        if(obj.TargetUserID=="")
+                                        {
+                                            $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
+                                        }}
+                                    else
+                                    {
+                                        $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
+                                    }
                                 })
                             }
                             else
@@ -676,7 +664,6 @@
                         id: '@(Request["userActId"])',
                     },
                     success: function (data) {
-                        debugger
                         if (data.Code == 0) {
                             alert("砍价成功");
                             window.location.reload();

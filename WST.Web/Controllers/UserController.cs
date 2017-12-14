@@ -447,7 +447,8 @@ namespace WST.Web.Controllers
             string cacheToken = WxPayApi.GetCacheToken(Params.WeixinAppId, Params.WeixinAppSecret);
             ViewBag.TimeStamp = WxPayApi.GenerateTimeStamp();
             ViewBag.NonceStr = WxPayApi.GenerateNonceStr();
-            ViewBag.Signature = WxPayApi.GetSignature(Params.SiteUrl, cacheToken, ViewBag.TimeStamp, ViewBag.NonceStr);
+            ViewBag.Signature = WxPayApi.GetSignature(Request.Url.ToString().Split('#')[0], cacheToken, ViewBag.TimeStamp, ViewBag.NonceStr);
+           // LogHelper.WriteDebug($"{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")} appid={ViewBag.AppId},TimeStamp={ViewBag.TimeStamp},NonceStr={ViewBag.NonceStr},Signature={ViewBag.Signature}");
             return View(model);
         }
 
@@ -490,7 +491,7 @@ namespace WST.Web.Controllers
             string cacheToken = WxPayApi.GetCacheToken(Params.WeixinAppId, Params.WeixinAppSecret);
             ViewBag.TimeStamp = WxPayApi.GenerateTimeStamp();
             ViewBag.NonceStr = WxPayApi.GenerateNonceStr();
-            ViewBag.Signature = WxPayApi.GetSignature(Params.SiteUrl, cacheToken, ViewBag.TimeStamp, ViewBag.NonceStr);
+            ViewBag.Signature = WxPayApi.GetSignature(Request.Url.ToString().Split('#')[0], cacheToken, ViewBag.TimeStamp, ViewBag.NonceStr);
             return View(model);
         }
     }

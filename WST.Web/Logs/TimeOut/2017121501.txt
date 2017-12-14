@@ -1,0 +1,6 @@
+Time:2017/12/15 1:55:35-本次请求耗时 10.842 秒.
+Url:http://localhost:56262/user/kanjia?id=c5872e4c4c924c5189088fc5459b5fc0&userActId=8e6b3d548ade47108158e971e2f92fbd
+UserHostAddress:::1;;
+WebServer:::1
+
+
