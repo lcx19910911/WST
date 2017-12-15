@@ -468,11 +468,10 @@
                 {
                     <div class="button apply-btn">我要报名</div>
                 }
-                if (Request["userActId"].IsNotNullOrEmpty()&&Model.LessPrice<ViewBag.Price)
-                {
+            }
+            @if (Request["userActId"].IsNotNullOrEmpty()&&Model.LessPrice<ViewBag.Price) {
                     <div class="button help-btn">帮忙砍价</div>
                 }
-            }
         </div>
 
     </div>
@@ -506,7 +505,7 @@
             var config = {
                 title: '@Html.Raw(Model.Name)',
                 desc: '@Html.Raw(Model.Name)',
-                link: '@(Params.SiteUrl)user/kanjia?id=@(Model.ID)&userActId=@(Request["userActId"])',
+                link: ' @(Request["userActId"].IsNotNullOrEmpty() ? (Params.SiteUrl + "/user/kanjia?userActId=" + Request["userActId"]):Params.SiteUrl+"/user/kanjia?id="+Model.ID)',
                 imgUrl: '@(Params.SiteUrl)@(Model.Picture)',type: 'link',
                 dataUrl: '',
                 success: function () {

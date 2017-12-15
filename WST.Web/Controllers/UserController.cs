@@ -129,7 +129,13 @@ namespace WST.Web.Controllers
                         price = model.OldPrice;
                         break;
                     }
-                    else if (model.JoinCount > countList[index - 1] && model.JoinCount < countList[index])
+                    if (model.JoinCount == countList[index - 1])
+                    {
+                        price = priceList[index - 1].Amount;
+                        break;
+                    }
+
+                    if (model.JoinCount > countList[index - 1] && model.JoinCount < countList[index])
                     {
                         price = priceList[index - 1].Amount;
                         break;
@@ -320,7 +326,7 @@ namespace WST.Web.Controllers
             }
             else
             {
-                if (IUserActivityService.IsExits(x => x.TargetID == userActivityModel.TargetID && x.JoinUserID == LoginUser.ID&&!string.IsNullOrEmpty(x.TargetUserID)))
+                if (IUserActivityService.IsExits(x => x.TargetID == userActivityModel.TargetID && x.JoinUserID == LoginUser.ID&&!string.IsNullOrEmpty(x.TargetUserID)&&x.TargetUserID==userActivityModel.JoinUserID))
                 {
                     return JResult(Core.Code.ErrorCode.had_kanjia, "");
                 }
@@ -342,7 +348,7 @@ namespace WST.Web.Controllers
                 kanPrice = model.OncePrice;
                 userActivityModel.Amount -= model.OncePrice;
             }
-            if ((helpCount+1)==model.CountLimit)
+            if ((helpCount+1)<=model.CountLimit)
             {
                 model.UsedCount++;
                 IKanJiaService.Update(model);
@@ -432,13 +438,7 @@ namespace WST.Web.Controllers
         // GET: User
         public ActionResult KanJia(string id, string userActId)
         {
-            var model = IKanJiaService.Find(id);
-            if (model == null)
-            {
-                return Forbidden();
-            }
-            model.ClickCount++;
-            IKanJiaService.Update(model);
+            var model = new KanJia();
             if (userActId.IsNotNullOrEmpty())
             {
                 var userAct = IUserActivityService.Find(x => x.ID == userActId);
@@ -446,17 +446,27 @@ namespace WST.Web.Controllers
                 {
                     return Forbidden();
                 }
+                model = IKanJiaService.Find(userAct.TargetID);
                 //帮砍价人列表
-                ViewBag.KanJiaList = IUserActivityService.GetList(x => x.TargetID == id && !string.IsNullOrEmpty(x.TargetUserID)&&x.TargetUserID==userAct.JoinUserID);
+                ViewBag.KanJiaList = IUserActivityService.GetList(x => x.TargetID == userAct.TargetID && !string.IsNullOrEmpty(x.TargetUserID)&&x.TargetUserID==userAct.JoinUserID);
                 ViewBag.Price = userAct.Amount;
                 ViewBag.JoinUserID = userAct.JoinUserID;
+                
             }
             else
             {
+                model = IKanJiaService.Find(id);
                 //帮砍价人列表
                 ViewBag.KanJiaList = new List<UserActivity>();
                 ViewBag.Price = model.OldPrice;
                 ViewBag.JoinUserID = "";
+            
+                if (model == null)
+                {
+                    return Forbidden();
+                }
+                model.ClickCount++;
+                IKanJiaService.Update(model);
             }
 
             ViewBag.IsReport = IUserActivityService.IsExits(x => x.TargetID == id && x.JoinUserID == LoginUser.ID&&string.IsNullOrEmpty(x.TargetUserID));
@@ -491,7 +501,12 @@ namespace WST.Web.Controllers
                         price = model.OldPrice;
                         break;
                     }
-                    else if (model.JoinCount > countList[index - 1] && model.JoinCount < countList[index])
+                    if (model.JoinCount == countList[index - 1])
+                    {
+                        price = priceList[index - 1].Amount;
+                        break;
+                    }
+                    if (model.JoinCount > countList[index - 1] && model.JoinCount < countList[index])
                     {
                         price = priceList[index - 1].Amount;
                         break;

@@ -49,7 +49,7 @@ namespace WST.Web.Controllers
 
             //lcx ojLuqwikV8T-nCd2VMAihJEqSOzw
             //lzy ojLuqwqwSS9xPpuHj-ZsHv6QDQSQ
-            var user = IUserService.FindByOpenId("ojLuqwqwSS9xPpuHj-ZsHv6QDQSQ");
+            var user = IUserService.FindByOpenId("ojLuqwikV8T-nCd2VMAihJEqSOzw");
             if (user != null)
             {
                 this.LoginUser = new Core.Model.LoginUser(user);
@@ -68,7 +68,7 @@ namespace WST.Web.Controllers
                 {
                     var url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + Params.WeixinAppId + "&secret=" + Params.WeixinAppSecret + "&code=" + code + "&grant_type=authorization_code";         
                     string responseResult = WebHelper.GetPage(url);
-                    
+                    string redirecturl = Request["redirecturl"];
                     if (responseResult.Contains("access_token"))
                     {
                         JObject obj2 = JsonConvert.DeserializeObject(responseResult) as JObject;
@@ -96,7 +96,7 @@ namespace WST.Web.Controllers
                                 };
                                 IUserService.Add(model);
                                 this.LoginUser = new Core.Model.LoginUser(model);
-                                this.Response.Redirect("/user/index");
+                                this.Response.Redirect(redirecturl);
                             }
                             else
                             {
@@ -106,7 +106,7 @@ namespace WST.Web.Controllers
                         else
                         {
                                 this.LoginUser = new Core.Model.LoginUser(user);
-                                this.Response.Redirect("/user/index");
+                                this.Response.Redirect(redirecturl);
                         }
 
                     }
@@ -121,7 +121,7 @@ namespace WST.Web.Controllers
                 }
                 else
                 {
-                    string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Params.WeixinAppId + "&redirect_uri=" + HttpUtility.UrlEncode(this.Request.Url.ToString().Replace(":" + this.Request.Url.Port.ToString(), "")) + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
+                    string url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + Params.WeixinAppId + "&redirect_uri=" + this.Request.Url.ToString() + "&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect";
                     this.Response.Redirect(url);
                 }
 

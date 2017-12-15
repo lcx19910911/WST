@@ -1,0 +1,13 @@
+Time:2017/12/15 22:52:04-本次请求耗时 10.764 秒.
+Url:http://localhost:56262/user/ToKanJia
+UrlReferrer:http://localhost:56262/user/kanjia?id=a1a0f214edb247c58ba000eb1024ac8c&userActId=90561939d66744f58e2c0cbc3af6d0ba
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/15 22:53:18-本次请求耗时 34.757 秒.
+Url:http://localhost:56262/user/pintuan?id=c875ffe77f924bccafd40148f9a151d6
+UserHostAddress:::1;;
+WebServer:::1
+
+
