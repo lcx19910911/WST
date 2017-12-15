@@ -1,0 +1,84 @@
+﻿@using WST.Core.Extensions;
+@model List<Syllabus>
+ @{
+     ViewBag.Title = "课程首页";
+}
+
+@section linkcss
+{
+    <link rel="stylesheet" href="~/css/CourseIndex.css">
+}
+
+<div class="wrap" id="Index">
+    <div class="course-tit">
+        <a href="/course/index?code=@(CourseCode.Free.GetInt())" class="@(Request["code"].IsNullOrEmpty()||Request["code"]==CourseCode.Free.GetInt().ToString()?"cset-sel":"")">团操课程</a>
+        <a href="/course/index?code=@(CourseCode.League.GetInt())"class="@(Request["code"]==CourseCode.League.GetInt().ToString()?"cset-sel":"")">私教课程</a>
+        <a href="/course/index?code=@(CourseCode.Coach.GetInt())" class="@(Request["code"]==CourseCode.Coach.GetInt().ToString()?"cset-sel":"")">精品团课</a>
+    </div>
+    <div class="cont course-list">
+        <div class="cse-div">
+
+            <div class="banner">
+                <div class="swiper-container">
+                    <div class="swiper-wrapper">
+                        <div class="swiper-slide">
+                            <img src="~/images/courseindex_banner.jpg" alt="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cse-list">
+                @if (Model != null && Model.Count > 0)
+                {
+                    foreach (var item in Model)
+                    {
+                        <div class="big-pic-item">
+                            <div class="big-pic-img">
+                                <img src="@(item.Course?.HeadPic)" alt="">
+                                <div class="big-pic-name-price">
+                                    <strong>@(item.Course?.Name)</strong>
+                                    <span>¥ @(item.Price)</span>
+                                    <em>/ @(item.ItemCount)节</em>
+                                </div>
+                            </div>
+                            <div class="big-pic-con">
+                                <div class="big-pic-con-left">
+                                    <div class="bpcr-t">
+                                        <strong>@(item.StoreName)</strong>
+                                    </div>
+                                    <div class="bpcr-b">
+                                        <div class="bpcr-star">
+                                            <i class="bpcr-star-sel"></i>
+                                            <i></i>
+                                            <i></i>
+                                            <i></i>
+                                            <i></i>
+                                        </div>
+                                        <div class="bpcr-menber">
+                                            <i></i>
+                                            <span>@(item.NowItem?.JoinCount)</span>
+                                            <em>/ @(item.NowItem?.PeopleLimit)<</em>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="big-pic-con-right">
+                                    <a href="#">购买</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{<script>
+    var Swiper1 = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination'
+    });
+</script>
+}

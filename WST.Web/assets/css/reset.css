@@ -240,6 +240,21 @@ a {text-decoration: none;color: inherit;} a:link, a:hover, a:active, a:visited {
     100% {transform: translateY(-15px);}
 }
 /* Spinner 6 ends here */
-.l .close, .add-child span, .btn, .button, .showqrcode, .tab-title-list, .item-bottom span, .music-list, .btn * {
+
+.l .close, .add-child span, .btn, .button, .showqrcode, .tab-title-list, .item-bottom span, .music-list, .btn *, .amask, .qmask, .dwo, .dwb {
     cursor: pointer;
+}
+/* 个人中心 */
+.admin-center a {
+    display: block;
+    width: 3.5em;
+    height: 3.5em;
+    border-radius: 50%;
+    background: url(../img/center.png) center center no-repeat;
+    background-size: 100% 100%;
+}
+.l .global-btn-wrapper .admin-center {
+    background: none;
+    padding: 0;
+    opacity: 0.8;
 }

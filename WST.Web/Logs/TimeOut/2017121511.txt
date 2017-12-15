@@ -1,0 +1,21 @@
+Time:2017/12/15 11:08:42-本次请求耗时 4.181 秒.
+Url:http://localhost:56262/user/ToKanJia
+UrlReferrer:http://localhost:56262/user/kanjia?id=d8ce69f4129846578d9f286a6955731c&userActId=8bb0c8f7bfee4ae7a31dc14f21917c95
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/15 11:20:21-本次请求耗时 11.419 秒.
+Url:http://localhost:56262/user/ToKanJia
+UrlReferrer:http://localhost:56262/user/kanjia?id=f32fe6b017a640a8aa0e8e26141f1f5a&userActId=5f39278e79bf4ab388ac050085b15215
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/15 11:22:20-本次请求耗时 5.585 秒.
+Url:http://localhost:56262/user/GetUserPageList?pageIndex=1&pageSize=10&targetId=f32fe6b017a640a8aa0e8e26141f1f5a
+UrlReferrer:http://localhost:56262/user/kanjia?id=f32fe6b017a640a8aa0e8e26141f1f5a&userActId=5f39278e79bf4ab388ac050085b15215
+UserHostAddress:::1;;
+WebServer:::1
+
+

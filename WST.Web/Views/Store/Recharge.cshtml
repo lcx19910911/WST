@@ -1,0 +1,163 @@
+﻿@model List<Store>
+@{
+    var currentUser = LoginHelper.GetCurrentUser();
+    var planList = ViewBag.PlanList as List<RechargePlan>;
+    ViewBag.Title = "充值消费卡";
+}
+
+
+
+@section linkcss
+{
+    <link rel="stylesheet" href="~/css/ExpenseCardPay.css">
+}
+
+
+<div class="wrap" id="Index">
+    <div class="head-div">
+        <a href="javascript:history.go(-1);"><i></i></a>
+        <span>充值消费卡</span>
+    </div>
+    <div class="cont person-data">
+        <div class="pd-data">
+            <div class="pdd-item pdd-sex">
+                <div class="pdd-tit">充值账户 :</div>
+                <div class="pdd-input">@currentUser.Account</div>
+            </div>
+            <div class="pdd-item pdd-stores">
+                <div class="pdd-tit">门店选择 :</div>
+                <div class="pdd-input">
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div data-id="@item.ID">@item.Name</div>
+                        }
+                    }
+                </div>
+            </div>
+
+            <div class="pdd-item pdd-membership">
+                <div class="pdd-tit">充值额度 :</div>
+                <div class="pdd-input">
+                    @if (planList != null && planList.Count > 0)
+                    {
+                        foreach (var item in planList)
+                        {
+                            <div data-value="@item.Money" data-id="@item.ID">@item.Name</div>
+                        }
+                    }
+                </div>
+            </div>
+            <div class="pdd-item pdd-discount">
+                <div class="pdd-tit">剩余额度 :</div>
+                <div class="pdd-input">元</div>
+            </div>
+        </div>
+
+        <div class="pay-btn">确认支付</div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+        $(function () {
+            GetBalance("@(Model!=null&&Model.Count>0?Model[0].ID:"")");
+            function GetBalance(storeId)
+            {
+                $.ajax({
+                    url: "/store/getBalance",
+                    data: { storeId: storeId },
+                    success: function (data) {
+                        console.log(data);
+                        if (data.Code == 0) {
+                            if (data.Result != null) {
+                                $(".pdd-discount .pdd-input").text(data.Result + "元");
+                            } else {
+
+                                $(".pdd-discount .pdd-input").text("0元");
+                            }
+                        } else {
+                            var boxObj1 = BOXOPEN({
+                                type: 1,
+                                txt: data.ErrorDesc
+                            });
+                        }
+                    }
+                });
+            }
+
+
+            // 选择门店
+            $(document).on('click', '.pdd-stores .pdd-input div', function () {
+                if (!$(this).hasClass('pdd-i-sel')) {
+                    $('.pdd-stores .pdd-input div').removeClass('pdd-i-sel');
+                    $(this).addClass('pdd-i-sel');
+                }
+                GetBalance($(".pdd-stores .pdd-i-sel").attr("data-id"));
+                //if ($(this).hasClass('pdd-i-sel')) {
+                //	if ($('.pdd-i-sel').length > 1) {
+                //		$(this).removeClass('pdd-i-sel');
+                //	}
+                //} else {
+                //	$(this).addClass('pdd-i-sel');
+                //}
+            });
+            // 选择充值额度
+            $(document).on('click', '.pdd-membership .pdd-input div', function () {
+                if (!$(this).hasClass('pdd-m-sel')) {
+                    $('.pdd-membership .pdd-input div').removeClass('pdd-m-sel');
+                    $(this).addClass('pdd-m-sel');
+                }
+            });
+
+            $(document).on('click', '.pay-btn', function () {
+                var msg = "";
+                var storeId = $(".pdd-stores .pdd-i-sel").attr("data-id");
+                if (!storeId)
+                {
+                    msg = "请选择门店";
+                }
+                var amount = $(".pdd-membership .pdd-m-sel").attr("data-value");
+                if (!amount)
+                {
+                    msg = "请选择充值金额";
+                }
+                if (msg != "") {
+                    var boxObj1 = BOXOPEN({
+                        type: 1,
+                        txt: msg
+                    });
+                    return false;
+                }
+                var planId = $(".pdd-membership .pdd-m-sel").attr("data-id");
+                var name=$(".pdd-stores .pdd-i-sel").text();
+                $.ajax({
+                    type: "Post",
+                    url: "/store/recharge",
+                    data: { storeId: storeId, amount: amount, planId: planId },
+                    beforeSend: function () {
+                        $(".pay-btn").attr({ "disabled": "disabled" });//获取到配置之前，禁止点击付款按钮
+                    },
+                    success: function (postData) {
+                        if (postData.Code == 0)
+                        {
+                            var remark = "充值了" + name + "门店的余额," + ",金额" + amount + "元";
+                            window.location.href = "/WxPay/Pay?orderId=" + postData.Result.Result + "&fee=" + amount + "&remark=" + remark + "&name=" + name + "&type=2&storeId=" + storeId;
+                        }
+                        else {
+                            var boxObj1 = BOXOPEN({
+                                type: 1,
+                                txt: postData.ErrorDesc
+                            });
+                        }
+                    }
+                })
+
+               
+            });
+            });
+
+    </script>
+}

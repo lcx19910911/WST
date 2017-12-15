@@ -1,0 +1,12 @@
+Time:2017/12/15 17:46:37-本次请求耗时 2.34 秒.
+Url:http://localhost:56262/
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/15 17:46:39-本次请求耗时 4.275 秒.
+Url:http://localhost:56262/user/actlist
+UserHostAddress:::1;;
+WebServer:::1
+
+

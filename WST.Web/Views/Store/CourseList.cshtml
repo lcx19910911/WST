@@ -1,0 +1,65 @@
+﻿@model List<Syllabus>
+@{
+    var currentUser = LoginHelper.GetCurrentUser();
+    ViewBag.Title = "课程列表";
+}
+
+
+
+@section linkcss
+{
+    <link rel="stylesheet" href="~/css/CourseList.css">
+}
+
+<div class="wrap" id="Index">
+    <div class="head-div">
+        <a href="javascript:history.go(-1);"><i></i></a>
+        <span>课程列表</span>
+    </div>
+    <div class="cont course-list">
+        <div class="cl-div">
+            @if (Model != null && Model.Count > 0)
+            {
+                foreach (var item in Model)
+                {
+                    <div class="cl-item">
+                        <div class="cl-img">
+                            <img src="@item.CoachHeadImageUrl" alt="">
+                        </div>
+                        <div class="cl-txt">
+                            <div class="cl-cre-name">@item.Course.Name</div>
+                            <div class="cl-type">
+                                @foreach (var obj in item.Course.CourseCategoryNameStr.Split(',').ToList())
+                                {
+                                    <span>@obj</span>
+                                }
+                            </div>
+                            <div class="cl-time">@(item.StartTime.ToString("yyyy-MM-dd HH:mm")) - @(item.EndTime.ToString("hh:mm"))</div>
+                        </div>
+                    </div>
+
+                }
+            }
+            <div class="cl-item">
+                <div class="cl-img">
+                    <img src="~/images/personal-coach.png" alt="">
+                </div>
+                <div class="cl-txt">
+                    <div class="cl-cre-name">TRX海豹突击队</div>
+                    <div class="cl-type">
+                        <span>小工具课程</span>
+                        <span>核心力量</span>
+                        <span>TRX</span>
+                    </div>
+                    <div class="cl-time">8:00 - 10:00</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section scripts
+{
+    
+}

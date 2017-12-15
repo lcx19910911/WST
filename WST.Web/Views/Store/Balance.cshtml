@@ -1,0 +1,157 @@
+﻿@using WST.Domain
+@{
+    ViewBag.Title = "我的消费卡";
+    var orderList = ViewBag.OrderList as List<PayOrder>;
+    var orderDic = ViewBag.OrderDic as Dictionary<string, List<OrderItem>>;
+}
+
+@section linkcss
+{
+    <link rel="stylesheet" href="~/css/ExpenseCard.css">
+}
+
+<div class="wrap" id="Index">
+    <div class="head-div">
+        <a href="/user/index"><i></i></a>
+        <span>我的消费卡</span>
+        <em>
+            <i></i>
+            <span>@ViewBag.StoreName</span>
+        </em>
+    </div>
+    <div class="cont expense-card">
+        <div class="ec-div">
+            <div class="ec-cont">
+                <div class="ecc-tit">账户余额(元)</div>
+                <div class="ecc-num">@ViewBag.Balance 元</div>
+                <a href="javascript:void(0);" class="ecc-detail">账单明细</a>
+            </div>
+
+        </div>
+    </div>
+    <a href="/store/recharge" class="rp-btn recharge-btn">
+        <span></span>
+        <p>我要充值</p>
+        <em></em>
+    </a>
+    <div class="rp-btn pay-btn">
+        <span></span>
+        <p>购买商品</p>
+        <em></em>
+    </div>
+</div>
+<div class="eq-img">
+    <div>
+        <img src="~/img/personal-ewm.png" alt="">
+    </div>
+</div>
+<div class="statement">
+    <div class="sm-scroll">
+        <div class="sm-tit">消费明细<i></i></div>
+        <ul class="sm-cont">
+            @if (orderList != null && orderList.Count > 0)
+            {
+                foreach (var item in orderList)
+                {
+                    if (item.Code != OrderCode.Goods)
+                    {
+                        <li class="sm-item" data-id="@(item.ID)">
+                            <div class="sm-img">
+                                <img src="~/img/statement.png" alt="">
+                            </div>
+                            <div class="sm-txt">
+                                <div class="sm-nt">
+                                    <div class="sm-name">@item.Remark</div>
+                                    <div class="sm-time">@item.CreatedTime.ToString("yyyy-MM-dd HH:mm")</div>
+                                </div>
+                                <div class="sm-price">@(item.Code == OrderCode.Recharge ? "+" : "-")@item.Amount</div>
+                            </div>
+                        </li>
+                    }
+                    else
+                    {
+                        if (orderDic != null && orderDic.ContainsKey(item.ID))
+                        {
+                            foreach (var goods in orderDic[item.ID])
+                            {
+                                <li class="sm-item"  data-id="@(item.ID)">
+                                    <div class="sm-img">
+                                        <img src="~/img/statement.png" alt="">
+                                    </div>
+                                    <div class="sm-txt">
+                                        <div class="sm-nt">
+                                            <div class="sm-name">@goods.Name  x @goods.Count</div>
+                                            <div class="sm-time">@item.CreatedTime.ToString("yyyy-MM-dd HH:mm")</div>
+                                        </div>
+                                        <div class="sm-price">-@(item.Amount)</div>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    }
+                }
+            }
+        </ul>
+    </div>
+</div>
+
+@section scripts
+{
+
+    <script src="~/Areas/Admin/Scripts/jquery.signalR-2.1.2.min.js"></script>
+    <script src="~/signalr/hubs"></script>
+    <script src="~/Areas/Admin/Scripts/jquery.qrcode.min.js"></script>
+    <script>
+        $(function () {
+            $.connection.hub.logging = true;
+            $.connection.hub.start()
+                .done(function (data) {
+                    //console.log("当前clientID=" + data.id);
+                })
+                .fail(function () { console.log("Could not Connect!"); });;
+
+            var chatHub = $.connection.ChatHub;
+
+            //支付成功
+            chatHub.client.SuccessPay = function (data) {
+                window.location.href = '/order/Detail?orderId=' + data.orderId;
+            }
+            //等待支付
+            chatHub.client.WaitPay = function (data) {
+                window.location.href = "/WxPay/Pay?orderId=" + data.OrderId + "&fee=" + data.Fee + "&remark=" + data.Remark + "&name=" + data.Name + "&type=" + data.Type + "&adminId=" + data.AdminId;
+            }
+
+            $(document).on('click', '.pay-btn', function () {
+                @*$(".eq-img").html("");
+			    $(".eq-img").qrcode({
+			        width: 154, //宽度
+			        height: 154, //高度
+
+			        typeNumber: -1,//计算模式
+			        correctLevel: 2,//二维码纠错级别
+			        background: "#ffffff",//背景颜色
+			        foreground: "#000000",  //二维码颜色
+			        text: "@LoginHelper.GetCurrentUser().ID"+"_@(Request["storeId"])"
+			        //任意内容
+			    });*@
+                //$('.eq-img').show();
+                window.location.href = "/store/shop?storeId=@(Request["storeId"])"
+            });
+            //$(document).on('click', '.eq-img', function() {
+            //	$('.eq-img').hide();
+            //});
+
+            $(document).on('click', '.sm-item', function () {
+                window.location.href = "/order/detail?orderId=" + $(this).attr("data-id") + "&&type=3&storeId=@(Request["storeId"])";
+            });
+
+            $(document).on('click', '.sm-tit i', function () {
+                $('.statement').removeClass('statement-scroll');
+            });
+
+            $(document).on('click', '.ecc-detail', function () {
+                $('.statement').addClass('statement-scroll');
+            });
+        })
+    </script>
+}

@@ -270,5 +270,10 @@ namespace WST.Core.Code
         /// </summary>
         [Description("你已帮砍.")]
         had_kanjia = 809,
+        /// <summary>
+        /// 已到最低价，不能再砍了
+        /// </summary>
+        [Description("已到最低价，不能再砍了")]
+        price_limit_error = 810,
     }
 }

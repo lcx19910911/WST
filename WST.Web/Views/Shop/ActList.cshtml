@@ -150,7 +150,7 @@
     <div class="l">
         <div class="nav-wrapper">
             <a href="/user/index" class="backhome fl"><返回主页</a>
-            <a href="#" class="backhome fr"><i class="icon icon-addto"></i> 核销</a>
+            <div id="scanBtn" ><a class="backhome fr"><i class="icon icon-addto"></i> 核销</a></div>
         </div>
 
         <div class="tap-title-wrapper clearfix">
@@ -169,9 +169,9 @@
                 var deleteList = new List<Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>>();
                 if (list != null && list.Count > 0)
                 {
-                    noStartList = list.Where(x => x.Item4 < DateTime.Now).ToList();
-                    startList = list.Where(x => x.Item4 > DateTime.Now&&x.Item5>DateTime.Now).ToList();
-                    endList = list.Where(x => x.Item5 < DateTime.Now).ToList();
+                    noStartList = list.Where(x => x.Item4 > DateTime.Now && !x.Item6).ToList();
+                    startList = list.Where(x => x.Item4 < DateTime.Now&&x.Item5>DateTime.Now && !x.Item6).ToList();
+                    endList = list.Where(x => x.Item5 < DateTime.Now&&!x.Item6).ToList();
                     deleteList = list.Where(x => x.Item6).ToList();
                 }
           }
@@ -198,16 +198,22 @@
                                         <img src="@item.Item2" alt="图片丢失">
                                     </div>
                                     <div class="cont">
-                                        <h3>@item.Item1</h3>
-                                        <p>@(item.Item4.ToString("yyyy-MM-dd HH:mm:ss"))-@(item.Item5.ToString("yyyy-MM-dd HH:mm:ss"))</p>
+                                        <h3>@Html.Raw(item.Item1)</h3>
+                                        <p>@(item.Item4.ToString("yyyy-MM-dd HH:mm"))-@(item.Item5.ToString("yyyy-MM-dd HH:mm"))</p>
                                     </div>
                                 </a>
                             </div>
                             <div class="item-bottom">
                                     <a href="/user/joinuser?id=@(item.Item3)"><span>参与人员</span></a>
+                                @if (!item.Item6)
+                                {
                                     <a href="/@(name)/manage?id=@(item.Item3)"><span>编辑</span></a>
-                                    <span href="/@(name)/delete?id=@(item.Item3)">删除活动</span>
-
+                                    <a  href="/@(name)/delete?id=@(item.Item3)"><span>删除活动</span></a>
+                                }
+                                else
+                                {
+                                    <span>已删除</span>
+                                }
                             </div>
                         </li>
                     }
@@ -236,14 +242,14 @@
                                         <img src="@item.Item2" alt="图片丢失">
                                     </div>
                                     <div class="cont">
-                                        <h3>@item.Item1</h3>
-                                        <p>@(item.Item4.ToString("yyyy-MM-dd HH:mm:ss"))-@(item.Item5.ToString("yyyy-MM-dd HH:mm:ss"))</p>
+                                        <h3>@Html.Raw(item.Item1)</h3>
+                                        <p>@(item.Item4.ToString("yyyy-MM-dd HH:mm"))-@(item.Item5.ToString("yyyy-MM-dd HH:mm"))</p>
                                     </div>
                                 </a>
                             </div>
                             <div class="item-bottom">
                                 <a href="/@(name)/manage?id=@(item.Item3)"><span>编辑</span></a>
-                                <span href="/@(name)/delete?id=@(item.Item3)">删除活动</span>
+                                <a href="/@(name)/delete?id=@(item.Item3)"><span>删除活动</span></a>
                             </div>
                         </li>
                     }
@@ -271,15 +277,15 @@
                                         <img src="@item.Item2" alt="图片丢失">
                                     </div>
                                     <div class="cont">
-                                        <h3>@item.Item1</h3>
-                                        <p>@(item.Item4.ToString("yyyy-MM-dd HH:mm:ss"))-@(item.Item5.ToString("yyyy-MM-dd HH:mm:ss"))</p>
+                                        <h3>@Html.Raw(item.Item1)</h3>
+                                        <p>@(item.Item4.ToString("yyyy-MM-dd HH:mm"))-@(item.Item5.ToString("yyyy-MM-dd HH:mm"))</p>
                                     </div>
                                 </a>
                             </div>
                             <div class="item-bottom">
                                 <a href="/user/joinuser?id=@(item.Item3)"><span>参与人员</span></a>
                                 <a href="/@(name)/manage?id=@(item.Item3)"><span>编辑</span></a>
-                                <span href="/@(name)/delete?id=@(item.Item3)">删除活动</span>
+                                <a href="/@(name)/delete?id=@(item.Item3)"><span>删除活动</span></a>
                             </div>
                         </li>
                     }
@@ -307,14 +313,14 @@
                                         <img src="@item.Item2" alt="图片丢失">
                                     </div>
                                     <div class="cont">
-                                        <h3>@item.Item1</h3>
-                                        <p>@(item.Item4.ToString("yyyy-MM-dd HH:mm:ss"))-@(item.Item5.ToString("yyyy-MM-dd HH:mm:ss"))</p>
+                                        <h3>@Html.Raw(item.Item1)</h3>
+                                        <p>@(item.Item4.ToString("yyyy-MM-dd HH:mm"))-@(item.Item5.ToString("yyyy-MM-dd HH:mm"))</p>
                                     </div>
                                 </a>
                             </div>
                             <div class="item-bottom">
                                 <a href="/user/joinuser?id=@(item.Item3)"><span>参与人员</span></a>
-                                <span href="/@(name)/delete?id=@(item.Item3)">删除活动</span>
+                                <a href="/@(name)/delete?id=@(item.Item3)"><span>删除活动</span></a>
                             </div>
                         </li>
                     }
@@ -342,8 +348,8 @@
                                         <img src="@item.Item2" alt="图片丢失">
                                     </div>
                                     <div class="cont">
-                                        <h3>@item.Item1</h3>
-                                        <p>@(item.Item4.ToString("yyyy-MM-dd HH:mm:ss"))-@(item.Item5.ToString("yyyy-MM-dd HH:mm:ss"))</p>
+                                        <h3>@Html.Raw(item.Item1)</h3>
+                                        <p>@(item.Item4.ToString("yyyy-MM-dd HH:mm"))-@(item.Item5.ToString("yyyy-MM-dd HH:mm"))</p>
                                     </div>
                                 </a>
                             </div>
@@ -359,8 +365,6 @@
     </div>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
     <script>
-
-
         wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
             appId: "@ViewBag.AppId", // 必填，公众号的唯一标识
@@ -385,26 +389,27 @@
                         return false;
                     }
 
-                    $(".icon-addto").click(function () {
-                        wx.scanQRCode({
-                            needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
-                            success: function (res) { // 当needResult 为 1 时，扫码返回的结果
-
-                                $.ajax({
-                                    url: res.resultStr,
-                                    success: function (data) {
-                                        if (data.Code == 0) {
-                                            alert("核销成功");
-                                        }
-                                        else
-                                            alert(data.ErrorDesc);
-                                    }
-                                })
-                            }
-                        });
-                    })
                 }
             });
+
+            $("#scanBtn").click(function () {
+                wx.scanQRCode({
+                    needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                    success: function (res) { // 当needResult 为 1 时，扫码返回的结果
+
+                        $.ajax({
+                            url: res.resultStr,
+                            success: function (data) {
+                                if (data.Code == 0) {
+                                    alert("核销成功");
+                                }
+                                else
+                                    alert(data.ErrorDesc);
+                            }
+                        })
+                    }
+                });
+            })
         });
 
 		$(function() {

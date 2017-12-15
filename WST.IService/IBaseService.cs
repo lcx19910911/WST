@@ -30,8 +30,10 @@ namespace WST.IService
 
 
         int RealDelete(string IDs);
-        
 
+        List<string> GetIDs(Expression<Func<T, bool>> predicate);
+
+        Dictionary<string, T> GetDic(Expression<Func<T, bool>> predicate);
         /// <summary>
         /// 删除
         /// </summary>

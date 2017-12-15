@@ -46,7 +46,10 @@ namespace WST.Web.Controllers
 
         public ActionResult DefaultUser()
         {
-            var user = IUserService.FindByOpenId("ojLuqwttT53zlDd3b3gGFzTLSIAQ");
+
+            //lcx ojLuqwikV8T-nCd2VMAihJEqSOzw
+            //lzy ojLuqwqwSS9xPpuHj-ZsHv6QDQSQ
+            var user = IUserService.FindByOpenId("ojLuqwqwSS9xPpuHj-ZsHv6QDQSQ");
             if (user != null)
             {
                 this.LoginUser = new Core.Model.LoginUser(user);

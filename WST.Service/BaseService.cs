@@ -92,6 +92,18 @@ namespace WST.Service
                 return db.SaveChanges();
             }
         }
+        /// <summary>
+        /// 查找所有
+        /// </summary>
+        /// <returns></returns>
+        public Dictionary<string, T> GetDic(Expression<Func<T, bool>> predicate)
+        {
+            using (DbRepository db = new DbRepository())
+            {
+                DbSet<T> dbSet = db.Set<T>();
+                return dbSet.Where(x => !x.IsDelete).Where(predicate).ToDictionary(x => x.ID);
+            }
+        }
 
         /// <summary>
         /// 删除
@@ -195,12 +207,26 @@ namespace WST.Service
         /// 查找所有
         /// </summary>
         /// <returns></returns>
+        public List<string> GetIDs(Expression<Func<T, bool>> predicate)
+        {
+            using (DbRepository db = new DbRepository())
+            {
+                DbSet<T> dbSet = db.Set<T>();
+                return dbSet.Where(x => !x.IsDelete).Where(predicate).Select(x => x.ID).ToList();
+            }
+        }
+
+
+        /// <summary>
+        /// 查找所有
+        /// </summary>
+        /// <returns></returns>
         public List<T> GetList(Expression<Func<T, bool>> predicate=null,int takeCount=0)
         {
             using (DbRepository db = new DbRepository())
             {
                 DbSet<T> dbSet = db.Set<T>();
-                var query = dbSet.Where(x => !x.IsDelete);
+                var query = dbSet.AsQueryable();
                 if (predicate != null)
                 {
                     if(takeCount==0)

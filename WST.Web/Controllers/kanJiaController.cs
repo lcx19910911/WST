@@ -51,11 +51,16 @@ namespace WST.Web.Controllers
             ModelState.Remove("UserID");
             if (ModelState.IsValid)
             {
+                if (entity.OldPrice < entity.LessPrice + entity.OncePrice)
+                {
+                    return DataErorrJResult();
+                }
                 if (entity.ID.IsNullOrEmpty())
                 {
                     entity.IsNeedPay = false;
                     entity.IsNeedReport = false;
                     entity.UserID = LoginUser.ID;
+                    entity.CountLimit = ((entity.OldPrice - entity.LessPrice)/entity.OncePrice).GetInt();
                     entity.CreatedTime = entity.UpdatedTime = DateTime.Now;
                     var guid = Guid.NewGuid().ToString("N");
                     entity.ID = guid;
@@ -75,7 +80,7 @@ namespace WST.Web.Controllers
                     {
                         return DataErorrJResult();
                     }
-                    
+                    model.CountLimit = ((entity.OldPrice - entity.LessPrice) / entity.OncePrice).GetInt();
                     model.Name = entity.Name;
                     model.Picture = entity.Picture;
                     model.StartTime = entity.StartTime;
@@ -87,7 +92,6 @@ namespace WST.Web.Controllers
                     model.OldPrice = entity.OldPrice;
                     model.LessPrice = entity.LessPrice;
                     model.OncePrice = entity.OncePrice;
-                    model.CountLimit = entity.CountLimit;
                     model.LimitHour = entity.LimitHour;
                     model.PrizeCount = entity.PrizeCount;
                     model.UsedCount = entity.UsedCount;
@@ -164,7 +168,7 @@ namespace WST.Web.Controllers
             if (model != null && model.UserID == LoginUser.ID)
             {
                 IKanJiaService.Delete(id);
-                return Redirect("/user/actList");
+                return Redirect("/shop/actList");
             }
             else
                 return Forbidden();

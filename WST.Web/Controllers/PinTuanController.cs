@@ -147,7 +147,7 @@ namespace WST.Web.Controllers
             if (model != null && model.UserID == LoginUser.ID)
             {
                 IPinTuanService.Delete(id);
-                return Redirect("/user/actList");
+                return Redirect("/shop/actList");
             }
             else
                 return Forbidden();

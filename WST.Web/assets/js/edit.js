@@ -18,6 +18,10 @@ $(function () {
     $("#startTime").mobiscroll(optDateTime).datetime(optDateTime);
     $("#endTime").mobiscroll(optDateTime).datetime(optDateTime);
 
+	$(document).on('click', '.dwo', function() {
+        $('.dwb-c .dwb').trigger('click');
+    })
+
 
     // 上传图片全局变量
     var uploadImgTarget;
@@ -130,7 +134,7 @@ $(function () {
                 success: function (data) {
                     if (data.Code == 0) {
                         if (jsonData.ID != "") {
-                            window.location.href = "/user/pintuan?id=" + data.Result;
+                            window.location.href = "/user/pintuan?id=" + jsonData.ID;
                         }
                         else {
                             alert("生成成功");

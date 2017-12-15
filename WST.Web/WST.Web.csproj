@@ -672,6 +672,7 @@
     <Content Include="assets\img\banner\BG1.png" />
     <Content Include="assets\img\banner\logo.png" />
     <Content Include="assets\img\banner\recharge.jpg" />
+    <Content Include="assets\img\center.png" />
     <Content Include="assets\img\logo.png" />
     <Content Include="assets\js\edit.js" />
     <Content Include="assets\js\editkanjia.js" />
@@ -842,6 +843,8 @@
     <Content Include="Views\User\PersonData.cshtml" />
     <Content Include="Views\User\JoinUser.cshtml" />
     <Content Include="Views\User\Wallet.cshtml" />
+    <Content Include="Views\Base\_505.cshtml" />
+    <Content Include="Views\KanJia\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -860,6 +863,8 @@
     <Folder Include="assets\img\temp\" />
     <Folder Include="Lib\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Course\" />
+    <Folder Include="Views\Store\" />
     <Folder Include="Views\WxAdmin\" />
   </ItemGroup>
   <ItemGroup>

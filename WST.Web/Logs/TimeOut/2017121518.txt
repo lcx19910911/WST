@@ -1,0 +1,57 @@
+Time:2017/12/15 18:03:16-本次请求耗时 14.306 秒.
+Url:http://localhost:56262/shop/toused?id=02097ac28b34498daf7f1e5712f081a3
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/15 18:03:54-本次请求耗时 24.601 秒.
+Url:http://localhost:56262/shop/toused?id=02097ac28b34498daf7f1e5712f081a3
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/15 18:36:57-本次请求耗时 2.356 秒.
+Url:http://localhost:56262/pintuan/manage
+UrlReferrer:http://localhost:56262/pintuan/Manage
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/15 18:47:03-本次请求耗时 2.402 秒.
+Url:http://localhost:56262/
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/15 18:47:03-本次请求耗时 2.558 秒.
+Url:http://localhost:56262/user/actlist
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/15 18:50:52-本次请求耗时 16.053 秒.
+Url:http://localhost:56262/
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/15 18:50:55-本次请求耗时 18.799 秒.
+Url:http://localhost:56262/user/actlist
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/15 18:57:42-本次请求耗时 2.761 秒.
+Url:http://localhost:56262/kanjia/manage
+UrlReferrer:http://localhost:56262/kanjia/manage?id=b9746ba9a24f4329a66b2b93d12325a6
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/15 18:59:30-本次请求耗时 8.752 秒.
+Url:http://localhost:56262/user/ToKanJia
+UrlReferrer:http://localhost:56262/user/kanjia?id=b9746ba9a24f4329a66b2b93d12325a6&userActId=41f65b25fe09457e9b04984fbbaa6215
+UserHostAddress:::1;;
+WebServer:::1
+
+

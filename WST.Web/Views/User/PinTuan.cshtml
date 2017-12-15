@@ -1,8 +1,10 @@
 ﻿@using WST.Core.Extensions
 @model PinTuan
 @{ 
-    ViewBag.Title =Model.Name;
+    ViewBag.Title = Model?.Name.NoHTML();
     Layout = null;
+    var user = LoginHelper.GetCurrentUser();
+    var isUser = Model.UserID == user.ID;
 }
 
 <!DOCTYPE html>
@@ -218,7 +220,7 @@ margin-right: 1em;
         <div class="title-wrapper mt15">
             <div class="m00 w90">
                 <!-- <textarea id="title" class="textarea e-textarea f16 fB txt-center" value="喜迎购物节，课程低价疯狂抢">喜迎购物节，课程低价疯狂抢</textarea> -->
-                <div id="title" class="textarea e-textarea f16 fB txt-center">@(Model.Name)</div>
+                <div id="title" class="textarea e-textarea f16 fB txt-center">@(ViewBag.Title)</div>
 
                 <!-- <p class="v-p f16 fB txt-center"></p> -->
             </div>
@@ -315,7 +317,7 @@ margin-right: 1em;
                         {
                               <!-- 文本类型 -->
                             <div class="uploadImgLabel">
-                                <div id="subIntro0" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@item.Content</div>
+                                <div id="subIntro0" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@Html.Raw(item.Content)</div>
                             </div>
 
                         }
@@ -348,7 +350,7 @@ margin-right: 1em;
                 </div>
                 <div class="model-list-body">
 
-                    <div id="rules" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@Model.Rules</div>
+                    <div id="rules" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@Html.Raw(Model.Rules)</div>
 
                 </div>
             </div>
@@ -358,7 +360,7 @@ margin-right: 1em;
                     <span>领取信息</span>
                 </div>
                 <div class="model-list-body">
-                    <div id="connact" contenteditable="false" class="textarea e-textarea" placeholder="输入领奖信息方便用户领奖，例：领奖时间、领奖地址、领奖电话">@Model.Connact</div>
+                    <div id="connact" contenteditable="false" class="textarea e-textarea" placeholder="输入领奖信息方便用户领奖，例：领奖时间、领奖地址、领奖电话">@Html.Raw(Model.Connact)</div>
                 </div>
             </div>
 
@@ -374,7 +376,7 @@ margin-right: 1em;
                         {
                     <!-- 文本 -->
                             <div class="uploadImgLabel">
-                                <div id="subIntro4" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@(item.Content)</div>
+                                <div id="subIntro4" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@(Html.Raw(item.Content))</div>
                             </div>
                         }
                         else
@@ -435,9 +437,14 @@ margin-right: 1em;
         </div>
 
 
+        @if (!isUser)
+        {
+            if (!ViewBag.IsReport)
+            {
+                <div class="button apply-btn">我要报名</div>
+            }
+        }
 
-        <!-- foot -->
-        <div class="button apply-btn">我要报名</div>
 
     </div>
 
@@ -477,9 +484,9 @@ margin-right: 1em;
                     //alert(res.errMsg);
 
                     var config = {
-                        title: '@(Model.Name)',
-                        desc: '@(Model.Name)',
-                        link: '@(Params.SiteUrl)/user/pintuan?id=@(Model.ID)',
+                        title: '@Html.Raw(Model.Name)',
+                        desc: '@Html.Raw(Model.Name)',
+                        link: '@(Params.SiteUrl)user/pintuan?id=@(Model.ID)',
                         imgUrl: '@(Params.SiteUrl)@(Model.Picture)',
                         type: 'link',
                         dataUrl: '',
@@ -517,7 +524,7 @@ margin-right: 1em;
                 },
                 success: function (data) {
                     if (data.Code == 0) {
-                        alert("砍价成功");
+                        alert("分享成功");
                         window.location.reload();
                     }
                     else

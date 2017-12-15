@@ -224,12 +224,12 @@
                         }
                         <li>
                             <div class="item-top">
-                                <a href="/user/@(name)?id=@(item.Item3)&=userActId@(item.Item4)">
+                                <a href="/user/@(name)?id=@(item.Item3)&userActId=@(item.Item4)">
                                     <div class="img">
                                         <img src="@item.Item2" alt="图片丢失">
                                     </div>
                                     <div class="cont">
-                                        <h3>@item.Item1</h3>
+                                        <h3>@Html.Raw(item.Item1)</h3>
                                         @if (item.Item6)
                                         {
                                             if (item.Item5.HasValue)
@@ -257,7 +257,7 @@
                                     </div>
                                 </a>
                             </div>
-                            @if (item.Item6)
+                            @if (!item.Item6)
                             {
                                 <div class="item-bottom">
                                     <span class="prizeBtn"  data-id="@item.Item4">兑奖</span>
@@ -290,7 +290,8 @@
                                         <img src="@item.Item2" alt="图片丢失">
                                     </div>
                                     <div class="cont">
-                                        <h3>@item.Item1</h3>
+
+                                        <h3>@Html.Raw(item.Item1)</h3>
                                         <p>
                                             <span class="pr20">未中奖</span>
                                             <span>是否中奖：</span><span class="c-f00">是</span>
@@ -327,7 +328,7 @@
                                         <img src="@item.Item2" alt="图片丢失">
                                     </div>
                                     <div class="cont">
-                                        <h3>@item.Item1</h3>
+                                        <h3>@Html.Raw(item.Item1)</h3>
                                         <p>
                                             <span class="pr20">未领取</span>
                                             <span>是否中奖：</span><span class="c-f00">是</span>
@@ -364,7 +365,7 @@
                                         <img src="@item.Item2" alt="图片丢失">
                                     </div>
                                     <div class="cont">
-                                        <h3>@item.Item1</h3>
+                                        <h3>@Html.Raw(item.Item1)</h3>
                                         <p>
                                             <span class="pr20">已领取：@(item.Item5.Value.ToString("yyyy-MM-dd HH:mm"))</span>
                                             <span>是否中奖：</span><span class="c-f00">是</span>

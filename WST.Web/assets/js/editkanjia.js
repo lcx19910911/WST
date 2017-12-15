@@ -18,6 +18,10 @@ $(function () {
     $("#startTime").mobiscroll(optDateTime).datetime(optDateTime);
     $("#endTime").mobiscroll(optDateTime).datetime(optDateTime);
 
+	$(document).on('click', '.dwo', function() {
+        $('.dwb-c .dwb').trigger('click');
+    })
+
 
     // 上传图片全局变量
     var uploadImgTarget;

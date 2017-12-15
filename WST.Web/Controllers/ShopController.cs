@@ -168,7 +168,7 @@ namespace WST.Web.Controllers
             string cacheToken = WxPayApi.GetCacheToken(Params.WeixinAppId, Params.WeixinAppSecret);
             ViewBag.TimeStamp = WxPayApi.GenerateTimeStamp();
             ViewBag.NonceStr = WxPayApi.GenerateNonceStr();
-            ViewBag.Signature = WxPayApi.GetSignature(Params.SiteUrl + "/shop/ActList", cacheToken, ViewBag.TimeStamp, ViewBag.NonceStr);
+            ViewBag.Signature = WxPayApi.GetSignature(Request.Url.ToString().Split('#')[0], cacheToken, ViewBag.TimeStamp, ViewBag.NonceStr);
 
             ViewBag.List = model;
             return View();
