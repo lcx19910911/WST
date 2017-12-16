@@ -108,11 +108,11 @@ namespace WST.Service
                 var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 
                 //门店
-                var userIdList = list.Select(x => x.ID).ToList();
+                var userIdList = list.Select(x => x.ID).Distinct().ToList();
               
 
                 //顾问
-                var adviserIdList = list.Select(x => x.AdviserID).ToList();
+                var adviserIdList = list.Select(x => x.AdviserID).Distinct().ToList();
                 var adviserDic = db.Adviser.Where(x => !x.IsDelete && adviserIdList.Contains(x.ID)).ToDictionary(x => x.ID, x => x.Name);
                 list.ForEach(x =>
                 {

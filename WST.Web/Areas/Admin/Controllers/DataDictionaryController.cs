@@ -135,5 +135,15 @@ namespace WST.Web.Areas.Admin.Controllers
             }
             return JResult(result);
         }
+
+        /// <summary>
+        /// 查找实体
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public ActionResult GetMusicCategorySelectList(string ID)
+        {
+            return JResult(IDataDictionaryService.GetSelectList(GroupCode.MusicCategory,""));
+        }
     }
 }

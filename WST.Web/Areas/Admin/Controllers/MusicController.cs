@@ -65,8 +65,8 @@ namespace WST.Web.Areas.Admin.Controllers
                 {
                     return DataErorrJResult();
                 }
-                
 
+                model.CategoryID = entity.CategoryID;
                 model.Name = entity.Name;
                 model.Sort = entity.Sort;
                 model.Url = entity.Url;

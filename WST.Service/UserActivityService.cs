@@ -54,7 +54,7 @@ namespace WST.Service
                 }
                 if (joinUserName.IsNotNullOrEmpty())
                 {
-                    var memberIDList = db.User.Where(x => !x.IsDelete && x.NickName.Contains(joinUserName) && x.IsMember).Select(x => x.ID).ToList();
+                    var memberIDList = db.User.Where(x => !x.IsDelete && x.NickName.Contains(joinUserName) && x.IsMember).Select(x => x.ID).Distinct().ToList();
                     query = query.Where(x => memberIDList.Contains(x.JoinUserID));
                 }
                 if (code!=null&&(int)code!=-1)

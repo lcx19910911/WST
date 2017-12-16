@@ -76,7 +76,7 @@
                             $.Nuoya.alert("密码不能为空");
                         }
 
-                        $.Nuoya.action("/admin/Admin/ChangePassword", { oldPassword: oldPassword, newPassword: newPassword, cfmPassword: cfmPassword,id: id?id:'@(currentUser?.ID)'}, function (data) {
+                        $.Nuoya.action("/admin/Admin/ChangePassword", { oldPassword: oldPassword, newPassword: newPassword, cfmPassword: cfmPassword, id: id ? id : '@(currentUser?.ID)' }, function (data) {
                             if (!data.ErrorDesc) {
                                 $.Nuoya.alert("修改密码成功");
                                 e.hide();
@@ -84,14 +84,13 @@
                             else {
                                 $.Nuoya.alert(data.ErrorDesc);
                             }
-                       });
+                        });
                     }
                 }]
             });
         }
 
-        function clearCache()
-        {
+        function clearCache() {
             $.ajax({
                 url: "/home/clearCache",
                 success: function () {
@@ -103,6 +102,18 @@
         function BackUrl() {
             history.go(-1);
         }
+
+
+        // 点击报名
+        $(document).on('click', '#scanDiv', function () {
+            var display = $("#showQrcodeDiv").css("display");
+            if (display == "block") {
+                $("#showQrcodeDiv").css("display", "none");
+            }
+            else {
+                $("#showQrcodeDiv").css("display", "block");
+            }
+        })
 
     </script>
 
@@ -132,7 +143,11 @@
                 <img src="" style="width:100%;" />
             </div>
         </div>
-
+        <div id="showQrcodeDiv" style="opacity:1;background-color:black;width:100%;height:100%;z-index:9000; display:none; position:absolute;">
+            <div style="width:500px; margin:0 auto; z-index:9001;margin-top:10%">
+                <div id="scanDiv"></div>
+            </div>
+        </div>
         <div id="loadingDiv" style="opacity:0.7;background-color:black;width:100%;height:100%;z-index:9000; display:none; position:absolute;">
             <div style="width:500px; margin:0 auto; z-index:9001;margin-top:20%">
                 <img src="~/Areas/Admin/Images/loading.jpg" />
@@ -142,7 +157,7 @@
         <div class="admin-sidebar">
             <ul class="am-list admin-sidebar-list">
 
-                @Html.Action("PartialMenu", "Menu")           
+                @Html.Action("PartialMenu", "Menu")
             </ul>
         </div>
         <!-- sidebar end -->

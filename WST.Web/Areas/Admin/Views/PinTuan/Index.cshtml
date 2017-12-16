@@ -79,6 +79,19 @@
                     icon: "icon-pencil-square-o",
                     name: "详情",
                     click: function (item) {
+                        $("#showQrcodeDiv").show();
+                        $("#scanDiv").html("");
+                        $("#scanDiv").qrcode({
+                            width: 270, //宽度
+                            height: 270, //高度
+
+                            typeNumber: -1,//计算模式
+                            correctLevel: 2,//二维码纠错级别
+                            background: "#ffffff",//背景颜色
+                            foreground: "#000000",  //二维码颜色
+                            text: "@(Params.SiteUrl)/user/pintuan?id=" + item.ID
+                            //任意内容
+                        });
                     }
                 },
                 {

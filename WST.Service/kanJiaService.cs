@@ -35,7 +35,7 @@ namespace WST.Service
         /// <param name="pageSize">分页大小</param>
         /// <param name="title">标题 - 搜索项</param>
         /// <returns></returns>
-        public PageList<KanJia> GetPageList(int pageIndex, int pageSize,string userId, string name)
+        public PageList<KanJia> GetPageList(int pageIndex, int pageSize,string userId, string name, string userName)
         {
             using (DbRepository db = new DbRepository())
             {
@@ -44,14 +44,25 @@ namespace WST.Service
                 {
                     query = query.Where(x => x.Name.Contains(name));
                 }
+                if (userName.IsNotNullOrEmpty())
+                {
+                    var memberIDList = db.User.Where(x => !x.IsDelete && x.NickName.Contains(userName) && x.IsMember).Select(x => x.ID).ToList();
+                    query = query.Where(x => memberIDList.Contains(x.UserID));
+                }
                 if (userId.IsNotNullOrEmpty())
                 {
                     query = query.Where(x => x.UserID.Equals(userId));
                 }
                 var count = query.Count();
                 var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                var userIdList = list.Select(x => x.UserID).Distinct().ToList();
+                var userDic = db.User.Where(x => userIdList.Contains(x.ID)).ToDictionary(x => x.ID, x => (string.IsNullOrEmpty(x.StoreName)?x.NickName:x.StoreName));
                 list.ForEach(x =>
                 {
+                    if (userDic.ContainsKey(x.UserID))
+                    {
+                        x.UserName = userDic[x.UserID];
+                    }
                 });
 
                 return CreatePageList(list, pageIndex, pageSize, count);

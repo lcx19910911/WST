@@ -23,7 +23,7 @@
             $.ajax({
                 url: '/config/getmusiclist',
                 success: function (data) {
-                    $(data.Result).each(function (i, item) {
+                    $(data.Result.MusicList).each(function (i, item) {
                         if (item.Url == music) {
                             isExit = true;
                             $(".music-component-wrapper ul").append('<li class="music-list" data-music="' + item.Value + '"><i class="icon icon-music"></i>' + item.Text + '</li>');

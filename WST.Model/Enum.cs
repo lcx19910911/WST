@@ -77,6 +77,12 @@ namespace WST.Model
         /// </summary>
         [Description("地区")]
         Area = 1,
+
+        /// <summary>
+        /// 音乐分类
+        /// </summary>
+        [Description("音乐分类")]
+        MusicCategory = 2,
         /// <summary>
         /// 特效
         /// </summary>

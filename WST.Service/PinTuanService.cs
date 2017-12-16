@@ -46,7 +46,7 @@ namespace WST.Service
                 }
                 if (userName.IsNotNullOrEmpty())
                 {
-                    var memberIDList = db.User.Where(x => !x.IsDelete && x.NickName.Contains(userName)&&x.IsMember).Select(x => x.ID).ToList();
+                    var memberIDList = db.User.Where(x => !x.IsDelete && x.NickName.Contains(userName)&&x.IsMember).Select(x => x.ID).Distinct().ToList();
                     query = query.Where(x => memberIDList.Contains(x.UserID));
                 }
                 if (userId.IsNotNullOrEmpty())
@@ -55,9 +55,16 @@ namespace WST.Service
                 }
                 var count = query.Count();
                 var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                var userIdList = list.Select(x => x.UserID).Distinct().ToList();
+                var userDic = db.User.Where(x => userIdList.Contains(x.ID)).ToDictionary(x => x.ID, x => (string.IsNullOrEmpty(x.StoreName) ? x.NickName : x.StoreName));
                 list.ForEach(x =>
                 {
+                    if (userDic.ContainsKey(x.UserID))
+                    {
+                        x.UserName = userDic[x.UserID];
+                    }
                 });
+
 
                 return CreatePageList(list, pageIndex, pageSize, count);
 

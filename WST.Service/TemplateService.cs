@@ -45,13 +45,13 @@ namespace WST.Service
                 }
                 if (categoryName.IsNotNullOrEmpty())
                 {
-                    var categoryIDList = db.TemplateCategory.Where(x => !x.IsDelete && x.Name.Contains(categoryName)).Select(x => x.ID).ToList();
+                    var categoryIDList = db.TemplateCategory.Where(x => !x.IsDelete && x.Name.Contains(categoryName)).Select(x => x.ID).Distinct().ToList();
                     query = query.Where(x => categoryIDList.Contains(x.CategoryID));
                 }
                 var count = query.Count();
                 var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 
-                var categoryIdsList = list.Select(x => x.CategoryID).ToList();
+                var categoryIdsList = list.Select(x => x.CategoryID).Distinct().ToList();
                 var categoryDic = db.TemplateCategory.Where(x => categoryIdsList.Contains(x.ID)).ToDictionary(x => x.ID, x => x.Name);
                 list.ForEach(x =>
                 {

@@ -21,6 +21,11 @@ namespace WST.Core.Model
         /// 值
         /// </summary>
         public string Value { get; set; }
+        /// <summary>
+        /// 值
+        /// </summary>
+        public string CategoryID { get; set; }
+
 
         /// <summary>
         /// 是否选中

@@ -47,7 +47,7 @@ namespace WST.Service
                 }
                 var count = query.Count();
                 var list = query.OrderByDescending(x => x.Sort).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                var parentIdList = list.Select(x => x.ParentID).ToList();
+                var parentIdList = list.Select(x => x.ParentID).Distinct().ToList();
                 var parentDic = db.Menu.Where(x => parentIdList.Contains(x.ID)).ToDictionary(x => x.ID, x => x.Name);
                 list.ForEach(x =>
                 {

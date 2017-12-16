@@ -241,6 +241,17 @@ a {text-decoration: none;color: inherit;} a:link, a:hover, a:active, a:visited {
 }
 /* Spinner 6 ends here */
 
+@keyframes rotation {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
 .l .close, .add-child span, .btn, .button, .showqrcode, .tab-title-list, .item-bottom span, .music-list, .btn *, .amask, .qmask, .dwo, .dwb {
     cursor: pointer;
 }

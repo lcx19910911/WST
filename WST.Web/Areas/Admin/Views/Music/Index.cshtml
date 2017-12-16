@@ -40,6 +40,7 @@
             <tr>
                 <th dataname="ID" type="checkbox"></th>
                 <th dataname="Name">名称</th>
+                <th dataname="CategoryName">分类名称</th>
                 <th dataname="Url">路径</th>
                 <th dataname="Sort">排序</th>
                 <th dataname="CreatedTime" datatype="jsondate">创建日期</th>
@@ -76,6 +77,9 @@
                         required: true,
                         maxlength: 32
                     },
+                    CategoryID: {
+                        required: true
+                    },
                     Url: {
                         maxlength: 256
                     },
@@ -90,6 +94,9 @@
                         required: "不允许为空",
                         maxlength: "最多{0}个字符"
                     },
+                    CategoryID: {
+                        required: "分类不允许为空",
+                    },
                     Url: {
                         maxlength: "最多{0}个字符"
                     },
@@ -101,6 +108,16 @@
                 }
             });
 
+            $.Nuoya.action("/Admin/DataDictionary/GetMusicCategorySelectList", {}, function (json) {
+                $(json).each(function () {
+                    if (dataitem != null && dataitem.CategoryID == this.Value) {
+                        $("#form select[name='CategoryID']").append("<option  value='" + this.Value + "' selected='selected' >" + this.Text + "</option>");
+                    }
+                    else {
+                        $("#form select[name='CategoryID']").append("<option  value='" + this.Value + "' >" + this.Text + "</option>");
+                    }
+                });
+            });
             UploadFile();
         }
 

@@ -56,6 +56,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbRepository.cs" />
+    <Compile Include="Migrations\201712161025337_34351.cs" />
+    <Compile Include="Migrations\201712161025337_34351.Designer.cs">
+      <DependentUpon>201712161025337_34351.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -72,6 +76,11 @@
       <Project>{1d8d9894-75bb-42fa-bc27-296fcf42ad76}</Project>
       <Name>WST.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201712161025337_34351.resx">
+      <DependentUpon>201712161025337_34351.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -592,6 +592,7 @@
     <Content Include="Areas\Admin\Scripts\ztree-select.js" />
     <Content Include="Areas\Admin\Views\Carousel\Index.cshtml" />
     <Content Include="Areas\Admin\Views\PinTuan\Index.cshtml" />
+    <Content Include="assets\css\common.css" />
     <Content Include="assets\css\edit.css" />
     <Content Include="assets\css\editkanjia.css" />
     <Content Include="assets\css\fonts1\icomoon.svg" />
@@ -670,10 +671,17 @@
     <Content Include="assets\img\add.svg" />
     <Content Include="assets\img\banner\BG.jpg" />
     <Content Include="assets\img\banner\BG1.png" />
+    <Content Include="assets\img\banner\contact.png" />
     <Content Include="assets\img\banner\logo.png" />
+    <Content Include="assets\img\banner\musicLoad.png" />
+    <Content Include="assets\img\banner\musicPause.png" />
+    <Content Include="assets\img\banner\musicPlay.png" />
     <Content Include="assets\img\banner\recharge.jpg" />
+    <Content Include="assets\img\banner\share.png" />
+    <Content Include="assets\img\banner\shareInfo.png" />
     <Content Include="assets\img\center.png" />
     <Content Include="assets\img\logo.png" />
+    <Content Include="assets\js\common.js" />
     <Content Include="assets\js\edit.js" />
     <Content Include="assets\js\editkanjia.js" />
     <Content Include="assets\js\import.js" />
@@ -732,6 +740,7 @@
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\CarouselController.cs" />
     <Compile Include="Areas\Admin\Controllers\MusicController.cs" />
+    <Compile Include="Areas\Admin\Controllers\KanJiaController.cs" />
     <Compile Include="Areas\Admin\Controllers\PinTuanController.cs" />
     <Compile Include="Areas\Admin\Controllers\TemplateCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\TemplateController.cs" />
@@ -844,7 +853,6 @@
     <Content Include="Views\User\JoinUser.cshtml" />
     <Content Include="Views\User\Wallet.cshtml" />
     <Content Include="Views\Base\_505.cshtml" />
-    <Content Include="Views\KanJia\Add.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

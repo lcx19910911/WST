@@ -47,7 +47,7 @@ namespace WST.Service
                 }
                 if (userName.IsNotNullOrEmpty())
                 {
-                    var userIDList = db.User.Where(x => !x.IsDelete && x.NickName.Contains(userName)).Select(x => x.ID).ToList();
+                    var userIDList = db.User.Where(x => !x.IsDelete && x.NickName.Contains(userName)).Select(x => x.ID).Distinct().ToList();
                     query = query.Where(x => userIDList.Contains(x.UserID));
                 }
                 if (code != null)
@@ -70,7 +70,7 @@ namespace WST.Service
                 var count = query.Count();
                 var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 
-                var selectUserIDList = list.Select(x => x.UserID).ToList();
+                var selectUserIDList = list.Select(x => x.UserID).Distinct().ToList();
                 var userDic = db.User.Where(x => !x.IsDelete && selectUserIDList.Contains(x.ID)).ToDictionary(x => x.ID, x => x.NickName);
                 list.ForEach(x =>
                 {

@@ -49,6 +49,7 @@ namespace WST.Web.Controllers
 
             //lcx ojLuqwikV8T-nCd2VMAihJEqSOzw
             //lzy ojLuqwqwSS9xPpuHj-ZsHv6QDQSQ
+            //shop ojLuqwhYFF5ELJviQmmrJrY2fbTY
             var user = IUserService.FindByOpenId("ojLuqwikV8T-nCd2VMAihJEqSOzw");
             if (user != null)
             {

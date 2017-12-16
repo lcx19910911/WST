@@ -110,7 +110,7 @@ namespace WST.Service
                 }
                 var count = query.Count();
                 var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                var roleIDList = list.Select(x => x.RoleID).ToList();
+                var roleIDList = list.Select(x => x.RoleID).Distinct().ToList();
                 var roleDic = db.Role.Where(x => roleIDList.Contains(x.ID)).ToDictionary(x => x.ID,x=>x.Name);
                 list.ForEach(x =>
                 {

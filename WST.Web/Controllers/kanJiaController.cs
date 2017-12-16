@@ -60,7 +60,7 @@ namespace WST.Web.Controllers
                     entity.IsNeedPay = false;
                     entity.IsNeedReport = false;
                     entity.UserID = LoginUser.ID;
-                    entity.CountLimit = ((entity.OldPrice - entity.LessPrice)/entity.OncePrice).GetInt();
+                    entity.CountLimit = entity.CountLimit;
                     entity.CreatedTime = entity.UpdatedTime = DateTime.Now;
                     var guid = Guid.NewGuid().ToString("N");
                     entity.ID = guid;
@@ -80,7 +80,7 @@ namespace WST.Web.Controllers
                     {
                         return DataErorrJResult();
                     }
-                    model.CountLimit = ((entity.OldPrice - entity.LessPrice) / entity.OncePrice).GetInt();
+                    model.CountLimit = entity.CountLimit;
                     model.Name = entity.Name;
                     model.Picture = entity.Picture;
                     model.StartTime = entity.StartTime;
@@ -110,37 +110,7 @@ namespace WST.Web.Controllers
                 return ParamsErrorJResult(ModelState);
             }
         }
-
-
-
-        /// <summary>
-        /// 获取分页列表
-        /// </summary>
-        /// <param name="pageIndex">页码</param>
-        /// <param name="pageSize">分页大小</param>
-        /// <param name="key"> 搜索项</param>
-        /// <param name="value">搜索项</param>
-        /// <returns></returns>
-        public ActionResult GetPageList(int pageIndex, int pageSize, string name)
-        {
-            return JResult(IKanJiaService.GetPageList(pageIndex, pageSize,LoginUser.ID, name));
-        }
-
-
-        /// <summary>
-        /// 查找实体
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        public ActionResult Detail(string ID)
-        {
-            var model = IKanJiaService.Find(ID);
-            //if (model != null)
-            //{
-            //    model.PriceList = IKanJiaPriceService.GetListByKanJiaID(ID);
-            //}         
-            return JResult(model);
-        }
+        
 
         /// <summary>
         /// 查找实体

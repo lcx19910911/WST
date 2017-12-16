@@ -216,6 +216,12 @@ $(function () {
         $('.submit-form .OncePrice').val(oncePrice)
         console.log(oncePrice, '-----oncePrice');
 
+        // 最多砍价次数
+        var countLimit = $('#countLimit').val();
+        $('.submit-form .CountLimit').val(countLimit)
+        console.log(countLimit, '-----countLimit');
+
+        
         // 砍价间隔时间
         var limitHour = $('#limitHour').val();
         $('.submit-form .LimitHour').val(limitHour)

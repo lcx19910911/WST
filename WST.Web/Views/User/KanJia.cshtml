@@ -14,11 +14,13 @@
     <title>@ViewBag.Title</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="~/assets/css/reset.css?v=kanjia2">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/reset.css?v=kanjia1">
     <link rel="stylesheet" type="text/css" href="~/assets/css/style1.css?v=kanjia2">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/common.css?v=kanjia1">
     <link rel="stylesheet" type="text/css" href="~/assets/css/editkanjia.css?v=kanjia2">
     <script type="text/javascript" src="~/assets/js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="~/assets/js/my.js"></script>
+    <script type="text/javascript" src="~/assets/js/common.js"></script>
     <style>
         html {
         }
@@ -174,6 +176,35 @@
                 .l .block .btn span:nth-child(even) {
                     margin-right: 1em;
                 }
+
+
+                .apply-user-list {
+			line-height: 2em;
+			overflow: hidden;
+			text-align: left;
+		}
+		.apply-user-list span {
+			float: left;
+			width: 30%;
+		}
+		.apply-user-list .name {
+			color: #525250;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+		.apply-user-list .price {
+			color: #525250;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			text-align: center;
+			color: #f00;
+		}
+		
+		.apply-user-list .phone {
+			width: 39%;
+			color: #faa139;
+			text-align: center;
+		}
     </style>
 </head>
 <body>
@@ -189,6 +220,19 @@
             </div>
         </div>
         <div class="global-component-wrapper">
+		<div class="global-orderBtn-wrapper">
+			<!-- 音乐开关 有音乐类名为play 没有为pause -->
+			<div class="btn player-btn play" data-status="play"></div>
+			<!-- 分享提示 -->
+			<div class="btn share-info"></div>
+			<!-- 联系商家 -->
+			<div class="btn contact-merchant"><a href="tel:@(Model.PhoneNumber)"></a></div>
+		</div>
+
+		<div class="share-page-wrapepr hidden">
+			<div class="amask"></div>
+		</div>
+
 
             <div class="audio-component-wrapper hidden">
                 <audio id="audio" oldsrc="@(Model.MusicUrl)" src="@(Model.MusicUrl)" autoplay="autoplay" preload="preload" loop="loop"></audio>
@@ -290,14 +334,14 @@
             </div>
 
             <div class="groupBooking-list">
-                <span>每次砍价价格：</span>
+                <span>最多砍价次数：</span>
                 <input id="oncePrice"
                        type="number"
                        disabled="true"
                        name="oncePrice"
                        class="input e-input w20"
-                       value="@(Model.OncePrice)">
-                <span class="">元</span>
+                       value="@(Model.CountLimit)">
+                <span class="">次</span>
             </div>
 
             <div class="groupBooking-list">
@@ -449,6 +493,7 @@
                 <div class="model-list-body pb10">
                     <div class="apply-user-list apply-user-title">
                         <span class="name">名字</span>
+                        <span class="price">砍价金额</span>
                         <span class="phone">时间</span>
                     </div>
                     <!-- <div class="apply-user-list">
@@ -469,9 +514,10 @@
                     <div class="button apply-btn">我要报名</div>
                 }
             }
-            @if (Request["userActId"].IsNotNullOrEmpty()&&Model.LessPrice<ViewBag.Price) {
+            @if(Request["userActId"].IsNotNullOrEmpty()&&Model.LessPrice<ViewBag.Price)
+            {
                     <div class="button help-btn">帮忙砍价</div>
-                }
+            }
         </div>
 
     </div>
@@ -479,17 +525,6 @@
     <script src="~/Areas/Admin/Scripts/utility.js"></script>
     <script>
         var isUser="@(isUser?"1":"0")"=="1";
-        function audioAutoPlay(id){
-            var audio = document.getElementById(id);
-            audio.play();
-            document.addEventListener("WeixinJSBridgeReady", function () {
-                audio.play();
-            }, false);
-            document.addEventListener('YixinJSBridgeReady', function() {
-                audio.play();
-            }, false);
-        }
-        audioAutoPlay('audio');
 
         wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -601,13 +636,13 @@
                                     {
                                         if(obj.TargetUserID==null)
                                         {
-                                            $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
+                                            $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="price">'+obj.Amount+'元</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
                                         }}
                                     else
                                     {
                                         if(obj.TargetUserID!=null)
                                         {
-                                            $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
+                                            $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="price">'+obj.Amount+'元</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
                                         }
                                     }
                                 })
@@ -623,9 +658,9 @@
             $(document).on('click', '.apply-btn', function () {
                 $('.apply-info-wrapper').removeClass('hidden');
             })
-			.on('click', '.apply-info-wrapper .amask', function () {
-			    $('.apply-info-wrapper').addClass('hidden');
-			})
+			//.on('click', '.apply-info-wrapper .amask', function () {
+			//    $('.apply-info-wrapper').addClass('hidden');
+			//})
 			// 提交报名信息
 			.on('click', '.submitUserInfo', function () {
 			    for (var i = 0; i < $('.apply-info-wrapper input').length; i++) {
@@ -640,6 +675,7 @@
 			    }
 			    $('.apply-info-wrapper .msg').text('');
 			    console.log('pass');
+
 			    $.ajax({
 			        url: '/user/JoinkanJia',
 			        data: {

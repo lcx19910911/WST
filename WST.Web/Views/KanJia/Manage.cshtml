@@ -23,7 +23,7 @@
             $.ajax({
                 url: '/config/getmusiclist',
                 success: function (data) {
-                    $(data.Result).each(function (i, item) {
+                    $(data.Result.MusicList).each(function (i, item) {
                         if (item.Url == music) {
                             $(".music-component-wrapper ul").append('<li class="music-list" data-music="' + item.Value + '"><i class="icon icon-music"></i>' + item.Text + '</li>');
                         }
@@ -129,9 +129,14 @@
                     <span class="">元</span>
                 </div>
             </div>
+            <div class="groupBooking-list mt10">
+                <span>最多砍价次数：</span>
+                <input type="number" id="countLimit" name="countLimit" class="input e-input w20" value="@(Model.CountLimit==0?10:Model.CountLimit)" >
+                <span class="">次</span>
+            </div>
 
             <div class="groupBooking-list mt10">
-                <span>每次砍价价格：</span>
+                <span>每次砍价最多：</span>
                 <input type="number" id="oncePrice" name="oncePrice" class="input e-input w20" value="@(Model.OncePrice==0?10:Model.OncePrice)">
                 <span class="">元</span>
             </div>
@@ -321,6 +326,8 @@
 
             <!-- 单次砍价价格 -->
             <input type="text" name="OncePrice" class="OncePrice required" data-required="请填写单次砍价价格">
+            <!-- 最高砍价次数 -->
+            <input type="text" name="CountLimit" class="CountLimit required" data-required="请填写最高砍价次数">
 
             <!-- 砍价间隔时间 -->
             <input type="text" name="LimitHour" class="LimitHour required" data-required="请填写砍价间隔小时">      

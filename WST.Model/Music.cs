@@ -23,6 +23,16 @@ namespace WST.Model
         [MaxLength(32)]
         public string Name { get; set; }
 
+
+        /// <summary>
+        /// 音乐分类
+        /// </summary>
+        [Required(ErrorMessage = "音乐分类不能为空")]
+        [MaxLength(32)]
+        public string CategoryID { get; set; }
+
+        [NotMapped]
+        public string CategoryName { get; set; }
         /// <summary>
         /// 跳转链接
         /// </summary>

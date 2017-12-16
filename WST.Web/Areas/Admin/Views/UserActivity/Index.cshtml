@@ -44,7 +44,7 @@
                 <th dataname="Mobile">手机</th>   
                 <th dataname="JoinUserName">参与用户</th>   
                 <th dataname="PrizeInfo">信息</th>
-                <th dataname="SN">兑奖码</th>
+                <th render="ShowIsUsed">兑奖码</th>
                 <th dataname="UsedTime" datatype="jsondate">领取时间</th>
                 <th dataname="CreatedTime" datatype="jsondate">参与日期</th>
                 <th type="eventlist"></th>
@@ -63,7 +63,7 @@
             $("#searchDomain input").val("");
         }
 
-        function ShowIsUser(item)
+        function ShowIsUsed(item)
         {
             return item.IsUsedOnLine ? "已领取" : "未领取";
         }

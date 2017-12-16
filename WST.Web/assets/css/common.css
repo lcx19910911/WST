@@ -1,0 +1,55 @@
+/* CSS edit */
+@charset 'utf-8';
+
+
+.global-orderBtn-wrapper {
+    position: fixed;
+    right: 0.5em;
+    top: 3em;
+    z-index: 10;
+}
+.global-orderBtn-wrapper .btn {
+    background: rgba(0,0,0,.7);
+    margin-bottom: 0.7em;
+    width: 3.3em;
+    height: 3.3em;
+    padding: 0;
+    border-radius: 50%;
+    background: url() center no-repeat;
+    background-size: 90% 90%;
+    opacity: 0.9;
+}
+.global-orderBtn-wrapper .load {
+    background-image: url(../img/banner/musicLoad.png);
+    animation: rotation 1s linear infinite;
+}
+.global-orderBtn-wrapper .play {
+    background-image: url(../img/banner/musicPlay.png);
+    animation: rotation 2s linear infinite;
+}
+.global-orderBtn-wrapper .pause {
+    background-image: url(../img/banner/musicPause.png);
+}
+.global-orderBtn-wrapper .share-info {
+    background-image: url(../img/banner/share.png);
+}
+.global-orderBtn-wrapper .contact-merchant {
+    background-image: url(../img/banner/contact.png);
+}
+.global-orderBtn-wrapper .contact-merchant a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+
+.share-page-wrapepr .amask {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8) url(../img/banner/shareInfo.png) right top no-repeat;
+    background-size: 90% auto;
+    z-index: 1000;
+}

@@ -66,9 +66,7 @@ namespace WST.Web.Controllers
         {
             return JResult(IPayOrderService.Recharge(amount));
         }
-
-
-
+        
 
         /// <summary>
         /// 获取分页列表

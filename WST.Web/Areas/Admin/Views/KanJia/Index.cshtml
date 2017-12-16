@@ -37,8 +37,8 @@
                 <th dataname="StartTime" datatype="jsondate">开始时间</th>
                 <th dataname="EndTime" datatype="jsondate">结束时间</th>
                 <th dataname="OldPrice">原价</th>
-                <th dataname="OncePrice">单次砍价</th>
-                <th dataname="JoinCount">参加人数</th>
+                <th dataname="OncePrice">单次砍价最多金额</th>
+                <th dataname="CountLimit">最多砍价次数</th>
                 <th type="eventlist"></th>
             </tr>
         </thead>
@@ -80,6 +80,20 @@
                     icon: "icon-pencil-square-o",
                     name: "详情",
                     click: function (item) {
+                        
+                        $("#showQrcodeDiv").show();
+                        $("#scanDiv").html("");
+                        $("#scanDiv").qrcode({
+                            width: 270, //宽度
+                            height: 270, //高度
+
+                            typeNumber: -1,//计算模式
+                            correctLevel: 2,//二维码纠错级别
+                            background: "#ffffff",//背景颜色
+                            foreground: "#000000",  //二维码颜色
+                            text: "@(Params.SiteUrl)/user/kanjia?id=" + item.ID
+                            //任意内容
+                        });
                     }
                 },
                 {

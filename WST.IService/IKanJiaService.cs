@@ -20,7 +20,7 @@ namespace WST.IService
         /// <param name="pageSize">分页大小</param>
         /// <param name="title">标题 - 搜索项</param>
         /// <returns></returns>
-        PageList<KanJia> GetPageList(int pageIndex, int pageSize, string userId, string name);
+        PageList<KanJia> GetPageList(int pageIndex, int pageSize, string userId, string name,string userName);
 
         List<SelectItem> GetSelectList();
     }

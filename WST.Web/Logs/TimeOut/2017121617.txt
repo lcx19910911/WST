@@ -1,0 +1,39 @@
+Time:2017/12/16 17:38:31-本次请求耗时 19.703 秒.
+Url:http://localhost:56262/user/kanjia?userActId=d723e0f91ed041b391d8728632c4e7f8&from=singlemessage&isappinstalled=0
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/16 17:38:44-本次请求耗时 3.697 秒.
+Url:http://localhost:56262/user/kanjia?userActId=d723e0f91ed041b391d8728632c4e7f8&from=singlemessage&isappinstalled=0
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/16 17:41:50-本次请求耗时 21.84 秒.
+Url:http://localhost:56262/user/kanjia?userActId=d723e0f91ed041b391d8728632c4e7f8&from=singlemessage&isappinstalled=0
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/16 17:44:20-本次请求耗时 15.6 秒.
+Url:http://localhost:56262/user/JoinkanJia?id=a720a507c39c455497265746325dee71&mobile=11111111111&name=11111&filedJson=
+UrlReferrer:http://localhost:56262/user/kanjia?id=a720a507c39c455497265746325dee71
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/16 17:46:05-本次请求耗时 17.207 秒.
+Url:http://localhost:56262/user/ToKanJia
+UrlReferrer:http://localhost:56262/user/kanjia?id=a720a507c39c455497265746325dee71&userActId=ecfc1cae09d74f189fd4f441ad0fd861
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/16 17:55:05-本次请求耗时 131.868 秒.
+Url:http://localhost:56262/user/JoinkanJia?id=a720a507c39c455497265746325dee71&mobile=111111111111&name=111111&filedJson=
+UrlReferrer:http://localhost:56262/user/kanjia?userActId=a8aa798ce1074afa996a1caa5dd11195&from=singlemessage&isappinstalled=0
+UserHostAddress:::1;;
+WebServer:::1
+
+

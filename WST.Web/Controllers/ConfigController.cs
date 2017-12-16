@@ -28,11 +28,12 @@ namespace WST.Web.Controllers
         public IRechargePlanService IRechargePlanService;
         public IMusicService IMusicService;
 
-        public ConfigController(IUserService _IUserService, IRechargePlanService _IRechargePlanService, IMusicService _IMusicService)
+        public ConfigController(IUserService _IUserService, IRechargePlanService _IRechargePlanService, IMusicService _IMusicService, IDataDictionaryService _IDataDictionaryService)
         {
             this.IUserService = _IUserService;
             this.IRechargePlanService = _IRechargePlanService;
             this.IMusicService = _IMusicService;
+            this.IDataDictionaryService = _IDataDictionaryService;
         }
     
         public ActionResult GetFuncList()
@@ -43,7 +44,12 @@ namespace WST.Web.Controllers
         
         public ActionResult GetMusicList()
         {
-            return JResult(IMusicService.GetSelectList());
+            var obj = new
+            {
+                CategoryList= IDataDictionaryService.GetSelectList(GroupCode.MusicCategory,""),
+                MusicList= IMusicService.GetSelectList()
+            };
+            return JResult(obj);
         }
     }
 }

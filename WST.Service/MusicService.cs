@@ -46,8 +46,14 @@ namespace WST.Service
                 }
                 var count = query.Count();
                 var list = query.OrderByDescending(x => x.Sort).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+                var categoryIdList = list.Select(x => x.CategoryID).Distinct().ToList();
+                var musicDic = db.DataDictionary.Where(x => categoryIdList.Contains(x.Key) && !x.IsDelete).ToDictionary(x => x.Key, x => x.Value);
                 list.ForEach(x =>
                 {
+                    if (musicDic.ContainsKey(x.CategoryID))
+                    {
+                        x.CategoryName = musicDic[x.CategoryID];
+                    }
                 });
 
                 return CreatePageList(list, pageIndex, pageSize, count);
@@ -67,6 +73,7 @@ namespace WST.Service
                 {
                     Text = x.Name,
                     Value = x.Url,
+                    CategoryID=x.CategoryID
                 }).ToList(); ;
             }
         }
