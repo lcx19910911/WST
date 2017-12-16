@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "个人中心";
     Layout = null;
+    var isMember = Model.IsMember || (Model.EndTime.HasValue && Model.EndTime > DateTime.Now);
 }
 
 @section linkcss
@@ -233,11 +234,11 @@
                     <img src="@(Model.HeadImgUrl)" alt="头像丢失">
                 </div>
                 <p>
-                    @if (Model.IsMember)
+                    @if (isMember)
                     {
                         <span class="user-name fB f11">沃商通商户</span><br>
-                        <span class="user-phone">@(Model.NickName)</span><br>
-                        <span class="user-phone f08 c-f00">过期时间：@(Model.EndTime)</span>
+                        <span class="user-phone">@(Model.StoreName.IsNotNullOrEmpty()?Model.StoreName:Model.NickName)</span><br>
+                        <span class="user-phone f08 c-f00">过期时间：@(Model.EndTime.Value.ToString("yyyy-MM-dd HH:mm:ss"))</span>
                     }
                     else
                     {
@@ -268,10 +269,12 @@
                     <a href="">活动教程<span>></span></a>
                 </div>*@
 
-            @*<div class="favorite pic-ico">
-                    <a href="">邀请有礼<span>></span></a>
-                </div>*@
-
+            @if (isMember)
+            {
+            <div class="favorite pic-ico">
+                    <a href="/shop/actlist">商家活动<span>></span></a>
+                </div>
+            }
             <div class="favorite pic-ico">
                 <a href="https://mp.weixin.qq.com/s/tTi6fndmI49zQ7AjHnCynQ">付费方式<span>></span></a>
             </div>
@@ -286,7 +289,7 @@
         </div>
 
         <div class="foot-wrapper">
-            @if (Model.IsMember)
+            @if (isMember)
             {
                 <div class="w47 fl">
                     <div class="button fr"><a href="/home/index">制作活动</a></div>

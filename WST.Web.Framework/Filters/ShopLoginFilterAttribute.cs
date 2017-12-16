@@ -25,11 +25,11 @@ namespace WST.Web.Framework.Filters
         {
             var controller = filterContext.Controller as BaseShopController;
 
-            if (!controller.LoginUser.IsMember)
-            {
-                RedirectResult redirectResult = new RedirectResult("/user/buytime");
-                filterContext.Result = redirectResult;
-            }
+            //if (!controller.LoginUser.IsMember)
+            //{
+            //    RedirectResult redirectResult = new RedirectResult("/user/buytime");
+            //    filterContext.Result = redirectResult;
+            //}
 
             if (controller.LoginUser.EndTime<DateTime.Now)
             {

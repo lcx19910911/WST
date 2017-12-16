@@ -1,0 +1,66 @@
+Time:2017/12/16 10:17:10-本次请求耗时 7.863 秒.
+Url:http://localhost:56262/pintuan/Manage
+UrlReferrer:http://localhost:56262/home/index
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/16 10:32:12-本次请求耗时 13.588 秒.
+Url:http://localhost:56262/login/defaultUser
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/16 10:32:37-本次请求耗时 22.23 秒.
+Url:http://localhost:56262/kanjia/Manage
+UrlReferrer:http://localhost:56262/Home
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/16 10:35:39-本次请求耗时 64.912 秒.
+Url:http://localhost:56262/login/defaultUser
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/16 10:36:39-本次请求耗时 13.587 秒.
+Url:http://localhost:56262/user
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/16 10:37:38-本次请求耗时 33.478 秒.
+Url:http://localhost:56262/login/defaultUser
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/16 10:38:52-本次请求耗时 65.848 秒.
+Url:http://localhost:56262/kanjia/Manage
+UrlReferrer:http://localhost:56262/Home
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/16 10:39:07-本次请求耗时 7.722 秒.
+Url:http://localhost:56262/kanjia/Manage
+UrlReferrer:http://localhost:56262/Home
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/16 10:39:26-本次请求耗时 9.329 秒.
+Url:http://localhost:56262/kanjia/Manage
+UrlReferrer:http://localhost:56262/Home
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/16 10:42:36-本次请求耗时 4.29 秒.
+Url:http://localhost:56262/kanjia/Manage
+UrlReferrer:http://localhost:56262/home/index
+UserHostAddress:::1;;
+WebServer:::1
+
+

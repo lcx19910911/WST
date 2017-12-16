@@ -52,6 +52,8 @@ namespace WST.Web.Controllers
             var user = IUserService.FindByOpenId("ojLuqwikV8T-nCd2VMAihJEqSOzw");
             if (user != null)
             {
+                user.IsMember = false;
+                user.EndTime = DateTime.Now.AddMinutes(2);
                 this.LoginUser = new Core.Model.LoginUser(user);
             }
                 return RedirectToAction("Index", "Home");
@@ -93,6 +95,7 @@ namespace WST.Web.Controllers
                                     Country = obj3["country"].ToString(),
                                     HeadImgUrl = obj3["headimgurl"].ToString(),
                                     IsMember = false,
+                                    EndTime=DateTime.Now.AddDays(1)
                                 };
                                 IUserService.Add(model);
                                 this.LoginUser = new Core.Model.LoginUser(model);

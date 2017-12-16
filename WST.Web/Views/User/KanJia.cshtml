@@ -500,13 +500,15 @@
             jsApiList: ['jsApiList','onMenuShareTimeline','onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
         });
 
+        var url='@(Request["userActId"].IsNotNullOrEmpty() ? (Params.SiteUrl + "user/kanjia?userActId=" + Request["userActId"]):Params.SiteUrl+"user/kanjia?id="+Model.ID)';
         wx.ready(function(){
 
             var config = {
                 title: '@Html.Raw(Model.Name)',
                 desc: '@Html.Raw(Model.Name)',
-                link: ' @(Request["userActId"].IsNotNullOrEmpty() ? (Params.SiteUrl + "/user/kanjia?userActId=" + Request["userActId"]):Params.SiteUrl+"/user/kanjia?id="+Model.ID)',
-                imgUrl: '@(Params.SiteUrl)@(Model.Picture)',type: 'link',
+                link: url,
+                imgUrl: '@(Params.SiteUrl)@(Model.Picture)',
+                type: 'link',
                 dataUrl: '',
                 success: function () {
                     addShareCount();
