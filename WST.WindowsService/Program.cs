@@ -17,7 +17,7 @@ namespace WST.WindowsService
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {
-                new ClearUserStoreSortService()
+                new NoticeEndTimeService()
             };
             ServiceBase.Run(ServicesToRun);
         }

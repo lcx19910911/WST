@@ -29,30 +29,31 @@
         private void InitializeComponent()
         {
             this.serviceProcessInstaller1 = new System.ServiceProcess.ServiceProcessInstaller();
-            this.健身系统每月清理排名服务 = new System.ServiceProcess.ServiceInstaller();
+            this.过期时间提醒 = new System.ServiceProcess.ServiceInstaller();
             // 
             // serviceProcessInstaller1
             // 
             this.serviceProcessInstaller1.Password = null;
             this.serviceProcessInstaller1.Username = null;
             // 
-            // 健身系统每月清理排名服务
+            // 过期时间提醒
             // 
-            this.健身系统每月清理排名服务.Description = "健身系统每月清理排名服务，一个月执行一次";
-            this.健身系统每月清理排名服务.DisplayName = "健身系统每月清理排名服务";
-            this.健身系统每月清理排名服务.ServiceName = "Service1";
+            this.过期时间提醒.Description = "过期时间提醒";
+            this.过期时间提醒.DisplayName = "过期时间提醒";
+            this.过期时间提醒.ServiceName = "NoticeEndTime";
+            this.过期时间提醒.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             // 
             // ProjectInstaller
             // 
             this.Installers.AddRange(new System.Configuration.Install.Installer[] {
             this.serviceProcessInstaller1,
-            this.健身系统每月清理排名服务});
+            this.过期时间提醒});
 
         }
 
         #endregion
 
         private System.ServiceProcess.ServiceProcessInstaller serviceProcessInstaller1;
-        private System.ServiceProcess.ServiceInstaller 健身系统每月清理排名服务;
+        private System.ServiceProcess.ServiceInstaller 过期时间提醒;
     }
 }

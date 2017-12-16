@@ -52,11 +52,11 @@
     <Compile Include="ProjectInstaller.Designer.cs">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </Compile>
-    <Compile Include="ClearUserStoreSortService.cs">
+    <Compile Include="NoticeEndTimeService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="ClearUserStoreSortService.Designer.cs">
-      <DependentUpon>ClearUserStoreSortService.cs</DependentUpon>
+    <Compile Include="NoticeEndTimeService.Designer.cs">
+      <DependentUpon>NoticeEndTimeService.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -68,6 +68,32 @@
     <EmbeddedResource Include="ProjectInstaller.resx">
       <DependentUpon>ProjectInstaller.cs</DependentUpon>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WST.Core\WST.Core.csproj">
+      <Project>{066eec6f-9103-4165-ae18-7db85cc51be9}</Project>
+      <Name>WST.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WST.DB\WST.DB.csproj">
+      <Project>{134e4193-1237-487d-bbad-2d7c573427c9}</Project>
+      <Name>WST.DB</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WST.Domain\WST.Domain.csproj">
+      <Project>{b385fb51-a79d-44dd-9b2c-f25dc589302d}</Project>
+      <Name>WST.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WST.IService\WST.IService.csproj">
+      <Project>{5bee0a3f-e06d-4db2-bfb1-37c1eb57350a}</Project>
+      <Name>WST.IService</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WST.Model\WST.Model.csproj">
+      <Project>{1d8d9894-75bb-42fa-bc27-296fcf42ad76}</Project>
+      <Name>WST.Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\WST.Service\WST.Service.csproj">
+      <Project>{30058639-3062-414a-befe-13ce45b401b9}</Project>
+      <Name>WST.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
