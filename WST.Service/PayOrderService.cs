@@ -305,6 +305,8 @@ namespace WST.Service
                             user.EndTime = DateTime.Now.AddDays(rechargePlan.Day);
                         }
                     }
+                    //刷新时间
+                    LoginHelper.CreateUser(new LoginUser(user), Params.UserCookieName);
                 }
                 PayOrderModel.ThirdOrderID = thirdOrderId;
                 PayOrderModel.State = PayState.Success;

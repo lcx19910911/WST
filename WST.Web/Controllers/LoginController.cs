@@ -52,8 +52,8 @@ namespace WST.Web.Controllers
             var user = IUserService.FindByOpenId("ojLuqwikV8T-nCd2VMAihJEqSOzw");
             if (user != null)
             {
-                user.IsMember = false;
-                user.EndTime = DateTime.Now.AddMinutes(2);
+                //user.IsMember = false;
+                //user.EndTime = DateTime.Now.AddMinutes(2);
                 this.LoginUser = new Core.Model.LoginUser(user);
             }
                 return RedirectToAction("Index", "Home");
