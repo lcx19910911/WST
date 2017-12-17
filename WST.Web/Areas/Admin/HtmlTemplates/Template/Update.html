@@ -5,22 +5,13 @@
             <div class="am-margin">  
                 <div class="am-g am-margin-top">
                     <div class="am-u-md-3 am-text-right">
-                        商品名称：
+                        模板名称：
                     </div>
                     <div class="am-u-md-5 am-text-left">
                         <input type="text" name="Name" class="am-input-sm" maxlength="32" />
                     </div>
-                    <div class="am-hide-sm-only am-u-md-4 am-text-left">不能超过32个字符</div>
-                </div>           
-                <div class="am-g am-margin-top">
-                    <div class="am-u-md-3 am-text-right">
-                        价格：
-                    </div>
-                    <div class="am-u-md-5 am-text-left">
-                        <input type="number" name="Price" class="am-input-sm" />
-                    </div>
-                    <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong></div>
-                </div>
+                    <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>不能超过32个字符</div>
+                </div>      
                 <div class="am-g am-margin-top">
                     <div class="am-u-md-3 am-text-right">
                         分类：
@@ -31,9 +22,28 @@
                     </div>
                     <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong></div>
                 </div>
+                
                 <div class="am-g am-margin-top">
                     <div class="am-u-md-3 am-text-right">
-                        缩略图
+                        模板代号：
+                    </div>
+                    <div class="am-u-md-5 am-text-left">
+                        <input type="text" name="ClassNo" class="am-input-sm" maxlength="32" />
+                    </div>
+                    <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>不能超过32个字符注意！样式加载的模板代号</div>
+                </div>  
+                <div class="am-g am-margin-top">
+                    <div class="am-u-md-3 am-text-right">
+                        示例路径：
+                    </div>
+                    <div class="am-u-md-5 am-text-left">
+                        <input type="text" name="DemoUrl" class="am-input-sm" maxlength="256" />
+                    </div>
+                    <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>不能超过256个字符</div>
+                </div>        
+                <div class="am-g am-margin-top">
+                    <div class="am-u-md-3 am-text-right">
+                        图片
                     </div>
                     <div class="am-u-md-3">
                         <a id="imageFile">上传图片</a>
@@ -54,16 +64,13 @@
 
                 <div class="am-g am-margin-top">
                     <div class="am-u-md-3 am-text-right">
-                        状态：
+                        简介：
                     </div>
-                    <div class="am-u-md-5">
-                        <select name="IsOnSale" data-am-selected="{ btnWidth: '120px',btnSize: 'sm'}">
-                            <option value="True">上架</option>
-                            <option value="False">下架</option>
-                        </select>
+                    <div class="am-u-md-5 am-text-left">
+                        <textarea name="Introduce" cols="10" rows="4"></textarea>
                     </div>
-                    <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong></div>
-                </div>
+                    <div class="am-hide-sm-only am-u-md-4 am-text-left"><strong class="am-text-danger am-text-sm">*</strong>不能超过256个字符</div>
+                </div>   
             </div>
         </div>
     </form>

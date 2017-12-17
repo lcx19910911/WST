@@ -24,7 +24,7 @@ namespace WST.Core.Model
         /// <summary>
         /// 值
         /// </summary>
-        public string CategoryID { get; set; }
+        public object Data { get; set; }
 
 
         /// <summary>

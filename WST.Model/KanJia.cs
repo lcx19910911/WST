@@ -15,27 +15,9 @@ namespace WST.Model
     [Table("KanJia")]
     public class KanJia : ActivityBase
     {
-        /// <summary>
-        /// 开始时间
-        /// </summary>
-        public DateTime StartTime { get; set; }
-        /// <summary>
-        /// 结束时间
-        /// </summary>
-        public DateTime EndTime { get; set; }
 
         /// <summary>
-        /// 商品
-        /// </summary>
-        public string GoodsItemsJson { get; set; }
-
-        /// <summary>
-        /// 原价
-        /// </summary>
-        public decimal OldPrice { get; set; }
-
-        /// <summary>
-        /// 参加人数
+        /// 次数限制
         /// </summary>
         public int CountLimit { get; set; }
 
@@ -52,16 +34,6 @@ namespace WST.Model
         /// 砍价间隔小时
         /// </summary>
         public int LimitHour { get; set; }
-
-        /// <summary>
-        /// 奖品数量
-        /// </summary>
-        public int PrizeCount { get; set; }
-
-        /// <summary>
-        /// 已中奖数量  不需传值
-        /// </summary>
-        public int UsedCount { get; set; }
     }
     
 

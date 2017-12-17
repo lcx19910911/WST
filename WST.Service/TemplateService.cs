@@ -52,12 +52,13 @@ namespace WST.Service
                 var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 
                 var categoryIdsList = list.Select(x => x.CategoryID).Distinct().ToList();
-                var categoryDic = db.TemplateCategory.Where(x => categoryIdsList.Contains(x.ID)).ToDictionary(x => x.ID, x => x.Name);
+                var categoryDic = db.TemplateCategory.Where(x => categoryIdsList.Contains(x.ID)).ToDictionary(x => x.ID);
                 list.ForEach(x =>
                 {
                     if (x.CategoryID.IsNotNullOrEmpty() && categoryDic.ContainsKey(x.CategoryID))
                     {
-                        x.CategoryName = categoryDic[x.CategoryID];
+                        x.CategoryName = categoryDic[x.CategoryID].Name;
+                        x.TemplateUrl = $"/Template/{categoryDic[x.CategoryID].RouteName}/{x.ClassNo}";
                     }
                 });
 

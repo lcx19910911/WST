@@ -14,9 +14,52 @@ namespace WST.Model
     /// </summary>
     [Table("ActivityBase")]
     public class ActivityBase : BaseEntity
-    { /// <summary>
-      /// 用户  不用传值
-      /// </summary>
+    {
+
+        /// <summary>
+        /// 模板路径  /kanjia/xinnian/
+        /// </summary>
+        [MaxLength(32)]
+        [Required]
+        public string TemplateUrl { get; set; }
+
+
+        /// <summary>
+        /// 原价
+        /// </summary>
+        public decimal OldPrice { get; set; }
+
+
+        /// <summary>
+        /// 开始时间
+        /// </summary>
+        public DateTime StartTime { get; set; }
+        /// <summary>
+        /// 结束时间
+        /// </summary>
+        public DateTime EndTime { get; set; }
+
+
+        /// <summary>
+        /// 奖品数量
+        /// </summary>
+        public int PrizeCount { get; set; }
+
+
+
+        /// <summary>
+        /// 已中奖数量  不需传值
+        /// </summary>
+        public int UsedCount { get; set; }
+
+        /// <summary>
+        /// 商品
+        /// </summary>
+        public string GoodsItemsJson { get; set; }
+
+        /// <summary>
+        /// 用户  不用传值
+        /// </summary>
         [Required(ErrorMessage = "用户不能为空")]
         [MaxLength(32)]
         public string UserID { get; set; }

@@ -65,6 +65,7 @@ namespace WST.Web.App_Start
 
             container.RegisterType<IKanJiaService, KanJiaService>();
             container.RegisterType<IMusicService, MusicService>();
+            container.RegisterType<IMiaoShaService, MiaoShaService>();
             
         }
         

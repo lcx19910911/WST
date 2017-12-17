@@ -52,6 +52,7 @@ namespace WST.Web.Controllers
             }
             return View(user);
         }
+
         /// <summary>
         /// 余额充值
         /// </summary>
@@ -66,7 +67,18 @@ namespace WST.Web.Controllers
         {
             return JResult(IPayOrderService.Recharge(amount));
         }
-        
+
+
+
+
+        /// <summary>
+        /// 参与用户
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult JoinUser()
+        {
+            return View();
+        }
 
         /// <summary>
         /// 获取分页列表

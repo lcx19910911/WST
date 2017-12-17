@@ -72,8 +72,7 @@ namespace WST.Service
                 return db.Music.Where(x => !x.IsDelete).OrderByDescending(x=>x.Sort).Select(x => new SelectItem()
                 {
                     Text = x.Name,
-                    Value = x.Url,
-                    CategoryID=x.CategoryID
+                    Value = x.Url
                 }).ToList(); ;
             }
         }

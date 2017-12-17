@@ -69,7 +69,7 @@ namespace WST.Web.Areas.Admin.Controllers
                 
                 if (IActivityCategoryService.IsExits(x => x.Name == entity.Name&&x.ID!=entity.ID))
                 {
-                    return JResult(Core.Code.ErrorCode.store_city__namealready_exist, "");
+                    return JResult(Core.Code.ErrorCode.system_name_already_exist, "");
                 }
 
                 model.Name = entity.Name;

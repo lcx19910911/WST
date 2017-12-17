@@ -61,6 +61,7 @@
     <Compile Include="Carousel.cs" />
     <Compile Include="FolllowRedPack.cs" />
     <Compile Include="FolllowRedPackUserJoin.cs" />
+    <Compile Include="MiaoSha.cs" />
     <Compile Include="Music.cs" />
     <Compile Include="KanJia.cs" />
     <Compile Include="PinTuan.cs" />

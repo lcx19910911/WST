@@ -1,0 +1,7 @@
+Time:2017/12/17 13:43:14-本次请求耗时 12.589 秒.
+Url:http://localhost:56262/Admin/TemplateCategory/Update
+UrlReferrer:http://localhost:56262/Admin/TemplateCategory/Index
+UserHostAddress:::1;;
+WebServer:::1
+
+

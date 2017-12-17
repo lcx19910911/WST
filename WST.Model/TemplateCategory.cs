@@ -22,6 +22,15 @@ namespace WST.Model
         [MaxLength(32)]
         public string Name { get; set; }
 
+
+        /// <summary>
+        /// 路径名称
+        /// </summary>
+        [Required(ErrorMessage = "路径名称不能为空")]
+        [MaxLength(32)]
+        public string RouteName { get; set; }
+
+        
         /// <summary>
         /// 排序
         /// </summary>

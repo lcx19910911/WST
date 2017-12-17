@@ -48,11 +48,11 @@
         <thead>
             <tr>
                 <th dataname="ID" type="checkbox"></th>
-                <th dataname="Name">模板名称</th>
+                <th dataname="Name">名称</th>
                 <th render="ShowPic">图片</th>
                 <th dataname="CategoryName">分类名称</th>
-                <th dataname="Price">原价</th>
-                <th dataname="SaleStr">状态</th>             
+                <th dataname="ClassNo">模板代号</th>     
+                <th dataname="TemplateUrl">完整路径</th>     
                 <th dataname="CreatedTime" datatype="jsondate">创建日期</th>
                 <th type="eventlist"></th>
             </tr>
@@ -99,35 +99,123 @@
                         required: true,
                         maxlength: 64
                     },
+                    Picture: {
+                        required: true,
+                        maxlength: 256
+                    },
                     CategoryID: {
                         required: true,
                         maxlength: 256
                     },
-                    JsonData: {
+                    Introduce: {
                         required: true,
                         maxlength: 256
                     },
+                    ClassNo: {
+                        required: true,
+                        maxlength: 32
+                    },
+                    DemoUrl: {
+                        required: true,
+                        maxlength: 256
+                    },
+                    
                 },
                 messages: {
                     Name: {
                         required: "名称不允许为空",
                         maxlength: "最多{0}个字符"
                     },
+                    Picture: {
+                        required: "图片不允许为空",
+                        maxlength: "最多{0}个字符"
+                    },
                     CategoryID: {
                         required: "模板分类不能为空",
                         maxlength: "最多{0}个字符"
                     },
-                    JsonData: {
-                        required: "图片不允许为空",
+                    Introduce: {
+                        required: "模板简介不允许为空",
+                        maxlength: "最多{0}个字符"
+                    },
+                    ClassNo: {
+                        required: "模板代号不允许为空",
+                        maxlength: "最多{0}个字符"
+                    },
+                    DemoUrl: {
+                        required: "示例路径不允许为空",
                         maxlength: "最多{0}个字符"
                     },
                 }
-            });     
+            });
+            if (dataitem != null) {
+                //拼接的门店图片集合
+                if (dataitem.Picture != null) {
+                    $("#form #imageDiv").show().find("img").attr("src", dataitem.Picture);
+                }
+            }
+            UploadImg()
+        }
+
+
+        function UploadImg() {
+            var headimgbtn = $("#imageFile").uploadFile({
+                url: '/admin/upload/uploadimage?mark=template',
+                fileSuffixs: ["jpg", "png", 'jpeg'],
+                maximumFilesUpload: 1,//最大文件上传数       ]
+                isGetFileSize: true,
+                maxFileSize: 200 * 1024 * 1024,
+                onComplete: function (data) {
+                    if (data) {
+                        $("[name='Picture']").val(data);
+                        $("#imageDiv").show().find("img").attr("src", data);
+                    }
+                    else {
+                        $.Nuoya.alert("上传错误");
+                    }
+
+                },
+                onChosen: function (file, obj, fileSize, errorText) {
+                    if (errorText) {
+                        $.Nuoya.alert(errorText);
+                        return false;
+                    }
+                    //Loading("图片正在上传中...", "请稍等");
+                    uploadheadimg.submitUpload();
+                    return true;//返回false将取消当前选择的文件
+                },
+            });
+            var uploadheadimg = headimgbtn.data("uploadFileData");
         }
 
         //新增
         function add() {
-            
+            $.Nuoya.ajaxDialog({
+                closeViaDimmer: false,
+                ajaxUrl: "/Areas/Admin/HtmlTemplates/Template/Update.html",
+                title: "添加模板",
+                width: ($(window).width() - 700) + "px",
+                height: ($(window).height() - 200) + "px",
+                callback: function (e) {
+                    formInit();//表单初始化
+                },
+                buttons: [{
+                    label: "保存",
+                    callback: function (e) {
+                        $.Nuoya.form("form").ajaxSubmit({
+                            ajaxUrl: "/Admin/Template/Add",
+                            callback: function (data) {
+                                if (!data.ErrorDesc) {
+                                    e.hide();
+                                    grid.reload();
+                                }
+                                else
+                                    $.Nuoya.alert(data.ErrorDesc);
+                            }
+                        });
+                    }
+                }]
+            })
         }
 
         var grid = $.Nuoya.grid({
@@ -146,7 +234,42 @@
                     icon: "icon-pencil-square-o",
                     name: "编辑",
                     click: function (item) {
-                        
+
+                        $.Nuoya.ajaxDialog({
+                            closeViaDimmer: false,
+                            ajaxUrl: "/Areas/Admin/HtmlTemplates/Template/Update.html",
+                            title: "编辑模板",
+                            width: ($(window).width() - 700) + "px",
+                            height: ($(window).height() - 200) + "px",
+                            callback: function (e) {
+                                $.Nuoya.action("/Admin/Template/Find", { id: item.ID }, function (model) {
+                                    //载入数据
+                                    $.Nuoya.form("form").dataLoad({
+                                        data: model
+                                    });
+                                    formInit(model);//表单初始化
+                                });
+                            },
+                            buttons: [{
+                                label: "保存",
+                                callback: function (e) {
+                                    $.Nuoya.form("form").ajaxSubmit({
+                                        ajaxUrl: "/Admin/Template/Update",
+                                        params: {
+                                            ID: item.ID
+                                        },
+                                        callback: function (data) {
+                                            if (!data.ErrorDesc) {
+                                                e.hide();
+                                                grid.reload();
+                                            }
+                                            else
+                                                $.Nuoya.alert(data.ErrorDesc);
+                                        }
+                                    });
+                                }
+                            }]
+                        })
                     }
                 }, 
                 {

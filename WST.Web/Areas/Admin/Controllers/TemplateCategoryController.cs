@@ -39,6 +39,10 @@ namespace WST.Web.Areas.Admin.Controllers
                 {
                     return JResult(Core.Code.ErrorCode.system_name_already_exist, "");
                 }
+                if (ITemplateCategoryService.IsExits(x => x.RouteName == entity.RouteName))
+                {
+                    return JResult(Core.Code.ErrorCode.route_name_already_exist, "");
+                }
                 entity.CreatedTime = entity.UpdatedTime = DateTime.Now;
                 var result = ITemplateCategoryService.Add(entity);
                 return JResult(result);
@@ -69,11 +73,16 @@ namespace WST.Web.Areas.Admin.Controllers
                 
                 if (ITemplateCategoryService.IsExits(x => x.Name == entity.Name&&x.ID!=entity.ID))
                 {
-                    return JResult(Core.Code.ErrorCode.store_city__namealready_exist, "");
+                    return JResult(Core.Code.ErrorCode.system_name_already_exist, "");
                 }
 
+                if (ITemplateCategoryService.IsExits(x => x.RouteName == entity.RouteName && x.ID != entity.ID))
+                {
+                    return JResult(Core.Code.ErrorCode.route_name_already_exist, "");
+                }
                 model.Name = entity.Name;
                 model.Sort = entity.Sort;
+                model.RouteName = entity.RouteName;
                 var result = ITemplateCategoryService.Update(model);
                 return JResult(result);
             }

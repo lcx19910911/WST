@@ -10,14 +10,14 @@ using WST.Core.Extensions;
 
 namespace WST.Web.Controllers
 {
-    public class PinTuanController : BaseShopController
+    public class MiaoShaController : BaseShopController
     {
-        public IPinTuanService IPinTuanService;
+        public IMiaoShaService IMiaoShaService;
         public IUserActivityService IUserActivityService;
 
-        public PinTuanController(IPinTuanService _IPinTuanService, IUserActivityService _IUserActivityService)
+        public MiaoShaController(IMiaoShaService _IMiaoShaService, IUserActivityService _IUserActivityService)
         {
-            this.IPinTuanService = _IPinTuanService;
+            this.IMiaoShaService = _IMiaoShaService;
             this.IUserActivityService = _IUserActivityService;
         }
 
@@ -29,9 +29,9 @@ namespace WST.Web.Controllers
         public ViewResult Manage(string id)
         {
             if (id.IsNullOrEmpty())
-                return View(new PinTuan());
+                return View(new MiaoSha());
             else
-                return View(IPinTuanService.Find(id));
+                return View(IMiaoShaService.Find(id));
         }
         /// <summary>
         /// 编辑
@@ -40,7 +40,7 @@ namespace WST.Web.Controllers
         /// <returns></returns>
         [ValidateInput(false)]
         [HttpPost]
-        public JsonResult Manage(PinTuan entity)
+        public JsonResult Manage(MiaoSha entity)
         {
             ModelState.Remove("CreatedTime");
             ModelState.Remove("UpdatedTime");
@@ -52,20 +52,20 @@ namespace WST.Web.Controllers
             {
                 if (entity.ID.IsNullOrEmpty())
                 {
-                    entity.IsNeedPay = true;
+                    entity.IsNeedPay = false;
                     entity.IsNeedReport = false;
                     entity.UserID = LoginUser.ID;
                     entity.CreatedTime = entity.UpdatedTime = DateTime.Now;
                     var guid = Guid.NewGuid().ToString("N");
                     entity.ID = guid;
-                    if (IPinTuanService.Add(entity) > 0)
+                    if (IMiaoShaService.Add(entity) > 0)
                         return JResult(entity.ID.IsNullOrEmpty() ? guid : entity.ID);
                     else
                         return DataErorrJResult();
                 }
                 else
                 {
-                    var model = IPinTuanService.Find(entity.ID);
+                    var model = IMiaoShaService.Find(entity.ID);
                     if (model == null || (model != null && model.IsDelete))
                     {
                         return DataErorrJResult();
@@ -74,11 +74,7 @@ namespace WST.Web.Controllers
                     {
                         return DataErorrJResult();
                     }
-
-                    //if (IPinTuanService.IsExits(x => x.Name == entity.Name && x.ID != entity.ID))
-                    //{
-                    //    return JResult(Core.Code.ErrorCode.system_name_already_exist, "");
-                    //}
+                    
                     model.PhoneNumber = entity.PhoneNumber;
                     model.Name = entity.Name;
                     model.Picture = entity.Picture;
@@ -95,7 +91,7 @@ namespace WST.Web.Controllers
                     model.IntroduceVediosJson = entity.IntroduceVediosJson;
                     model.Direction = entity.Direction;
                     model.GoodsItemsJson = entity.GoodsItemsJson;
-                    var result = IPinTuanService.Update(model);
+                    var result = IMiaoShaService.Update(model);
                     return JResult(result);
                 }
             }
@@ -117,7 +113,7 @@ namespace WST.Web.Controllers
         /// <returns></returns>
         public ActionResult GetPageList(int pageIndex, int pageSize, string name)
         {
-            return JResult(IPinTuanService.GetPageList(pageIndex, pageSize,LoginUser.ID, name,""));
+            return JResult(IMiaoShaService.GetPageList(pageIndex, pageSize,LoginUser.ID, name,""));
         }
 
 
@@ -128,10 +124,10 @@ namespace WST.Web.Controllers
         /// <returns></returns>
         public ActionResult Find(string ID)
         {
-            var model = IPinTuanService.Find(ID);
+            var model = IMiaoShaService.Find(ID);
             //if (model != null)
             //{
-            //    model.PriceList = IPinTuanPriceService.GetListByPinTuanID(ID);
+            //    model.PriceList = IMiaoShaPriceService.GetListByMiaoShaID(ID);
             //}         
             return JResult(model);
         }
@@ -143,10 +139,10 @@ namespace WST.Web.Controllers
         /// <returns></returns>
         public ActionResult Delete(string id)
         {
-            var model = IPinTuanService.Find(id);
+            var model = IMiaoShaService.Find(id);
             if (model != null && model.UserID == LoginUser.ID)
             {
-                IPinTuanService.Delete(id);
+                IMiaoShaService.Delete(id);
                 return Redirect("/shop/actList");
             }
             else

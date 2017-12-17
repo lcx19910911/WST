@@ -78,6 +78,7 @@ namespace WST.DB
         public virtual DbSet<TemplateCategory> TemplateCategory { get; set; }
 
 
+        public virtual DbSet<MiaoSha> MiaoSha { get; set; }
         public virtual DbSet<PinTuan> PinTuan { get; set; }
         public virtual DbSet<Carousel> Carousel { get; set; }
         public virtual DbSet<UserActivity> UserActivity { get; set; }

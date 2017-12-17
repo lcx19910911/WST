@@ -44,12 +44,16 @@ namespace WST.Web.Controllers
         
         public ActionResult GetMusicList()
         {
-            var obj = new
+            var categoryList = IDataDictionaryService.GetSelectList(GroupCode.MusicCategory, "");
+            var musicDic = IMusicService.GetList().GroupBy(x=>x.CategoryID).ToDictionary(x=>x.Key,x=>x.ToList());
+            categoryList.ForEach(x =>
             {
-                CategoryList= IDataDictionaryService.GetSelectList(GroupCode.MusicCategory,""),
-                MusicList= IMusicService.GetSelectList()
-            };
-            return JResult(obj);
+                if (musicDic.ContainsKey(x.Value))
+                {
+                    x.Data = musicDic[x.Value];
+                }
+            });
+            return JResult(categoryList);
         }
     }
 }

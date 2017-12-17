@@ -15,14 +15,6 @@ namespace WST.Model
     [Table("PinTuan")]
     public class PinTuan : ActivityBase
     {
-        /// <summary>
-        /// 开始时间
-        /// </summary>
-        public DateTime StartTime { get; set; }
-        /// <summary>
-        /// 结束时间
-        /// </summary>
-        public DateTime EndTime { get; set; }
 
         /// <summary>
         /// 拼团人数和价格json集合
@@ -35,16 +27,7 @@ namespace WST.Model
         /// </summary>
         [MaxLength(1024)]
         public string PinTuanItemInfo { get; set; }
-
-        /// <summary>
-        /// 商品json集合 类在活动类里面
-        /// </summary>
-        public string GoodsItemsJson { get; set; }
-
-        /// <summary>
-        /// 原价
-        /// </summary>
-        public decimal OldPrice { get; set; }
+        
 
         /// <summary>
         /// 参加人数

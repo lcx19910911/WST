@@ -54,6 +54,17 @@ namespace WST.Core.Code
         [Description("微信openid已存在.")]
         openid_had_exit = 14,
 
+
+        /// <summary>
+        /// 已过验证时间
+        /// </summary>
+        [Description("已过验证时间.")]
+        verification_time_out = 704,
+        /// <summary>
+        /// 账号已存在
+        /// </summary>
+        [Description("账号已存在.")]
+        user_account_already_exist = 701,
         #endregion
 
         #region 数据库操作 100-199
@@ -108,38 +119,14 @@ namespace WST.Core.Code
         /// </summary>
         [Description("编码已存在.")]
         system_key_already_exist = 203,
-
-        /// </summary>
-        [Description("该城市已有该店名的门店.")]
-        store_city__namealready_exist = 204,
+        
         /// </summary>
         [Description("手机号码已存在.")]
         system_phone_already_exist = 205,
 
         /// </summary>
-        [Description("该教练已有同样名称的课程.")]
-        store_coach_cours_ralready_exist = 206,
-
-        /// </summary>
-        [Description("该课程没有价格.")]
-        course_no_had_price = 207,
-
-
-        /// </summary>
-        [Description("该课程价格项目重复.")]
-        courseprice_name_extis = 207,
-
-
-
-        /// </summary>
-        [Description("邀请码已使用.")]
-        code_had_used = 208,
-
-
-        /// </summary>
         [Description("路径已存在.")]
         system_url_already_exist = 209,
-
 
 
 
@@ -152,16 +139,15 @@ namespace WST.Core.Code
         [Description("身份证号号码错误已存在.")]
         idcard_erroe = 211,
 
-        /// </summary>
-        [Description("衣柜已分配.")]
-        armoire_no_ralready_allot = 212,
+
 
         /// </summary>
-        [Description("衣柜未分配.")]
-        armoire_not_allot = 213,
+        [Description("路径已存在.")]
+        route_name_already_exist = 212,
+
         /// </summary>
-        [Description("衣柜号码已存在.")]
-        armoire_no_exit = 214,
+        [Description("路径下的模板代号已存在已存在.")]
+        route_class_name_already_exist = 213,
         #endregion
 
 
@@ -170,50 +156,7 @@ namespace WST.Core.Code
 
         #region 用户
 
-        /// <summary>
-        /// 用户还未登录
-        /// </summary>
-        [Description("用户还未登录.")]
-        user_login_error = 700,
 
-        /// <summary>
-        /// 账号已存在
-        /// </summary>
-        [Description("账号已存在.")]
-        user_account_already_exist = 701,
-
-
-        /// <summary>
-        /// 用户密码错误
-        /// </summary>
-        [Description("用户名或密码错误.")]
-        user_password_error = 702,
-
-        /// <summary>
-        /// 原始密码错误
-        /// </summary>
-        [Description("原始密码错误.")]
-        user_oldpassword_error = 703,
-
-        /// <summary>
-        /// 已过验证时间
-        /// </summary>
-        [Description("已过验证时间.")]
-        verification_time_out = 704,
-
-        /// <summary>
-        /// 邀请码错误
-        /// </summary>
-        [Description("邀请码错误.")]
-        invite_code_error = 705,
-
-
-
-        /// <summary>
-        /// 提现金额超出用户提成总额
-        /// </summary>
-        [Description("邀请码错误.")]
-        invite_amount_error =706,
 
 
         /// <summary>
@@ -224,17 +167,7 @@ namespace WST.Core.Code
         #endregion
 
 
-        /// </summary>
-        [Description("邀请码已使用")]
-        no_had_used =801,
-
-        /// </summary>
-        [Description("邀请码号码不存在")]
-        no_dont_exit = 802,
-
-        /// </summary>
-        [Description("邀请码号码过期")]
-        no_had_time_out= 803,
+    
 
         /// <summary>
         /// 不在活动时间内

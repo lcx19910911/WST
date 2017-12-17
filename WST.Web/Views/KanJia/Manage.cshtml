@@ -12,10 +12,12 @@
     <title>@ViewBag.Title</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <link rel="stylesheet" type="text/css" href="~/assets/css/reset.css?v=kanjia1">
-    <link rel="stylesheet" type="text/css" href="~/assets/css/editkanjia.css?v=kanjia1">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/reset.css?v=kanjia3">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/editkanjia.css?v=kanjia3">
+    <link href="~/assets/css/common.css?v=kanjia3" rel="stylesheet" />
     <script type="text/javascript" src="~/assets/js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="~/assets/js/importkanjia.js"></script>
+    <script src="~/assets/js/common.js"></script>
     <script src="~/assets/js/jquery.form.js"></script>
     <script>
         $(function () {
@@ -23,14 +25,31 @@
             $.ajax({
                 url: '/config/getmusiclist',
                 success: function (data) {
-                    $(data.Result.MusicList).each(function (i, item) {
-                        if (item.Url == music) {
-                            $(".music-component-wrapper ul").append('<li class="music-list" data-music="' + item.Value + '"><i class="icon icon-music"></i>' + item.Text + '</li>');
-                        }
-                        else {
-                            $(".music-component-wrapper ul").append('<li class="music-list play" data-music="' + item.Value + '"><i class="icon icon-music"></i>' + item.Text + '</li>')
-                        }
-                    })
+                    if (data.Result != null && data.Result.length > 0) {
+                        $(data.Result).each(function (i, item) {
+                            if (item.Value != "-1") {
+                                var html = '<li class="music-list" data-class="class2"> <h3>' + item.Text + '</h3>';
+                                if (item.Data != null) {
+                                    html += '<div class="box">';
+                                    $(item.Data).each(function (y, obj) {
+                                        if (obj.Url == music) {
+                                            html += '<div class="music-item" data-music="' + obj.Url + '"><i class="icon icon-music"></i>' + obj.Name + ' </div>';
+                                        }
+                                        else {
+                                            html += '<div class="music-item" data-music="' + obj.Url + '"><i class="icon icon-music"></i>' + obj.Name + ' </div>';
+                                        }
+                                    })
+                                    html += '</div>';
+                                }
+
+                                html += '</li>';
+                                $(".music-component-wrapper ul").append(html);
+                            }
+                        })
+                    }
+                    else {
+                        $(".music-component-wrapper ul").append('<li class="music-list music-item" data-music="">无背景音乐</li>');
+                    }
                 }
             })
 
@@ -60,13 +79,30 @@
 
             <div class="music-component-wrapper hidden">
                 <ul>
-                    @*<!-- data-music: 完整的音乐文件路径 -->
-                        <li class="music-list play" data-music="">无背景音乐</li>
-                        <!-- 音乐列表 -->
-                        <li class="music-list" data-music="http://wst.com/assets/music/music1.mp3"><i class="icon icon-music"></i>音乐1</li>
-                        <li class="music-list" data-music="http://wst.com/assets/music/music2.mp3"><i class="icon icon-music"></i>音乐2</li>
-                        <li class="music-list" data-music="http://wst.com/assets/music/music3.mp3"><i class="icon icon-music"></i>音乐3</li>*@
+                </ul>
+                <div class="btn">
+                    <span class="cancel">取消</span>
+                    <span class="sure">确认</span>
+                </div>
+            </div>
 
+            <div class="music-component-wrapper hidden">
+                <ul>
+                    <!-- data-music: 完整的音乐文件路径 -->
+                    <li class="music-list music-item" data-music="">无背景音乐</li>
+                    <!-- 音乐列表 -->
+                   
+                    <li class="music-list" data-class="class2">
+                        <h3>分类2</h3>
+                        <div class="box">
+                            <div class="music-item" data-music="http://wst.fjyouwo.com/assets/music/music1.mp3">
+                                <i class="icon icon-music"></i>音乐1
+                            </div>
+                            <div class="music-item" data-music="http://wst.fjyouwo.com/assets/music/music1.mp3">
+                                <i class="icon icon-music"></i>音乐2
+                            </div>
+                        </div>
+                    </li>
                 </ul>
                 <div class="btn">
                     <span class="cancel">取消</span>
@@ -306,6 +342,8 @@
         <form id="submit-form" class="submit-form" method="POST" action="" target="export" enctype="multipart/form-data">
 
             <input type="text" name="ID" value="@(Model.ID.IsNullOrEmpty()?"":Model.ID)">
+
+            <input type="text" name="TemplateUrl" value="@(Model.ID.IsNullOrEmpty()?Request["TemplateUrl"]:Model.TemplateUrl)">
             <!-- 大图 -->
             <input type="text" name="Picture" class="Picture required" data-required="请上传图片">
 

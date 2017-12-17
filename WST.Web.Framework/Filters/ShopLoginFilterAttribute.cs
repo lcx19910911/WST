@@ -24,14 +24,14 @@ namespace WST.Web.Framework.Filters
         public override void OnActionExecuting(ActionExecutingContext filterContext)
         {
             var controller = filterContext.Controller as BaseShopController;
+            string requestUrl = filterContext.HttpContext.Request.Url.ToString();
 
-            //if (!controller.LoginUser.IsMember)
-            //{
-            //    RedirectResult redirectResult = new RedirectResult("/user/buytime");
-            //    filterContext.Result = redirectResult;
-            //}
-
-            if (controller.LoginUser.EndTime<DateTime.Now)
+            if (controller.LoginUser==null)
+            {
+                RedirectResult redirectResult = new RedirectResult("/login/Index?redirecturl=" + requestUrl);
+                filterContext.Result = redirectResult;
+            }
+            else if (controller.LoginUser.EndTime<DateTime.Now)
             {
                 RedirectResult redirectResult = new RedirectResult("/user/buytime");
                 filterContext.Result = redirectResult;

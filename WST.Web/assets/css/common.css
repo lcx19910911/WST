@@ -19,10 +19,7 @@
     background-size: 90% 90%;
     opacity: 0.9;
 }
-.global-orderBtn-wrapper .load {
-    background-image: url(../img/banner/musicLoad.png);
-    animation: rotation 1s linear infinite;
-}
+
 .global-orderBtn-wrapper .play {
     background-image: url(../img/banner/musicPlay.png);
     animation: rotation 2s linear infinite;
@@ -52,4 +49,64 @@
     background: rgba(0,0,0,0.8) url(../img/banner/shareInfo.png) right top no-repeat;
     background-size: 90% auto;
     z-index: 1000;
+}
+/*music-component-wrapper*/
+.music-component-wrapper {
+    overflow: hidden;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 5em 2em;
+    background: rgba(0,0,0,.6);
+    z-index: 1000;
+}
+.music-component-wrapper ul {
+    position: relative;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overflow-y: auto;
+    padding: 0 1em;
+}
+.music-component-wrapper ul li {
+    line-height: 2.5em;
+    text-align: left;
+    font-size: 1.2em;
+    color: #ccc;
+    border-bottom: 1px dashed #eee;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.music-component-wrapper ul li h3 {
+    color: #333;
+}
+.music-component-wrapper ul li h3:before {
+    display: inline-block;
+    content: '+';
+    width: 2em;
+    text-indent: 1em;
+}
+.music-component-wrapper ul .open h3:before {
+    content: '-';
+}
+.music-component-wrapper .music-item {
+    text-indent: 2em;
+}
+.music-component-wrapper ul li .box {
+    display: none;
+}
+.music-component-wrapper ul .open .box {
+    display: block;
+}
+
+.music-component-wrapper .icom {
+    color: inherit;
+}
+.music-component-wrapper ul li .icon {
+    margin-right: 0.5em;
 }

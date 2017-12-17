@@ -15,9 +15,13 @@ namespace WST.Web.Controllers
     public class HomeController : BaseUserController
     {
         public IUserService IUserService;
-        public HomeController(IUserService _IUserService)
+        public ITemplateService ITemplateService;
+        public ITemplateCategoryService ITemplateCategoryService;
+        public HomeController(IUserService _IUserService, ITemplateService _ITemplateService, ITemplateCategoryService _ITemplateCategoryService)
         {
             this.IUserService = _IUserService;
+            this.ITemplateService = _ITemplateService;
+            this.ITemplateCategoryService = _ITemplateCategoryService;
         }
         // GET: Home
         public ActionResult Index(string id)
@@ -27,7 +31,19 @@ namespace WST.Web.Controllers
             {
                 this.LoginUser = new Core.Model.LoginUser(userModel);
             }
-            return View();
+
+            var tempelateList = ITemplateService.GetList(x=>!x.IsDelete);
+            var categoryIdList = tempelateList.Select(x => x.CategoryID).Distinct().ToList();
+            var dic = ITemplateCategoryService.GetDic(x => categoryIdList.Contains(x.ID) && !x.IsDelete);
+            tempelateList.ForEach(x =>
+            {
+                if(dic.ContainsKey(x.CategoryID))
+                {
+                    x.RotueName = dic[x.CategoryID].RouteName;
+                    x.TemplateUrl = $"/Template/{dic[x.CategoryID].RouteName}/{x.ClassNo}";
+                }
+            });
+            return View(tempelateList);
         }
 
 

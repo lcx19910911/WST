@@ -26,18 +26,6 @@ $(function () {
     // 上传图片全局变量
     var uploadImgTarget;
 
-    //解决ios不能自动播放音乐
-    function audioAutoPlay(id){  
-        var audio = document.getElementById(id);  
-        audio.play();  
-        document.addEventListener("WeixinJSBridgeReady", function () {  
-                audio.play();  
-        }, false);  
-        document.addEventListener('YixinJSBridgeReady', function() {  
-            audio.play();  
-        }, false);  
-    }
-    audioAutoPlay('audio');
 
     // 预览活动
     var judge = true;
@@ -65,26 +53,6 @@ $(function () {
         setTimeout(function () {
             judge = true;
         }, 1000);
-    })
-    // 显示音乐列表
-    .on('click', '.music-btn', function () {
-        $('.music-component-wrapper').removeClass('hidden')
-    })
-    // 选择音乐
-    .on('click', '.music-component-wrapper .music-list', function () {
-        $(this).addClass('play').siblings().removeClass('play');
-
-        $('#audio').attr('src', $(this).attr('data-music'));
-    })
-    // 取消
-    .on('click', '.music-component-wrapper .cancel', function () {
-        $('#audio').attr('src', $('#audio').attr('oldsrc'));
-        $('.music-component-wrapper').addClass('hidden');
-    })
-    // 确认选择音乐
-    .on('click', '.music-component-wrapper .sure', function () {
-        $('#audio').attr('oldsrc', $('.play').attr('data-music'));
-        $('.music-component-wrapper').addClass('hidden');
     })
     // 显示图片
     .on('click', '.change-bg-btn', function () {

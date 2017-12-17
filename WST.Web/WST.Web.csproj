@@ -256,18 +256,13 @@
     <Content Include="Areas\Admin\HtmlTemplates\Adviser\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Admin\ChangePassword.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Admin\Update.html" />
-    <Content Include="Areas\Admin\HtmlTemplates\Card\Update.html" />
-    <Content Include="Areas\Admin\HtmlTemplates\Armoire\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\SyllabusItem\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Syllabus\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\StoreCategory\Update.html" />
-    <Content Include="Areas\Admin\HtmlTemplates\GoodsCategory\Update.html" />
-    <Content Include="Areas\Admin\HtmlTemplates\Department\SelectDepartment.html" />
-    <Content Include="Areas\Admin\HtmlTemplates\Goods\Update.html" />
+    <Content Include="Areas\Admin\HtmlTemplates\Template\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\TemplateCategory\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\User\Index.html" />
     <Content Include="Areas\Admin\HtmlTemplates\User\Update.html" />
-    <Content Include="Areas\Admin\HtmlTemplates\Department\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Menu\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Operate\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Relation\Update.html" />
@@ -279,7 +274,6 @@
     <Content Include="Areas\Admin\HtmlTemplates\Demo\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\ActivityCategory\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Area\Update.html" />
-    <Content Include="Areas\Admin\HtmlTemplates\Coach\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Store\Update.html" />
     <Content Include="Areas\Admin\Images\404Pic.png" />
     <Content Include="Areas\Admin\Images\favicon.ico" />
@@ -692,6 +686,7 @@
     <Content Include="assets\js\jquery-2.1.4.min.js" />
     <Content Include="assets\js\jquery.form.js" />
     <Content Include="assets\js\my.js" />
+    <Content Include="assets\js\renderPage.js" />
     <Content Include="assets\js\swiper-3.3.1.jquery.min.js" />
     <Content Include="assets\js\vue-resource.js" />
     <Content Include="assets\js\vue-resource.min.js" />
@@ -739,6 +734,7 @@
     <Compile Include="App_Start\UnityMvcActivator.cs" />
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
     <Compile Include="Areas\Admin\Controllers\CarouselController.cs" />
+    <Compile Include="Areas\Admin\Controllers\MiaoShaController.cs" />
     <Compile Include="Areas\Admin\Controllers\MusicController.cs" />
     <Compile Include="Areas\Admin\Controllers\KanJiaController.cs" />
     <Compile Include="Areas\Admin\Controllers\PinTuanController.cs" />
@@ -766,6 +762,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\MiaoShaController.cs" />
     <Compile Include="Controllers\PinTuanController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\UserWechatController.cs" />
@@ -835,6 +832,7 @@
     <Content Include="assets\css\fonts\icomoon.ttf" />
     <Content Include="assets\css\fonts\icomoon.woff" />
     <Content Include="Areas\Admin\Views\Music\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\MiaoSha\Index.cshtml" />
     <None Include="Properties\PublishProfiles\WST.pubxml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
