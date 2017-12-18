@@ -300,7 +300,7 @@
 
         <!-- groupBooking -->
         <div class="groupBooking-wrapper mt10 w90 m10 f11">
-            @if (isUser && !isOther)
+            @if (isUser && isOther)
             {
             <div class="groupBooking-list">
                 <span>当前价格：</span>
@@ -492,7 +492,7 @@
 
             <div class="model-list apply-item">
                 <div class="model-list-title">
-                    <span id="spanName">砍价人员</span>
+                    <span id="spanName">@(isUser && isOther ? "砍价人员": "报名人员") </span>
                 </div>
                 <div class="model-list-body pb10">
                     <div class="apply-user-list apply-user-title">
@@ -650,7 +650,6 @@
                                         }
                                         else
                                         {
-                                            $("#spanName").text("报名用户");
                                             //不是展示商家活动的报名用户
                                             if(obj.TargetUserID==null)
                                             {
@@ -661,6 +660,7 @@
                                     else
                                     {
                                         //展示当前活动的砍价记录
+                                        
                                         if(obj.TargetUserID=='@(ViewBag.JoinUserID )')
                                         {
                                             $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="price">'+obj.Amount+'元</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')

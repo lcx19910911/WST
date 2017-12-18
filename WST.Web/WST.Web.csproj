@@ -910,7 +910,7 @@
     <Content Include="Views\User\BuyTime.cshtml" />
     <Content Include="Views\Shop\ActList.cshtml" />
     <Content Include="Views\User\PersonData.cshtml" />
-    <Content Include="Views\User\JoinUser.cshtml" />
+    <Content Include="Views\Shop\JoinUser.cshtml" />
     <Content Include="Views\User\Wallet.cshtml" />
     <Content Include="Views\Base\_505.cshtml" />
     <Content Include="Template\kanjia\shengdan\model.json" />

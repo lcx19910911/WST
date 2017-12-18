@@ -666,21 +666,16 @@
                     }
                 })
             })
-            debugger
             @{ 
                 DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-                TimeSpan diff = DateTime.Now - origin;
-                var startTimeStamp= Math.Floor(diff.TotalSeconds);
 
                 TimeSpan endDiff = Model.StartTime - origin;
                 var endimeStamp = Math.Floor(endDiff.TotalSeconds);
                 
             }
             //倒计时
-            var start = @(startTimeStamp);
-            var end = @(endimeStamp);
-
-            cutDown(start, end);
+            var timestamp = Date.parse(new Date())
+            cutDown(timestamp, endimeStamp);
 
             function cutDown(start, end) {
                 var t = parseInt(end) - parseInt(start);
