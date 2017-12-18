@@ -163,6 +163,16 @@ namespace WST.Web.Controllers
                 pintuan.ShareCount++;
                 return JResult(IPinTuanService.Update(pintuan));
             }
+            else if (code == TargetCode.Miaosha)
+            {
+                var miaosha = IMiaoShaService.Find(id);
+                if (miaosha == null || miaosha.IsDelete)
+                {
+                    return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
+                }
+                miaosha.ShareCount++;
+                return JResult(IMiaoShaService.Update(miaosha));
+            }
             return DataErorrJResult();
         }
 

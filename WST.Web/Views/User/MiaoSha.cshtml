@@ -554,7 +554,7 @@
                 url: '/user/AddShare',
                 data: {
                     id: '@(Model.ID)',
-                    code:@(TargetCode.Kanjia.GetInt()),
+                    code:@(TargetCode.Miaosha.GetInt()),
                 },
                 success: function (data) {
                     if (data.Code == 0) {
@@ -666,16 +666,17 @@
                     }
                 })
             })
-            @{ 
+            @{
                 DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
 
                 TimeSpan endDiff = Model.StartTime - origin;
                 var endimeStamp = Math.Floor(endDiff.TotalSeconds);
-                
+
             }
             //倒计时
-            var timestamp = Date.parse(new Date())
-            cutDown(timestamp, endimeStamp);
+            var timestamp = new Date().getTime();
+            var endTimeStamp = new Date(@(Model.StartTime.AddMonths(-1).ToString("yyyy,MM,dd,HH,mm,ss"))).getTime();
+            cutDown(timestamp, endTimeStamp);
 
             function cutDown(start, end) {
                 var t = parseInt(end) - parseInt(start);
