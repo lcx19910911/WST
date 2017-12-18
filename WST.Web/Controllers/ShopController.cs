@@ -37,6 +37,7 @@ namespace WST.Web.Controllers
             this.IUserActivityService = _IUserActivityService;
             this.IPinTuanService = _IPinTuanService;
             this.IKanJiaService = _IKanJiaService;
+            this.IMiaoShaService = _IMiaoShaService;
         }
 
         // GET: User

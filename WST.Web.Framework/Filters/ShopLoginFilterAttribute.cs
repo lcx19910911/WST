@@ -31,7 +31,7 @@ namespace WST.Web.Framework.Filters
                 RedirectResult redirectResult = new RedirectResult("/login/Index?redirecturl=" + requestUrl);
                 filterContext.Result = redirectResult;
             }
-            else if (controller.LoginUser.EndTime<DateTime.Now)
+            else if (controller.LoginUser.EndTime.HasValue&&controller.LoginUser.EndTime<DateTime.Now)
             {
                 RedirectResult redirectResult = new RedirectResult("/user/buytime");
                 filterContext.Result = redirectResult;
