@@ -184,7 +184,7 @@ namespace WST.Web.Controllers
             });
 
             var miaoshaList = IMiaoShaService.GetList(x => x.UserID == LoginUser.ID);
-            pintuanList.ForEach(x =>
+            miaoshaList.ForEach(x =>
             {
                 model.Add(new Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, TargetCode.Miaosha));
             });
@@ -196,7 +196,7 @@ namespace WST.Web.Controllers
             ViewBag.NonceStr = WxPayApi.GenerateNonceStr();
             ViewBag.Signature = WxPayApi.GetSignature(Request.Url.ToString().Split('#')[0], cacheToken, ViewBag.TimeStamp, ViewBag.NonceStr);
 
-            ViewBag.List = model;
+            ViewBag.List = model.OrderByDescending(x=>x.Item4).ToList();
             return View();
         }
     }

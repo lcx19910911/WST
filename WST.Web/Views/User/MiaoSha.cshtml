@@ -6,6 +6,7 @@
     var miaoshaList = ViewBag.KanJiaList as List<UserActivity>;
     var user = LoginHelper.GetCurrentUser();
     var isUser = Model.UserID == user.ID;
+    var guid = new Guid().ToString("N");
 }
 
 <!DOCTYPE html>
@@ -668,11 +669,11 @@
             debugger
             @{ 
                 DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
-                TimeSpan diff = Model.StartTime - origin;
+                TimeSpan diff = DateTime.Now - origin;
                 var startTimeStamp= Math.Floor(diff.TotalSeconds);
 
-                TimeSpan endDiff = Model.EndTime - origin;
-                var endimeStamp = Math.Floor(diff.TotalSeconds);
+                TimeSpan endDiff = Model.StartTime - origin;
+                var endimeStamp = Math.Floor(endDiff.TotalSeconds);
                 
             }
             //倒计时

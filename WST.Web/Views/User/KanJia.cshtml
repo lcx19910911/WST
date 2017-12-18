@@ -6,6 +6,7 @@
     var kanjiaList = ViewBag.KanJiaList as List<UserActivity>;
     var user = LoginHelper.GetCurrentUser();
     var isUser = Model.UserID == user.ID;
+    var isOther = Request["userActId"].IsNotNullOrEmpty();
 }
 
 <!DOCTYPE html>
@@ -299,6 +300,8 @@
 
         <!-- groupBooking -->
         <div class="groupBooking-wrapper mt10 w90 m10 f11">
+            @if (isUser && !isOther)
+            {
             <div class="groupBooking-list">
                 <span>当前价格：</span>
                 <span class="input e-input">@(ViewBag.Price)</span>
@@ -307,6 +310,7 @@
                 <span class="input e-input">@(kanjiaList?.Count)</span>
                 <span>次</span>
             </div>
+            }
             <div class="groupBooking-list clearfix">
                 <div class="w100 fl">
                     <span>原价与底价：</span>
@@ -488,7 +492,7 @@
 
             <div class="model-list apply-item">
                 <div class="model-list-title">
-                    <span>砍价人员</span>
+                    <span id="spanName">砍价人员</span>
                 </div>
                 <div class="model-list-body pb10">
                     <div class="apply-user-list apply-user-title">
@@ -525,7 +529,7 @@
     <script src="~/Areas/Admin/Scripts/utility.js"></script>
     <script>
         var isUser="@(isUser?"1":"0")"=="1";
-
+        var isOther="@(isOther ? "1":"0")"=="1";
         wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
             appId: "@ViewBag.AppId", // 必填，公众号的唯一标识
@@ -632,15 +636,32 @@
                                 PageCount = data.Result.PageCount;
                                 var list = data.Result.List;
                                 $.each(list, function (i, obj) {
+                                    //判断是否是创建者自身的
                                     if(isUser)
                                     {
-                                        if(obj.TargetUserID==null)
+                                        //判断当前活动是否是别人参与的砍价
+                                        if(isOther)
                                         {
-                                            $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="price">'+obj.Amount+'元</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
-                                        }}
+                                            //展示当前活动的砍价记录
+                                            if(obj.TargetUserID=='@(ViewBag.JoinUserID )')
+                                            {
+                                                $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="price">'+obj.Amount+'元</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
+                                            }
+                                        }
+                                        else
+                                        {
+                                            $("#spanName").text("报名用户");
+                                            //不是展示商家活动的报名用户
+                                            if(obj.TargetUserID==null)
+                                            {
+                                                $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="price">'+obj.Amount+'元</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
+                                            }
+                                        }
+                                    }
                                     else
                                     {
-                                        if(obj.TargetUserID!=null)
+                                        //展示当前活动的砍价记录
+                                        if(obj.TargetUserID=='@(ViewBag.JoinUserID )')
                                         {
                                             $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="price">'+obj.Amount+'元</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
                                         }

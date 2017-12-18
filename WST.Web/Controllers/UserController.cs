@@ -257,7 +257,7 @@ namespace WST.Web.Controllers
                 if (userActivityModel.JoinUserID == LoginUser.ID)
                 {
                     var startTime = DateTime.Now.AddHours(-(model.LimitHour));
-                    if (IUserActivityService.IsExits(x => x.TargetID == userActivityModel.TargetID && x.TargetUserID == LoginUser.ID && x.CreatedTime > startTime))
+                    if (IUserActivityService.IsExits(x => x.TargetID == userActivityModel.TargetID && x.TargetUserID == LoginUser.ID&&x.JoinUserID==LoginUser.ID && x.CreatedTime > startTime))
                     {
                         return JResult(Core.Code.ErrorCode.time_limit_error, "");
                     }
@@ -305,7 +305,7 @@ namespace WST.Web.Controllers
                     IsPrize = false,
                     IsUsedOnLine = false,
                     PrizeInfo = $"用户{LoginUser.Account}帮助用户{userActivityModel.JoinUserName}砍价{kanPrice}，现价{userActivityModel.Amount}",
-                    Amount = userActivityModel.Amount,
+                    Amount = kanPrice,
                     ShopUserID = model.UserID,
                     JoinUserName = LoginUser.Account,
                     TargetID = userActivityModel.TargetID
