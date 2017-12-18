@@ -186,7 +186,7 @@ namespace WST.Service
             using (DbRepository db = new DbRepository())
             {
                 DbSet<T> dbSet = db.Set<T>();
-                return dbSet.Where(x => x.IsDelete).Where(predicate).Count();
+                return dbSet.Where(x => !x.IsDelete).Where(predicate).Count();
             }
         }
 
