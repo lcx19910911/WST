@@ -110,3 +110,10 @@
 .music-component-wrapper ul li .icon {
     margin-right: 0.5em;
 }
+
+#countDown {
+    text-align: center;
+    color: #f00;
+    line-height: 1.5em;
+    padding-bottom: 0.7em;
+}

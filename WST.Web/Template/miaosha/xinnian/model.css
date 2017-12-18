@@ -1,0 +1,95 @@
+/*model css*/
+html {
+	background: #D7010D;
+}
+.l .title-wrapper {
+	margin-top: 0;
+	background: #F4CB01;
+	padding: 1em 0 4em;
+	box-shadow: 0px 0.5em 1em 2px rgba(0,0,0,0.6);
+}
+#title, #title * {
+	color: #f00!important;
+}
+.l .activity-wrapper {
+	width: 80%;
+	margin: -2.5em auto 0;
+	padding: 1em 0 1.3em;
+	line-height: 1.8em;
+	background-size: 100%;
+	background: #DC000E;
+	border-radius: 0.5em;
+	box-shadow: 0 1px 1px 0 rgba(91, 1, 7, 0.5);
+}
+.activity-wrapper * {
+	color: #F1CE04!important;
+	font-weight: bold;
+}
+
+.activity-wrapper h3 {
+	font-size: 1.3em;
+}
+
+.groupBooking-wrapper .sub-group {
+	background: #FCE8C9!important;
+}
+.groupBooking-wrapper .groupBooking-list:nth-child(1) * {
+	color: #F1CE04!important;
+	font-weight: bold;
+}
+.groupBooking-list * {
+	color: #F1CE04!important;
+}
+
+.l .model-list-body {
+	border: 0.2rem solid transparent;
+	background: #F4CB01;
+	margin-top: 1.5em;
+}
+.l .model-list-title {
+	height: 4em;
+	line-height: 2.3em;
+	text-indent: 0;
+	background: none;
+	background-size: 100% auto;
+}
+.l .model-list-title span {
+	width: 100%;
+	margin-bottom: 0.7em;
+	color: #fff;
+	background: url(/Template/miaosha/xinnian/img/title_top.png) center left no-repeat;
+	background-size: 8em;
+	text-align: right;
+	padding: 0.5em 1em 0;
+	font-weight: 100;
+}
+
+
+.l .add-child span {
+	background: #D7010D;
+	color: #fff;
+	border-color: #D7010D;
+}
+.l .foot-wrapper .button {
+	background: #D7010D;
+	color: #fff;
+	border-color: #D7010D;
+}
+.l .foot-wrapper .view-btn {
+	background: #fff;
+	color: #D7010D;
+}
+.music-component-wrapper ul .play {
+	color: #D7010D;
+}
+.title-wrapper *, .l .textarea, .l .input, .v-p, .v-span, .phone-number {
+	color: #fff;
+}
+.music-component-wrapper .btn span {
+	background: #D7010D;
+	color: #fff;
+}
+.music-component-wrapper .btn .cancel {
+	background: #fff;
+	color: #D7010D;
+}

@@ -20,7 +20,6 @@ namespace WST.Model
         /// 模板路径  /kanjia/xinnian/
         /// </summary>
         [MaxLength(32)]
-        [Required]
         public string TemplateUrl { get; set; }
 
 

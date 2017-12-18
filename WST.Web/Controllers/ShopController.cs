@@ -26,9 +26,10 @@ namespace WST.Web.Controllers
         public IPinTuanService IPinTuanService;
         public IKanJiaService IKanJiaService;
         public IUserActivityService IUserActivityService;
+        public IMiaoShaService IMiaoShaService;
 
         public ShopController(IUserService _IUserService, IRechargePlanService _IRechargePlanService, IPayOrderService _IPayOrderService,
-            IPinTuanService _IPinTuanService, IUserActivityService _IUserActivityService, IKanJiaService _IKanJiaService)
+            IPinTuanService _IPinTuanService, IUserActivityService _IUserActivityService, IKanJiaService _IKanJiaService, IMiaoShaService _IMiaoShaService)
         {
             this.IUserService = _IUserService;
             this.IRechargePlanService = _IRechargePlanService;
@@ -174,12 +175,20 @@ namespace WST.Web.Controllers
                 return new Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, TargetCode.Kanjia);
             }).ToList();
             model.AddRange(kanjiaList);
-            var list = IPinTuanService.GetList(x => x.UserID == LoginUser.ID);
-            list.ForEach(x =>
+
+            var pintuanList = IPinTuanService.GetList(x => x.UserID == LoginUser.ID);
+            pintuanList.ForEach(x =>
             {
                 model.Add(new Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, TargetCode.Pintuan));
             });
-            
+
+            var miaoshaList = IMiaoShaService.GetList(x => x.UserID == LoginUser.ID);
+            pintuanList.ForEach(x =>
+            {
+                model.Add(new Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, TargetCode.Miaosha));
+            });
+
+
             ViewBag.AppId = Params.WeixinAppId;
             string cacheToken = WxPayApi.GetCacheToken(Params.WeixinAppId, Params.WeixinAppSecret);
             ViewBag.TimeStamp = WxPayApi.GenerateTimeStamp();

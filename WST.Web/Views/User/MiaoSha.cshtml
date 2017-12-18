@@ -1,0 +1,706 @@
+﻿@using WST.Core.Extensions;
+@model MiaoSha
+@{
+    ViewBag.Title = Model?.Name.NoHTML();
+    Layout = null;
+    var miaoshaList = ViewBag.KanJiaList as List<UserActivity>;
+    var user = LoginHelper.GetCurrentUser();
+    var isUser = Model.UserID == user.ID;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/reset.css?v=miaoaha3">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style1.css?v=miaoaha3">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/common.css?v=miaoaha3">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/editmiaosha.css?v=miaoaha3">
+    <script type="text/javascript" src="~/assets/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/my.js"></script>
+    <script type="text/javascript" src="~/assets/js/common.js"></script>
+    <style>
+        html {
+        }
+
+        .app {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            overflow-y: auto;
+            padding-bottom: 3em;
+        }
+
+        .apply-user-title {
+            margin-top: -1em;
+            border-bottom: 1px dashed #e5e5e5;
+        }
+
+            .apply-user-title .name {
+                color: #525250;
+                text-indent: 0.5em;
+            }
+
+            .apply-user-title .phone {
+                color: #faa139;
+            }
+
+        .apply-user-list {
+            line-height: 2em;
+            overflow: hidden;
+            text-align: left;
+        }
+
+            .apply-user-list .name {
+                float: left;
+                width: 30%;
+                color: #525250;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .apply-user-list .phone {
+                float: right;
+                width: 35%;
+                color: #faa139;
+                text-align: center;
+            }
+
+        .apply-info-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1000;
+        }
+
+            .apply-info-wrapper .amask {
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,.7);
+            }
+
+            .apply-info-wrapper ul {
+                position: absolute;
+                top: 45%;
+                left: 50%;
+                margin-top: -5em;
+                margin-left: -40%;
+                width: 80%;
+                min-height: 10em;
+                background: #fff;
+                color: #1f90ca;
+                padding: 0 1em;
+                border-radius: 3px;
+            }
+
+                .apply-info-wrapper ul li h3 {
+                    line-height: 2.5em;
+                    text-indent: 1em;
+                    font-size: 1.2em;
+                    border-bottom: 2px dashed #eee;
+                }
+
+                .apply-info-wrapper ul li {
+                    line-height: 3em;
+                    text-align: center;
+                }
+
+                    .apply-info-wrapper ul li input {
+                        width: 50%;
+                        /* padding: 0 1em; */
+                        padding: 0;
+                        text-indent: 1em;
+                        border: 0;
+                        border-bottom: 1px solid #ccc;
+                        background: none;
+                        outline: none;
+                        color: #43a3d4;
+                    }
+
+                        .apply-info-wrapper ul li input:focus {
+                            border-color: #43a3d4;
+                        }
+
+                    .apply-info-wrapper ul li .msg {
+                        line-height: 1em;
+                    }
+
+                    .apply-info-wrapper ul li .button {
+                        padding: 0;
+                        border-radius: 5px;
+                        width: 80%;
+                        height: 2em;
+                        line-height: 2em;
+                        float: none;
+                        margin: 0 auto 1em;
+                    }
+
+        .foot-btn-wrapper {
+            overflow: hidden;
+            position: fixed;
+            left: 0;
+            bottom: 1em;
+            width: 100%;
+            text-align: center;
+        }
+
+            .foot-btn-wrapper .button {
+                float: none;
+                display: inline-block;
+                width: 40%;
+                text-align: center;
+                padding: 0;
+                border-radius: 6px;
+                margin-left: 1em;
+            }
+
+        .l .block {
+            display: block !important;
+            width: 100%;
+        }
+
+            .l .block .btn {
+                width: 100%;
+                text-align: left;
+                border-radius: 0;
+            }
+
+                .l .block .btn span:nth-child(even) {
+                    margin-right: 1em;
+                }
+
+
+        .apply-user-list {
+            line-height: 2em;
+            overflow: hidden;
+            text-align: left;
+        }
+
+            .apply-user-list span {
+                float: left;
+                width: 30%;
+            }
+
+            .apply-user-list .name {
+                color: #525250;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+
+            .apply-user-list .price {
+                color: #525250;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+                text-align: center;
+                color: #f00;
+            }
+
+            .apply-user-list .phone {
+                width: 39%;
+                color: #faa139;
+                text-align: center;
+            }
+    </style>
+    <link rel="stylesheet" type="text/css" href="~@(Model.TemplateUrl)/model.css">
+</head>
+<body>
+    <div class="app l view">
+        <div class="global-btn-wrapper block">
+            <div class="btn c-fff f09">
+                <span>浏览量：</span>
+                <span>@Model.ClickCount</span>
+                <span>分享量：</span>
+                <span>@Model.ShareCount</span>
+                <span>报名人数：</span>
+                <span>@Model.ReportCount</span>
+            </div>
+        </div>
+        <div class="global-component-wrapper">
+            <div class="global-orderBtn-wrapper">
+                <!-- 音乐开关 有音乐类名为play 没有为pause -->
+                <div class="btn player-btn play" data-status="play"></div>
+                <!-- 分享提示 -->
+                <div class="btn share-info"></div>
+                <!-- 联系商家 -->
+                <div class="btn contact-merchant"><a href="tel:@(Model.PhoneNumber)"></a></div>
+            </div>
+
+            <div class="share-page-wrapepr hidden">
+                <div class="amask"></div>
+            </div>
+
+
+            <div class="audio-component-wrapper hidden">
+                <audio id="audio" oldsrc="@(Model.MusicUrl)" src="@(Model.MusicUrl)" autoplay="autoplay" preload="preload" loop="loop"></audio>
+            </div>
+
+            <div class="apply-info-wrapper hidden">
+                <div class="amask"></div>
+                <ul>
+                    <li>
+                        <h3>填写报名信息</h3>
+                    </li>
+                    <li>
+                        <span>姓名：</span>
+                        <input id="userName" type="text" name="" placeholder="请输入姓名" data-rules="请输入姓名">
+                    </li>
+                    <li>
+                        <span>手机：</span>
+                        <input id="userPhone" type="number" name="" placeholder="请输入手机号" data-rules="请输入手机号码">
+                    </li>
+                    <li>
+                        <span class="msg c-f00"></span>
+                        <div class="button submitUserInfo">提交</div>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- head -->
+        <div class="head-wrapper">
+            <div class="head-bg-wrapper">
+                <img id="banner" src="@(Model.Picture)">
+            </div>
+
+        </div>
+
+        <!-- title -->
+        <div class="title-wrapper mt15">
+            <div class="m00 w90">
+                <!-- <textarea id="title" class="textarea e-textarea f16 fB txt-center" value="喜迎购物节，课程低价疯狂抢">喜迎购物节，课程低价疯狂抢</textarea> -->
+                <div id="title" class="textarea e-textarea f16 fB txt-center">@(ViewBag.Title)</div>
+
+                <!-- <p class="v-p f16 fB txt-center"></p> -->
+            </div>
+        </div>
+
+        <!-- activity -->
+        <div class="activity-wrapper mt15">
+            <h3 for="startTime">活动时间:</h3>
+            <input id="startTime"
+                   type="text"
+                   disabled="true"
+                   name="startTime"
+                   class="input e-input timeinput"
+                   value="@(Model.StartTime.ToString("yyyy-MM-dd HH:mm"))" />
+            <span>到</span>
+            <input id="endTime"
+                   type="text"
+                   disabled="true"
+                   name="endTime"
+                   class="input e-input timeinput"
+                   value="@(Model.EndTime.ToString("yyyy-MM-dd HH:mm"))" />
+        </div>
+
+
+        <div id="countDown" class="groupBooking-list">
+            <h3>秒杀倒计时：</h3>
+            <span>00天 00 小时 00 分钟 00 秒</span>
+        </div>
+
+        <div class="groupBooking-list clearfix">
+            <div class="w100 fl">
+                <span>原价与秒杀价：</span>
+            </div>
+            <div class="w50 fl pl10">
+                <span>原价：</span>
+                <input id="oldPrice"
+                       type="number"
+                       disabled="true"
+                       name="oldPrice"
+                       class="input e-input w40"
+                       value="@(Model.OldPrice)">
+                <span class="">元</span>
+            </div>
+            <div class="w50 fl">
+                <span>秒杀价：</span>
+                <input id="lessPrice"
+                       type="number"
+                       disabled="true"
+                       name="lessPrice"
+                       class="input e-input w40"
+                       value="@(Model.LessPrice)">
+                <span class="">元</span>
+            </div>
+        </div>
+
+
+
+
+        <div class="groupBooking-list mt10 clearfix">
+            <div class="w50 fl">
+                <span>奖品数量：</span>
+                <input type="number" id="prizeCount" name="prizeCount" class="input e-input w20" value="@(Model.PrizeCount)">
+                <span class="">件</span>
+            </div>
+            <div class="w50 fl">
+                <span>已中奖数量：</span>
+                <input type="number" id="usedCount" name="usedCount" class="input e-input w20" value="@(Model.UsedCount)">
+                <span class="">件</span>
+            </div>
+        </div>
+        <!-- body -->
+        <div class="body-wrapper">
+
+            <div class="model-list goodsDescribe-item">
+                <div class="model-list-title">
+                    <span>商品描述</span>
+                </div>
+                <div class="model-list-body">
+                    <!-- sub-intro: 数据载体  data-type：类型-->
+                    <!-- 遍历数组 如果当前项type为txt 就生成文本类型 img生成图片类型 -->
+                    @foreach (var item in Model.GoodsItemsJson.DeserializeJson<List<TypeContentItem>>())
+                    {
+                        if (item.Type == "txt")
+                        {
+                              <!-- 文本类型 -->
+                            <div class="uploadImgLabel">
+                                <div id="subIntro0" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@Html.Raw(item.Content)</div>
+                            </div>
+
+                        }
+                        else
+                        {
+                    <!-- 图片类型 -->
+                            <label for="uploadImg" data-target="subIntro1" class="uploadImgLabel">
+                                <img id="subIntro1" class="sub-intro nosrc" data-type="img" src="@(item.Content)" alt="图片丢失">
+                            </label>
+                        }
+                    }
+
+                    @*<!-- 文本类型 -->
+                        <div class="uploadImgLabel">
+                            <div id="subIntro0" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">商品描述内容填充</div>
+                        </div>
+
+                        <!-- 图片类型 -->
+                        <label for="uploadImg" data-target="subIntro1" class="uploadImgLabel">
+                            <img id="subIntro1" class="sub-intro nosrc" data-type="img" src="图片路径" alt="图片丢失">
+                        </label>*@
+
+                </div>
+
+            </div>
+
+            <div class="model-list activityRule-item">
+                <div class="model-list-title">
+                    <span>活动规则</span>
+                </div>
+                <div class="model-list-body">
+
+                    <div id="rules" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@Html.Raw(Model.Rules)</div>
+
+                </div>
+            </div>
+
+            <div class="model-list acceptPrize-item">
+                <div class="model-list-title">
+                    <span>领取信息</span>
+                </div>
+                <div class="model-list-body">
+                    <div id="connact" contenteditable="false" class="textarea e-textarea" placeholder="输入领奖信息方便用户领奖，例：领奖时间、领奖地址、领奖电话">@Html.Raw(Model.Connact)</div>
+                </div>
+            </div>
+
+            <div class="model-list introduce-item">
+                <div class="model-list-title">
+                    <span>商家介绍</span>
+                </div>
+                <div class="model-list-body">
+
+                    @foreach (var item in Model.IntroduceTxtJson.DeserializeJson<List<TypeContentItem>>())
+                    {
+                        if (item.Type == "txt")
+                        {
+                    <!-- 文本 -->
+                            <div class="uploadImgLabel">
+                                <div id="subIntro4" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@(Html.Raw(item.Content))</div>
+                            </div>
+                        }
+                        else
+                        {
+                    <!-- 图片 -->
+                            <label for="uploadImg" data-target="subIntro1" class="uploadImgLabel">
+                                <img id="subIntro4" class="sub-intro nosrc" data-type="img" src="@(item.Content)" alt="图片丢失">
+                            </label>
+                        }
+                    }
+                    @*<!-- 文本 -->
+                        <div class="uploadImgLabel">
+                            <div id="subIntro4" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">商家介绍内容填充</div>
+                        </div>
+
+                        <!-- 图片 -->
+                        <label for="uploadImg" data-target="subIntro1" class="uploadImgLabel">
+                            <img id="subIntro4" class="sub-intro nosrc" data-type="img" src="" alt="图片丢失">
+                        </label>*@
+
+                </div>
+            </div>
+
+            <div class="model-list phone-item">
+                <div class="model-list-title">
+                    <span>咨询电话</span>
+                </div>
+                <div class="model-list-body pb10">
+                    <div class="phone-number txt-left">
+                        <i class="icon icon-hotline f12"></i>
+                        <input id="phoneNumber"
+                               type="number"
+                               disabled="true"
+                               class="input e-input"
+                               placeholder="请输入手机号码"
+                               value="@(Model.PhoneNumber)">
+                        <!-- <span class="v-span"></span> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="model-list apply-item">
+                <div class="model-list-title">
+                    <span>中奖人员</span>
+                </div>
+                <div class="model-list-body pb10">
+                    <div class="apply-user-list apply-user-title">
+                        <span class="name">名字</span>
+                        <span class="price">秒杀金额</span>
+                        <span class="phone">时间</span>
+                    </div>
+                    <!-- <div class="apply-user-list">
+                        <span class="name">龙傲天</span>
+                        <span class="phone">15000000000</span>
+                    </div> -->
+                </div>
+            </div>
+
+        </div>
+
+        <!-- foot -->
+        <div class="foot-btn-wrapper">
+            @if (!isUser)
+            {
+                if (Model.ReportCount < Model.PrizeCount && !ViewBag.IsReport)
+                {
+                    <div class="button apply-btn">我要秒杀</div>
+                }
+            }
+        </div>
+
+    </div>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
+    <script src="~/Areas/Admin/Scripts/utility.js"></script>
+    <script>
+        var isUser="@(isUser ? "1" : "0")"=="1";
+
+        wx.config({
+            debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
+            appId: "@ViewBag.AppId", // 必填，公众号的唯一标识
+            timestamp: "@ViewBag.TimeStamp", // 必填，生成签名的时间戳
+            nonceStr: "@ViewBag.NonceStr", // 必填，生成签名的随机串
+            signature: "@ViewBag.Signature",// 必填，签名，见附录1
+            jsApiList: ['jsApiList','onMenuShareTimeline','onMenuShareAppMessage'] // 必填，需要使用的JS接口列表，所有JS接口列表见附录2
+        });
+
+        var url='@(Params.SiteUrl + "user/miaosha?id=" + Model.ID)';
+        wx.ready(function(){
+
+            var config = {
+                title: '@Html.Raw(Model.Name)',
+                desc: '@Html.Raw(Model.Name)',
+                link: url,
+                imgUrl: '@(Params.SiteUrl)@(Model.Picture)',
+                type: 'link',
+                dataUrl: '',
+                success: function () {
+                    addShareCount();
+                },
+                cancel: function () {
+                    alert(res.errMsg);
+                }
+            }
+
+            //wx.hideOptionMenu();/***隐藏分享菜单****/
+            wx.checkJsApi({
+                jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage'],
+                success: function (res) {
+                    wx.onMenuShareAppMessage(config);
+
+                    // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
+                    wx.onMenuShareTimeline(config);
+
+                }
+            });
+            wx.error(function (res) {
+                alert(res.errMsg);
+            });
+
+        });
+
+        function addShareCount()
+        {
+            //砍价
+            $.ajax({
+                method: 'post',
+                url: '/user/AddShare',
+                data: {
+                    id: '@(Model.ID)',
+                    code:@(TargetCode.Kanjia.GetInt()),
+                },
+                success: function (data) {
+                    if (data.Code == 0) {
+                        alert("分享成功");
+                        window.location.reload();
+                    }
+                    else
+                        alert(data.ErrorDesc);
+                }
+            })
+        }
+        $(function () {
+            var pageIndex = 0, // 当前页索引
+                    pageSize = 10, // 每页数量
+                    RecordCount, // 全部数据总数
+                    PageCount, // 总页面数
+                    IsLastPage = false; // 最后一页
+
+            var timer,
+                    loadJudge = true;
+
+            // 下拉加载
+            $('.app').scroll(function (e) {
+
+                if (IsLastPage) {
+                    console.log('IsLastPage');
+                    return false;
+                }
+                if (!loadJudge) {
+                    console.log('loadJudge');
+                    return false;
+                }
+                if (this.scrollHeight < this.scrollTop + this.clientHeight + 20) {
+                    loadJudge = false;
+                    setTimeout(function () {
+                        loadJudge = true;
+                    }, 2000)
+
+
+                    $.ajax({
+                        url: '/user/GetUserPageList',
+                        data: {
+                            pageIndex: ++pageIndex,
+                            pageSize: pageSize,
+                            targetId: '@(Model.ID)'
+                        },
+                        success: function (data) {
+                            if (data.Code == 0) {
+                                IsLastPage = data.Result.IsLastPage;
+                                RecordCount = data.Result.RecordCount;
+                                PageCount = data.Result.PageCount;
+                                var list = data.Result.List;
+                                $.each(list, function (i, obj) {
+                                    if(isUser)
+                                    {
+                                            $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="price">'+obj.Amount+'元</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
+                                        }
+                                    else
+                                    {
+                                            $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="price">'+obj.Amount+'元</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
+                                    }
+                                })
+                            }
+                            else
+                                alert(data.ErrorDesc);
+                        }
+                    })
+                }
+            })
+
+            // 点击报名
+            $(document).on('click', '.apply-btn', function () {
+                $('.apply-info-wrapper').removeClass('hidden');
+            })
+            //.on('click', '.apply-info-wrapper .amask', function () {
+            //    $('.apply-info-wrapper').addClass('hidden');
+            //})
+            // 提交报名信息
+            .on('click', '.submitUserInfo', function () {
+                for (var i = 0; i < $('.apply-info-wrapper input').length; i++) {
+                    if ($('.apply-info-wrapper input').eq(i).val().length < 2) {
+                        $('.apply-info-wrapper .msg').text($('.apply-info-wrapper input').eq(i).attr('data-rules'));
+                        if (timer) clearTimeout(timer);
+                        timer = setTimeout(function () {
+                            $('.apply-info-wrapper .msg').text('');
+                        }, 5000)
+                        return false;
+                    }
+                }
+                $('.apply-info-wrapper .msg').text('');
+                console.log('pass');
+
+                $.ajax({
+                    url: '/user/tomiaosha',
+                    method:'post',
+                    data: {
+                        id: '@(Model.ID)',
+                        mobile: $('#userPhone').val(),
+                        name: $('#userName').val(),
+                        filedJson: ''
+                    },
+                    success: function (data) {
+                        if (data.Code == 0) {
+                            alert("秒杀成功");
+                            window.location.reload();
+                        }
+                        else
+                            alert(data.ErrorDesc);
+                    }
+                })
+            })
+            debugger
+            @{ 
+                DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
+                TimeSpan diff = Model.StartTime - origin;
+                var startTimeStamp= Math.Floor(diff.TotalSeconds);
+
+                TimeSpan endDiff = Model.EndTime - origin;
+                var endimeStamp = Math.Floor(diff.TotalSeconds);
+                
+            }
+            //倒计时
+            var start = @(startTimeStamp);
+            var end = @(endimeStamp);
+
+            cutDown(start, end);
+
+            function cutDown(start, end) {
+                var t = parseInt(end) - parseInt(start);
+                setInterval(function() {
+                    t-=1000;
+                    var d = parseInt(t / 1000 / 60 / 60 / 24 , 10); //计算剩余的天数
+                    var h = parseInt(t / 1000 / 60 / 60 % 24 , 10); //计算剩余的小时
+                    var m = parseInt(t / 1000 / 60 % 60, 10);//计算剩余的分钟
+                    var s = parseInt(t / 1000 % 60, 10);//计算剩余的秒数
+                    d = d < 10 ? '0'+d : d;
+                    h = h < 10 ? '0'+h : h;
+                    m = m < 10 ? '0'+m : m;
+                    s = s < 10 ? '0'+s : s;
+                    var str = d+' 天 '+h+' 小时 '+m+' 分钟 '+s+' 秒';
+                    console.log(str);
+                    $('#countDown span').text(str);
+                }, 1000)
+            }
+
+        })
+    </script>
+
+</body>
+</html>

@@ -17,7 +17,15 @@ namespace WST.Model
 
         [Required,MaxLength(32)]
         public string Name { get; set; }
-             
+
+
+        /// <summary>
+        /// 描述
+        /// </summary>
+        [Required(ErrorMessage = "描述不能为空")]
+        [MaxLength(32)]
+        public string Introduce { get; set; }
+
         /// <summary>
         /// 充值金额
         /// </summary>

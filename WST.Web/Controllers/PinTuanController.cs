@@ -52,6 +52,14 @@ namespace WST.Web.Controllers
             {
                 if (entity.ID.IsNullOrEmpty())
                 {
+                    if (entity.EndTime < entity.StartTime)
+                    {
+                        return JResult(Core.Code.ErrorCode.end_time_error, "");
+                    }
+                    if (entity.StartTime < DateTime.Now)
+                    {
+                        return JResult(Core.Code.ErrorCode.start_time_error, "");
+                    }
                     entity.IsNeedPay = true;
                     entity.IsNeedReport = false;
                     entity.UserID = LoginUser.ID;
@@ -65,6 +73,10 @@ namespace WST.Web.Controllers
                 }
                 else
                 {
+                    if (entity.EndTime < entity.StartTime)
+                    {
+                        return JResult(Core.Code.ErrorCode.end_time_error, "");
+                    }
                     var model = IPinTuanService.Find(entity.ID);
                     if (model == null || (model != null && model.IsDelete))
                     {

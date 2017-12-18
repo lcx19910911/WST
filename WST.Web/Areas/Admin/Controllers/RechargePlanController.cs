@@ -74,6 +74,7 @@ namespace WST.Web.Areas.Admin.Controllers
                 model.Name = entity.Name;
                 model.Money = entity.Money;
                 model.Day = entity.Day;
+                model.Introduce = entity.Introduce;
                 var result = IRechargePlanService.Update(entity);
                 return JResult(result);
             }

@@ -102,36 +102,39 @@ namespace WST.Service
                 {
                     return Result(false, Core.Code.ErrorCode.sys_param_format_error);
                 }
-                if ((model.StartTime < DateTime.Now && model.EndTime < DateTime.Now) || (model.EndTime > DateTime.Now && model.StartTime > DateTime.Now))
+                if ((model.StartTime < DateTime.Now && model.EndTime > DateTime.Now))
                 {
-                    return Result(false, Core.Code.ErrorCode.activity_time_out);
-                }
-                if (model.UsedCount >= model.PrizeCount)
-                {
-                    return Result(false, Core.Code.ErrorCode.prize_not_had);
-                }
-                model.UsedCount++;
-                db.UserActivity.Add(new UserActivity()
-                {
-                    Amount = model.LessPrice,
-                    PrizeInfo = $"{Client.LoginUser.Account}在{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}参加秒杀{model.Name},成功秒杀",
-                    Code = TargetCode.Miaosha,
-                    JoinUserID = Client.LoginUser.ID,
-                    TargetID = model.ID,
-                    IsPrize = true,
-                    JoinUserName = name,
-                    Openid = Client.LoginUser.Openid,
-                    Mobile = name,
-                    ShopUserID = model.UserID
-                });
-                var result = db.SaveChanges();
-                if (result > 0)
-                {
-                    return Result(true);
+                    if (model.UsedCount >= model.PrizeCount)
+                    {
+                        return Result(false, Core.Code.ErrorCode.prize_not_had);
+                    }
+                    model.UsedCount++;
+                    db.UserActivity.Add(new UserActivity()
+                    {
+                        Amount = model.LessPrice,
+                        PrizeInfo = $"{Client.LoginUser.Account}在{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}参加秒杀{model.Name},成功秒杀",
+                        Code = TargetCode.Miaosha,
+                        JoinUserID = Client.LoginUser.ID,
+                        TargetID = model.ID,
+                        IsPrize = true,
+                        JoinUserName = name,
+                        Openid = Client.LoginUser.Openid,
+                        Mobile = name,
+                        ShopUserID = model.UserID
+                    });
+                    var result = db.SaveChanges();
+                    if (result > 0)
+                    {
+                        return Result(true);
+                    }
+                    else
+                    {
+                        return Result(false, ErrorCode.sys_fail);
+                    }
                 }
                 else
                 {
-                    return Result(false, ErrorCode.sys_fail);
+                    return Result(false, Core.Code.ErrorCode.activity_time_out);
                 }
             }
         }

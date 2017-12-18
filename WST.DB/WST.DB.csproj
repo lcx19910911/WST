@@ -56,13 +56,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DbRepository.cs" />
-    <Compile Include="Migrations\201712161025337_34351.cs" />
-    <Compile Include="Migrations\201712161025337_34351.Designer.cs">
-      <DependentUpon>201712161025337_34351.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201712170516126_sdsdg1.cs" />
-    <Compile Include="Migrations\201712170516126_sdsdg1.Designer.cs">
-      <DependentUpon>201712170516126_sdsdg1.cs</DependentUpon>
+    <Compile Include="Migrations\201712180242257_fdd1.cs" />
+    <Compile Include="Migrations\201712180242257_fdd1.Designer.cs">
+      <DependentUpon>201712180242257_fdd1.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -82,11 +78,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201712161025337_34351.resx">
-      <DependentUpon>201712161025337_34351.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201712170516126_sdsdg1.resx">
-      <DependentUpon>201712170516126_sdsdg1.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201712180242257_fdd1.resx">
+      <DependentUpon>201712180242257_fdd1.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

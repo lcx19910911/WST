@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = Model.Name;
     Layout = null;
+    var guid = new Guid().ToString();
 }
 
 <!DOCTYPE html>
@@ -14,9 +15,11 @@
     <link rel="stylesheet" type="text/css" href="~/assets/css/reset.css?v=pintuan3">
     <link rel="stylesheet" type="text/css" href="~/assets/css/edit.css?v=pintuan3">
     <link href="~/assets/css/common.css?v=pintuan3" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="~@(Model.TemplateUrl)/model.css?v=@(guid)">
     <script type="text/javascript" src="~/assets/js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="~/assets/js/import.js"></script>
     <script src="~/assets/js/common.js"></script>
+    <script src="~/assets/js/edit.js"></script>
     <script src="~/assets/js/jquery.form.js"></script>
     <script>
         $(function () {

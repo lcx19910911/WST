@@ -215,6 +215,7 @@
                 {
                     <div class="package-list" data-id="@(item.ID)" data-fee="@(item.Money)" data-name="@(item.Name)" data-day="@(item.Day)">
                         <h3 class="txt-hidden">@item.Name</h3>
+                        <input type="hidden" name="Introduce" value="@item.Introduce"/>
                         <p><span class="fT"> @(item.Day) 天</span> <span class="btn">5折优惠</span></p>
                         <p class="f12 fB mt05"><span>活动价</span> <span class="c-f00">￥@(item.Money)</span></p>
                         <p class="f11 mt05"><span class="btn selBtn1">点击选择</span><span class="btn selBtn2">当前选择</span></p>

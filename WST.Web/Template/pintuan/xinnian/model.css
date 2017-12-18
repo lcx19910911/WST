@@ -1,0 +1,93 @@
+/*model css*/
+html {
+	background: #7B0003;
+}
+.l .title-wrapper {
+	margin-top: 0;
+	background: #9A1B1F;
+	padding: 1em 0 4em;
+	box-shadow: 0 0.5em 1em 0.8em rgba(50,50,50,0.7);
+}
+#title, #title * {
+	color: #fff!important;
+}
+.l .activity-wrapper {
+	width: 80%;
+	margin: -3em auto 0;
+	padding: 1em 0 1.3em;
+	line-height: 1.8em;
+	background-size: 100%;
+	background: #FFF7E4;
+	border-radius: 0.5em;
+}
+.activity-wrapper * {
+	color: #790B0B!important;
+	font-weight: bold;
+}
+
+.activity-wrapper h3 {
+	font-size: 1.3em;
+}
+
+.groupBooking-wrapper .sub-group {
+	background: #FCE8C9!important;
+}
+.groupBooking-wrapper .groupBooking-list:nth-child(1) * {
+	color: #F1CE04!important;
+	font-weight: bold;
+}
+.l .groupBooking-wrapper .groupBooking-list * {
+	color: #F1CE04!important;
+}
+
+.l .model-list-body {
+	border: 0.2rem solid transparent;
+	background: #FFF7E4;
+}
+.l .model-list-title {
+	height: 4em;
+	line-height: 2.3em;
+	text-indent: 0;
+	background: none;
+	background-size: 100% auto;
+	margin-bottom: 0;
+}
+.l .model-list-title span {
+	width: 100%;
+	padding-top: 2.5em;
+	margin-bottom: 0.7em;
+	color: #F1CE04;
+	background: url(/Template/pintuan/xinnian/img/title_top.png) top center no-repeat;
+	background-size: 80%;
+
+}
+
+
+.l .add-child span {
+	background: #F1CE04;
+	color: #fff;
+	border-color: #F1CE04;
+}
+.l .foot-wrapper .button {
+	background: #F1CE04;
+	color: #fff;
+	border-color: #F1CE04;
+}
+.l .foot-wrapper .view-btn {
+	background: #fff;
+	color: #F1CE04;
+}
+.music-component-wrapper ul .play {
+	color: #F1CE04;
+}
+.title-wrapper *, .l .textarea, .l .input, .v-p, .v-span, .phone-number {
+	color: #F1CE04;
+}
+.music-component-wrapper .btn span {
+	background: #F1CE04;
+	color: #fff;
+}
+.music-component-wrapper .btn .cancel {
+	background: #fff;
+	color: #F1CE04;
+}

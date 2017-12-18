@@ -1,0 +1,88 @@
+/*model css*/
+html {
+	background: url(/Template/miaosha/shengdan/img/index_bg.png) repeat;
+	background-size: 6em;
+}
+.l .title-wrapper {
+	margin-top: -2px;
+	background: #fff;
+	padding: 1em 0 4em;
+}
+#title, #title * {
+	color: #005A22!important;
+}
+.l .activity-wrapper {
+	width: 80%;
+	margin: -3em auto 0;
+	padding: 1em 0 1.3em;
+	line-height: 1.8em;
+	background-size: 100%;
+	background: #ff0;
+}
+.activity-wrapper * {
+	color: #000!important;
+	font-weight: bold;
+}
+
+.activity-wrapper h3 {
+	font-size: 1.3em;
+}
+
+.groupBooking-wrapper .sub-group {
+	background: #FCE8C9!important;
+}
+.groupBooking-wrapper .groupBooking-list:nth-child(1) * {
+	color: #000!important;
+	font-weight: bold;
+}
+
+.l .model-list-body {
+	border: 0.2rem solid #86C967;
+	background: #FFFDEB;
+}
+.l .model-list-title {
+	height: 3.5em;
+	line-height: 2.3em;
+	text-indent: 3.5em;
+	background: url(/Template/miaosha/shengdan/img/title_bottom.png) center bottom no-repeat;
+	background-size: 100% auto;
+	margin-bottom: 0;
+}
+.l .model-list-title span {
+	width: 100%;
+	padding-top: 0.5em;
+	margin-bottom: 0.7em;
+	background: url(/Template/miaosha/shengdan/img/title_top.gif) 4em center no-repeat;
+	background-size: 7em;
+
+}
+
+
+.l .add-child span {
+	background: #005A22;
+	color: #fff;
+	border-color: #005A22;
+}
+.l .foot-wrapper .button {
+	background: #005A22;
+	color: #fff;
+	border-color: #005A22;
+}
+.l .foot-wrapper .view-btn {
+	background: #fff;
+	color: #005A22;
+}
+.music-component-wrapper ul .play {
+	color: #005A22;
+}
+.title-wrapper *, .l .textarea, .l .input, .v-p, .v-span, .phone-number {
+	color: #005A22;
+}
+.music-component-wrapper .btn span {
+	background: #005A22;
+	color: #fff;
+}
+.music-component-wrapper .btn .cancel {
+	background: #fff;
+	color: #005A22;
+}

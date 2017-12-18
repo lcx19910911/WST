@@ -72,6 +72,10 @@ namespace WST.Web.Controllers
                     var url = "https://api.weixin.qq.com/sns/oauth2/access_token?appid=" + Params.WeixinAppId + "&secret=" + Params.WeixinAppSecret + "&code=" + code + "&grant_type=authorization_code";         
                     string responseResult = WebHelper.GetPage(url);
                     string redirecturl = Request["redirecturl"];
+                    if (redirecturl.IsNullOrEmpty())
+                    {
+                        redirecturl = Params.SiteUrl;
+                    }
                     if (responseResult.Contains("access_token"))
                     {
                         JObject obj2 = JsonConvert.DeserializeObject(responseResult) as JObject;

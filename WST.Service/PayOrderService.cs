@@ -179,41 +179,47 @@ namespace WST.Service
                 {
                     return Result("", ErrorCode.sys_param_format_error);
                 }
-
                 var model = db.PinTuan.Find(userActivityModel.TargetID);
-                if (model == null || model.IsDelete)
+                if ((model.StartTime < DateTime.Now && model.EndTime > DateTime.Now))
                 {
-                    return Result("", ErrorCode.sys_param_format_error);
-                }
-                if (model.StartTime < DateTime.Now || model.EndTime > model.EndTime)
-                {
-                    return Result("",Core.Code.ErrorCode.activity_time_out);
-                }
-                if (db.UserActivity.Any(x => x.TargetID == id && x.JoinUserID == Client.LoginUser.ID))
-                {
-                    return Result("",Core.Code.ErrorCode.had_join_in);
-                }
-                var orderId = Guid.NewGuid().ToString("N");
-                db.PayOrder.Add(new PayOrder()
-                {
-                    ID = orderId,
-                    NO = DateTime.Now.ToString("yyyyMMddhhmmssfff" + new Random().Next(1000, 2000)),
-                    Amount = model.Amount,
-                    Remark = $"{Client.LoginUser.Account}在{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}支付了团购{model.Name}的拼团，金额{model.Amount}",
-                    Code = OrderCode.Activity,
-                    TargetID = id,
-                    UserID = Client.LoginUser.ID,
-                    State = PayState.WaitPay,
-                    Type = PayCode.WechatPay,
-                });
-                var result = db.SaveChanges();
-                if (result > 0)
-                {
-                    return Result(orderId);
+                    if (model == null || model.IsDelete)
+                    {
+                        return Result("", ErrorCode.sys_param_format_error);
+                    }
+                    if (model.StartTime < DateTime.Now || model.EndTime > model.EndTime)
+                    {
+                        return Result("", Core.Code.ErrorCode.activity_time_out);
+                    }
+                    if (db.UserActivity.Any(x => x.TargetID == id && x.JoinUserID == Client.LoginUser.ID))
+                    {
+                        return Result("", Core.Code.ErrorCode.had_join_in);
+                    }
+                    var orderId = Guid.NewGuid().ToString("N");
+                    db.PayOrder.Add(new PayOrder()
+                    {
+                        ID = orderId,
+                        NO = DateTime.Now.ToString("yyyyMMddhhmmssfff" + new Random().Next(1000, 2000)),
+                        Amount = model.Amount,
+                        Remark = $"{Client.LoginUser.Account}在{DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")}支付了团购{model.Name}的拼团，金额{model.Amount}",
+                        Code = OrderCode.Activity,
+                        TargetID = id,
+                        UserID = Client.LoginUser.ID,
+                        State = PayState.WaitPay,
+                        Type = PayCode.WechatPay,
+                    });
+                    var result = db.SaveChanges();
+                    if (result > 0)
+                    {
+                        return Result(orderId);
+                    }
+                    else
+                    {
+                        return Result("", ErrorCode.sys_fail);
+                    }
                 }
                 else
                 {
-                    return Result("", ErrorCode.sys_fail);
+                    return Result("", Core.Code.ErrorCode.activity_time_out);
                 }
             }
         }

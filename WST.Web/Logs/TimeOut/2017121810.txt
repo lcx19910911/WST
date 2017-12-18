@@ -1,0 +1,7 @@
+Time:2017/12/18 10:59:57-本次请求耗时 2.964 秒.
+Url:http://localhost:56262/user/tomiaosha
+UrlReferrer:http://localhost:56262/user/miaosha?id=da7c12e6bff7411a9c3d64b2dfbf3196
+UserHostAddress:::1;;
+WebServer:::1
+
+

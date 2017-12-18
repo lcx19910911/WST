@@ -40,6 +40,7 @@
             <tr>
                 <th dataname="ID" type="checkbox"></th>
                 <th dataname="Name">方案名称</th>
+                <th dataname="Introduce">描述</th>
                 <th dataname="Money">费用</th>
                 <th dataname="Day">天数</th>
                 <th type="eventlist"></th>
@@ -75,6 +76,10 @@
                         required: true,
                         maxlength: 32
                     },
+                    Introduce: {
+                        required: true,
+                        maxlength: 32
+                    },
                     Day: {
                         required: true,
                         min: 0,
@@ -88,6 +93,10 @@
                 },
                 messages: {
                     Name: {
+                        required: "不允许为空",
+                        maxlength: "最多{0}个字符"
+                    },
+                    Introduce: {
                         required: "不允许为空",
                         maxlength: "最多{0}个字符"
                     },

@@ -1,0 +1,35 @@
+Time:2017/12/18 11:13:50-本次请求耗时 3.151 秒.
+Url:http://localhost:56262/user/JoinkanJia?id=ea1d95cfc2ab44f3a900cdff4bc5a7f2&mobile=1111111111&name=3434&filedJson=
+UrlReferrer:http://localhost:56262/user/kanjia?id=ea1d95cfc2ab44f3a900cdff4bc5a7f2
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/18 11:18:35-本次请求耗时 15.678 秒.
+Url:http://localhost:56262/user/tomiaosha
+UrlReferrer:http://localhost:56262/user/miaosha?id=1f48dd45b032427f84d4274d78470336
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/18 11:20:20-本次请求耗时 40.638 秒.
+Url:http://localhost:56262/user/miaosha?id=1f48dd45b032427f84d4274d78470336
+UrlReferrer:http://localhost:56262/user/miaosha?id=1f48dd45b032427f84d4274d78470336
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/18 11:21:19-本次请求耗时 11.825 秒.
+Url:http://localhost:56262/user/GetUserPageList?pageIndex=1&pageSize=10&targetId=1f48dd45b032427f84d4274d78470336
+UrlReferrer:http://localhost:56262/user/miaosha?id=1f48dd45b032427f84d4274d78470336
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/18 11:21:37-本次请求耗时 2.527 秒.
+Url:http://localhost:56262/user/GetUserPageList?pageIndex=1&pageSize=10&targetId=1f48dd45b032427f84d4274d78470336
+UrlReferrer:http://localhost:56262/user/miaosha?id=1f48dd45b032427f84d4274d78470336
+UserHostAddress:::1;;
+WebServer:::1
+
+

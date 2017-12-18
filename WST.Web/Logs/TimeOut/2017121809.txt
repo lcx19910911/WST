@@ -1,0 +1,7 @@
+Time:2017/12/18 9:42:16-本次请求耗时 18.923 秒.
+Url:http://localhost:56262/miaosha/Manage?TemplateUrl=/Template/miaosha/yuandan
+UrlReferrer:http://localhost:56262/Home
+UserHostAddress:::1;;
+WebServer:::1
+
+

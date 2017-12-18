@@ -193,44 +193,47 @@ namespace WST.Web.Controllers
             {
                 return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
             }
-            if ((model.StartTime < DateTime.Now && model.EndTime < DateTime.Now) || (model.EndTime > DateTime.Now && model.StartTime > DateTime.Now))
+            if ((model.StartTime < DateTime.Now && model.EndTime > DateTime.Now))
+            {
+                if (model.ReportCount == model.PrizeCount)
+                {
+                    return JResult(Core.Code.ErrorCode.prize_not_had, "");
+                }
+                if (IUserActivityService.IsExits(x => x.TargetID == id && x.JoinUserID == LoginUser.ID && string.IsNullOrEmpty(x.TargetUserID)))
+                {
+                    return JResult(Core.Code.ErrorCode.had_join_in, "");
+                }
+                model.ReportCount++;
+                IKanJiaService.Update(model);
+
+                var newId = Guid.NewGuid().ToString("N");
+                var result = IUserActivityService.Add(new UserActivity()
+                {
+                    ID = newId,
+                    Code = TargetCode.Kanjia,
+                    Openid = LoginUser.Openid,
+                    JoinUserID = LoginUser.ID,
+                    JoinUserName = name,
+                    Amount = model.OldPrice,
+                    IsPrize = true,
+                    IsUsedOnLine = false,
+                    PrizeInfo = $"用户{LoginUser.Account}创建砍价{model.Name}，原价{model.OldPrice}",
+                    ShopUserID = model.UserID,
+                    Mobile = mobile,
+                    TargetID = id,
+                    FiledItemJson = filedJson
+                });
+                if (result > 0)
+                {
+                    return JResult(newId);
+                }
+                else
+                    return DataErorrJResult();
+            }
+            else
             {
                 return JResult(Core.Code.ErrorCode.activity_time_out, "");
             }
-            if (model.ReportCount == model.PrizeCount)
-            {
-                return JResult(Core.Code.ErrorCode.prize_not_had, "");
-            }
-            if (IUserActivityService.IsExits(x => x.TargetID == id && x.JoinUserID == LoginUser.ID && string.IsNullOrEmpty(x.TargetUserID)))
-            {
-                return JResult(Core.Code.ErrorCode.had_join_in, "");
-            }
-            model.ReportCount++;
-            IKanJiaService.Update(model);
-
-            var newId = Guid.NewGuid().ToString("N");
-            var result = IUserActivityService.Add(new UserActivity()
-            {
-                ID = newId,
-                Code = TargetCode.Kanjia,
-                Openid = LoginUser.Openid,
-                JoinUserID = LoginUser.ID,
-                JoinUserName = name,
-                Amount = model.OldPrice,
-                IsPrize = true,
-                IsUsedOnLine = false,
-                PrizeInfo = $"用户{LoginUser.Account}创建砍价{model.Name}，原价{model.OldPrice}",
-                ShopUserID = model.UserID,
-                Mobile = mobile,
-                TargetID = id,
-                FiledItemJson = filedJson
-            });
-            if (result > 0)
-            {
-                return JResult(newId);
-            }
-            else
-                return DataErorrJResult();
         }
 
 
@@ -249,72 +252,75 @@ namespace WST.Web.Controllers
                 return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
             }
             var model = IKanJiaService.Find(x => x.ID == userActivityModel.TargetID);
-            if ((model.StartTime < DateTime.Now && model.EndTime < DateTime.Now) || (model.EndTime > DateTime.Now && model.StartTime > DateTime.Now))
+            if ((model.StartTime < DateTime.Now && model.EndTime > DateTime.Now))
+            {
+                if (userActivityModel.JoinUserID == LoginUser.ID)
+                {
+                    var startTime = DateTime.Now.AddHours(-(model.LimitHour));
+                    if (IUserActivityService.IsExits(x => x.TargetID == userActivityModel.TargetID && x.TargetUserID == LoginUser.ID && x.CreatedTime > startTime))
+                    {
+                        return JResult(Core.Code.ErrorCode.time_limit_error, "");
+                    }
+                }
+                else
+                {
+                    if (IUserActivityService.IsExits(x => x.TargetID == userActivityModel.TargetID && x.JoinUserID == LoginUser.ID && !string.IsNullOrEmpty(x.TargetUserID) && x.TargetUserID == userActivityModel.JoinUserID))
+                    {
+                        return JResult(Core.Code.ErrorCode.had_kanjia, "");
+                    }
+                }
+                var helpCount = IUserActivityService.GetCount(x => x.TargetID == userActivityModel.TargetID && x.TargetUserID == userActivityModel.JoinUserID);
+                if (helpCount >= model.CountLimit)
+                {
+                    return JResult(Core.Code.ErrorCode.count_limit_error, "");
+                }
+                var isUsed = false;
+                //砍价金额
+                var kanPrice = (new Random().Next(1, (model.OncePrice * 100).GetInt()) / 100).GetDecimal();
+                if (userActivityModel.Amount - kanPrice <= model.LessPrice)
+                {
+                    kanPrice = userActivityModel.Amount.Value - model.LessPrice;
+                    userActivityModel.Amount = model.LessPrice;
+                    model.UsedCount++;
+                    IKanJiaService.Update(model);
+                    isUsed = true;
+                }
+                else
+                {
+                    userActivityModel.Amount -= kanPrice;
+                }
+                //砍到次数限制
+                if ((helpCount + 1) >= model.CountLimit && !isUsed)
+                {
+                    model.UsedCount++;
+                    IKanJiaService.Update(model);
+                }
+
+                var toKanjiaModel = new UserActivity()
+                {
+                    Code = TargetCode.Kanjia,
+                    TargetUserID = userActivityModel.JoinUserID,
+                    JoinUserID = LoginUser.ID,
+                    Openid = LoginUser.Openid,
+                    IsPrize = false,
+                    IsUsedOnLine = false,
+                    PrizeInfo = $"用户{LoginUser.Account}帮助用户{userActivityModel.JoinUserName}砍价{kanPrice}，现价{userActivityModel.Amount}",
+                    Amount = userActivityModel.Amount,
+                    ShopUserID = model.UserID,
+                    JoinUserName = LoginUser.Account,
+                    TargetID = userActivityModel.TargetID
+                };
+                IUserActivityService.Add(toKanjiaModel);
+                return JResult(IUserActivityService.Update(userActivityModel));
+            }
+            else
             {
                 return JResult(Core.Code.ErrorCode.activity_time_out, "");
             }
-            if (userActivityModel.JoinUserID == LoginUser.ID)
-            {
-                var startTime = DateTime.Now.AddHours(-(model.LimitHour));
-                if (IUserActivityService.IsExits(x => x.TargetID == userActivityModel.TargetID && x.TargetUserID == LoginUser.ID && x.CreatedTime > startTime))
-                {
-                    return JResult(Core.Code.ErrorCode.time_limit_error, "");
-                }
-            }
-            else
-            {
-                if (IUserActivityService.IsExits(x => x.TargetID == userActivityModel.TargetID && x.JoinUserID == LoginUser.ID && !string.IsNullOrEmpty(x.TargetUserID) && x.TargetUserID == userActivityModel.JoinUserID))
-                {
-                    return JResult(Core.Code.ErrorCode.had_kanjia, "");
-                }
-            }
-            var helpCount = IUserActivityService.GetCount(x => x.TargetID == userActivityModel.TargetID && x.TargetUserID == userActivityModel.JoinUserID);
-            if (helpCount >= model.CountLimit)
-            {
-                return JResult(Core.Code.ErrorCode.count_limit_error, "");
-            }
-            var isUsed = false;
-            //砍价金额
-            var kanPrice = (new Random().Next(1, (model.OncePrice * 100).GetInt()) / 100).GetDecimal();
-            if (userActivityModel.Amount - kanPrice <= model.LessPrice)
-            {
-                kanPrice = userActivityModel.Amount.Value - model.LessPrice;
-                userActivityModel.Amount = model.LessPrice;
-                model.UsedCount++;
-                IKanJiaService.Update(model);
-                isUsed = true;
-            }
-            else
-            {
-                userActivityModel.Amount -= kanPrice;
-            }
-            //砍到次数限制
-            if ((helpCount + 1) >= model.CountLimit && !isUsed)
-            {
-                model.UsedCount++;
-                IKanJiaService.Update(model);
-            }
-
-            var toKanjiaModel = new UserActivity()
-            {
-                Code = TargetCode.Kanjia,
-                TargetUserID = userActivityModel.JoinUserID,
-                JoinUserID = LoginUser.ID,
-                Openid = LoginUser.Openid,
-                IsPrize = false,
-                IsUsedOnLine = false,
-                PrizeInfo = $"用户{LoginUser.Account}帮助用户{userActivityModel.JoinUserName}砍价{kanPrice}，现价{userActivityModel.Amount}",
-                Amount = userActivityModel.Amount,
-                ShopUserID = model.UserID,
-                JoinUserName = LoginUser.Account,
-                TargetID = userActivityModel.TargetID
-            };
-            IUserActivityService.Add(toKanjiaModel);
-            return JResult(IUserActivityService.Update(userActivityModel));
         }
 
 
-      
+
         /// <summary>
         /// 砍价活动页面
         /// </summary>
@@ -398,78 +404,75 @@ namespace WST.Web.Controllers
             {
                 return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
             }
-            if ((model.StartTime < DateTime.Now && model.EndTime < DateTime.Now) || (model.EndTime > DateTime.Now && model.StartTime > DateTime.Now))
+            if ((model.StartTime < DateTime.Now && model.EndTime > DateTime.Now))
+            {
+                if (IUserActivityService.IsExits(x => x.TargetID == id && x.JoinUserID == LoginUser.ID))
+                {
+                    return JResult(Core.Code.ErrorCode.had_join_in, "");
+                }
+                var itemList = model.PinTuanItemJson.DeserializeJson<List<PinTuanItem>>();
+                if (itemList == null || itemList.Count == 0)
+                {
+                    return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
+                }
+                var priceList = model.PinTuanItemJson.DeserializeJson<List<PinTuanItem>>().OrderBy(x => x.Count).ToList();
+                var countList = priceList.Select(x => x.Count).ToList();
+                var price = 0M;
+                var count = priceList.Max(x => x.Count);
+                if (model.JoinCount >= count)
+                {
+                    return JResult(Core.Code.ErrorCode.prize_not_had, "");
+                }
+                for (var index = 1; index <= countList.Count; index++)
+                {
+                    if (index < countList.Count)
+                    {
+                        if (model.JoinCount < countList[index - 1])
+                        {
+                            price = model.OldPrice;
+                            break;
+                        }
+                        if (model.JoinCount == countList[index - 1])
+                        {
+                            price = priceList[index - 1].Amount;
+                            break;
+                        }
+
+                        if (model.JoinCount > countList[index - 1] && model.JoinCount < countList[index])
+                        {
+                            price = priceList[index - 1].Amount;
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        price = priceList[index - 1].Amount;
+                    }
+                }
+
+                model.JoinCount++;
+                model.ReportCount++;
+                IPinTuanService.Update(model);
+                return JResult(IUserActivityService.Add(new UserActivity()
+                {
+                    Code = TargetCode.Pintuan,
+                    JoinUserID = LoginUser.ID,
+                    Openid = LoginUser.Openid,
+                    JoinUserName = name,
+                    IsPrize = false,
+                    PrizeInfo = $"团购价{price}",
+                    ShopUserID = model.UserID,
+                    Mobile = mobile,
+                    TargetID = id,
+                    FiledItemJson = filedJson
+                }));
+            }else
             {
                 return JResult(Core.Code.ErrorCode.activity_time_out, "");
             }
-            if (IUserActivityService.IsExits(x => x.TargetID == id && x.JoinUserID == LoginUser.ID))
-            {
-                return JResult(Core.Code.ErrorCode.had_join_in, "");
-            }
-            var itemList = model.PinTuanItemJson.DeserializeJson<List<PinTuanItem>>();
-            if (itemList == null || itemList.Count == 0)
-            {
-                return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
-            }
-            var priceList = model.PinTuanItemJson.DeserializeJson<List<PinTuanItem>>().OrderBy(x => x.Count).ToList();
-            var countList = priceList.Select(x => x.Count).ToList();
-            var price = 0M;
-            var count = priceList.Max(x=>x.Count);
-            if (model.JoinCount >= count)
-            {
-                return JResult(Core.Code.ErrorCode.prize_not_had, "");
-            }
-            for (var index = 1; index <= countList.Count; index++)
-            {
-                if (index < countList.Count)
-                {
-                    if (model.JoinCount < countList[index - 1])
-                    {
-                        price = model.OldPrice;
-                        break;
-                    }
-                    if (model.JoinCount == countList[index - 1])
-                    {
-                        price = priceList[index - 1].Amount;
-                        break;
-                    }
-
-                    if (model.JoinCount > countList[index - 1] && model.JoinCount < countList[index])
-                    {
-                        price = priceList[index - 1].Amount;
-                        break;
-                    }
-                }
-                else
-                {
-                    price = priceList[index - 1].Amount;
-                }
-            }
-
-            model.JoinCount++;
-            model.ReportCount++;
-            IPinTuanService.Update(model);
-            return JResult(IUserActivityService.Add(new UserActivity()
-            {
-                Code = TargetCode.Pintuan,
-                JoinUserID = LoginUser.ID,
-                Openid = LoginUser.Openid,
-                JoinUserName = name,
-                IsPrize = false,
-                PrizeInfo = $"团购价{price}",
-                ShopUserID = model.UserID,
-                Mobile = mobile,
-                TargetID = id,
-                FiledItemJson = filedJson
-            }));
         }
 
 
-        [HttpPost]
-        public ActionResult JoinPintuan(string id)
-        {
-            return JResult(IPayOrderService.JoinPintuan(id));
-        }
 
         /// <summary>
         /// 拼团页面
@@ -535,7 +538,7 @@ namespace WST.Web.Controllers
         public ActionResult MiaoSha(string id)
         {
             var model = IMiaoShaService.Find(id);
-            if (model == null||model.IsDelete)
+            if (model == null || model.IsDelete)
             {
                 return Forbidden();
             }
@@ -546,6 +549,7 @@ namespace WST.Web.Controllers
             ViewBag.TimeStamp = WxPayApi.GenerateTimeStamp();
             ViewBag.NonceStr = WxPayApi.GenerateNonceStr();
             ViewBag.Signature = WxPayApi.GetSignature(Request.Url.ToString().Split('#')[0], cacheToken, ViewBag.TimeStamp, ViewBag.NonceStr);
+            ViewBag.IsReport = IUserActivityService.IsExits(x => x.TargetID == id && x.JoinUserID == LoginUser.ID);
             return View(model);
         }
 
@@ -556,7 +560,7 @@ namespace WST.Web.Controllers
         /// <param name="ids"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult ToMiaoSha(string id,string name,string mobile)
+        public ActionResult ToMiaoSha(string id, string name, string mobile)
         {
             return JResult(IMiaoShaService.ToMiaoSha(id, name, mobile));
         }
@@ -591,8 +595,6 @@ namespace WST.Web.Controllers
             var actIdList = IUserActivityService.GetList(x => x.JoinUserID == LoginUser.ID && !x.IsDelete && x.IsPrize);
             var kanjiaIdList = actIdList.Where(x => x.Code == TargetCode.Kanjia && string.IsNullOrEmpty(x.TargetUserID)).Select(x => x.TargetID).Distinct().ToList();
             var kanjiaDic = actIdList.Where(x => x.Code == TargetCode.Kanjia && string.IsNullOrEmpty(x.TargetUserID) && !x.IsDelete).ToDictionary(x => x.TargetID);
-            var pintuanIdList = actIdList.Where(x => x.Code == TargetCode.Pintuan).Select(x => x.TargetID).Distinct().ToList();
-            var pintuanDic = actIdList.Where(x => x.Code == TargetCode.Pintuan).ToDictionary(x => x.TargetID);
             var kanjiaList = IKanJiaService.GetList(x => kanjiaIdList.Contains(x.ID)).Select(x =>
             {
                 if (kanjiaDic.ContainsKey(x.ID))
@@ -606,6 +608,8 @@ namespace WST.Web.Controllers
 
             model.AddRange(kanjiaList);
 
+            var pintuanIdList = actIdList.Where(x => x.Code == TargetCode.Pintuan).Select(x => x.TargetID).Distinct().ToList();
+            var pintuanDic = actIdList.Where(x => x.Code == TargetCode.Pintuan).ToDictionary(x => x.TargetID);
             var pintuanList = IPinTuanService.GetList(x => pintuanIdList.Contains(x.ID)).Select(x =>
             {
                 if (pintuanDic.ContainsKey(x.ID))
@@ -617,6 +621,21 @@ namespace WST.Web.Controllers
                     return null;
             }).ToList();
             model.AddRange(pintuanList);
+
+            var miaoshaIdList = actIdList.Where(x => x.Code == TargetCode.Miaosha).Select(x => x.TargetID).Distinct().ToList();
+            var miaoshaDic = actIdList.Where(x => x.Code == TargetCode.Miaosha).ToDictionary(x => x.TargetID);
+            var miaoshaList = IPinTuanService.GetList(x => miaoshaIdList.Contains(x.ID)).Select(x =>
+            {
+                if (miaoshaDic.ContainsKey(x.ID))
+                {
+                    var item = miaoshaDic[x.ID];
+                    return new Tuple<string, string, string, string, DateTime?, bool, TargetCode>(x.Name, x.Picture, x.ID, item.ID, item.UsedTime, item.IsUsedOnLine, TargetCode.Miaosha);
+                }
+                else
+                    return null;
+            }).ToList();
+            model.AddRange(miaoshaList);
+
             ViewBag.List = model.Where(x => x != null).ToList();
             return View();
         }

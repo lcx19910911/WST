@@ -208,5 +208,15 @@ namespace WST.Core.Code
         /// </summary>
         [Description("已到最低价，不能再砍了")]
         price_limit_error = 810,
+        /// <summary>
+        /// 开始时间小于当前时间
+        /// </summary>
+        [Description("开始时间小于当前时间.")]
+        start_time_error = 811,
+        /// <summary>
+        /// 结束时间小于当前时间
+        /// </summary>
+        [Description("结束时间小于当前时间.")]
+        end_time_error = 812,
     }
 }
