@@ -158,6 +158,13 @@ namespace WST.Core.Code
 
 
 
+        /// <summary>
+        /// 你已试用过
+        /// </summary>
+        [Description("你已试用过.")]
+        user_had_try = 706,
+
+
 
         /// <summary>
         /// 第三方支付订单号已存在

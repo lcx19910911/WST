@@ -131,6 +131,38 @@ namespace WST.Web.Controllers
             user.AdviserName = AdviserName;
             return JResult(IUserService.Update(user));
         }
+
+        public ActionResult TryFree()
+        {
+            return View();
+        }
+        [HttpPost]
+        public ActionResult TryFree(string IDCard, string StoreName, string AdviserName, string Mobile)
+        {
+            var user = IUserService.Find(LoginUser.ID);
+            if (user == null && user.IsDelete)
+            {
+                return DataErorrJResult();
+            }
+            if (user.IsMember || user.EndTime.HasValue)
+            {
+                return JResult(Core.Code.ErrorCode.user_had_try, "");
+            }
+            user.IDCard = IDCard;
+            user.StoreName = StoreName;
+            user.Mobile = Mobile;
+            if (AdviserName.IsNotNullOrEmpty())
+            {
+                var advserModel = IAdviserService.Find(x => x.Name == AdviserName);
+                if (advserModel != null && !advserModel.IsDelete)
+                {
+                    user.AdviserID = advserModel.ID;
+                }
+            }
+            user.AdviserName = AdviserName;
+            user.EndTime = DateTime.Now.AddDays(1);
+            return JResult(IUserService.Update(user));
+        }
         #endregion
 
         #region 活动支持

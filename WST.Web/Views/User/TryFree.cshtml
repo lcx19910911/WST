@@ -131,7 +131,7 @@
 				    return false;
 				}
 				$.ajax({
-				    url: '/user/TryFree',
+				    url: '/user/PersonData',
                     method:'post',
                     data: {
                         Mobile: mobile,
@@ -141,7 +141,7 @@
 				    },
 				    success: function (data) {
 				        if (data.Code == 0) {
-				            window.location.href = "/user/buytime";
+				            window.location.href = "/user/index";
 				        }
 				        else
 				            alert(data.ErrorDesc);

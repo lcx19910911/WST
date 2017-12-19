@@ -924,6 +924,7 @@
     <Content Include="Template\pintuan\yuandan\model.json" />
     <Content Include="Views\miaosha\Manage.cshtml" />
     <Content Include="Views\User\MiaoSha.cshtml" />
+    <Content Include="Views\User\TryFree.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

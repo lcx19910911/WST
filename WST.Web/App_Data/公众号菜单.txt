@@ -25,6 +25,12 @@ https://mp.weixin.qq.com/debug
         {
             "name": "我是商家", 
             "sub_button": [
+			
+                {
+                    "type": "view", 
+                    "name": "我要试用", 
+                    "url": "http://wst.fjyouwo.com/user/tryfree"
+                },
                 {
                     "type": "view", 
                     "name": "制作活动", 

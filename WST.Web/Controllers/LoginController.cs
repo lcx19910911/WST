@@ -100,7 +100,7 @@ namespace WST.Web.Controllers
                                     Country = obj3["country"].ToString(),
                                     HeadImgUrl = obj3["headimgurl"].ToString(),
                                     IsMember = false,
-                                    EndTime=DateTime.Now.AddDays(1)
+                                    //EndTime=DateTime.Now.AddDays(1)
                                 };
                                 IUserService.Add(model);
                                 this.LoginUser = new Core.Model.LoginUser(model);
