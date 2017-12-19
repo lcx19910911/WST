@@ -14,6 +14,7 @@ using WST.Core;
 using WST.Core.Util;
 using System.Security.Cryptography;
 using System.Text;
+using WST.Core.Helper;
 
 namespace WST.Web.Controllers
 {
@@ -162,7 +163,7 @@ namespace WST.Web.Controllers
                 return false;
             }
             //这个变量要与网页里面填写的接口配置信息中填写的Token一致
-            string Token = "Eioa5C5oj3S32qhH";
+            string Token = ConfigHelper.GetValue("Token");;
             string[] ArrTmp = { Token, timestamp, nonce };
             Array.Sort(ArrTmp);//排序
             string tmpStr = string.Join("", ArrTmp);
