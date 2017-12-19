@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "个人中心";
     Layout = null;
-    var isMember = Model.IsMember || (Model.EndTime.HasValue && Model.EndTime > DateTime.Now);
+    var isMember = Model.IsMember;
 }
 
 @section linkcss
@@ -237,33 +237,45 @@
                     @if (isMember)
                     {
                         <span class="user-name fB f11">沃商通商户</span><br>
-                        <span class="user-phone">@(Model.StoreName.IsNotNullOrEmpty()?Model.StoreName:Model.NickName)</span><br>
+                        <span class="user-phone">@(Model.StoreName.IsNotNullOrEmpty() ? Model.StoreName : Model.NickName)</span><br>
                         <span class="user-phone f08 c-f00">过期时间：@(Model.EndTime.Value.ToString("yyyy-MM-dd HH:mm:ss"))</span>
                     }
                     else
                     {
-                        <span class="user-name fB f11">沃商通用户</span><br>
-                        <span class="user-phone">@(Model.NickName)</span><br>
+                        if (Model.EndTime.HasValue)
+                        {
+                            if (!Model.StartTime.HasValue)
+                            {
+                                <span class="user-name fB f11">沃商通试用商户</span><br>
+                                <span class="user-phone">@(Model.StoreName.IsNotNullOrEmpty() ? Model.StoreName : Model.NickName)</span><br>
+                                <span class="user-phone f08 c-f00">过期时间：@(Model.EndTime.Value.ToString("yyyy-MM-dd HH:mm:ss"))</span>
+                            }
+                        }
+                        else
+                        {
+                            <span class="user-name fB f11">沃商通用户</span><br>
+                            <span class="user-phone">@(Model.NickName)</span><br>
+                        }
                     }
                 </p>
             </div>
             @*<a href="#" class="fl c-000"><i class="icon icon icon-loginout"></i> 退出</a>*@
         </div>
         <div class="privilege-card">
-                <div class="privilege-tit clearfix">
-                    <a href="/user/wallet"><i class="icon icon-payment"></i> 进入钱包</a>
+            <div class="privilege-tit clearfix">
+                <a href="/user/wallet"><i class="icon icon-payment"></i> 进入钱包</a>
+            </div>
+            <div class="privilege-con clearfix">
+                <div class="balance-div">
+                    <strong>余额</strong>
+                    <span>@(Model.Balance)</span>
                 </div>
-                <div class="privilege-con clearfix">
-                    <div class="balance-div">
-                        <strong>余额</strong>
-                        <span>@(Model.Balance)</span>
-                    </div>
-                    <div class="balance-div">
-                        <strong>总充值</strong>
-                        <span>@(Model.TotalRecharge)</span>
-                    </div>
+                <div class="balance-div">
+                    <strong>总充值</strong>
+                    <span>@(Model.TotalRecharge)</span>
                 </div>
             </div>
+        </div>
         <div class="favorite-wrapper">
             @*<div class="favorite pic-ico">
                     <a href="">活动教程<span>></span></a>

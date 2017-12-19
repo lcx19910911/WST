@@ -1,0 +1,7 @@
+Time:2017/12/19 23:22:09-本次请求耗时 2.761 秒.
+Url:http://localhost:56262/login/defaultUser
+UrlReferrer:http://localhost:56262/login/Index?redirecturl=http://localhost:56262/
+UserHostAddress:::1;;
+WebServer:::1
+
+

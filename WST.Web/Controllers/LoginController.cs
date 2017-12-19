@@ -48,10 +48,10 @@ namespace WST.Web.Controllers
         public ActionResult DefaultUser()
         {
 
-            //lcx ojLuqwikV8T-nCd2VMAihJEqSOzw
-            //lzy ojLuqwqwSS9xPpuHj-ZsHv6QDQSQ
-            //shop ojLuqwhYFF5ELJviQmmrJrY2fbTY
-            var user = IUserService.FindByOpenId("ojLuqwikV8T-nCd2VMAihJEqSOzw");
+            //lcx oZe9g0tkskZx51DFih_hKm_GIYS0
+            //lzy 
+            //shop 
+            var user = IUserService.FindByOpenId("oZe9g0tkskZx51DFih_hKm_GIYS0");
             if (user != null)
             {
                 //user.IsMember = false;

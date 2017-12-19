@@ -15,6 +15,7 @@ using WST.Web.Framework.Filters;
 using WxPayAPI;
 using WST.Core.Util;
 using WST.Model;
+using WST.Core.Model;
 
 namespace WST.Web.Controllers
 {
@@ -132,8 +133,17 @@ namespace WST.Web.Controllers
             return JResult(IUserService.Update(user));
         }
 
-        public ActionResult TryFree()
+        public   ActionResult TryFree()
         {
+            var user = IUserService.Find(LoginUser.ID);
+            if (user == null && user.IsDelete)
+            {
+                return Forbidden();
+            }
+            if (user.IsMember || (user.EndTime.HasValue && !user.StartTime.HasValue))
+            {
+                return RedirectToAction("index","user");
+            }
             return View();
         }
         [HttpPost]
@@ -144,7 +154,7 @@ namespace WST.Web.Controllers
             {
                 return DataErorrJResult();
             }
-            if (user.IsMember || user.EndTime.HasValue)
+            if (user.IsMember || (user.EndTime.HasValue&& !user.StartTime.HasValue))
             {
                 return JResult(Core.Code.ErrorCode.user_had_try, "");
             }
@@ -161,7 +171,13 @@ namespace WST.Web.Controllers
             }
             user.AdviserName = AdviserName;
             user.EndTime = DateTime.Now.AddDays(1);
-            return JResult(IUserService.Update(user));
+            var result = IUserService.Update(user);
+            if (result > 0)
+            {
+                //刷新时间
+                LoginHelper.CreateUser(new LoginUser(user), Params.UserCookieName);
+            }
+            return JResult(result);
         }
         #endregion
 
