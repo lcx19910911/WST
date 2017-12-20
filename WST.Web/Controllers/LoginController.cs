@@ -51,7 +51,7 @@ namespace WST.Web.Controllers
             //lcx oZe9g0tkskZx51DFih_hKm_GIYS0
             //lzy 
             //shop 
-            var user = IUserService.FindByOpenId("oZe9g0tkskZx51DFih_hKm_GIYS0");
+            var user = IUserService.FindByOpenId("oZe9g0uVcVEitCbhnKc35wE_UMIo");
             if (user != null)
             {
                 //user.IsMember = false;

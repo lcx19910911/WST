@@ -175,8 +175,10 @@ namespace WST.Web.Controllers
             {
                 return new Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, TargetCode.Kanjia);
             }).ToList();
-            model.AddRange(kanjiaList);
-
+            if (kanjiaList != null && kanjiaList.Count > 0)
+            {
+                model.AddRange(kanjiaList);
+            }
             var pintuanList = IPinTuanService.GetList(x => x.UserID == LoginUser.ID);
             pintuanList.ForEach(x =>
             {

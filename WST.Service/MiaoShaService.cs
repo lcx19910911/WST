@@ -102,6 +102,10 @@ namespace WST.Service
                 {
                     return Result(false, Core.Code.ErrorCode.sys_param_format_error);
                 }
+                if (db.UserActivity.Any(x => x.TargetID == id && x.JoinUserID == Client.LoginUser.ID && !x.IsDelete))
+                {
+                    return Result(false, Core.Code.ErrorCode.had_join_in);
+                }
                 if ((model.StartTime < DateTime.Now && model.EndTime > DateTime.Now))
                 {
                     if (model.UsedCount >= model.PrizeCount)

@@ -663,37 +663,42 @@ namespace WST.Web.Controllers
                 else
                     return null;
             }).ToList();
-
-            model.AddRange(kanjiaList);
-
+            if (kanjiaList != null && kanjiaIdList.Count > 0)
+            {
+                model.AddRange(kanjiaList);
+            }
             var pintuanIdList = actIdList.Where(x => x.Code == TargetCode.Pintuan).Select(x => x.TargetID).Distinct().ToList();
-            var pintuanDic = actIdList.Where(x => x.Code == TargetCode.Pintuan).ToDictionary(x => x.TargetID);
-            var pintuanList = IPinTuanService.GetList(x => pintuanIdList.Contains(x.ID)).Select(x =>
+            if (pintuanIdList != null && pintuanIdList.Count > 0)
             {
-                if (pintuanDic.ContainsKey(x.ID))
+                var pintuanDic = actIdList.Where(x => x.Code == TargetCode.Pintuan).ToDictionary(x => x.TargetID);
+                var pintuanList = IPinTuanService.GetList(x => pintuanIdList.Contains(x.ID)).Select(x =>
                 {
-                    var item = pintuanDic[x.ID];
-                    return new Tuple<string, string, string, string, DateTime?, bool, TargetCode>(x.Name, x.Picture, x.ID, item.ID, item.UsedTime, item.IsUsedOnLine, TargetCode.Pintuan);
-                }
-                else
-                    return null;
-            }).ToList();
-            model.AddRange(pintuanList);
-
+                    if (pintuanDic.ContainsKey(x.ID))
+                    {
+                        var item = pintuanDic[x.ID];
+                        return new Tuple<string, string, string, string, DateTime?, bool, TargetCode>(x.Name, x.Picture, x.ID, item.ID, item.UsedTime, item.IsUsedOnLine, TargetCode.Pintuan);
+                    }
+                    else
+                        return null;
+                }).ToList();
+                model.AddRange(pintuanList);
+            }
             var miaoshaIdList = actIdList.Where(x => x.Code == TargetCode.Miaosha).Select(x => x.TargetID).Distinct().ToList();
-            var miaoshaDic = actIdList.Where(x => x.Code == TargetCode.Miaosha).ToDictionary(x => x.TargetID);
-            var miaoshaList = IPinTuanService.GetList(x => miaoshaIdList.Contains(x.ID)).Select(x =>
+            if (miaoshaIdList != null && miaoshaIdList.Count > 0)
             {
-                if (miaoshaDic.ContainsKey(x.ID))
+                var miaoshaDic = actIdList.Where(x => x.Code == TargetCode.Miaosha).ToDictionary(x => x.TargetID);
+                var miaoshaList = IPinTuanService.GetList(x => miaoshaIdList.Contains(x.ID)).Select(x =>
                 {
-                    var item = miaoshaDic[x.ID];
-                    return new Tuple<string, string, string, string, DateTime?, bool, TargetCode>(x.Name, x.Picture, x.ID, item.ID, item.UsedTime, item.IsUsedOnLine, TargetCode.Miaosha);
-                }
-                else
-                    return null;
-            }).ToList();
-            model.AddRange(miaoshaList);
-
+                    if (miaoshaDic.ContainsKey(x.ID))
+                    {
+                        var item = miaoshaDic[x.ID];
+                        return new Tuple<string, string, string, string, DateTime?, bool, TargetCode>(x.Name, x.Picture, x.ID, item.ID, item.UsedTime, item.IsUsedOnLine, TargetCode.Miaosha);
+                    }
+                    else
+                        return null;
+                }).ToList();
+                model.AddRange(miaoshaList);
+            }
             ViewBag.List = model.Where(x => x != null).ToList();
             return View();
         }
