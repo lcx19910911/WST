@@ -925,6 +925,8 @@
     <Content Include="Views\miaosha\Manage.cshtml" />
     <Content Include="Views\User\MiaoSha.cshtml" />
     <Content Include="Views\User\TryFree.cshtml" />
+    <Content Include="Views\Login\Shop.cshtml" />
+    <Content Include="Views\Login\ResetPassword.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

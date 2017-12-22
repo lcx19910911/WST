@@ -49,21 +49,21 @@ namespace WST.Web.Areas.Admin.Controllers
                     return DataErorrJResult();
                 }
 
-                if (IUserService.IsExits(x => x.IDCard == entity.IDCard && x.ID != entity.ID))
-                {
-                    return JResult(Core.Code.ErrorCode.idcard_had_extis, "");
-                }
+                //if (IUserService.IsExits(x => x.IDCard == entity.IDCard && x.ID != entity.ID))
+                //{
+                //    return JResult(Core.Code.ErrorCode.idcard_had_extis, "");
+                //}
 
                 if (IUserService.IsExits(x => x.Mobile == entity.Mobile && x.ID != entity.ID))
                 {
                     return JResult(Core.Code.ErrorCode.system_phone_already_exist, "");
                 }
-                if (entity.IDCard.Length != 18)
-                {
+                //if (entity.IDCard.Length != 18)
+                //{
 
-                    return JResult(Core.Code.ErrorCode.idcard_erroe, "");
-                }
-                model.IDCard = entity.IDCard;
+                //    return JResult(Core.Code.ErrorCode.idcard_erroe, "");
+                //}
+                //model.IDCard = entity.IDCard;
                 model.HeadImgUrl = entity.HeadImgUrl;
                 model.Mobile = entity.Mobile;
                 model.NickName = entity.NickName;
@@ -101,21 +101,21 @@ namespace WST.Web.Areas.Admin.Controllers
                     return DataErorrJResult();
                 }
 
-                if (IUserService.IsExits(x => x.IDCard == entity.IDCard && x.ID != entity.ID))
-                {
-                    return JResult(Core.Code.ErrorCode.idcard_had_extis, "");
-                }
+                //if (IUserService.IsExits(x => x.IDCard == entity.IDCard && x.ID != entity.ID))
+                //{
+                //    return JResult(Core.Code.ErrorCode.idcard_had_extis, "");
+                //}
 
                 if (IUserService.IsExits(x => x.Mobile == entity.Mobile && x.ID != entity.ID))
                 {
                     return JResult(Core.Code.ErrorCode.system_phone_already_exist, "");
                 }
-                if (entity.IDCard.Length != 18)
-                {
+                //if (entity.IDCard.Length != 18)
+                //{
 
-                    return JResult(Core.Code.ErrorCode.idcard_erroe, "");
-                }
-                model.IDCard = entity.IDCard;
+                //    return JResult(Core.Code.ErrorCode.idcard_erroe, "");
+                //}
+                //model.IDCard = entity.IDCard;
                 model.HeadImgUrl = entity.HeadImgUrl;
                 model.Mobile = entity.Mobile;
                 model.NickName = entity.NickName;

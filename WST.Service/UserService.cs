@@ -25,7 +25,22 @@ namespace WST.Service
         {
             base.ContextCurrent = HttpContext.Current;
         }
-        
+
+        /// <summary>
+        /// 登陆
+        /// </summary>
+        /// <param name="account">账号</param>
+        /// <param name="password">密码</param>
+        /// <returns></returns>
+        public WebResult<User> Login(string mobile, string password)
+        {
+            using (DbRepository entities = new DbRepository())
+            {
+                string md5Password = Core.Util.CryptoHelper.MD5_Encrypt(password);
+
+                return Result(Find(x => x.Mobile == mobile && x.Password == md5Password && !x.IsDelete));
+            }
+        }
 
         /// <summary>
         /// 编辑管理用户

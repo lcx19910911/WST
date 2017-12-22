@@ -93,10 +93,16 @@
         </div>
 
         <div class="data">
-            <p>门店名:</p>
-            <p><input id="StoreName" class="input" type="text" name="StoreName" placeholder="请填写门店名"></p>
             <p>手机:</p>
             <p><input id="Mobile" class="input" type="text" name="Mobile" placeholder="请填写手机号"></p>
+            <p>
+                验证码:
+                <input id="securityCode" class="input" type="text" name="securityCode" placeholder="验证码" maxlength="6"><span class="getCode fU	">点击获取</span>
+            </p>
+            <p>密码:</p>
+            <p><input id="Password" class="input" type="password" name="Password" placeholder="请填写6位以上的密码" maxlength="12"></p>
+            <p>门店名:</p>
+            <p><input id="StoreName" class="input" type="text" name="StoreName" placeholder="请填写门店名"></p>
             <p>身份证:</p>
             <p><input id="IDCard" class="input" type="text" name="IDCard" placeholder="请填写身份证"></p>
             <p>顾问:</p>
@@ -108,7 +114,8 @@
 
     <script type="text/javascript">
 		$(function() {
-
+            
+		    var getJudge = true;
 			// 点击加载更多
 			$(document).on('click', '.submit-btn', function() {
 				for(var i = 0; i < $('.input').length-1; i++) {
@@ -124,20 +131,22 @@
 				else if (mobile.length != 11) {
 				    msg = "手机号码长度错误"
 				}
-				var msg = isCard($("[name='IDCard']").val());
-				if (msg != "")
-				{
-				    alert(msg);
-				    return false;
+				var password = $("[name='Password']").val();
+				if (password == "") {
+				    msg = "请输入密码"
+				}
+				else if (password.length < 6) {
+				    msg = "密码长度错误"
 				}
 				$.ajax({
 				    url: '/user/tryFree',
                     method:'post',
                     data: {
                         Mobile: mobile,
-				        IDCard: $("[name='IDCard']").val(),
+                        Password: password,
 				        StoreName: $("[name='StoreName']").val(),
-				        AdviserName: $("[name='AdviserName']").val()
+				        AdviserName: $("[name='AdviserName']").val(),
+                        Code:$("[name='securityCode']").val(),
 				    },
 				    success: function (data) {
 				        if (data.Code == 0) {
@@ -150,6 +159,35 @@
 
 			})
 
+        // 获取验证码
+        .on('click', '.getCode', function () {
+            if (!getJudge) {
+                return false;
+            }
+            getJudge = false;
+            $('.getCode').text('已发送');
+            setTimeout(function () {
+                getJudge = true;
+                $('.getCode').text('重新获取');
+            }, 30000);
+
+            $.ajax({
+                url: '/config/sendMsg',
+                method: 'post',
+                data: {
+                    mobile: $("[name='Mobile']").val()
+                },
+                success: function (data) {
+                    if (data.Code == 0) {
+                        window.location.href = "/user/index";
+                    } else {
+                        alert(data.ErrorDesc);
+                    }
+                }
+            });
+            
+
+        })
 		})
 
     </script>

@@ -15,6 +15,7 @@ using WST.Web.Framework.Filters;
 using WxPayAPI;
 using WST.Core.Util;
 using WST.Model;
+using WST.Core.Helper;
 
 namespace WST.Web.Controllers
 {
@@ -41,7 +42,35 @@ namespace WST.Web.Controllers
             return JResult(IDataDictionaryService.GetSelectList(GroupCode.Function,""));
         }
 
+        public ActionResult SendMsg(string mobile)
+        {
+            var sendList = CacheHelper.Get<List<string>>("sendList");
+            if (sendList == null || sendList.Count == 0)
+            {
+                CacheHelper.Set<List<string>>("sendList", new List<string>() { mobile }, CacheTimeOption.OneMinute);
+            }
+            else
+            {
+                if (sendList.Contains(mobile))
+                {
+                    return JResult(0);
+                }
+                else
+                {
+                    sendList.Add(mobile);
+                }
+            }
+            var code=CacheHelper.Get<int>("mobile_" + mobile, CacheTimeOption.SixMinutes, () =>
+            {
+                return new Random().Next(10000, 999999);
+            });
+            var result=WebHelper.GetPage($"http://v.juhe.cn/sms/send?mobile={mobile}&tpl_id=52909&tpl_value={HttpUtility.UrlEncode("#code#=" + code)}&key=701db295de1c161b619cb3b85fe5a65d");
+            return JResult(result.DeserializeJson<JuheResult>()?.error_code==0);
+        }
+
+
         
+
         public ActionResult GetMusicList()
         {
             var categoryList = IDataDictionaryService.GetSelectList(GroupCode.MusicCategory, "");
@@ -55,5 +84,11 @@ namespace WST.Web.Controllers
             });
             return JResult(categoryList);
         }
+    }
+
+    public class JuheResult
+    {
+        public int error_code { get; set; }
+        public string reason { get; set; }
     }
 }

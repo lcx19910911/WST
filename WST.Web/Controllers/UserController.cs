@@ -16,6 +16,7 @@ using WxPayAPI;
 using WST.Core.Util;
 using WST.Model;
 using WST.Core.Model;
+using WST.Core.Helper;
 
 namespace WST.Web.Controllers
 {
@@ -71,7 +72,7 @@ namespace WST.Web.Controllers
         public ActionResult BuyTime()
         {
             var user = IUserService.Find(LoginUser.ID);
-            if (user.IDCard.IsNullOrEmpty())
+            if (user.Password.IsNullOrEmpty())
             {
                 return RedirectToAction("PersonData", "user");
             }
@@ -111,14 +112,18 @@ namespace WST.Web.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult PersonData(string IDCard, string StoreName, string AdviserName, string Mobile)
+        public ActionResult PersonData(string Password, string StoreName, string AdviserName, string Mobile, string Code)
         {
             var user = IUserService.Find(LoginUser.ID);
             if (user == null && user.IsDelete)
             {
                 return DataErorrJResult();
             }
-            user.IDCard = IDCard;
+            if (Code != CacheHelper.Get<string>("mobile_" + Mobile))
+            {
+                return JResult(Core.Code.ErrorCode.phone_verificationCode_error, "");
+            }
+            user.Password = Core.Util.CryptoHelper.MD5_Encrypt(Password);
             user.StoreName = StoreName;
             user.Mobile = Mobile;
             if (AdviserName.IsNotNullOrEmpty())
@@ -147,7 +152,7 @@ namespace WST.Web.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult TryFree(string IDCard, string StoreName, string AdviserName, string Mobile)
+        public ActionResult TryFree(string Password, string StoreName, string AdviserName, string Mobile,string Code)
         {
             var user = IUserService.Find(LoginUser.ID);
             if (user == null && user.IsDelete)
@@ -158,7 +163,11 @@ namespace WST.Web.Controllers
             {
                 return JResult(Core.Code.ErrorCode.user_had_try, "");
             }
-            user.IDCard = IDCard;
+            if (Code != CacheHelper.Get<string>("mobile_" + Mobile))
+            {
+                return JResult(Core.Code.ErrorCode.phone_verificationCode_error, "");
+            }
+            user.Password = Core.Util.CryptoHelper.MD5_Encrypt(Password);
             user.StoreName = StoreName;
             user.Mobile = Mobile;
             if (AdviserName.IsNotNullOrEmpty())

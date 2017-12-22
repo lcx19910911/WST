@@ -1,0 +1,138 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <link rel="stylesheet" href="/assets/css/reset.css">
+    <!-- <link rel="stylesheet" type="text/css" href="./assets/css/style.css"> -->
+    <script src="~/assets/js/jquery-2.1.4.min.js"></script>
+    <style>
+        html {
+            background: #199FBC;
+        }
+
+        .head img {
+            display: block;
+            width: 100%;
+        }
+
+        .data {
+        }
+
+        .l .input {
+            border: 1px solid #00ffff;
+            width: 60%;
+            text-align: left;
+            padding: 0 1em;
+            color: #0185a1;
+            background: #fff;
+            margin-left: 1em;
+        }
+
+        .data p {
+            line-height: 2.3em;
+            padding: 0 1em;
+            color: #fff;
+            text-align: left;
+            text-indent: 2em;
+            margin-top: 1em;
+        }
+
+        .l .button {
+            padding: 0;
+            float: none;
+            width: 60%;
+            text-align: center;
+            border-radius: 6px;
+            margin-top: 3em;
+            border: 1px solid #00ffff;
+            background: url(/assets/img/banner/button.png) top center repeat;
+            background-size: auto 100%;
+            color: #0185a1;
+            font-weight: bold;
+        }
+
+        .l #securityCode {
+            width: 30%;
+        }
+
+        .l .getCode {
+            padding: 0 1em;
+            font-size: 1.1em;
+            cursor: pointer;
+        }
+
+        .l .txt-right {
+            text-align: right;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="l">
+        <!-- <div class="nav-wrapper">
+            <h3>完善资料</h3>
+            <a href="javascript:history.go(-1);" class="backhome fl"><返回</a>
+        </div> -->
+        <div class="head">
+            <img src="~/assets/img/banner/head1.png">
+        </div>
+        <div class="data">
+            <p>
+                账号:
+                <input id="username" class="input" type="text" name="username" placeholder="请填写手机号" maxlength="11">
+            </p>
+            <p>
+                密码:
+                <input id="password" class="input" type="password" name="password" placeholder="请填写密码"maxlength="12">
+            </p>
+            <div class="button submit-btn">提交</div>
+            <p class="txt-right pl30 pr30"><a href="" class="btn fU">忘记密码？</a></p>
+        </div>
+    </div>
+    <script type="text/javascript">
+    $(function() {
+
+        var getJudge = true;
+
+        $(document).on('click', '.submit-btn', function() {
+            for (var i = 0; i < $('.input').length - 1; i++) {
+                if ($.trim($('.input').eq(i).val()).length < 2) {
+                    $('.input').eq(i).focus();
+                    return false;
+                }
+            }
+
+            $.ajax({
+                url: '/user/ShopLogin',
+                method: 'post',
+                data: {
+                    account: $("#username").val(),
+                    password: $("#password").val(),
+                },
+                success: function(data) {
+                    if (data.Code == 0) {
+                        window.location.href = "/user/index";
+                    } else {
+                        alert(data.ErrorDesc);
+                    }
+                }
+            })
+
+        })
+
+    })
+    </script>
+</body>
+
+</html>

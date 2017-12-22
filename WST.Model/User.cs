@@ -11,6 +11,35 @@ namespace WST.Model
     [Table("User")]
     public partial class User : BaseEntity
     {
+
+        /// <summary>
+        /// 手机号码
+        /// </summary>
+        [Display(Name = "手机号码"), MaxLength(11)]
+        public string Mobile { get; set; }
+
+
+        [Display(Name = "密码"), MaxLength(32)]
+        public string Password { get; set; }
+
+
+        /// <summary>
+        /// 请输入密码
+        /// </summary>
+        [Display(Name = "请输入密码")]
+        [MaxLength(12), MinLength(6)]
+        [NotMapped]
+        public string NewPassword { get; set; }
+
+        /// <summary>
+        /// 再次输入密码
+        /// </summary>
+        [Display(Name = "再次输入密码")]
+        [MaxLength(12), MinLength(6), Compare("NewPassword", ErrorMessage = "两次密码输入不一致")]
+        [NotMapped]
+        public string ConfirmPassword { get; set; }
+
+
         [MaxLength(32)]
         public string OpenID { get; set; }
         /// <summary>
@@ -38,11 +67,6 @@ namespace WST.Model
         /// </summary>
         [Display(Name = "性别")]
         public SexCode Sex { get; set; }
-        /// <summary>
-        /// 手机号码
-        /// </summary>
-        [Display(Name = "手机号码"),MaxLength(11)]
-        public string Mobile { get; set; }
 
         /// <summary>
         /// 昵称
@@ -58,7 +82,7 @@ namespace WST.Model
         /// <summary>
         /// 身份证
         /// </summary>
-        public string IDCard { get; set; }
+        //public string IDCard { get; set; }
 
         /// <summary>
         /// 门店名

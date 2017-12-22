@@ -26,6 +26,6 @@ namespace WST.IService
 
         User FindByOpenId(string openid);
 
-
+        WebResult<User> Login(string name, string password);
     }
 }

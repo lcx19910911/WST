@@ -1,0 +1,21 @@
+Time:2017/12/23 1:27:51-本次请求耗时 8.705 秒.
+Url:http://localhost:56262/login/resetpassword
+UrlReferrer:http://localhost:56262/login/resetpassword
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/23 1:28:18-本次请求耗时 2.216 秒.
+Url:http://localhost:56262/login/resetpassword
+UrlReferrer:http://localhost:56262/user
+UserHostAddress:::1;;
+WebServer:::1
+
+
+Time:2017/12/23 1:30:14-本次请求耗时 16.724 秒.
+Url:http://localhost:56262/config/sendMsg
+UrlReferrer:http://localhost:56262/login/resetpassword
+UserHostAddress:::1;;
+WebServer:::1
+
+

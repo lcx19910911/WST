@@ -15,6 +15,8 @@ using WST.Core.Util;
 using System.Security.Cryptography;
 using System.Text;
 using WST.Core.Helper;
+using WST.Core.Model;
+using WST.Core.Code;
 
 namespace WST.Web.Controllers
 {
@@ -31,6 +33,36 @@ namespace WST.Web.Controllers
             this.IAdminService = _IAdminService;
         }
 
+        // GET: Login
+        public ActionResult Shop()
+        {
+            
+            return View();
+        }
+
+        public ActionResult ShopLogin(string account, string password)
+        {
+            var result = IUserService.Login(account, password);
+            if (result.Success)
+            {
+
+                if (result.Result == null)
+                    return JResult(new WebResult<bool> { Code = ErrorCode.sys_fail, Result = false, Append = "账号密码错误" });
+                else
+                {
+                    if (result.Result.IsDelete)
+                    {
+                        return JResult(new WebResult<bool> { Code = ErrorCode.sys_fail, Result = false, Append = "该账户已被删除" });
+                    }
+                    else
+                    {
+                        this.LoginUser = new Core.Model.LoginUser(result.Result);
+                    }
+                }
+
+            }
+            return JResult(result);
+        }
 
         // GET: Login
         public ActionResult Index()
@@ -44,6 +76,36 @@ namespace WST.Web.Controllers
             return View();
         }
 
+        public ActionResult ResetPassword()
+        {
+            var user = IUserService.Find(LoginUser.ID);
+            if (user == null && user.IsDelete)
+            {
+                return Forbidden();
+            }
+            return View(user);
+        }
+        [HttpPost]
+        public ActionResult ResetPassword(string Password,string Mobile, string Code)
+        {
+            var user = IUserService.Find(LoginUser.ID);
+            if (user == null && user.IsDelete)
+            {
+                return DataErorrJResult();
+            }
+            if (Code != CacheHelper.Get<string>("mobile_" + Mobile))
+            {
+                return JResult(Core.Code.ErrorCode.phone_verificationCode_error, "");
+            }
+            user.Password = Core.Util.CryptoHelper.MD5_Encrypt(Password);
+            var result = IUserService.Update(user);
+            if (result > 0)
+            {
+                //刷新时间
+                LoginHelper.CreateUser(new LoginUser(user), Params.UserCookieName);
+            }
+            return JResult(result);
+        }
 
         public ActionResult DefaultUser()
         {
