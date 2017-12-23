@@ -37,7 +37,7 @@
         .l .apply-btn {
             position: fixed;
             left: 50%;
-            bottom: -0.5em;
+            bottom: 1.5em;
             width: 80%;
             padding: 0;
             border-radius: 5px;
@@ -154,18 +154,20 @@
                     }
                     
                  .l .block {
-display: block!important;
-width: 100%;
-}
-.l .block .btn {
-width: 100%;
-text-align: left;
-border-radius: 0;
-}
-.l .block .btn span:nth-child(even) {
-margin-right: 1em;
-}
+			display: block!important;
+			width: 100%;
+		}
+		.l .block .btn {
+			width: 100%;
+			text-align: left;
+			border-radius: 0;
+		}
+		.l .block .btn span:nth-child(even) {
+			margin-right: 1em;
+		}
     </style>
+    
+    <link rel="stylesheet" type="text/css" href="@(Model.TemplateUrl)/model.css">
 </head>
 <body>
     <div class="app l view">
@@ -456,10 +458,17 @@ margin-right: 1em;
         {
             if (!ViewBag.IsReport)
             {
-                <div class="button apply-btn">我要报名</div>
+		<div class="foot-btn-wrapper">
+			<div class="button apply-btn">我要报名</div>
+		</div>
             }
         }
 
+	<div class="toBuild">
+		<a href="/User/TryFree">
+			<span>我也要制作发布营销活动 -> </span><span class="c-ff0 f11">沃商通</span>
+		</a>
+	</div>
 
     </div>
 
@@ -529,7 +538,8 @@ margin-right: 1em;
                 success: function (data) {
                     if (data.Code == 0) {
                         alert("分享成功");
-                        window.location.reload();
+                        location.href = location.href+'&datetime='+new Date().getTime();
+			window.location = location;
                     }
                     else
                         alert(data.ErrorDesc);
@@ -621,7 +631,8 @@ margin-right: 1em;
 			        success: function (data) {
 			            if (data.Code == 0) {
 			                alert("报名成功");
-			                window.location.reload();
+			                location.href = location.href+'&datetime='+new Date().getTime();
+					window.location = location;
 			            }
 			            else
 			                alert(data.ErrorDesc);

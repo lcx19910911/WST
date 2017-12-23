@@ -1,6 +1,62 @@
 /* CSS edit */
 @charset 'utf-8';
 
+@keyframes rotation {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes animateA {
+    0% {
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+    25% {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+    50% {
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+    75% {
+        -webkit-transform: scale(1.1);
+        transform: scale(1.1);
+    }
+    100% {
+        -webkit-transform: scale(0.9);
+        transform: scale(0.9);
+    }
+}
+@keyframes animateB {
+    0% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+    25% {
+        -webkit-transform: translateY(0.3em);
+        transform: translateY(0.3em);
+    }
+    50% {
+        -webkit-transform: translateY(0em);
+        transform: translateY(0em);
+    }
+    75% {
+        -webkit-transform: translateY(-0.3em);
+        transform: translateY(-0.3em);
+    }
+    100% {
+        -webkit-transform: translateY(0);
+        transform: translateY(0);
+    }
+}
+
 
 .global-orderBtn-wrapper {
     position: fixed;
@@ -29,9 +85,12 @@
 }
 .global-orderBtn-wrapper .share-info {
     background-image: url(../img/banner/share.png);
+    animation: animateA 2s linear infinite;
+    
 }
 .global-orderBtn-wrapper .contact-merchant {
     background-image: url(../img/banner/contact.png);
+    animation: animateB 2s linear infinite;
 }
 .global-orderBtn-wrapper .contact-merchant a {
     display: block;
@@ -116,4 +175,27 @@
     color: #f00;
     line-height: 1.5em;
     padding-bottom: 0.7em;
+}
+.l .foot-btn-wrapper {
+    bottom: 3.5em;
+}
+div.app {
+    padding-bottom: 5em;
+}
+.toBuild {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2.5em;
+    line-height: 2.5em;
+    color: #fff;
+    text-indent: 1em;
+    background: rgba(100,100,100,0.7);
+    font-size: 1.1em;
+}
+.toBuild a {
+    display: block;
+    width: 100%;
+    height: 100%;
 }

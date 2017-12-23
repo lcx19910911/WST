@@ -29,6 +29,7 @@ $(function () {
 
     // 预览活动
     var judge = true;
+    var saveJudge = true;
 
     $(document).on('click', '.view-btn', function () {
         if (!judge) {
@@ -63,7 +64,8 @@ $(function () {
     .on('click', '.add-child span', function () {
         var type = $(this).attr('add-type');
         var html = '';
-        var len = $('.app').find('.sub-intro').length;
+        //var len = $('.app').find('.sub-intro').length;
+		var len = Math.random().toString().replace('.','');
         switch (type) {
             case 'txt':
                 html = '<div class="uploadImgLabel"><div contenteditable="true" id="subIntro' + len + '" data-type="txt" class="sub-intro textarea e-textarea"  placeholder="请输入文本"></div><p class="v-p"></p><span class="close">x</span></div>';
@@ -95,6 +97,11 @@ $(function () {
         }
 
         console.log('pass');
+
+		if(!saveJudge) return false;
+		saveJudge = false;
+		$('.save-btn').text('生成中');
+
         var $form = $('#submit-form');
         var jsonData = serialize($form);
         setTimeout(function () {
@@ -113,11 +120,20 @@ $(function () {
                         window.location.href = "/user/miaosha?id=" + data.Result;
                     }
                 }
-                else
+                else {
                     alert(data.ErrorDesc);
+				}
+				saveJudge = true;
+				$('.save-btn').text('保存活动');
                }
             })
         }, 800);
+
+		setTimeout(function() {
+			if(saveJudge) return false;
+			saveJudge = true;
+			$('.save-btn').text('保存活动');
+		}, 10000);
 
     })
 

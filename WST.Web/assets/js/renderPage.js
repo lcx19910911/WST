@@ -1,8 +1,8 @@
-function renderPage(fileName) {
+function renderPage(filePath) {
     $.ajax({
-        url: fileName,
+        url: filePath+'/model.json',
         dataType: 'json',
-        type: 'GET',
+        type: 'GET',    
         error: function(msg) {
             alert("加载模板文件出错！");
         },

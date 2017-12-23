@@ -927,6 +927,7 @@
     <Content Include="Views\User\TryFree.cshtml" />
     <Content Include="Views\Login\Shop.cshtml" />
     <Content Include="Views\Login\ResetPassword.cshtml" />
+    <Content Include="Views\User\JoinUser.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

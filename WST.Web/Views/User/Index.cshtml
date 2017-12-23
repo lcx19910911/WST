@@ -278,22 +278,29 @@
         </div>
         <div class="favorite-wrapper">
             @*<div class="favorite pic-ico">
-                <a href="">活动教程<span>></span></a>
-            </div>*@
+                    <a href="">活动教程<span>></span></a>
+                </div>*@
 
             @if (isMember)
             {
-                <div class="favorite pic-ico">
+            <div class="favorite pic-ico">
                     <a href="/shop/actlist">商家活动<span>></span></a>
                 </div>
                 <div class="favorite pic-ico">
                     <a href="/login/resetpassword">重置密码<span>></span></a>
                 </div>
+            }
+            else
+            {
 
+                <div class="favorite pic-ico">
+                    <a href="/login/shop">账号登陆<span>></span></a>
+                </div>
             }
             <div class="favorite pic-ico">
-                <a href="/login/resetpassword">付费方式<span>></span></a>
+                <a href="https://mp.weixin.qq.com/s/tTi6fndmI49zQ7AjHnCynQ">付费方式<span>></span></a>
             </div>
+
             <div class="favorite pic-ico">
                 <a href="https://mp.weixin.qq.com/s/_QFZp-L6yAI9Lt3gJ5zYIw">常见问题<span>></span></a>
             </div>

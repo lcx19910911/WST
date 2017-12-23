@@ -95,6 +95,15 @@ namespace WST.Core.Code
         [Description("旧密码输入错误")]
         user_password_nottrue = 109,
 
+
+
+        /// <summary>
+        /// 请先注册
+        /// </summary>
+        [Description("账号密码错误.")]
+        password_not_true = 110,
+
+
         #endregion
 
 

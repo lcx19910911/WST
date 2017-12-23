@@ -47,7 +47,7 @@ namespace WST.Web.Controllers
             {
 
                 if (result.Result == null)
-                    return JResult(new WebResult<bool> { Code = ErrorCode.sys_fail, Result = false, Append = "账号密码错误" });
+                    return JResult(new WebResult<bool> { Code = ErrorCode.password_not_true, Result = false, Append = "账号密码错误" });
                 else
                 {
                     if (result.Result.IsDelete)
@@ -113,7 +113,7 @@ namespace WST.Web.Controllers
             //lcx oZe9g0tkskZx51DFih_hKm_GIYS0
             //lzy 
             //shop 
-            var user = IUserService.FindByOpenId("oZe9g0uVcVEitCbhnKc35wE_UMIo");
+            var user = IUserService.FindByOpenId("oZe9g0pyZyvXx2MCC1MS9bcx-aQM");
             if (user != null)
             {
                 //user.IsMember = false;

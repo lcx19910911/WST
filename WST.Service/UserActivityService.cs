@@ -63,10 +63,51 @@ namespace WST.Service
                 }
                 var count = query.Count();
                 var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
-                list.ForEach(x =>
+               ;
+                if (list != null && list.Count > 0)
                 {
-                });
-
+                    var actCode = list.FirstOrDefault().Code;
+                    if (actCode == TargetCode.Pintuan)
+                    {
+                        var model = db.PinTuan.Find(targetId);
+                        if (model == null)
+                        {
+                            return null;;
+                        }
+                        var priceList = model.PinTuanItemJson.DeserializeJson<List<PinTuanItem>>().OrderBy(x => x.Count).ToList();
+                        var countList = priceList.Select(x => x.Count).ToList();
+                        var price = 0M;
+                        for (var index = 1; index <= countList.Count; index++)
+                        {
+                            if (index < countList.Count)
+                            {
+                                if (model.JoinCount < countList[index - 1])
+                                {
+                                    price = model.OldPrice;
+                                    break;
+                                }
+                                if (model.JoinCount == countList[index - 1])
+                                {
+                                    price = priceList[index - 1].Amount;
+                                    break;
+                                }
+                                if (model.JoinCount > countList[index - 1] && model.JoinCount < countList[index])
+                                {
+                                    price = priceList[index - 1].Amount;
+                                    break;
+                                }
+                            }
+                            else
+                            {
+                                price = priceList[index - 1].Amount;
+                            }
+                        }
+                        list.ForEach(x =>
+                        {
+                            x.Amount = price;
+                        });
+                    }
+                }
                 return CreatePageList(list, pageIndex, pageSize, count);
 
             }

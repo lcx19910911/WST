@@ -123,9 +123,9 @@
                         required: true,
                         maxlength: 32
                     },
-                    IDCard: {
-                        required: true,
-                    },
+                    //IDCard: {
+                    //    required: true,
+                    //},
                     Sex: {
                         required: true
                     },
@@ -152,9 +152,9 @@
                         required: "名称不允许为空",
                         maxlength: "最多{0}个字符"
                     },
-                    IDCard: {
-                        required: "身份证不允许为空",
-                    },
+                    //IDCard: {
+                    //    required: "身份证不允许为空",
+                    //},
                     Sex: {
                         required: "请选择性别"
                     },
@@ -225,10 +225,10 @@
                                          return false;
                                      }
 
-                                     if (!isCardID($("#form [name='IDCard']")))
-                                     {
-                                         return false;
-                                     }
+                                     //if (!isCardID($("#form [name='IDCard']")))
+                                     //{
+                                     //    return false;
+                                     //}
                                      $.Nuoya.form("form").ajaxSubmit({
                                          ajaxUrl: "/Admin/User/AddMember",
                                          params: {

@@ -1,0 +1,202 @@
+﻿@{
+    var list = ViewBag.List as List<Tuple<string, string, string, string, DateTime?, bool, TargetCode>>;
+    ViewBag.Title = "参与人员";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>参与人员</title>
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <link rel="stylesheet" href="~/assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/style.css">
+    <script src="~/assets/js/jquery-2.1.4.min.js"></script>
+    <style>
+        html {
+            background: #f9f9ff;
+        }
+
+        .nav-wrapper {
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 0.4em 1em;
+            width: 100%;
+            height: 2.8em;
+            line-height: 2em;
+            border-bottom: 1px dashed #eee;
+            background: #fff;
+            z-index: 10;
+        }
+
+            .nav-wrapper a {
+                position: absolute;
+                left: 0;
+                top: 0;
+                height: 2.8em;
+                line-height: 2.8em;
+                padding: 0 1em;
+                color: #608DA4;
+            }
+
+            .nav-wrapper h3 {
+                position: absolute;
+                width: 100%;
+                text-align: center;
+                color: #608DA4;
+                font-size: 1.1em;
+            }
+
+        .info {
+            display: block;
+            line-height: 2em;
+            text-align: center;
+            color: #999;
+            margin-bottom: 1em;
+        }
+
+        .loadmore {
+            text-align: center;
+            line-height: 3em;
+            font-size: 1.1em;
+            color: #333;
+            margin: 1em auto;
+        }
+
+        .apply-items {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+            padding: 0 1em;
+            padding-top: 5.6em;
+            overflow-y: auto;
+        }
+
+        .title {
+            position: fixed;
+            overflow: hidden;
+            top: 2.8em;
+            left: 0;
+            width: 100%;
+            padding: 0 1em;
+            height: 2.8em;
+            line-height: 2.8em;
+            border-bottom: 1px dashed #ccc;
+            background: #fcfcff;
+            z-index: 10;
+        }
+
+            .title span {
+                float: left;
+                width: 30%;
+                text-align: center;
+            }
+
+        .apply-items li {
+            overflow: hidden;
+            line-height: 2.5em;
+            border-bottom: 1px solid rgba(200,200,200,.3);
+        }
+
+            .apply-items li span {
+                float: left;
+                width: 30%;
+                text-align: center;
+            }
+
+            .apply-items li .remark {
+                color: #f00;
+            }
+
+        .l .phone {
+            width: 40%;
+        }
+    </style>
+</head>
+<body>
+    <div class="l">
+        <div class="nav-wrapper">
+            <h3>参加人员</h3>
+            <a href="javascript:history.go(-1);" class="backhome fl"><返回</a>
+        </div>
+        <div class="title">
+            <span class="name">姓名</span>
+            <span class="phone">电话</span>
+            <span class="remark">备注</span>
+        </div>
+        <div class="apply-items">
+            <ul class="box">
+
+
+            </ul>
+            <div class="loadmore">加载更多</div>
+        </div>
+
+    </div>
+
+    <script type="text/javascript">
+		$(function() {
+			var pageIndex = 0, // 当前页索引
+					pageSize = 10, // 每页数量
+					RecordCount, // 全部数据总数
+					PageCount, // 总页面数
+					IsLastPage = false; // 最后一页
+
+			var timer,
+					loadJudge = true;
+
+
+			// 点击加载更多
+			$(document).on('click', '.loadmore', function() {
+				if(IsLastPage) {
+					$('.loadmore').text('没有更多了');
+					return false;
+				}
+				if(!loadJudge) return false;
+				loadJudge = false;
+				setTimeout(function() {
+					loadJudge = true;
+				}, 1500)
+				loaddata();
+			})
+
+			loaddata();
+			function loaddata() {
+			    $.ajax({
+			        url: '/user/GetUserPageList',
+			        data: {
+			            pageIndex: ++pageIndex,
+			            pageSize: pageSize,
+			            targetId: '@(Request["ID"])'
+			        },
+			        success: function (data) {
+			            if (data.Code == 0) {
+			                IsLastPage = data.Result.IsLastPage;
+			                RecordCount = data.Result.RecordCount;
+			                PageCount = data.Result.PageCount;
+			                var list = data.Result.List;
+			                $.each(list, function (i, obj) {
+			                    $('.apply-items ul').append('<li><span class="name">' + obj.JoinUserName + '</span><span class="phone">' + obj.Mobile + '</span><span class="remark">' + obj.Amount + '</span></li>');
+			                })
+			            }
+			            else
+			                alert(data.ErrorDesc);
+			        }
+			    })
+			}
+		})
+
+    </script>
+
+</body>
+</html>

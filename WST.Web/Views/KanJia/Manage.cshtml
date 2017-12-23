@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="~/assets/css/reset.css?v=kanjia3">
     <link rel="stylesheet" type="text/css" href="~/assets/css/editkanjia.css?v=kanjia3">
     <link href="~/assets/css/common.css?v=kanjia3" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="~@(Model.TemplateUrl)/model.css?v=@(guid)">
+    <link rel="stylesheet" type="text/css" href="@(Model.ID.IsNullOrEmpty()?Request["TemplateUrl"]:Model.TemplateUrl)/model.css?v=@(guid)">
     <script type="text/javascript" src="~/assets/js/jquery-2.1.4.min.js"></script>
     <script type="text/javascript" src="~/assets/js/import.js"></script>
     <script src="~/assets/js/common.js"></script>
@@ -145,7 +145,7 @@
         </div>
         <!-- activity -->
         <div class="activity-wrapper mt15">
-            <span for="startTime">活动时间:</span>
+            <h3 for="startTime">活动时间:</h3>
             <input type="text" name="startTime" id="startTime" value="@(Model.ID.IsNullOrEmpty()?DateTime.Now.AddDays(1).ToString("yyyy-MM-dd HH:mm"):Model.StartTime.ToString())" class="input e-input timeinput" />
             <!-- <span class="v-span input timeinput"></span> -->
             <span>到</span>
@@ -226,16 +226,16 @@
                     else
                     {
                     <!-- sub-intro: 数据载体  data-type：类型-->
-                        <div class="uploadImgLabel">
-                            <!-- <textarea id="subIntro0" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本"></textarea> -->
+                        <!-- <div class="uploadImgLabel">
+                            <textarea id="subIntro0" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本"></textarea>
                             <div id="subIntro0" contenteditable="true" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本"></div>
-                            <!-- <p class="v-p"></p> -->
+                            <p class="v-p"></p>
                             <span class="close">x</span>
                         </div>
                         <label for="uploadImg" data-target="subIntro1" class="uploadImgLabel">
                             <img id="subIntro1" class="sub-intro nosrc" data-type="img" src="" alt="上传图片">
                             <span class="close">x</span>
-                        </label>
+                        </label> -->
                     }
                     <!-- <textarea id="goodsDescribe3" data-type="video" class="sub-intro textarea e-textarea" placeholder="请输入视频地址"></textarea> -->
                     <!-- <p class="v-p"></p> -->
@@ -299,12 +299,10 @@
                     }
                     else
                     {
-                        <div class="uploadImgLabel">
-                            <!-- <textarea id="subIntro3" data-type="txt" class="sub-intro textarea e-textarea" placeholder="此处填写机构介绍"></textarea> -->
+                        <!-- <div class="uploadImgLabel">
                             <div id="subIntro3" contenteditable="true" data-type="txt" class="sub-intro textarea e-textarea" placeholder="此处填写机构介绍"></div>
-                            <!-- <p class="v-p"></p> -->
                             <span class="close">x</span>
-                        </div>
+                        </div> -->
                     }
                     <div class="add-child">
                         <span class="addtxt" add-type="txt">添加文本</span>
@@ -407,19 +405,10 @@
 
         </form>
     </div>
-    <script>
-        function audioAutoPlay(id) {
-            var audio = document.getElementById(id);
-            audio.play();
-            document.addEventListener("WeixinJSBridgeReady", function () {
-                audio.play();
-            }, false);
-            document.addEventListener('YixinJSBridgeReady', function () {
-                audio.play();
-            }, false);
-        }
-        audioAutoPlay('audio');
-
+    
+    <script type="text/javascript" src="~/assets/js/renderPage.js"></script>
+    <script type="text/javascript">
+	renderPage('@(Model.ID.IsNullOrEmpty()?Request["TemplateUrl"]:Model.TemplateUrl)');
     </script>
 </body>
 </html>

@@ -44,22 +44,23 @@ namespace WST.Web.Controllers
 
         public ActionResult SendMsg(string mobile)
         {
-            var sendList = CacheHelper.Get<List<string>>("sendList");
-            if (sendList == null || sendList.Count == 0)
-            {
-                CacheHelper.Set<List<string>>("sendList", new List<string>() { mobile }, CacheTimeOption.OneMinute);
-            }
-            else
-            {
-                if (sendList.Contains(mobile))
-                {
-                    return JResult(0);
-                }
-                else
-                {
-                    sendList.Add(mobile);
-                }
-            }
+            //var sendList = CacheHelper.Get<List<string>>("sendList");
+            //if (sendList == null || sendList.Count == 0)
+            //{
+            //    CacheHelper.Set<List<string>>("sendList", new List<string>() { mobile }, CacheTimeOption.OneMinute);
+            //}
+            //else
+            //{
+            //    if (sendList.Contains(mobile))
+            //    {
+            //        return JResult(0);
+            //    }
+            //    else
+            //    {
+            //        sendList.Add(mobile);
+            //    }
+            //}
+            CacheHelper.Remove("mobile_" + mobile);
             var code=CacheHelper.Get<int>("mobile_" + mobile, CacheTimeOption.SixMinutes, () =>
             {
                 return new Random().Next(10000, 999999);

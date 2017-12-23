@@ -12,7 +12,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>个人资料</title>
+    <title>资料填写</title>
     <meta name="viewport" content="width=device-width,user-scalable=no">
     <meta name="format-detection" content="telephone=no" />
     <meta http-equiv="pragma" content="no-cache">
@@ -24,170 +24,168 @@
     <script src="~/Areas/Admin/Scripts/utility.js"></script>
     <style>
         html {
-            background: #f9f9ff;
-        }
-
-        .nav-wrapper {
-            overflow: hidden;
-            position: fixed;
-            top: 0;
-            left: 0;
-            padding: 0.4em 1em;
-            width: 100%;
-            height: 2.8em;
-            line-height: 2em;
-            border-bottom: 1px dashed #eee;
-            background: #fff;
-            z-index: 10;
-        }
-
-            .nav-wrapper a {
-                position: absolute;
-                left: 0;
-                top: 0;
-                height: 2.8em;
-                line-height: 2.8em;
-                padding: 0 1em;
-                color: #608DA4;
-            }
-
-            .nav-wrapper h3 {
-                position: absolute;
-                width: 100%;
-                text-align: center;
-                color: #608DA4;
-                font-size: 1.1em;
-            }
-
-        .data {
-            padding-top: 5em;
-        }
-
-        .l .input {
-            border: 1px solid #ccc;
-            width: 100%;
-            text-align: left;
-            padding: 0 1em;
-        }
-
-        .data p {
-            line-height: 3em;
-            padding: 0 1em;
-        }
-
-        .l .button {
-            padding: 0;
-            float: none;
-            width: 60%;
-            text-align: center;
-            border-radius: 6px;
-            margin-top: 3em;
-        }
+		background: #199FBC;
+	}
+	.head img {
+		display: block;
+		width: 100%;
+	}
+	.data {
+		overflow: hidden;
+	}
+	
+	.l .input {
+		border: 1px solid #00ffff;
+		width: 70%;
+		text-align: left;
+		padding: 0 1em;
+		color: #0185a1;
+		background: #fff;
+	}
+	.data p {
+		line-height: 2.3em;
+		padding: 0 1em;
+		color: #fff;
+		text-align: left;
+		margin-top: 1em;
+	}
+	.data p span {
+		float: left;
+		width: 5em;
+	}
+	.data p #securityCode {
+		width: 30%;
+	}
+	.data p .getCode {
+		display: inline-block;
+		float: none;
+		margin-left: 1em;
+	}
+	.l .button {
+		padding: 0;
+		float: none;
+		width: 60%;
+		text-align: center;
+		border-radius: 6px;
+		margin-top: 3em;
+		border: 1px solid #00ffff;
+		background: url(/assets/img/banner/button.png) top center repeat;
+		background-size: auto 100%;
+		color: #0185a1;
+		font-weight: bold;
+	}
+	.getCode {
+		cursor: pointer;
+	}
     </style>
 </head>
 <body>
     <div class="l">
-        <div class="nav-wrapper">
-            <h3>完善资料</h3>
-            <a href="javascript:history.go(-1);" class="backhome fl"><返回</a>
-        </div>
+        <div class="head">
+		<img src="~/assets/img/banner/head1.png">
+	</div>
 
         <div class="data">
-            <p>手机:</p>
-            <p><input id="Mobile" class="input" type="text" name="Mobile" placeholder="请填写手机号"></p>
+            <p><span>手机:</span><input id="Mobile" class="input" type="text" value="@(Model.Mobile)" name="Mobile" placeholder="请填写手机号"></p>
             <p>
-                验证码:
-                <input id="securityCode" class="input" type="text" name="securityCode" placeholder="验证码" maxlength="6"><span class="getCode fU	">点击获取</span>
+                <span>验证码:</span>
+                <input id="securityCode" class="input" type="text" name="securityCode" placeholder="验证码" maxlength="6"><span class="getCode fU">点击获取</span>
             </p>
-            <p>密码:</p>
-            <p><input id="Password" class="input" type="password" name="Password" placeholder="请填写6位以上的密码" maxlength="12"></p>
-            <p>名称:</p>
-            <p><input id="Mobile" class="input" type="text" name="Mobile" placeholder="请填写手机号"></p>
-            <p>门店名:</p>
-            <p><input id="StoreName" class="input" type="text" name="StoreName" placeholder="请填写门店名"></p>
-            <p>顾问:</p>
-            <p><input id="AdviserName" class="input" type="text" name="AdviserName" placeholder="请填写顾问"></p>
+
+            <p><span>密码:</span><input id="Password" class="input" type="password" name="Password" placeholder="请填写6位以上的密码" maxlength="12"></p>
+
+            <!-- <p><span>手机:</span><input id="Mobile" class="input" type="text" name="Mobile" placeholder="请填写手机号"></p> -->
+
+            <p><span>门店名:</span><input id="StoreName" class="input" value="@(Model.StoreName)"  type="text" name="StoreName" placeholder="请填写门店名"></p>
+
+            <p><span>顾问:</span><input id="AdviserName" class="input"  type="text" name="AdviserName" placeholder="请填写顾问"></p>
             <div class="button submit-btn">提交</div>
         </div>
 
     </div>
 
     <script type="text/javascript">
-		$(function() {
+	$(function() {
+		var getJudge = true;
 
-			// 点击加载更多
-			$(document).on('click', '.submit-btn', function() {
-				for(var i = 0; i < $('.input').length-1; i++) {
-					if($.trim($('.input').eq(i).val()).length < 2) {
-						$('.input').eq(i).focus();
-						return false;
-					}
-				}
-				var mobile = $("[name='Mobile']").val();
-				if (mobile == "") {
-				    msg = "请输入手机号码"
-				}
-				else if (mobile.length != 11) {
-				    msg = "手机号码长度错误"
-				}
-				var password = $("[name='Password']").val();
-				if (password == "") {
-				    msg = "请输入密码"
-				}
-				else if (password.length <6) {
-				    msg = "密码长度错误"
-				}
+	    // 点击加载更多
+	    $(document).on('click', '.submit-btn', function() {
+		for(var i = 0; i < $('.input').length-1; i++) {
+			if($.trim($('.input').eq(i).val()).length < 2) {
+				$('.input').eq(i).focus();
+				return false;
+			}
+		}
+		var mobile = $("[name='Mobile']").val();
+		if (mobile == "") {
+		    msg = "请输入手机号码"
+		}
+		else if (mobile.length != 11) {
+		    msg = "手机号码长度错误"
+		}
+		var password = $("[name='Password']").val();
+		if (password == "") {
+		    msg = "请输入密码"
+		}
+		else if (password.length <6) {
+		    msg = "密码长度错误"
+		}
 
-				$.ajax({
-				    url: '/user/TryFree',
+		$.ajax({
+		    url: '/user/persondata',
                     method:'post',
                     data: {
                         Mobile: mobile,
                         Password: password,
-				        StoreName: $("[name='StoreName']").val(),
-				        AdviserName: $("[name='AdviserName']").val(),
-				        Code: $("[name='securityCode']").val(),
-				    },
-				    success: function (data) {
-				        if (data.Code == 0) {
-				            window.location.href = "/user/buytime";
-				        }
-				        else
-				            alert(data.ErrorDesc);
-				    }
-				})
-
-			})
-
-        // 获取验证码
-        .on('click', '.getCode', function () {
-            if (!getJudge) {
-                return false;
-            }
-            getJudge = false;
-            $('.getCode').text('已发送');
-            setTimeout(function () {
-                getJudge = true;
-                $('.getCode').text('重新获取');
-            }, 30000);
-
-            $.ajax({
-                url: '/config/sendMsg',
-                method: 'post',
-                data: {
-                    mobile: $("[name='Mobile']").val()
-                },
-                success: function (data) {
-                    if (data.Code == 0) {
-                        window.location.href = "/user/index";
-                    } else {
-                        alert(data.ErrorDesc);
-                    }
-                }
-            });
-
-        })
+			StoreName: $("[name='StoreName']").val(),
+			AdviserName: $("[name='AdviserName']").val(),
+			Code: $("[name='securityCode']").val(),
+		    },
+		    success: function (data) {
+			if (data.Code == 0) {
+			    window.location.href = "/user/buytime";
+			}
+			else
+			    alert(data.ErrorDesc);
+		    }
 		})
+
+	    })
+
+		// 获取验证码
+		.on('click', '.getCode', function () {
+		    if($("[name='Mobile']").val().length < 8) {
+			alert('请输入手机号码');
+			$("[name='Mobile']").focus();
+			return false;
+		    }
+		    if (!getJudge) {
+			return false;
+		    }
+		    getJudge = false;
+		    $('.getCode').text('已发送');
+		    setTimeout(function () {
+			getJudge = true;
+			$('.getCode').text('重新获取');
+		    }, 30000);
+
+		    $.ajax({
+			url: '/config/sendMsg',
+			method: 'post',
+			data: {
+			    mobile: $("[name='Mobile']").val()
+			},
+			success: function (data) {
+			    if (data.Code == 0) {
+				
+			    } else {
+				alert(data.ErrorDesc);
+			    }
+			}
+		    });
+
+		})
+	})
 
     </script>
 

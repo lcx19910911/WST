@@ -109,19 +109,32 @@ namespace WST.Web.Controllers
 
         public ActionResult PersonData()
         {
-            return View();
+            var user = IUserService.Find(LoginUser.ID);
+            if (user == null && user.IsDelete)
+            {
+                return DataErorrJResult();
+            }
+            return View(user);
         }
         [HttpPost]
-        public ActionResult PersonData(string Password, string StoreName, string AdviserName, string Mobile, string Code)
+        public ActionResult PersonData(string Password, string StoreName, string AdviserName, string Mobile, int Code)
         {
             var user = IUserService.Find(LoginUser.ID);
             if (user == null && user.IsDelete)
             {
                 return DataErorrJResult();
             }
-            if (Code != CacheHelper.Get<string>("mobile_" + Mobile))
+            if (IUserService.IsExits(x => x.Mobile == Mobile && x.IsMember&&x.ID!=user.ID))
+            {
+                return JResult(Core.Code.ErrorCode.system_phone_already_exist, "");
+            }
+            if (Code != CacheHelper.Get<int>("mobile_" + Mobile))
             {
                 return JResult(Core.Code.ErrorCode.phone_verificationCode_error, "");
+            }
+            else
+            {
+                CacheHelper.Remove("mobile_" + Mobile);
             }
             user.Password = Core.Util.CryptoHelper.MD5_Encrypt(Password);
             user.StoreName = StoreName;
@@ -147,25 +160,29 @@ namespace WST.Web.Controllers
             }
             if (user.IsMember || (user.EndTime.HasValue && !user.StartTime.HasValue))
             {
-                return RedirectToAction("index","user");
+                return RedirectToAction("index", "user");
             }
-            return View();
+            return View(user);
         }
         [HttpPost]
-        public ActionResult TryFree(string Password, string StoreName, string AdviserName, string Mobile,string Code)
+        public ActionResult TryFree(string Password, string StoreName, string AdviserName, string Mobile,int Code)
         {
             var user = IUserService.Find(LoginUser.ID);
             if (user == null && user.IsDelete)
             {
                 return DataErorrJResult();
             }
-            if (user.IsMember || (user.EndTime.HasValue&& !user.StartTime.HasValue))
+            if (user.IsMember || (user.EndTime.HasValue && !user.StartTime.HasValue&&user.Password.IsNotNullOrEmpty()))
             {
                 return JResult(Core.Code.ErrorCode.user_had_try, "");
             }
-            if (Code != CacheHelper.Get<string>("mobile_" + Mobile))
+            if (Code != CacheHelper.Get<int>("mobile_" + Mobile))
             {
                 return JResult(Core.Code.ErrorCode.phone_verificationCode_error, "");
+            }
+            if (IUserService.IsExits(x => x.Mobile == Mobile && x.IsMember && x.ID != user.ID))
+            {
+                return JResult(Core.Code.ErrorCode.system_phone_already_exist, "");
             }
             user.Password = Core.Util.CryptoHelper.MD5_Encrypt(Password);
             user.StoreName = StoreName;
@@ -526,7 +543,8 @@ namespace WST.Web.Controllers
                     JoinUserID = LoginUser.ID,
                     Openid = LoginUser.Openid,
                     JoinUserName = name,
-                    IsPrize = false,
+                    IsPrize = true,
+                    Amount=price,
                     PrizeInfo = $"团购价{price}",
                     ShopUserID = model.UserID,
                     Mobile = mobile,
@@ -657,6 +675,24 @@ namespace WST.Web.Controllers
         /// <returns></returns>
         public ActionResult ActList()
         {
+
+            //var miaoshasList = IUserActivityService.GetList(x => x.Code == TargetCode.Miaosha);
+            ////var miaoshaIdList=miaoshaList.Select(x => x.TargetID).Distinct().ToList();
+
+            //var userIdList = miaoshasList.Select(x => x.JoinUserID).Distinct().ToList();
+            //var userDic = IUserService.GetDic(x => userIdList.Contains(x.ID));
+
+            //miaoshasList.ForEach(x =>
+            //{
+            //    if (x.JoinUserID.IsNotNullOrEmpty()&&userDic.ContainsKey(x.JoinUserID))
+            //    {
+            //        x.Mobile = userDic[x.JoinUserID].Mobile;
+            //        IUserActivityService.Update(x);
+            //        }
+            //});
+
+
+
             var model = new List<Tuple<string, string, string, string, DateTime?, bool, TargetCode>>();
 
             var actIdList = IUserActivityService.GetList(x => x.JoinUserID == LoginUser.ID && !x.IsDelete && x.IsPrize);
@@ -696,7 +732,7 @@ namespace WST.Web.Controllers
             if (miaoshaIdList != null && miaoshaIdList.Count > 0)
             {
                 var miaoshaDic = actIdList.Where(x => x.Code == TargetCode.Miaosha).ToDictionary(x => x.TargetID);
-                var miaoshaList = IPinTuanService.GetList(x => miaoshaIdList.Contains(x.ID)).Select(x =>
+                var miaoshaList = IMiaoShaService.GetList(x => miaoshaIdList.Contains(x.ID)).Select(x =>
                 {
                     if (miaoshaDic.ContainsKey(x.ID))
                     {

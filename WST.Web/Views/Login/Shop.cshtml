@@ -97,7 +97,7 @@
                 <input id="password" class="input" type="password" name="password" placeholder="请填写密码"maxlength="12">
             </p>
             <div class="button submit-btn">提交</div>
-            <p class="txt-right pl30 pr30"><a href="" class="btn fU">忘记密码？</a></p>
+            <p class="txt-right pl30 pr30"><a href="/login/resetpassword" class="btn fU">忘记密码？</a></p>
         </div>
     </div>
     <script type="text/javascript">
@@ -114,13 +114,14 @@
             }
 
             $.ajax({
-                url: '/user/ShopLogin',
+                url: '/login/ShopLogin',
                 method: 'post',
                 data: {
                     account: $("#username").val(),
                     password: $("#password").val(),
                 },
-                success: function(data) {
+                success: function (data) {
+                    //debugger
                     if (data.Code == 0) {
                         window.location.href = "/user/index";
                     } else {

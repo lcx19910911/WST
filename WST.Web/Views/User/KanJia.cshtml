@@ -207,6 +207,8 @@
 			text-align: center;
 		}
     </style>
+    
+    <link rel="stylesheet" type="text/css" href="@(Model.TemplateUrl)/model.css">
 </head>
 <body>
     <div class="app l view">
@@ -337,7 +339,7 @@
                 </div>
             </div>
 
-            <div class="groupBooking-list">
+            @*<div class="groupBooking-list">
                 <span>最多砍价次数：</span>
                 <input id="oncePrice"
                        type="number"
@@ -346,7 +348,7 @@
                        class="input e-input w20"
                        value="@(Model.CountLimit)">
                 <span class="">次</span>
-            </div>
+            </div>*@
 
             <div class="groupBooking-list">
                 <span>报名者每隔</span>
@@ -524,6 +526,12 @@
             }
         </div>
 
+	<div class="toBuild">
+		<a href="/User/TryFree">
+			<span>我也要制作发布营销活动 -> </span><span class="c-ff0 f11">沃商通</span>
+		</a>
+	</div>
+
     </div>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
     <script src="~/Areas/Admin/Scripts/utility.js"></script>
@@ -587,7 +595,8 @@
                 success: function (data) {
                     if (data.Code == 0) {
                         alert("分享成功");
-                        window.location.reload();
+                        location.href = location.href+'&datetime='+new Date().getTime();
+			window.location = location;
                     }
                     else
                         alert(data.ErrorDesc);
@@ -726,7 +735,8 @@
                     success: function (data) {
                         if (data.Code == 0) {
                             alert("砍价成功");
-                            window.location.reload();
+                            location.href = location.href+'&datetime='+new Date().getTime();
+                            window.location = location;
                         }
                         else
                             alert(data.ErrorDesc);

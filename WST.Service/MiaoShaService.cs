@@ -123,7 +123,7 @@ namespace WST.Service
                         IsPrize = true,
                         JoinUserName = name,
                         Openid = Client.LoginUser.Openid,
-                        Mobile = name,
+                        Mobile = mobile,
                         ShopUserID = model.UserID
                     });
                     var result = db.SaveChanges();
