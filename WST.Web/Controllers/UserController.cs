@@ -137,17 +137,8 @@ namespace WST.Web.Controllers
                 CacheHelper.Remove("mobile_" + Mobile);
             }
             user.Password = Core.Util.CryptoHelper.MD5_Encrypt(Password);
-            user.StoreName = StoreName;
+            //user.StoreName = StoreName;
             user.Mobile = Mobile;
-            if (AdviserName.IsNotNullOrEmpty())
-            {
-                var advserModel = IAdviserService.Find(x => x.Name == AdviserName);
-                if (advserModel != null && !advserModel.IsDelete)
-                {
-                    user.AdviserID = advserModel.ID;
-                }
-            }
-            user.AdviserName = AdviserName;
             return JResult(IUserService.Update(user));
         }
 
@@ -185,17 +176,17 @@ namespace WST.Web.Controllers
                 return JResult(Core.Code.ErrorCode.system_phone_already_exist, "");
             }
             user.Password = Core.Util.CryptoHelper.MD5_Encrypt(Password);
-            user.StoreName = StoreName;
+            //user.StoreName = StoreName;
             user.Mobile = Mobile;
-            if (AdviserName.IsNotNullOrEmpty())
-            {
-                var advserModel = IAdviserService.Find(x => x.Name == AdviserName);
-                if (advserModel != null && !advserModel.IsDelete)
-                {
-                    user.AdviserID = advserModel.ID;
-                }
-            }
-            user.AdviserName = AdviserName;
+            //if (AdviserName.IsNotNullOrEmpty())
+            //{
+            //    var advserModel = IAdviserService.Find(x => x.Name == AdviserName);
+            //    if (advserModel != null && !advserModel.IsDelete)
+            //    {
+            //        user.AdviserID = advserModel.ID;
+            //    }
+            //}
+            //user.AdviserName = AdviserName;
             user.EndTime = DateTime.Now.AddDays(1);
             var result = IUserService.Update(user);
             if (result > 0)

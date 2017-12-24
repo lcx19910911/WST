@@ -48,7 +48,7 @@
                 <th dataname="ID" type="checkbox"></th>
                 <th dataname="NickName">会员名称</th>
                 <th dataname="Mobile">手机号</th>
-                <th dataname="StoreName">门店名</th>
+                @*<th dataname="StoreName">门店名</th>*@
                 <th dataname="AdviserName">顾问</th>
                 <th dataname="Balance">余额</th>
                 <th dataname="EndTime" datatype="jsondate">到期日期</th>
@@ -117,10 +117,10 @@
                     AdviserID: {
                         required: true
                     },
-                    StoreName: {
-                        required: true,
-                        maxlength: 32
-                    },
+                    //StoreName: {
+                    //    required: true,
+                    //    maxlength: 32
+                    //},
                     StartTime: {
                         required: true,
                     },
@@ -146,10 +146,10 @@
                     AdviserID: {
                         required: "顾问不允许为空",
                     },
-                    StoreName: {
-                        required: "来源不允许为空",
-                        maxlength: "最多{0}个字符"
-                    },
+                    //StoreName: {
+                    //    required: "来源不允许为空",
+                    //    maxlength: "最多{0}个字符"
+                    //},
                     StartTime: {
                         required: "不允许为空",
                     },

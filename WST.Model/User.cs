@@ -87,7 +87,7 @@ namespace WST.Model
         /// <summary>
         /// 门店名
         /// </summary>
-        public string StoreName { get; set; }
+        //public string StoreName { get; set; }
 
         /// <summary>
         /// 顾问

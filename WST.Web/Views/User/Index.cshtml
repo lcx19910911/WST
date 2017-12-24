@@ -237,7 +237,7 @@
                     @if (isMember)
                     {
                         <span class="user-name fB f11">沃商通商户</span><br>
-                        <span class="user-phone">@(Model.StoreName.IsNotNullOrEmpty() ? Model.StoreName : Model.NickName)</span><br>
+                        <span class="user-phone">@(Model.NickName)</span><br>
                         <span class="user-phone f08 c-f00">过期时间：@(Model.EndTime.Value.ToString("yyyy-MM-dd HH:mm:ss"))</span>
                     }
                     else
@@ -247,7 +247,7 @@
                             if (!Model.StartTime.HasValue)
                             {
                                 <span class="user-name fB f11">沃商通试用商户</span><br>
-                                <span class="user-phone">@(Model.StoreName.IsNotNullOrEmpty() ? Model.StoreName : Model.NickName)</span><br>
+                                <span class="user-phone">@(Model.NickName)</span><br>
                                 <span class="user-phone f08 c-f00">过期时间：@(Model.EndTime.Value.ToString("yyyy-MM-dd HH:mm:ss"))</span>
                             }
                         }

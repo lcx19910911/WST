@@ -882,7 +882,6 @@
     <Content Include="icofonts\iconfont.woff" />
     <Content Include="Areas\Admin\Views\ActivityCategory\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Template\Index.cshtml" />
-    <Content Include="json\home.json" />
     <Content Include="Areas\Admin\Views\Demo\Index.cshtml" />
     <Content Include="Areas\Admin\Views\TemplateCategory\Index.cshtml" />
     <Content Include="Areas\Admin\Views\KanJia\Index.cshtml" />

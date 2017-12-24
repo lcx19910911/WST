@@ -56,7 +56,7 @@ namespace WST.Service
                 var count = query.Count();
                 var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
                 var userIdList = list.Select(x => x.UserID).Distinct().ToList();
-                var userDic = db.User.Where(x => userIdList.Contains(x.ID)).ToDictionary(x => x.ID, x => (string.IsNullOrEmpty(x.StoreName) ? x.NickName : x.StoreName));
+                var userDic = db.User.Where(x => userIdList.Contains(x.ID)).ToDictionary(x => x.ID, x => x.NickName);
                 list.ForEach(x =>
                 {
                     if (userDic.ContainsKey(x.UserID))

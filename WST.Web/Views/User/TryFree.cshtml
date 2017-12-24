@@ -95,14 +95,14 @@
             
             <p><span>密码:</span><input id="Password" class="input" type="password" name="Password" placeholder="请填写6位以上的密码" maxlength="12"></p>
             
-            <p><span>门店名:</span><input id="StoreName" class="input" type="text" name="StoreName" placeholder="请填写门店名"></p>
+            @*<p><span>门店名:</span><input id="StoreName" class="input" type="text" name="StoreName" placeholder="请填写门店名"></p>*@
             
-            <p>
-		@*<span>身份证:</span>
-		<input id="IDCard" class="input" type="text" name="IDCard" placeholder="请填写身份证">
-	    </p>*@
+           @*<p>
+    <span>身份证:</span>
+    <input id="IDCard" class="input" type="text" name="IDCard" placeholder="请填写身份证">
+    </p>*@
             
-            <p><span>顾问:</span><input id="AdviserName" class="input" type="text" name="AdviserName" placeholder="请填写顾问"></p>
+           @*  *@ <p><span>顾问:</span><input id="AdviserName" class="input" type="text" name="AdviserName" placeholder="请填写顾问"></p>
 
             <div class="button submit-btn">提交</div>
         </div>
@@ -141,8 +141,8 @@
                     data: {
                         Mobile: mobile,
                         Password: password,
-				        StoreName: $("[name='StoreName']").val(),
-				        AdviserName: $("[name='AdviserName']").val(),
+				        //StoreName: $("[name='StoreName']").val(),
+				        //AdviserName: $("[name='AdviserName']").val(),
                         Code:$("[name='securityCode']").val(),
 				    },
 				    success: function (data) {

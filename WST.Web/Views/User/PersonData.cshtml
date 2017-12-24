@@ -96,9 +96,9 @@
 
             <!-- <p><span>手机:</span><input id="Mobile" class="input" type="text" name="Mobile" placeholder="请填写手机号"></p> -->
 
-            <p><span>门店名:</span><input id="StoreName" class="input" value="@(Model.StoreName)"  type="text" name="StoreName" placeholder="请填写门店名"></p>
+            @*<p><span>门店名:</span><input id="StoreName" class="input" value="@(Model.StoreName)"  type="text" name="StoreName" placeholder="请填写门店名"></p>
 
-            <p><span>顾问:</span><input id="AdviserName" class="input"  type="text" name="AdviserName" placeholder="请填写顾问"></p>
+            <p><span>顾问:</span><input id="AdviserName" class="input"  type="text" name="AdviserName" placeholder="请填写顾问"></p>*@
             <div class="button submit-btn">提交</div>
         </div>
 
@@ -137,8 +137,8 @@
                     data: {
                         Mobile: mobile,
                         Password: password,
-			StoreName: $("[name='StoreName']").val(),
-			AdviserName: $("[name='AdviserName']").val(),
+			//StoreName: $("[name='StoreName']").val(),
+			//AdviserName: $("[name='AdviserName']").val(),
 			Code: $("[name='securityCode']").val(),
 		    },
 		    success: function (data) {

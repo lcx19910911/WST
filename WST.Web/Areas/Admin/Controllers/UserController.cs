@@ -68,7 +68,7 @@ namespace WST.Web.Areas.Admin.Controllers
                 model.Mobile = entity.Mobile;
                 model.NickName = entity.NickName;
                 model.AdviserID = entity.AdviserID;
-                model.StoreName = entity.StoreName;
+                //model.StoreName = entity.StoreName;
                 model.StartTime = entity.StartTime;
                 model.EndTime = entity.EndTime;
 
@@ -120,7 +120,7 @@ namespace WST.Web.Areas.Admin.Controllers
                 model.Mobile = entity.Mobile;
                 model.NickName = entity.NickName;
                 model.AdviserID = entity.AdviserID;
-                model.StoreName = entity.StoreName;
+               // model.StoreName = entity.StoreName;
                 model.StartTime = entity.StartTime;
                 model.EndTime = entity.EndTime;
                 model.IsMember = true;
