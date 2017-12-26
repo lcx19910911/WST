@@ -61,7 +61,8 @@ namespace WST.Model
         public string CategoryName { get; set; }
 
 
-        [NotMapped]
+        [MaxLength(128)]
+        //[NotMapped]
         public string TemplateUrl { get; set; }
     }
 }

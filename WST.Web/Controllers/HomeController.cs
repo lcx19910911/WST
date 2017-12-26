@@ -42,7 +42,8 @@ namespace WST.Web.Controllers
                 if(dic.ContainsKey(x.CategoryID))
                 {
                     x.RotueName = dic[x.CategoryID].RouteName;
-                    x.TemplateUrl = $"/Template/{dic[x.CategoryID].RouteName}/{x.ClassNo}";
+                    //x.ClassNo = $"/Template/{dic[x.CategoryID].RouteName}/{x.ClassNo}";
+                    //ITemplateService.Update(x);
                 }
             });
             return View(tempelateList);
@@ -65,7 +66,7 @@ namespace WST.Web.Controllers
                 if (dic.ContainsKey(x.CategoryID))
                 {
                     x.RotueName = dic[x.CategoryID].RouteName;
-                    x.TemplateUrl = $"/Template/{dic[x.CategoryID].RouteName}/{x.ClassNo}";
+                    //x.TemplateUrl = $"/Template/{dic[x.CategoryID].RouteName}/{x.ClassNo}";
                 }
             });
             return View(tempelateList);

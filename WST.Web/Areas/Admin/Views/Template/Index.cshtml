@@ -51,8 +51,8 @@
                 <th dataname="Name">名称</th>
                 <th render="ShowPic">图片</th>
                 <th dataname="CategoryName">分类名称</th>
-                <th dataname="ClassNo">模板代号</th>     
-                <th dataname="TemplateUrl">完整路径</th>     
+                @*<th dataname="ClassNo">模板代号</th>*@     
+                <th dataname="TemplateUrl">模板路径</th>     
                 <th dataname="CreatedTime" datatype="jsondate">创建日期</th>
                 <th type="eventlist"></th>
             </tr>
@@ -111,9 +111,9 @@
                         required: true,
                         maxlength: 256
                     },
-                    ClassNo: {
+                    TemplateUrl: {
                         required: true,
-                        maxlength: 32
+                        maxlength: 128
                     },
                     DemoUrl: {
                         required: true,
@@ -138,8 +138,8 @@
                         required: "模板简介不允许为空",
                         maxlength: "最多{0}个字符"
                     },
-                    ClassNo: {
-                        required: "模板代号不允许为空",
+                    TemplateUrl: {
+                        required: "模板路径不允许为空",
                         maxlength: "最多{0}个字符"
                     },
                     DemoUrl: {

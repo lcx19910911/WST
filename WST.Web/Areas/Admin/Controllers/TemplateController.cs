@@ -39,10 +39,10 @@ namespace WST.Web.Areas.Admin.Controllers
                 {
                     return JResult(Core.Code.ErrorCode.system_name_already_exist, "");
                 }
-                if (ITemplateService.IsExits(x => x.ClassNo == entity.ClassNo && x.CategoryID == entity.CategoryID))
-                {
-                    return JResult(Core.Code.ErrorCode.route_class_name_already_exist, "");
-                }
+                //if (ITemplateService.IsExits(x => x.ClassNo == entity.ClassNo && x.CategoryID == entity.CategoryID))
+                //{
+                //    return JResult(Core.Code.ErrorCode.route_class_name_already_exist, "");
+                //}
                 entity.CreatedTime = entity.UpdatedTime = DateTime.Now;
                 return JResult(ITemplateService.Add(entity));
             }
@@ -75,14 +75,14 @@ namespace WST.Web.Areas.Admin.Controllers
                     return JResult(Core.Code.ErrorCode.system_name_already_exist, "");
                 }
 
-                if (ITemplateService.IsExits(x => x.ClassNo == entity.ClassNo && x.CategoryID ==entity.CategoryID&& x.ID != entity.ID))
-                {
-                    return JResult(Core.Code.ErrorCode.route_class_name_already_exist, "");
-                }
+                //if (ITemplateService.IsExits(x => x.ClassNo == entity.ClassNo && x.CategoryID ==entity.CategoryID&& x.ID != entity.ID))
+                //{
+                //    return JResult(Core.Code.ErrorCode.route_class_name_already_exist, "");
+                //}
                 model.Name = entity.Name;
                 model.CategoryID = entity.CategoryID;
                 model.Introduce = entity.Introduce;
-                model.ClassNo = entity.ClassNo;
+                model.TemplateUrl = entity.TemplateUrl;
                 model.Picture = entity.Picture;
                 model.DemoUrl = entity.DemoUrl;
                 var result = ITemplateService.Update(model);

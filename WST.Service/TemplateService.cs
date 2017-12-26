@@ -58,7 +58,7 @@ namespace WST.Service
                     if (x.CategoryID.IsNotNullOrEmpty() && categoryDic.ContainsKey(x.CategoryID))
                     {
                         x.CategoryName = categoryDic[x.CategoryID].Name;
-                        x.TemplateUrl = $"/Template/{categoryDic[x.CategoryID].RouteName}/{x.ClassNo}";
+                        //x.TemplateUrl = $"/Template/{categoryDic[x.CategoryID].RouteName}/{x.ClassNo}";
                     }
                 });
 
