@@ -6,27 +6,36 @@ html {
 	margin-top: 0;
 	background: #9E0008;
 	padding: 1em 0 4em;
+	background: url(/Template/kanjia/yuandan/img/title_bg.png) repeat;
+	background-size: 100%;
 }
 #title, #title * {
 	color: #F9E900!important;
 }
 .l .activity-wrapper {
-	width: 80%;
+	/*width: 80%;*/
 	margin: -3em auto 0;
 	padding: 1em 0 1.3em;
 	line-height: 1.8em;
+	/*background-size: 100%;
+	background: #ff0;*/
+	
+	background: url(/Template/kanjia/yuandan/img/time_bg.png) center no-repeat;
 	background-size: 100%;
-	background: #ff0;
 }
 .activity-wrapper * {
 	color: #D82930!important;
-	font-weight: bold;
+	/*font-weight: bold;*/
 }
 
 .activity-wrapper h3 {
 	font-size: 1.3em;
 }
-
+.l .groupBooking-wrapper {
+	width: 100%;
+	padding: 1em;
+	background: #f9f0da;
+}
 .groupBooking-wrapper .sub-group {
 	background: #FCE8C9!important;
 }
@@ -46,7 +55,7 @@ html {
 	height: 4.5em;
 	line-height: 2.3em;
 	text-indent: 3.5em;
-	background: url(/Template/kanjia/yuandan/img/title_bottom.png) center bottom no-repeat;
+	/*background: url(/Template/kanjia/yuandan/img/title_bottom.png) center bottom no-repeat;*/
 	background-size: 100% auto;
 }
 .l .model-list-title span {
@@ -82,11 +91,17 @@ html {
 .title-wrapper *, .l .textarea, .l .input, .v-p, .v-span, .phone-number {
 	color: #fff;
 }
-.music-component-wrapper .btn span {
+.music-component-wrapper .btn span, .l .button {
 	background: #D82930;
 	color: #fff;
 }
 .music-component-wrapper .btn .cancel {
 	background: #fff;
 	color: #D82930;
+}
+.l .apply-user-list .price {
+	color: #FFE200;
+}
+.l .apply-user-list .name {
+	color: #fff;
 }

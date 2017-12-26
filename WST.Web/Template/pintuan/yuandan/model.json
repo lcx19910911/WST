@@ -1,16 +1,14 @@
 {
-	"music": "http://wst.fjyouwo.com//Upload/music/cace311f7c834e96b57dd4796d1dd7f9.mp3",
-	"banner": "http://wst.com/Template/pintuan/yuandan/img/banner.gif",
+	"music": "/Upload/music/651decac317746528fd5c34bd2b86906.mp3",
+	"banner": "/Template/pintuan/yuandan/img/banner.gif",
 	"title": "元旦狂欢，疯狂拼团",
 	"goodsObj": [
-		{"type": "txt", "cont": "商品描述内容填充"},
-		{"type": "img", "cont": "http://wst.com/Template/pintuan/yuandan/img/banner.gif"}
+		{"type": "txt", "cont": "商品描述内容填充"}
 	],
 	"rules": "1、规则一；<br>2、规则二；<br>3、规则三；",
 	"connact": "1、领取人姓名：<br>2、领取人电话：<br>3、领取地址：",
 	"introduceObj": [
-		{"type": "txt", "cont": "商家介绍内容填充"},
-		{"type": "img", "cont": "http://wst.com/Template/pintuan/yuandan/img/banner.gif"}
+		{"type": "txt", "cont": "商家介绍内容填充"}
 	],
-	"phoneNumber": "15059702031"
+	"phoneNumber": ""
 }

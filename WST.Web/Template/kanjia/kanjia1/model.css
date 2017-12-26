@@ -1,0 +1,120 @@
+/*model css*/
+html {
+	/* background: #FFFAEE; */
+	/*background: url(/Template/kanjia/kanjia1/img/index_bg.png) repeat;*/
+	background-size: 6em;
+	background-color: #c0110c
+}
+
+.l .title-wrapper {
+	margin-top: 0;
+	background: #9E0008;
+	padding: 1em 0 4em;
+	background: url(/Template/kanjia/kanjia1/img/title_bg.png) repeat;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+#title, #title * {
+	color: rgb(255, 0, 0)!important;
+	
+}
+.l .activity-wrapper {
+	/*width: 80%;*/
+	margin: -5em auto 0;
+	padding: 2em 0 2.3em;
+	line-height: 1.8em;
+	/*background-size: 100%;
+	background: #ff0;*/
+	
+	background: url(/Template/kanjia/kanjia1/img/time_bg.png) center no-repeat;
+	background-size: 100%;
+}
+.activity-wrapper * {
+	color: rgb(0, 0, 0)!important;
+	/*font-weight: bold;*/
+}
+
+.activity-wrapper h3 {
+	font-size: 1.3em;
+}
+.l .groupBooking-wrapper {
+	width: auto;
+	padding: 1em;
+	margin:0em 0.5em;
+	background: #9e0000;
+	/* background-color:rgba(255, 251, 0, 0.89); */
+	border-radius:1em;
+}
+.groupBooking-wrapper .sub-group {
+	background: #FCE8C9!important;
+}
+.groupBooking-wrapper .groupBooking-list:nth-child(1) * {
+	color: #000!important;
+	font-weight: bold;
+}
+.l .groupBooking-wrapper .groupBooking-list * {
+	color: #d0ff00!important;
+}
+
+.l .model-list-body {
+	border: 0.2rem solid transparent;
+	background: #9a0700;
+	box-shadow: 0.3em 0.3em 1em 0px rgba(0,0,0,0.5);
+	margin-top:4em; 
+}
+.l .model-list-title {
+	height: 4.5em;
+	line-height: 2.3em;
+	text-indent: 3.5em;
+	background: url(/Template/kanjia/kanjia1/img/title_bottom.png) center bottom no-repeat;
+	background-size: 100% auto;
+}
+.l .model-list-title span {
+
+	padding-top: 4em;
+	text-indent:0;
+	margin-bottom: 0;
+	text-align: center;
+	color: rgb(229, 255, 0);
+	background: none;
+	/* background: url(/Template/kanjia/kanjia1/img/title_top.png) 1em center no-repeat; */
+	background-size: 7em;
+}
+
+.l .add-child span {
+	background: #ff0000;
+	color: #eeff00;
+	border-color: #D82930;
+}
+.l .foot-wrapper {
+	border-color: #D82930;
+}
+.l .foot-wrapper .button {
+	background: #ff0000;
+	color: #fff;
+	border-color: #ff0000;
+}
+.l .foot-wrapper .view-btn {
+	background: #fff;
+	color: #ff0000;
+}
+.music-component-wrapper ul .play {
+	color: #511212;
+}
+.title-wrapper *, .l .textarea, .l .input, .v-p, .v-span, .phone-number {
+	color: #d9ff00;
+}
+.music-component-wrapper .btn span, .l .button {
+	background: #ff0000;
+	color: #fff;
+}
+.music-component-wrapper .btn .cancel {
+	background: #fff;
+	color: #511212;
+}
+.l .apply-user-list .price {
+	color: #FFE200;
+}
+.l .apply-user-list .name {
+	color: #fff;
+}

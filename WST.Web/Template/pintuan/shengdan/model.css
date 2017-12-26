@@ -7,17 +7,21 @@ html {
 	margin-top: -2px;
 	background: #fff;
 	padding: 1em 0 4em;
+	background: url(/Template/pintuan/shengdan/img/title_bg.png) repeat;
+	background-size: 100%;
 }
 #title, #title * {
 	color: #005A22!important;
 }
 .l .activity-wrapper {
-	width: 80%;
+	/*width: 80%;*/
 	margin: -3em auto 0;
 	padding: 1em 0 1.3em;
 	line-height: 1.8em;
+	/*background: #ff0;
+	background-size: 100%;*/
+	background: url(/Template/pintuan/shengdan/img/time_bg.png) center no-repeat;
 	background-size: 100%;
-	background: #ff0;
 }
 .activity-wrapper * {
 	color: #000!important;
@@ -27,14 +31,20 @@ html {
 .activity-wrapper h3 {
 	font-size: 1.3em;
 }
-
+.l .groupBooking-wrapper {
+	width: 98%;
+	padding: 0.3em 0.8em 1em;
+	border-radius: 1em;
+	background: rgba(255,255,255,.8);
+}
 .groupBooking-wrapper .sub-group {
 	background: #FCE8C9!important;
+	border-radius: 5px;
 }
-.groupBooking-wrapper .groupBooking-list:nth-child(1) * {
+/*.groupBooking-wrapper .groupBooking-list:nth-child(1) * {
 	color: #000!important;
 	font-weight: bold;
-}
+}*/
 
 .l .model-list-body {
 	border: 0.2rem solid #86C967;
@@ -45,6 +55,7 @@ html {
 	text-indent: 3.5em;
 	background: url(/Template/pintuan/shengdan/img/title_bottom.png) center bottom no-repeat;
 	background-size: 100% auto;
+	margin-bottom: 0;
 }
 .l .model-list-title span {
 	width: 100%;
@@ -52,13 +63,15 @@ html {
 	margin-bottom: 0.7em;
 	background: url(/Template/pintuan/shengdan/img/title_top.png) 5em center no-repeat;
 	background-size: 5.5em;
-
 }
 
 
 .l .add-child span {
 	background: #005A22;
 	color: #fff;
+	border-color: #005A22;
+}
+.l .foot-wrapper {
 	border-color: #005A22;
 }
 .l .foot-wrapper .button {

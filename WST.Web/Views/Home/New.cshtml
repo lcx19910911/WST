@@ -1,0 +1,187 @@
+﻿@model List<Template>
+@{
+    ViewBag.Title = "制作活动";
+    Layout = null;
+    var carouselList = ViewBag.CarouseList as List<Carousel>;
+}
+@section linkcss
+{
+
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport">
+    <meta charset="utf-8" />
+    <title>index</title>
+    <link rel="stylesheet" type="text/css" href="~/assets/css/reset.css?v=1" />
+    <link rel="stylesheet" href="~/assets/css/swiper-3.3.1.min.css">
+    <link rel="stylesheet" type="text/css" href="~/assets/css/index.css?v=2" />
+    <script type="text/javascript" src="~/assets/js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" src="~/assets/js/swiper-3.3.1.jquery.min.js"></script>
+</head>
+<body>
+    <!-- 轮播图 -->
+    <div class="slider-wrapper">
+        <div class="swiper-container">
+            <div class="swiper-wrapper">
+                @if (carouselList != null && carouselList.Count > 0)
+                {
+                    foreach (var item in carouselList)
+                    {
+                        <div class="swiper-slide"><a href="@item.Url"><img src="@item.Picture" /></a></div>
+                    }
+                }
+            </div>
+            <!-- 如果需要分页器 -->
+            <div class="swiper-pagination"></div>
+
+        </div>
+    </div>
+    <!-- tap切换 -->
+    <div class="lib_Tab1" id="lib_Tab1">
+        <div class="lib_Menubox">
+            <ul>
+                <li class="lib_M_title_item hover" data-type="all">全部</li>
+                <li class="lib_M_title_item" data-type="pintuan">团购类</li>
+                <li class="lib_M_title_item" data-type="miaosha">秒杀类</li>
+                <li class="lib_M_title_item" data-type="kanjia">砍价类</li>
+            </ul>
+        </div>
+        <div class="anli">
+            <span>
+                不清楚选啥活动?不知道咋做？<a href="#">查看案例</a>
+            </span>
+        </div>
+        <div class="lib_Contentbox">
+
+            <div class="mouban">
+                <!-- 全部 -->
+                <div class="lib_C_cont_box show" data-type="all">
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model)
+                        {
+                            <div class="lib_Contentbox_li">
+                                <!-- 头像 -->
+                                <img class="lib_Contentbox_img1" src="@item.Picture" />
+                                <dl>
+                                    <h3>@item.Name<img class="lib_Contentbox_img2" src="/assets/img/banner/ico1.gif" /></h3>
+                                    <dt>@item.Introduce</dt>
+                                    <dd><span><a href="/@(item.RotueName)/manage?TemplateUrl=@(item.TemplateUrl)">马上制作</a></span></dd>
+                                    <dd><a href="@item.DemoUrl">查看示例</a></dd>
+                                </dl>
+                            </div> }
+                    }
+                </div>
+                <!-- 秒杀 -->
+                <div class="lib_C_cont_box" data-type="pintuan">
+
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model.Where(x => x.CategoryID == "be87127377de40f3989f8e5133586968").ToList())
+                        {
+                            <div class="lib_Contentbox_li">
+                                <!-- 头像 -->
+                                <img class="lib_Contentbox_img1" src="@item.Picture" />
+                                <dl>
+                                    <h3>@item.Name<img class="lib_Contentbox_img2" src="/assets/img/banner/ico1.gif" /></h3>
+                                    <dt>@item.Introduce</dt>
+                                    <dd><span><a href="/@(item.RotueName)/manage?TemplateUrl=@(item.TemplateUrl)">马上制作</a></span></dd>
+                                    <dd><a href="@item.DemoUrl">查看示例</a></dd>
+                                </dl>
+                            </div>
+                        }
+                    }
+
+                </div>
+
+                <div class="lib_C_cont_box" data-type="miaosha">
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model.Where(x => x.CategoryID == "8a4fe232dd1a48008ccac30d97b5febb").ToList())
+                        {
+                            <div class="lib_Contentbox_li">
+                                <!-- 头像 -->
+                                <img class="lib_Contentbox_img1" src="@item.Picture" />
+                                <dl>
+                                    <h3>@item.Name<img class="lib_Contentbox_img2" src="/assets/img/banner/ico1.gif" /></h3>
+                                    <dt>@item.Introduce</dt>
+                                    <dd><span><a href="/@(item.RotueName)/manage?TemplateUrl=@(item.TemplateUrl)">马上制作</a></span></dd>
+                                    <dd><a href="@item.DemoUrl">查看示例</a></dd>
+                                </dl>
+                            </div>
+                        }
+                    }
+
+                </div>
+                <div class="lib_C_cont_box" data-type="kanjia">
+                    @if (Model != null && Model.Count > 0)
+                    {
+                        foreach (var item in Model.Where(x => x.CategoryID == "d2bc6f3ca4444715855be7999bebed90").ToList())
+                        {
+                            <div class="lib_Contentbox_li">
+                                <!-- 头像 -->
+                                <img class="lib_Contentbox_img1" src="@item.Picture" />
+                                <dl>
+                                    <h3>@item.Name<img class="lib_Contentbox_img2" src="/assets/img/banner/ico1.gif" /></h3>
+                                    <dt>@item.Introduce</dt>
+                                    <dd><span><a href="/@(item.RotueName)/manage?TemplateUrl=@(item.TemplateUrl)">马上制作</a></span></dd>
+                                    <dd><a href="@item.DemoUrl">查看示例</a></dd>
+                                </dl>
+                            </div>
+                        }
+                    }
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- 底部导航 -->
+    <div id="fdc">
+        <div class="fdcmain">
+            <ul>
+                <li>
+                    <a href="/home/index">
+                        <img src="~/assets/img/banner/make2.png" />
+                        <span>我要制作</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="/user/index">
+                        <img src="~/assets/img/banner/center1.png" />
+                        <span>个人中心</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+		$(function() {
+			$(document).on('click', '.lib_M_title_item', function() {
+				var that = this;
+				$(this).addClass('hover').siblings().removeClass('hover');
+				for(var i = 0; i < $('.lib_C_cont_box').length; i++) {
+					if($(this).attr('data-type') == $('.lib_C_cont_box').eq(i).attr('data-type')) {
+						$('.lib_C_cont_box').eq(i).addClass('show').siblings().removeClass('show');
+					}
+				}
+			})
+			var mySwiper = new Swiper ('.swiper-container', {
+				// direction: 'vertical',
+				loop: true,
+				autoplay: 5000,
+				// 如果需要分页器
+				pagination: '.swiper-pagination',
+
+			})
+
+		})
+
+    </script>
+</body>
+</html>
+

@@ -7,29 +7,42 @@ html {
 	margin-top: -2px;
 	background: #fff;
 	padding: 1em 0 4em;
+	background: url(/Template/kanjia/shengdan/img/title_bg.png) repeat;
+	background-size: 100%;
 }
 #title, #title * {
 	color: #005A22!important;
 }
 .l .activity-wrapper {
-	width: 80%;
+	/*width: 80%;*/
 	margin: -3em auto 0;
 	padding: 1em 0 1.3em;
 	line-height: 1.8em;
+	/*background-size: 100%;
+	background: #ff0;*/
+	background: url(/Template/kanjia/shengdan/img/time_bg.png) center no-repeat;
 	background-size: 100%;
-	background: #ff0;
 }
 .activity-wrapper * {
 	color: #000!important;
-	font-weight: bold;
+	/*font-weight: bold;*/
 }
 
 .activity-wrapper h3 {
 	font-size: 1.3em;
 }
-
-.groupBooking-wrapper .sub-group {
-	background: #FCE8C9!important;
+.l .groupBooking-wrapper {
+	background: rgba(255,255,255,.8);
+	width: 98%;
+	padding: 1em;
+	border-radius: 1em;
+}
+.groupBooking-wrapper * {
+	color: #000!important;
+	font-weight: bold;
+}
+.groupBooking-wrapper .info {
+	color: #f00!important;
 }
 .groupBooking-wrapper .groupBooking-list:nth-child(1) * {
 	color: #000!important;
@@ -61,6 +74,9 @@ html {
 	color: #fff;
 	border-color: #005A22;
 }
+.l .foot-wrapper {
+	border-color: #005A22;
+}
 .l .foot-wrapper .button {
 	background: #005A22;
 	color: #fff;
@@ -76,7 +92,7 @@ html {
 .title-wrapper *, .l .textarea, .l .input, .v-p, .v-span, .phone-number {
 	color: #005A22;
 }
-.music-component-wrapper .btn span {
+.music-component-wrapper .btn span, .l .button {
 	background: #005A22;
 	color: #fff;
 }

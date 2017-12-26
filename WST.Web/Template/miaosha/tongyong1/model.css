@@ -1,0 +1,110 @@
+/*model css*/
+html {
+	/* background: #FFFAEE; */
+	background: url(/Template/miaosha/tongyong1/img/index_bg.png) repeat;
+	background-size: 6em;
+}
+.l .title-wrapper {
+	margin-top: 0;
+	background: #9E0008;
+	padding: 1em 0 4em;
+	background: url(/Template/miaosha/tongyong1/img/title_bg.png) repeat;
+	background-size: 100%;
+}
+#title, #title * {
+	color: #000!important;
+}
+.l .activity-wrapper {
+	/*width: 80%;*/
+	margin: -3em auto 0;
+	padding: 1em 0 2.3em;
+	line-height: 1.8em;
+	/*background-size: 100%;
+	background: #ff0;*/
+	
+	background: url(/Template/miaosha/tongyong1/img/time_bg.png) center no-repeat;
+	background-size: 100%;
+}
+.activity-wrapper * {
+	color: #fff!important;
+	/*font-weight: bold;*/
+}
+
+.activity-wrapper h3 {
+	font-size: 1.3em;
+}
+.l .groupBooking-wrapper {
+	width: 100%;
+	padding: 1em;
+	background: #f9f0da;
+}
+.groupBooking-wrapper .sub-group {
+	background: #FCE8C9!important;
+}
+.groupBooking-wrapper .groupBooking-list:nth-child(1) * {
+	color: #000!important;
+	font-weight: bold;
+}
+.l .groupBooking-wrapper .groupBooking-list * {
+	color: #3d1717!important;
+}
+
+.l .model-list-body {
+	border: 0.2rem solid transparent;
+	background: #d5cfb9;
+	box-shadow: 0.5em 0.5em 1em 0px rgba(0,0,0,0.5);
+}
+.l .model-list-title {
+	height: 4.5em;
+	line-height: 2.3em;
+	text-indent: 3.5em;
+	/*background: url(/Template/miaosha/tongyong1/img/title_bottom.png) center bottom no-repeat;*/
+	background-size: 100% auto;
+}
+.l .model-list-title span {
+	width: 100%;
+	padding: 1em 1em 0;
+	margin-bottom: 0;
+	text-align: right;
+	color: #000;
+	background: url(/Template/miaosha/tongyong1/img/title_top.png) 1em center no-repeat;
+	background-size: 9em;
+}
+
+.l .add-child span {
+	background: #e3bc95;
+	color: #620000;
+	border-color: #D82930;
+}
+.l .foot-wrapper {
+	border-color: #D82930;
+}
+.l .foot-wrapper .button {
+	background: #3d1717;
+	color: #fff;
+	border-color: #3d1717;
+}
+.l .foot-wrapper .view-btn {
+	background: #fff;
+	color: #3d1717;
+}
+.music-component-wrapper ul .play {
+	color: #511212;
+}
+.title-wrapper *, .l .textarea, .l .input, .v-p, .v-span, .phone-number {
+	color: #620000;
+}
+.music-component-wrapper .btn span, .l .button {
+	background: #511212;
+	color: #fff;
+}
+.music-component-wrapper .btn .cancel {
+	background: #fff;
+	color: #511212;
+}
+.l .apply-user-list .price {
+	color: #FFE200;
+}
+.l .apply-user-list .name {
+	color: #fff;
+}

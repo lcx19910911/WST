@@ -7,34 +7,49 @@ html {
 	margin-top: -2px;
 	background: #fff;
 	padding: 1em 0 4em;
+	background: url(/Template/miaosha/shengdan/img/title_bg.png) repeat;
+	background-size: 100%;
 }
 #title, #title * {
 	color: #005A22!important;
 }
 .l .activity-wrapper {
-	width: 80%;
+	/*width: 80%;*/
 	margin: -3em auto 0;
 	padding: 1em 0 1.3em;
 	line-height: 1.8em;
+	/*background-size: 100%;
+	background: #ff0;*/
+	background: url(/Template/miaosha/shengdan/img/time_bg.png) center no-repeat;
 	background-size: 100%;
-	background: #ff0;
 }
 .activity-wrapper * {
 	color: #000!important;
-	font-weight: bold;
+	/*font-weight: bold;*/
 }
 
 .activity-wrapper h3 {
 	font-size: 1.3em;
 }
-
+.l .groupBooking-wrapper {
+	width: 98%;
+	padding: 1em;
+	border-radius: 1em;
+	background: rgba(255,255,255,.8);
+}
+.l .groupBooking-wrapper * {
+	font-weight: bold;
+	color: #005A22;
+}
+.l .groupBooking-wrapper .input {
+	color: #f00!important;
+}
 .groupBooking-wrapper .sub-group {
 	background: #FCE8C9!important;
 }
-.groupBooking-wrapper .groupBooking-list:nth-child(1) * {
+/*.groupBooking-wrapper .groupBooking-list:nth-child(1) * {
 	color: #000!important;
-	font-weight: bold;
-}
+}*/
 
 .l .model-list-body {
 	border: 0.2rem solid #86C967;
@@ -63,6 +78,9 @@ html {
 	color: #fff;
 	border-color: #005A22;
 }
+.l .foot-wrapper {
+	border-color: #005A22;
+}
 .l .foot-wrapper .button {
 	background: #005A22;
 	color: #fff;
@@ -79,6 +97,10 @@ html {
 	color: #005A22;
 }
 .music-component-wrapper .btn span {
+	background: #005A22;
+	color: #fff;
+}
+.l .button {
 	background: #005A22;
 	color: #fff;
 }

@@ -1,0 +1,129 @@
+/*model css*/
+html {
+	/* background: #FFFAEE; */
+	/*background: url(/Template/miaosha/miaosha2/img/index_bg.png) repeat;*/
+	background-size: 6em;
+	background-color: #34aee1;
+}
+
+.l .title-wrapper {
+	margin-top: 0;
+	background: #ffefe7;
+	padding: 1em 0 4em;
+	background: url(/Template/miaosha/miaosha2/img/title_bg.png) repeat;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+#title, #title * {
+	color: rgb(255, 255, 255)!important;
+	
+}
+.l .activity-wrapper {
+	/*width: 80%;*/
+	margin: -5em auto 0;
+	padding: 2em 0 2.3em;
+	line-height: 1.8em;
+	/*background-size: 100%;
+	background: #ff0;*/
+	
+	background: url(/Template/miaosha/miaosha2/img/time_bg.png) center no-repeat;
+	background-size: 100%;
+}
+.activity-wrapper * {
+	color: rgb(255, 255, 255)!important;
+	/*font-weight: bold;*/
+}
+
+.activity-wrapper h3 {
+	
+	font-size: 1.3em;
+}
+.l .groupBooking-wrapper {
+	box-shadow: 0.3em 0.3em 1em 0px rgba(0,0,0,0.5);
+	width: auto;
+	padding: 1em;
+	margin:0em 0.5em;
+	background: #7700bc;
+	/* background-color:rgba(255, 251, 0, 0.89); */
+	border-radius:1em;
+}
+.groupBooking-wrapper .sub-group {
+	background: #FCE8C9!important;
+}
+.groupBooking-wrapper .groupBooking-list:nth-child(1) * {
+	color: #000!important;
+	font-weight: bold;
+}
+.l .groupBooking-wrapper .groupBooking-list * {
+	color: #ffefe7!important;
+}
+
+.l .model-list-body {
+	border: 0.2rem solid transparent;
+	background: #7700bc;
+	box-shadow: 0.3em 0.3em 1em 0px rgba(0,0,0,0.5);
+	margin-top:0.3em; 
+}
+.l .model-list-title {
+	width: 100%;
+	height: auto;
+	line-height: 2.3em; 
+	text-indent: 0;
+	background: none;
+	/* background: url(/Template/miaosha/miaosha2/img/title_bottom.png) center bottom no-repeat; */
+	background-size: 100% auto;
+	
+	margin: 0 auto;
+}
+.l .model-list-title span {
+	width: 15em;
+	padding-top: 4em;
+	text-indent:0;
+	margin-bottom: 0;
+	text-align: center;
+	color: rgb(255, 255, 255);
+	background: none;
+	background: url(/Template/miaosha/miaosha2/img/title_bottom.png) center top no-repeat;
+	background-size: 15em;
+}
+
+.l .add-child span {
+	background: #ffefe7;
+	color: #fa5c01;
+	border-color: #d3f1ff;
+}
+.l .foot-wrapper {
+	border-color: #D82930;
+}
+.l .foot-wrapper .button {
+	background: #34aee1;
+	color: #ffefe7;
+	border-color: #34aee1;
+}
+.l .foot-wrapper .view-btn {
+	background: #fff;
+	color: #34aee1;
+}
+.music-component-wrapper ul .play {
+	color: #34aee1;
+}
+.title-wrapper *, .l .textarea, .l .input, .v-p, .v-span, .phone-number {
+	color: #ffefe7;
+}
+.music-component-wrapper .btn span, .l .button {
+	background: #34aee1;
+	color: #ffffff;
+}
+.music-component-wrapper .btn .cancel {
+	background: #fff;
+	color: #34aee1;
+}
+.l .apply-user-list .price {
+	color: #FFE200;
+}
+.l .apply-user-list .name {
+	color: #fff;
+}
+.l .groupBooking-list-item .list-item-right{background-color: #ff0056;}
+.l .groupBooking-wrapper .groupBooking-list .list-item-left * {color: #D82930!important;}
+.l .foot-wrapper{background-color: #fff;}

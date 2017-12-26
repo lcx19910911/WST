@@ -7,17 +7,21 @@ html {
 	margin-top: 0;
 	background: #9E0008;
 	padding: 1em 0 3em;
+	background: url(/Template/pintuan/yuandan/img/title_bg.png) repeat;
+	background-size: 100%;
 }
 #title, #title * {
 	color: #F9E900!important;
 }
 .l .activity-wrapper {
-	width: 80%;
+	/*width: 80%;*/
 	margin: -1em auto 0;
 	padding: 1em 0 1.3em;
 	line-height: 1.8em;
 	background-size: 100%;
 	background: #ff0;
+	background: url(/Template/pintuan/yuandan/img/time_bg.png) center no-repeat;
+	background-size: 100%;
 }
 .activity-wrapper * {
 	color: #000!important;
@@ -27,14 +31,22 @@ html {
 .activity-wrapper h3 {
 	font-size: 1.3em;
 }
-
+.l .groupBooking-wrapper {
+	width: 98%;
+	padding: 0.3em 0.8em 1em;
+	border-radius: 1em;
+	background: rgba(255,255,255,.8);
+}
 .groupBooking-wrapper .sub-group {
 	background: #FCE8C9!important;
 }
-.groupBooking-wrapper .groupBooking-list:nth-child(1) * {
-	color: #000!important;
-	font-weight: bold;
+.groupBooking-wrapper .groupBooking-list-item {
+	border-color: #FF9100;
 }
+.groupBooking-wrapper .groupBooking-list-item .list-item-right {
+	background: #FF9100;
+}
+
 
 .l .model-list-body {
 	border: 0.2rem solid #CCAA77;
@@ -59,30 +71,37 @@ html {
 
 
 .l .add-child span {
-	background: #F9E900;
+	background: #7B0003;
 	color: #fff;
-	border-color: #F9E900;
+	border-color: #7B0003;
+}
+.l .foot-wrapper {
+	border-color: #7B0003;
 }
 .l .foot-wrapper .button {
-	background: #F9E900;
+	background: #7B0003;
 	color: #fff;
-	border-color: #F9E900;
+	border-color: #7B0003;
 }
 .l .foot-wrapper .view-btn {
 	background: #fff;
-	color: #F9E900;
+	color: #7B0003;
 }
 .music-component-wrapper ul .play {
-	color: #F9E900;
+	color: #7B0003;
 }
 .title-wrapper *, .l .textarea, .l .input, .v-p, .v-span, .phone-number {
 	color: #000;
 }
 .music-component-wrapper .btn span {
-	background: #F9E900;
+	background: #7B0003;
+	color: #fff;
+}
+.l .button {
+	background: #7B0003;
 	color: #fff;
 }
 .music-component-wrapper .btn .cancel {
 	background: #fff;
-	color: #F9E900;
+	color: #7B0003;
 }

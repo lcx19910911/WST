@@ -6,19 +6,23 @@ html {
 	margin-top: 0;
 	background: #9A1B1F;
 	padding: 1em 0 4em;
-	box-shadow: 0 0.5em 1em 0.8em rgba(50,50,50,0.7);
+	/*box-shadow: 0 0.5em 1em 0.8em rgba(50,50,50,0.7);*/
+	background: url(/Template/pintuan/xinnian/img/title_bg.png) repeat;
+	background-size: 100%;
 }
 #title, #title * {
 	color: #fff!important;
 }
 .l .activity-wrapper {
-	width: 80%;
+	/*width: 80%;*/
 	margin: -3em auto 0;
-	padding: 1em 0 1.3em;
+	padding: 1em 0 2em;
 	line-height: 1.8em;
 	background-size: 100%;
-	background: #FFF7E4;
-	border-radius: 0.5em;
+	/*background: #FFF7E4;*/
+	/*border-radius: 0.5em;*/
+	background: url(/Template/pintuan/xinnian/img/time_bg.png) center no-repeat;
+	background-size: 100%;
 }
 .activity-wrapper * {
 	color: #790B0B!important;
@@ -31,6 +35,7 @@ html {
 
 .groupBooking-wrapper .sub-group {
 	background: #FCE8C9!important;
+	border-radius: 5px;
 }
 .groupBooking-wrapper .groupBooking-list:nth-child(1) * {
 	color: #F1CE04!important;
@@ -38,6 +43,9 @@ html {
 }
 .l .groupBooking-wrapper .groupBooking-list * {
 	color: #F1CE04!important;
+}
+.l .groupBooking-wrapper .groupBooking-list .list-item-left * {
+	color: #f00!important;
 }
 
 .l .model-list-body {
@@ -64,30 +72,37 @@ html {
 
 
 .l .add-child span {
-	background: #F1CE04;
+	background: #7B0003;
 	color: #fff;
-	border-color: #F1CE04;
+	border-color: #7B0003;
+}
+.l .foot-wrapper {
+	border-color: #7B0003;
 }
 .l .foot-wrapper .button {
-	background: #F1CE04;
+	background: #7B0003;
 	color: #fff;
-	border-color: #F1CE04;
+	border-color: #7B0003;
 }
 .l .foot-wrapper .view-btn {
 	background: #fff;
-	color: #F1CE04;
+	color: #7B0003;
 }
 .music-component-wrapper ul .play {
-	color: #F1CE04;
+	color: #7B0003;
 }
 .title-wrapper *, .l .textarea, .l .input, .v-p, .v-span, .phone-number {
-	color: #F1CE04;
+	color: #7B0003;
 }
 .music-component-wrapper .btn span {
-	background: #F1CE04;
+	background: #7B0003;
 	color: #fff;
+}
+.l .button {
+	background: #FFF7E4;
+	color: #7B0003;
 }
 .music-component-wrapper .btn .cancel {
 	background: #fff;
-	color: #F1CE04;
+	color: #7B0003;
 }

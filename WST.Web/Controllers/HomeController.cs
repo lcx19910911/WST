@@ -17,11 +17,13 @@ namespace WST.Web.Controllers
         public IUserService IUserService;
         public ITemplateService ITemplateService;
         public ITemplateCategoryService ITemplateCategoryService;
-        public HomeController(IUserService _IUserService, ITemplateService _ITemplateService, ITemplateCategoryService _ITemplateCategoryService)
+        public ICarouselService ICarouselService;
+        public HomeController(IUserService _IUserService, ITemplateService _ITemplateService, ITemplateCategoryService _ITemplateCategoryService, ICarouselService _ICarouselService)
         {
             this.IUserService = _IUserService;
             this.ITemplateService = _ITemplateService;
             this.ITemplateCategoryService = _ITemplateCategoryService;
+            this.ICarouselService = _ICarouselService;
         }
         // GET: Home
         public ActionResult Index(string id)
@@ -31,7 +33,7 @@ namespace WST.Web.Controllers
             {
                 this.LoginUser = new Core.Model.LoginUser(userModel);
             }
-
+            ViewBag.CarouseList = ICarouselService.GetList(x=>!x.IsDelete).OrderByDescending(x=>x.Sort).ToList();
             var tempelateList = ITemplateService.GetList(x=>!x.IsDelete);
             var categoryIdList = tempelateList.Select(x => x.CategoryID).Distinct().ToList();
             var dic = ITemplateCategoryService.GetDic(x => categoryIdList.Contains(x.ID) && !x.IsDelete);
@@ -47,6 +49,27 @@ namespace WST.Web.Controllers
         }
 
 
+        public ActionResult New(string id)
+        {
+            var userModel = IUserService.Find(LoginUser.ID);
+            if ((userModel.IsMember && !LoginUser.IsMember) || (userModel.EndTime < DateTime.Now && LoginUser.IsMember))
+            {
+                this.LoginUser = new Core.Model.LoginUser(userModel);
+            }
+            ViewBag.CarouseList = ICarouselService.GetList(x => !x.IsDelete).OrderByDescending(x => x.Sort).ToList();
+            var tempelateList = ITemplateService.GetList(x => !x.IsDelete);
+            var categoryIdList = tempelateList.Select(x => x.CategoryID).Distinct().ToList();
+            var dic = ITemplateCategoryService.GetDic(x => categoryIdList.Contains(x.ID) && !x.IsDelete);
+            tempelateList.ForEach(x =>
+            {
+                if (dic.ContainsKey(x.CategoryID))
+                {
+                    x.RotueName = dic[x.CategoryID].RouteName;
+                    x.TemplateUrl = $"/Template/{dic[x.CategoryID].RouteName}/{x.ClassNo}";
+                }
+            });
+            return View(tempelateList);
+        }
         /// <summary>
         /// 验证微信签名
         /// </summary>

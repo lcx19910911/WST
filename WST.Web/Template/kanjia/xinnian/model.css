@@ -7,28 +7,31 @@ html {
 	margin-top: 0;
 	background: #9A1B1F;
 	padding: 1em 0 4em;
+	background: url(/Template/kanjia/xinnian/img/title_bg.png) repeat;
+	background-size: 100%;
 }
 #title, #title * {
-	color: #fff!important;
+	color: #FFFF00!important;
 }
 .l .activity-wrapper {
-	width: 80%;
+	width: 100%;
 	margin: -3em auto 0;
 	padding: 1em 0 1.3em;
 	line-height: 1.8em;
+	/*background-size: 100%;*/
+	/*background: #FFF7E4;*/
+	/*border-radius: 0.5em;*/
+	background: url(/Template/kanjia/xinnian/img/time_bg.png) center no-repeat;
 	background-size: 100%;
-	background: #FFF7E4;
-	border-radius: 0.5em;
 }
 .activity-wrapper * {
 	color: #790B0B!important;
-	font-weight: bold;
+	/*font-weight: bold;*/
 }
 
 .activity-wrapper h3 {
 	font-size: 1.3em;
 }
-
 .groupBooking-wrapper .sub-group {
 	background: #FCE8C9!important;
 }
@@ -62,6 +65,9 @@ html {
 	color: #fff;
 	border-color: #F1CE04;
 }
+.l .foot-wrapper {
+	border-color: #F1CE04;
+}
 .l .foot-wrapper .button {
 	background: #F1CE04;
 	color: #fff;
@@ -77,7 +83,7 @@ html {
 .title-wrapper *, .l .textarea, .l .input, .v-p, .v-span, .phone-number {
 	color: #000;
 }
-.music-component-wrapper .btn span {
+.music-component-wrapper .btn span, .l .button {
 	background: #F1CE04;
 	color: #fff;
 }
@@ -90,4 +96,5 @@ html {
 }
 .l .groupBooking-wrapper .groupBooking-list * {
 	color: #000!important;
+	font-weight: bold;
 }
