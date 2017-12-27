@@ -959,7 +959,7 @@
     <Content Include="Areas\Admin\Views\Menu\PartialMenu.cshtml" />
     <Content Include="Areas\Admin\Views\User\Index.cshtml" />
     <Content Include="Areas\Admin\Views\Adviser\Index.cshtml" />
-    <Content Include="Views\Home\New.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Areas\Admin\Views\User\Member.cshtml" />
     <Content Include="Areas\Admin\Views\Config\Index.cshtml" />
     <Content Include="Config\Config.config">

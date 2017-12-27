@@ -37,7 +37,7 @@ namespace WST.Web.Controllers
             var tempelateList = ITemplateService.GetList(x=>!x.IsDelete);
             var categoryIdList = tempelateList.Select(x => x.CategoryID).Distinct().ToList();
             var dic = ITemplateCategoryService.GetDic(x => categoryIdList.Contains(x.ID) && !x.IsDelete);
-            tempelateList.ForEach(x =>
+            tempelateList.OrderByDescending(x=>x.CreatedTime).ToList().ForEach(x =>
             {
                 if(dic.ContainsKey(x.CategoryID))
                 {

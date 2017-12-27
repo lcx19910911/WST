@@ -60,7 +60,7 @@
                 <div class="lib_C_cont_box show" data-type="all">
                     @if (Model != null && Model.Count > 0)
                     {
-                        foreach (var item in Model)
+                        foreach (var item in Model.OrderByDescending(x=>x.CreatedTime).ToList())
                         {
                             <div class="lib_Contentbox_li">
                                 <!-- 头像 -->
@@ -79,7 +79,7 @@
 
                     @if (Model != null && Model.Count > 0)
                     {
-                        foreach (var item in Model.Where(x => x.CategoryID == "be87127377de40f3989f8e5133586968").ToList())
+                        foreach (var item in Model.Where(x => x.CategoryID == "be87127377de40f3989f8e5133586968").OrderByDescending(x => x.CreatedTime).ToList())
                         {
                             <div class="lib_Contentbox_li">
                                 <!-- 头像 -->
@@ -99,7 +99,7 @@
                 <div class="lib_C_cont_box" data-type="miaosha">
                     @if (Model != null && Model.Count > 0)
                     {
-                        foreach (var item in Model.Where(x => x.CategoryID == "8a4fe232dd1a48008ccac30d97b5febb").ToList())
+                        foreach (var item in Model.Where(x => x.CategoryID == "8a4fe232dd1a48008ccac30d97b5febb").OrderByDescending(x => x.CreatedTime).ToList())
                         {
                             <div class="lib_Contentbox_li">
                                 <!-- 头像 -->
@@ -118,7 +118,7 @@
                 <div class="lib_C_cont_box" data-type="kanjia">
                     @if (Model != null && Model.Count > 0)
                     {
-                        foreach (var item in Model.Where(x => x.CategoryID == "d2bc6f3ca4444715855be7999bebed90").ToList())
+                        foreach (var item in Model.Where(x => x.CategoryID == "d2bc6f3ca4444715855be7999bebed90").OrderByDescending(x => x.CreatedTime).ToList())
                         {
                             <div class="lib_Contentbox_li">
                                 <!-- 头像 -->

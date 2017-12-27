@@ -110,14 +110,46 @@
                     }
                 }
             });
+
+            UploadImg();
         }
+
+
+        function UploadImg() {
+            var headimgbtn = $("#imageFile").uploadFile({
+                url: '/admin/upload/uploadimage?mark=Carousel',
+                fileSuffixs: ["jpg", "png", "gif"],
+                maximumFilesUpload: 1,//最大文件上传数
+                onComplete: function (data) {
+                    if (data) {
+                        $("[name='Picture']").val(data);
+                        $("#imageDiv").show().find("img").attr("src", data);
+                    }
+                    else {
+                        $.Nuoya.alert("上传错误");
+                    }
+
+                },
+                onChosen: function (file, obj, fileSize, errorText) {
+                    if (errorText) {
+                        $.Nuoya.alert(errorText);
+                        return false;
+                    }
+                    //Loading("图片正在上传中...", "请稍等");
+                    uploadheadimg.submitUpload();
+                    return true;//返回false将取消当前选择的文件
+                },
+            });
+            var uploadheadimg = headimgbtn.data("uploadFileData");
+        }
+
 
         //新增
         function add() {
             $.Nuoya.ajaxDialog({
                 closeViaDimmer: false,
                 ajaxUrl: "/Areas/Admin/HtmlTemplates/Carousel/Update.html",
-                title: "添加分类",
+                title: "添加轮播图",
                 width: "1000px",
                 height: "340px",
                 callback: function (e) {
@@ -160,7 +192,7 @@
                         $.Nuoya.ajaxDialog({
                             closeViaDimmer: false,
                             ajaxUrl: "/Areas/Admin/HtmlTemplates/Carousel/Update.html",
-                            title: "编辑分类",
+                            title: "编辑轮播图",
                             width: "1000px",
                             height: "340px",
                             callback: function (e) {
