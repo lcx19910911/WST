@@ -115,13 +115,10 @@
     <Compile Include="Mp\JsonExtend.cs" />
     <Compile Include="Mp\Menu\MenuButton.cs" />
     <Compile Include="Mp\Menu\MenuFunction.cs" />
-    <Compile Include="Mp\ReplyMsg\Message\ReplyMusicMsg.cs" />
     <Compile Include="Mp\ReplyMsg\Message\ReplyNewsMsg.cs" />
-    <Compile Include="Mp\ReplyMsg\Message\ReplyPicMsg.cs" />
     <Compile Include="Mp\ReplyMsg\Message\ReplyTextMsg.cs" />
-    <Compile Include="Mp\ReplyMsg\Message\ReplyVideoMsg.cs" />
-    <Compile Include="Mp\ReplyMsg\Message\ReplyVoiceMsg.cs" />
     <Compile Include="Mp\ReplyMsg\ReplyMessage.cs" />
+    <Compile Include="Mp\RequestMsg.cs" />
     <Compile Include="Params.cs" />
     <Compile Include="Pay\Config.cs" />
     <Compile Include="Pay\Data.cs" />

@@ -17,6 +17,9 @@ using System.Text;
 using WST.Core.Helper;
 using WST.Core.Model;
 using WST.Core.Code;
+using System.IO;
+using System.Xml;
+using WST.Core.Mp;
 
 namespace WST.Web.Controllers
 {
@@ -25,12 +28,14 @@ namespace WST.Web.Controllers
 
         public IUserService IUserService;
         public IAdminService IAdminService;
+        public IMpAutoReplyService IMpAutoReplyService;
 
 
-        public LoginController(IUserService _IUserService, IAdminService _IAdminService)
+        public LoginController(IUserService _IUserService, IAdminService _IAdminService, IMpAutoReplyService _IMpAutoReplyService)
         {
             this.IUserService = _IUserService;
             this.IAdminService = _IAdminService;
+            this.IMpAutoReplyService = _IMpAutoReplyService;
         }
 
         // GET: Login
@@ -113,7 +118,7 @@ namespace WST.Web.Controllers
             //lcx oZe9g0tkskZx51DFih_hKm_GIYS0
             //lzy 
             //shop 
-            var user = IUserService.FindByOpenId("oZe9g0pyZyvXx2MCC1MS9bcx-aQM");
+            var user = IUserService.FindByOpenId("oZe9g0tkskZx51DFih_hKm_GIYS0");
             if (user != null)
             {
                 //user.IsMember = false;
@@ -199,26 +204,182 @@ namespace WST.Web.Controllers
             }
 
         }
-
+        /// <summary>
+        /// 获取post请求数据
+        /// </summary>
+        /// <returns></returns>
+        private string PostInput()
+        {
+            Stream s = System.Web.HttpContext.Current.Request.InputStream;
+            byte[] b = new byte[s.Length];
+            s.Read(b, 0, (int)s.Length);
+            return Encoding.UTF8.GetString(b);
+        }
 
         //用于申请“成为开发者”时向微信发送验证信息。
         public void Valid()
         {
-            string echoStr = Request.QueryString["echoStr"];
-            if (string.IsNullOrEmpty(echoStr))
+            if (this.HttpContext.Request.HttpMethod == "GET")
             {
-                return;
+                string echoStr = Request.QueryString["echoStr"];
+                if (string.IsNullOrEmpty(echoStr))
+                {
+                    return;
+                }
+                string signature = Request.QueryString["signature"];
+                string timestamp = Request.QueryString["timestamp"];
+                string nonce = Request.QueryString["nonce"];
+                if (CheckSignature(signature, timestamp, nonce))
+                {
+                    Response.Write(echoStr);
+                    Response.End();
+                }
             }
-            string signature = Request.QueryString["signature"];
-            string timestamp = Request.QueryString["timestamp"];
-            string nonce = Request.QueryString["nonce"];
-            if (CheckSignature(signature, timestamp, nonce))
+            else if (Request.HttpMethod == "POST")
             {
-                Response.Write(echoStr);
-                Response.End();
+                string weixin = "";
+                                weixin = PostInput();//获取xml数据
+                                 if (!string.IsNullOrEmpty(weixin))
+                                   {
+                                        ResponseMsg(weixin);////调用消息适配器
+                                     }
             }
         }
-        public  bool CheckSignature(string signature, string timestamp, string nonce)
+
+
+        #region 消息类型适配器
+        private RequestMsg GetExmlMsg(XmlElement root)
+        {
+            RequestMsg xmlMsg = new RequestMsg()
+            {
+                FromUserName = root.SelectSingleNode("FromUserName").InnerText,
+                ToUserName = root.SelectSingleNode("ToUserName").InnerText,
+                CreateTime = root.SelectSingleNode("CreateTime").InnerText,
+                MsgType = root.SelectSingleNode("MsgType").InnerText,
+            };
+            if (xmlMsg.MsgType.Trim().ToLower() == "text")
+            {
+                xmlMsg.Content = root.SelectSingleNode("Content").InnerText;
+            }
+            else if (xmlMsg.MsgType.Trim().ToLower() == "event")
+            {
+                xmlMsg.EventName = root.SelectSingleNode("Event").InnerText;
+            }
+            return xmlMsg;
+        }
+
+        private void ResponseMsg(string weixin)// 服务器响应微信请求
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(weixin);//读取xml字符串
+            XmlElement root = doc.DocumentElement;
+            RequestMsg xmlMsg = GetExmlMsg(root);
+            //XmlNode MsgType = root.SelectSingleNode("MsgType");
+            //string messageType = MsgType.InnerText;
+            string messageType = xmlMsg.MsgType;//获取收到的消息类型。文本(text)，图片(image)，语音等。
+
+
+            try
+            {
+
+                switch (messageType)
+                {
+                    //当消息为文本时
+                    case "text":
+                        textCase(xmlMsg);
+                        break;
+                    case "event":
+                        if (!string.IsNullOrEmpty(xmlMsg.EventName) && xmlMsg.EventName.Trim() == "subscribe")
+                        {
+                            //刚关注时的时间，用于欢迎词  
+                            int nowtime = ConvertDateTimeInt(DateTime.Now);
+                            string msg = "Hi~欢迎关注沃商通\r\n目前有超过百家商家正在使用的营销神器\r\n回复：1，了解沃商通\r\n回复：2，联系客服\r\n回复：3，了解收费";
+                            string resxml = "<xml><ToUserName><![CDATA[" + xmlMsg.FromUserName + "]]></ToUserName><FromUserName><![CDATA[" + xmlMsg.ToUserName + "]]></FromUserName><CreateTime>" + nowtime + "</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[" + msg + "]]></Content><FuncFlag>0</FuncFlag></xml>";
+                            Response.Write(resxml);
+                        }
+                        break;
+                    case "image":
+                        break;
+                    case "voice":
+                        break;
+                    case "vedio":
+                        break;
+                    case "location":
+                        break;
+                    case "link":
+                        break;
+                    default:
+                        break;
+                }
+                Response.End();
+            }
+            catch (Exception)
+            {
+
+            }
+        }
+        #endregion
+
+        private string getText(RequestMsg xmlMsg)
+        {
+            string con = xmlMsg.Content.Trim();
+
+            var content = IMpAutoReplyService.Find(x => !x.IsDelete && x.Keyword == con);
+            if (content != null)
+            {
+                return content.Details;
+            }
+            else
+                return "";
+        }
+
+
+        #region 操作文本消息 + void textCase(XmlElement root)
+        private void textCase(RequestMsg xmlMsg)
+        {
+            int nowtime = ConvertDateTimeInt(DateTime.Now);
+            string msg = "";
+            msg = getText(xmlMsg);
+            if (msg.IsNotNullOrEmpty())
+            {
+                string resxml = "<xml><ToUserName><![CDATA[" + xmlMsg.FromUserName + "]]></ToUserName><FromUserName><![CDATA[" + xmlMsg.ToUserName + "]]></FromUserName><CreateTime>" + nowtime + "</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[" + msg + "]]></Content><FuncFlag>0</FuncFlag></xml>";
+                Response.Write(resxml);
+            }
+        }
+        #endregion
+        #region 将datetime.now 转换为 int类型的秒
+        /// <summary>
+        /// datetime转换为unixtime
+        /// </summary>
+        /// <param name="time"></param>
+        /// <returns></returns>
+        private int ConvertDateTimeInt(System.DateTime time)
+        {
+            System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1));
+            return (int)(time - startTime).TotalSeconds;
+        }
+        private int converDateTimeInt(System.DateTime time)
+        {
+            System.DateTime startTime = TimeZone.CurrentTimeZone.ToLocalTime(new System.DateTime(1970, 1, 1));
+            return (int)(time - startTime).TotalSeconds;
+        }
+
+        /// <summary>
+        /// unix时间转换为datetime
+        /// </summary>
+        /// <param name="timeStamp"></param>
+        /// <returns></returns>
+        private DateTime UnixTimeToTime(string timeStamp)
+        {
+            DateTime dtStart = TimeZone.CurrentTimeZone.ToLocalTime(new DateTime(1970, 1, 1));
+            long lTime = long.Parse(timeStamp + "0000000");
+            TimeSpan toNow = new TimeSpan(lTime);
+            return dtStart.Add(toNow);
+        }
+        #endregion
+
+
+        public bool CheckSignature(string signature, string timestamp, string nonce)
         {
             if (string.IsNullOrEmpty(signature) || string.IsNullOrEmpty(timestamp) || string.IsNullOrEmpty(nonce))
             {

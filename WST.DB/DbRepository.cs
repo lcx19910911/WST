@@ -84,7 +84,10 @@ namespace WST.DB
         public virtual DbSet<UserActivity> UserActivity { get; set; }
         public virtual DbSet<KanJia> KanJia { get; set; }
         public virtual DbSet<Music> Music { get; set; }
-        
+
+        public virtual DbSet<MpAutoReply> MpAutoReply { get; set; }
+        public virtual DbSet<MpMenu> MpMenu { get; set; }
+
         public override int SaveChanges()
         {
             try

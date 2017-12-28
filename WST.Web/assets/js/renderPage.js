@@ -53,7 +53,7 @@ function renderPage(filePath) {
                 $('.introduce-item .model-list-body .add-child').before(html);
             });
             
-            $('#phoneNumber').val(data.phoneNumber);
+            // $('#phoneNumber').val(data.phoneNumber);
             
 
             // $('#banner').attr('src', data.banner);

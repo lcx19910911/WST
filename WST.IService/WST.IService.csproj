@@ -59,6 +59,8 @@
   <ItemGroup>
     <Compile Include="ICarouselService.cs" />
     <Compile Include="IMiaoShaService.cs" />
+    <Compile Include="IMpAutoReplyService.cs" />
+    <Compile Include="IMpMenuService.cs" />
     <Compile Include="IMusicService.cs" />
     <Compile Include="IKanJiaService.cs" />
     <Compile Include="IAdviserService.cs" />

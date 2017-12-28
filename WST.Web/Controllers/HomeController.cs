@@ -28,8 +28,17 @@ namespace WST.Web.Controllers
         // GET: Home
         public ActionResult Index(string id)
         {
+            if (LoginUser == null)
+            {
+                return Redirect("/login/index");
+            }
             var userModel = IUserService.Find(LoginUser.ID);
-            if ((userModel.IsMember && !LoginUser.IsMember) || (userModel.EndTime < DateTime.Now && LoginUser.IsMember))
+
+            if (userModel == null)
+            {
+                return Redirect("/login/index");
+            }
+            if ((userModel.IsMember && !LoginUser.IsMember) || (userModel.EndTime.HasValue&&userModel.EndTime.Value < DateTime.Now && LoginUser.IsMember))
             {
                 this.LoginUser = new Core.Model.LoginUser(userModel);
             }

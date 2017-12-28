@@ -153,6 +153,18 @@ namespace WST.Web.Controllers
             {
                 return RedirectToAction("index", "user");
             }
+            if (user.Password.IsNotNullOrEmpty())
+            {
+
+                user.EndTime = DateTime.Now.AddDays(1);
+                var result = IUserService.Update(user);
+                if (result > 0)
+                {
+                    //刷新时间
+                    LoginHelper.CreateUser(new LoginUser(user), Params.UserCookieName);
+                    return RedirectToAction("index", "user");
+                }
+            }
             return View(user);
         }
         [HttpPost]

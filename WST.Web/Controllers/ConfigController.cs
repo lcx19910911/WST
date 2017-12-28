@@ -75,7 +75,7 @@ namespace WST.Web.Controllers
         public ActionResult GetMusicList()
         {
             var categoryList = IDataDictionaryService.GetSelectList(GroupCode.MusicCategory, "");
-            var musicDic = IMusicService.GetList().GroupBy(x=>x.CategoryID).ToDictionary(x=>x.Key,x=>x.ToList());
+            var musicDic = IMusicService.GetList(x=>!x.IsDelete).GroupBy(x=>x.CategoryID).ToDictionary(x=>x.Key,x=>x.ToList());
             categoryList.ForEach(x =>
             {
                 if (musicDic.ContainsKey(x.Value))

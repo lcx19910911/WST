@@ -1,0 +1,286 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "微信自动回复管理";
+}
+
+<div class="am-cf am-padding">
+    <div class="am-fl am-cf"><a href="/"><strong class="am-text-primary am-text-lg">首页</strong></a> /<small>微信自动回复管理</small></div>
+</div>
+<div id="searchDomain">
+
+    <div class="am-g">   
+        <div class="am-u-lg-6 am-u-end">
+            <div class="am-input-group am-input-group-sm">
+                <span class="am-input-group-label">关键字：</span>
+                <input type="text" class="am-form-field" placeholder="按微信自动回复名称搜索" style="width:100px;" name="keyword" ;>
+                <span class="am-input-group-btn am-margin-left-sm">
+                    <button class="am-btn am-btn-default" id="btnSearch" type="button">搜索</button>
+                    <button class="am-btn am-btn-default" onclick="ClearFilter()" type="button">清除</button>
+                </span>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="am-g am-margin-top-sm">
+        <div class="am-u-lg-6">
+            <div class="am-btn-toolbar">
+                <div class="am-btn-group am-btn-group-xs">
+                    <button onclick="add()" type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
+                    <button onclick="batchDelete()" type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="grid_container">
+    <table id="dataTable" class="am-table am-table-compact am-table-hover table-main">
+        <thead>
+            <tr>
+                <th dataname="ID" type="checkbox"></th>
+                <th dataname="Keyword">关键字</th>
+                @*<th render="showPerfectMatch">是否全匹配</th>*@
+                <th render="showAutoReplyType">回复类型</th>
+                <th render="showMaterialType">素材类别</th>
+                <th dataname="Details">文本信息</th>
+                @*<th dataname="NewsMutilGuid">回复自动回复信息组GUID</th>*@
+                <th type="eventlist"></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+
+        function ClearFilter() {
+            $("#searchDomain input").val("");
+        }
+
+        function showMaterialType(item) {
+            if (item.MaterialType == 1)
+                return "文本";
+            else if (item.MaterialType == 2)
+            return "图片";
+            return "";
+
+        }
+
+        function showPerfectMatch(item)
+        {
+            return item.PerfectMatch ? "是" : "否";
+        }
+
+        function showAutoReplyType(item)
+        {
+            if (item.AutoReplyType == 1)
+                return "关注";
+            else if (item.AutoReplyType == 2)
+                return "默认";
+            else if (item.AutoReplyType == 3)
+                return "关键字";
+            return "";
+            
+        }
+
+
+        function showDiv(obj)
+        {
+            type =parseInt( $(obj).val());
+        }
+
+        //批量删除
+        function batchDelete() {
+            $.Nuoya.confirm("确认删除？", function () {
+                grid.del({
+                    ajaxUrl: "/Admin/MpAutoReply/Delete",
+                    callback: function (json) {
+                        grid.reload();
+                    }
+                });
+            });
+        }
+        function formInit(dataitem) {
+
+
+            //添加表单验证
+            $.Nuoya.form("form").validate({
+                rules: {
+                    Keyword: {
+                        required: true,
+                        maxlength: 32
+                    },
+                    AutoReplyType: {
+                        required: true,
+                    },
+                    //PerfectMatch: {
+                    //    required: true,
+                    //}
+                },
+                messages: {
+                    Keyword: {
+                        required: "不允许为空",
+                        maxlength: "最多{0}个字符"
+                    },
+                    AutoReplyType: {
+                        required: "不允许为空",
+                    },
+                    //PerfectMatch: {
+                    //    required: "不允许为空",
+                    //}
+                }
+            });
+            if (dataitem != null) {
+                if (dataitem.FilePath != null) {
+                    $("#imageDiv").show().find("img").attr("src", dataitem.FilePath);
+
+                }
+                type = dataitem.MaterialType;
+                //debugger
+                //if (!dataitem.PerfectMatch) {
+                //    $("[name='PerfectMatch'] option").eq(1).attr("selected", true);
+                //}
+                //else {
+                //    $("[name='PerfectMatch'] option").eq(0).attr("selected", true);
+                //}
+            }
+
+            UploadImg();
+        }
+
+        var type = 1;
+
+        function UploadImg() {
+            var headimgbtn = $("#imageFile").uploadFile({
+                url: '/admin/upload/UploadMultiMedia?mark=replay&type=' + type,
+                fileSuffixs: ["jpg", "png", "gif"],
+                maximumFilesUpload: 1,//最大文件上传数
+                onComplete: function (data) {
+                    if (data) {
+                        $("[name='Picture']").val(data);
+                        $("#imageDiv").show().find("img").attr("src", data);
+                    }
+                    else {
+                        $.Nuoya.alert("上传错误");
+                    }
+
+                },
+                onChosen: function (file, obj, fileSize, errorText) {
+                    if (errorText) {
+                        $.Nuoya.alert(errorText);
+                        return false;
+                    }
+                    //Loading("图片正在上传中...", "请稍等");
+                    uploadheadimg.submitUpload();
+                    return true;//返回false将取消当前选择的文件
+                },
+            });
+            var uploadheadimg = headimgbtn.data("uploadFileData");
+        }
+        //新增
+        function add() {
+            $.Nuoya.ajaxDialog({
+                closeViaDimmer: false,
+                ajaxUrl: "/Areas/Admin/HtmlTemplates/MpAutoReply/Update.html",
+                title: "添加微信自动回复",
+                width: "1000px",
+                height: "420px",
+                callback: function (e) {
+                    formInit();//表单初始化
+                },
+                buttons: [{
+                    label: "保存",
+                    callback: function (e) {
+                        $.Nuoya.form("form").ajaxSubmit({
+                            ajaxUrl: "/Admin/MpAutoReply/Add",
+                            callback: function (data) {
+                                if (!data.ErrorDesc) {
+                                    e.hide();
+                                    grid.reload();
+                                }
+                                else
+                                    $.Nuoya.alert(data.ErrorDesc);
+                            }
+                        });
+                    }
+                }]
+            })
+        }
+
+        var grid = $.Nuoya.grid({
+            tableId: "dataTable",
+            //表格id
+            search: {
+                domainId: "searchDomain",
+                subId: "btnSearch"
+            },
+            ajaxUrl: "/Admin/MpAutoReply/GetPageList",
+            //数据请求地址
+            
+            events: [
+                {
+                    className: "am-text-secondary",
+                    icon: "icon-pencil-square-o",
+                    name: "编辑",
+                    click: function (item) {
+                        $.Nuoya.ajaxDialog({
+                            closeViaDimmer: false,
+                            ajaxUrl: "/Areas/Admin/HtmlTemplates/MpAutoReply/Update.html",
+                            title: "编辑微信自动回复",
+                            width: "1000px",
+                            height: "420px",
+                            callback: function (e) {
+                                $.Nuoya.action("/Admin/MpAutoReply/Find", { id: item.ID }, function (model) {
+                                    //载入数据
+                                    $.Nuoya.form("form").dataLoad({
+                                        data: model
+                                    });
+                                    formInit(model);//表单初始化
+                                });
+                            },
+                            buttons: [{
+                                label: "保存",
+                                callback: function (e) {
+
+                                    $.Nuoya.form("form").ajaxSubmit({
+                                        ajaxUrl: "/Admin/MpAutoReply/Update",
+                                        params: {
+                                            ID: item.ID
+                                        },
+                                        callback: function (data) {
+                                            if (!data.ErrorDesc) {
+                                                e.hide();
+                                                grid.reload();
+                                            }
+                                            else
+                                                $.Nuoya.alert(data.ErrorDesc);
+                                        }
+                                    });
+                                }
+                            }]
+                        })
+                    }
+                },
+                {
+                    className: "am-text-danger",
+                    icon: "icon-trash-o",
+                    name: "删除",
+                    click: function (item) {
+                        $.Nuoya.confirm("确认删除？", function () {
+                            $.Nuoya.deleteAction("/Admin/MpAutoReply/Delete", {
+                                ids: item.ID
+                            },
+                            function () {
+                                grid.reload();
+                            });
+                        });
+                    }
+                }
+            ]
+        });
+
+    </script>
+}

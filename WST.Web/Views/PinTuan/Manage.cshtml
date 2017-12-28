@@ -28,6 +28,9 @@
                 url: '/config/getmusiclist',
                 success: function (data) {
                     if (data.Result != null && data.Result.length > 0) {
+
+			$(".music-component-wrapper ul").append('<li class="music-list music-item" data-music="">无背景音乐</li>');
+
                         $(data.Result).each(function (i, item) {
                             if (item.Value != "-1") {
                                 var html = '<li class="music-list" data-class="class2"> <h3>' + item.Text + '</h3>';

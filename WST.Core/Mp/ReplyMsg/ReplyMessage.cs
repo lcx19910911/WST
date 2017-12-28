@@ -58,13 +58,13 @@ namespace WST.Core.MP.ReplyMsg
                     case Enum_WXReplyMsg_Type.文本消息:
                         return (this as ReplyTextMsg).Reverse();
                     case Enum_WXReplyMsg_Type.图片消息:
-                        return (this as ReplyPicMsg).Reverse();
-                    case Enum_WXReplyMsg_Type.语音消息:
-                        return (this as ReplyVoiceMsg).Reverse();
-                    case Enum_WXReplyMsg_Type.视频消息:
-                        return (this as ReplyVideoMsg).Reverse();
-                    case Enum_WXReplyMsg_Type.音乐消息:
-                        return (this as ReplyMusicMsg).Reverse();
+                    //    return (this as ReplyPicMsg).Reverse();
+                    //case Enum_WXReplyMsg_Type.语音消息:
+                    //    return (this as ReplyVoiceMsg).Reverse();
+                    //case Enum_WXReplyMsg_Type.视频消息:
+                    //    return (this as ReplyVideoMsg).Reverse();
+                    //case Enum_WXReplyMsg_Type.音乐消息:
+                    //    return (this as ReplyMusicMsg).Reverse();
                     case Enum_WXReplyMsg_Type.图文消息:
                         return (this as ReplyNewsMsg).Reverse();
                     default:

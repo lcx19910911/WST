@@ -14,24 +14,25 @@ img{ border:none;padding:0px; margin:0px;}
 .anli,.mouban{width:100%;}
 
 /*选项卡1*/
-.lib_Tab1{ position: absolute; top: 30%; left: 0;font-size:1.1rem;width:100%;height: 70%;border-top: 1px solid #019c9e;box-sizing: border-box;padding-bottom: 4em;}
+.lib_Tab1{ position: absolute; top: 20%; left: 0;font-size:1.1rem;width:100%;height: 80%;border-top: 1px solid #019c9e;box-sizing: border-box;padding-bottom: 4em;}
 
 .lib_Menubox {position: absolute;width: 20%;height: 100%; overflow-y: auto; left: 0;top: 0;z-index: 10;}
 .lib_Menubox ul{ font-size:0.8rem;width:100%; margin:0px;padding:0px;list-style:none; text-align:center;}
-.lib_Menubox li{ padding:20% 0%;display:block;cursor:pointer;color:#019c9e;font-weight:bold;  background-color:#fff; border-bottom:0.02rem solid #019c9e;border-right:0.02rem solid #019c9e;}
-.lib_Menubox li.hover{padding:20% 0%;background:none;border:1px solid #95C9E1;border-left:6px solid #95C9E1;border-right:none;border-top:none;}
+.lib_Menubox li{ padding:18% 0%;display:block;cursor:pointer;color:#019c9e;font-size:1.2em;font-weight:bold;  background-color:#fff; border-bottom:0.02rem solid #019c9e;border-right:0.02rem solid #019c9e;text-align: left;text-indent:1em;}
+.lib_Menubox li.hover{background:none;border:1px solid #95C9E1;border-left:6px solid #95C9E1;border-right:none;border-top:none;}
 
 
 .lib_Contentbox{ position: absolute; top: 0; left: 0;width: 100%; padding-left: 20%;padding-top: 2em; height: 100%; overflow-y: auto; font-size: 1em; box-sizing: border-box;}
 .mouban{ margin-bottom:4em;float:left;}
-.anli {position: absolute;width: 78%;line-height: 2em;top: 0; right: 0; background: #e1f1f0;z-index: 10;}
-.anli span a {color: #199fbc;}
+.anli {position: absolute;width: 78%;line-height: 2em;top: 0; right: 0; background: #e1f1f0;z-index: 10;font-size:0.9em;text-align:right;padding-right:0.7em;box-sizing:border-box;}
+.anli span a {color: #199fbc;font-size: 1em;}
 .lib_Contentbox_img1{ margin-left:3%;float:left;width:5em;height:5em;border-radius: 0.8em;display:block; background-color:#199fbc; border:none;float:left;}
 .lib_Contentbox_li{ padding:0.8em 0;border-bottom:1px dashed #95C9E1;}
 .lib_Contentbox_li dl dd span{color:#ccc;}
 .lib_Contentbox_li dl dd span a{background-color:#199fbc;color:#fff;}
 .lib_Contentbox_img2{ width:1.5em; padding-left:5%;}
-.lib_Contentbox dl h3{ font-weight: bold;margin-bottom: 0.1em;font-size: 1.1em;}
+.lib_Contentbox dl h3{ font-weight: bold;margin-bottom: 0.1em;font-size: 1.1em;overflow: hidden;}
+.lib_Contentbox dl h3 span {width: 80%;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;float:left;}
 .lib_Contentbox dl{ overflow:hidden; padding:0% 3%; margin:0px;}
 .lib_Contentbox dl dt{ font-size:0.8em;color:#6e93a6; line-height:1.2em;display: -webkit-box;-webkit-box-orient: vertical;-webkit-line-clamp: 2;overflow: hidden;margin-bottom: 0.5em;}
 .lib_Contentbox dl dd{ float: right;margin: 0px;overflow: hidden;margin-left: 0.7em;}
@@ -49,6 +50,6 @@ img{ border:none;padding:0px; margin:0px;}
 .lib_C_cont_box {display: none;}
 .mouban .show {display: block;}
 
-.slider-wrapper {position: absolute;left: 0;top: 0;width: 100%;height: 30%;overflow: hidden;}
+.slider-wrapper {position: absolute;left: 0;top: 0;width: 100%;height: 20%;overflow: hidden;}
 .swiper-container {width: 100%;height: 100%;}  
 .swiper-container .swiper-slide img {display: block;width: 100%;height: 100%;margin: 0;padding: 0;border: none;}

@@ -60,6 +60,8 @@
   <ItemGroup>
     <Compile Include="CarouselService.cs" />
     <Compile Include="MiaoShaService.cs" />
+    <Compile Include="MpAutoReplyService.cs" />
+    <Compile Include="MpMenuService.cs" />
     <Compile Include="MusicService.cs" />
     <Compile Include="KanJiaService.cs" />
     <Compile Include="AdvisernService.cs" />

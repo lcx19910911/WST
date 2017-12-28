@@ -82,8 +82,9 @@ namespace WST.Web.Areas.Admin.Controllers
                 }
                 model.Value = entity.Value;
                 model.Remark = entity.Remark;
-                model.Key = entity.Key;
-                var result = IDataDictionaryService.Update(entity);
+                if(GroupCode.Area==model.GroupCode)
+                 model.Key = entity.Key;
+                var result = IDataDictionaryService.Update(model);
                 if (result > 0)
                 {
                     CacheHelper.Clear();

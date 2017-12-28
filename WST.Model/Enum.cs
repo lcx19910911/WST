@@ -144,5 +144,41 @@ namespace WST.Model
         Kanjia = 3,
     }
 
+    /// <summary>
+    /// 回复类型
+    /// </summary>
+    public enum Enum_AutoReplay_Type
+    {
+        关注 = 1,
+        默认 = 2,
+        关键字 = 3
+    }
+
+    /// <summary>
+    /// 素材类别
+    /// </summary>
+    public enum Enum_Material_Type
+    {
+        文本 = 1,
+        图片 = 2
+    }
+
+
+    /// <summary>
+    /// 页面按钮类型
+    /// </summary>
+    public enum Enum_Button_Type
+    {
+        点击事件 = 1,
+        跳转页面 = 2
+    }
+    /// <summary>
+    /// 客服消息类型
+    /// </summary>
+    public enum Enum_WXServiceMsg_Type
+    {
+        文本消息 = 1,
+        图文消息 = 2
+    }
 
 }

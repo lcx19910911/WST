@@ -1,0 +1,143 @@
+/*model css*/
+html {
+	/* background: #FFFAEE; */
+	background: url(/Template/miaosha/miaosha3/img/index_foot.png) no-repeat bottom+5em center;
+	background-size: 15em;
+	background-color: #dcc8ad;
+}
+
+.l .title-wrapper {
+	margin-top: 0;
+	background: #e9598a;
+	padding: 1em 0 4em;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+.l #title, .l #title * {
+	color: #ffffff!important;
+	
+}
+.l .activity-wrapper {
+	/*width: 80%;*/
+	margin: -2em auto 0;
+	padding: 2em 0 2.3em;
+	line-height: 1.8em;
+	/*background-size: 100%;
+	background: #ff0;*/
+	
+	background: url(/Template/miaosha/miaosha3/img/time_bg.png) center no-repeat;
+	background-size: 100%;
+}
+.activity-wrapper * {
+	color: rgb(255, 255, 255)!important;
+	/*font-weight: bold;*/
+}
+
+.activity-wrapper h3 {
+	padding-top: 1em;
+	margin-top: -1.3em;
+	font-size: 1.3em;
+}
+.l .groupBooking-wrapper {
+	/* box-shadow: 0.3em 0.3em 1em 0px rgba(0,0,0,0.5); */
+	width: auto;
+	padding: 1em 0;
+	margin:0em 0.5em;
+	background: #ffefd6;
+	/* background-color:rgba(255, 251, 0, 0.89); */
+	/* border-radius:1em; */
+	border: 1.5rem solid #f00;
+	-webkit-border-image:url(/Template/miaosha/miaosha3/img/border.gif) 30 30 round;
+	-o-border-image:url(/Template/miaosha/miaosha3/img/border.gif) 30 30 round;
+	border-image:url(/Template/miaosha/miaosha3/img/border.gif) 30 30 round;
+}
+.groupBooking-wrapper .sub-group {
+	background: #FCE8C9!important;
+}
+.groupBooking-wrapper .groupBooking-list:nth-child(1) * {
+	color: #000!important;
+	font-weight: bold;
+}
+.l .groupBooking-wrapper .groupBooking-list .list-item-right * {
+	color: #eeff00!important;
+}
+.l .groupBooking-wrapper .groupBooking-list * {
+	color: #e9598a!important;
+}
+
+
+.l .model-list-body {
+	/* border: 0.2rem solid transparent; */
+	background: #ffefd6 ;
+	background-size: 6em;
+	padding: 2% 4% 0%;
+	/* box-shadow: 0.3em 0.3em 1em 0px rgba(0,0,0,0.5); */
+	border: 1.3rem solid #f00;
+	-webkit-border-image:url(/Template/miaosha/miaosha3/img/border.gif) 30 30 round;
+	-o-border-image:url(/Template/miaosha/miaosha3/img/border.gif) 30 30 round;
+	border-image:url(/Template/miaosha/miaosha3/img/border.gif) 30 30 round;
+}
+.l .model-list-title {
+	width: 100%;
+	height: auto;
+	line-height: 2.3em; 
+	text-indent: 0;
+	background: none;
+	/* background: url(/Template/miaosha/miaosha3/img/title_bottom.png) center bottom no-repeat; */
+	background-size: 100% auto;
+	
+	margin: 0 auto;
+}
+.l .model-list-title span {
+	width: 90%;
+	padding-top: 0.8em;
+	padding-left:5em; 
+	text-indent:0;
+	margin-bottom: 0;
+	text-align: right;
+	color: #5e2b10;
+	background: url(/Template/miaosha/miaosha3/img/title_top.png) left top no-repeat;
+	background-size: 10em;
+}
+
+.l .add-child span {
+	background: #e9598a;
+	color: #ffffff;
+	border-color: #e9598a;
+}
+.l .foot-wrapper {
+	border-color: #e9598a;
+}
+.l .foot-wrapper .button {
+	background: #e9598a;
+	color: rgb(255, 255, 255);
+	border-color: #e9598a;
+}
+.l .foot-wrapper .view-btn {
+	background: #fff;
+	color: #e9598a;
+}
+.music-component-wrapper ul .play {
+	color: #e9598a;
+}
+.l .textarea, .l .input, .v-p, .v-span, .phone-number {
+	color: #e9598a;
+}
+.music-component-wrapper .btn span, .l .button {
+	background: #e9598a;
+	color: rgb(255, 255, 255);
+}
+.music-component-wrapper .btn .cancel {
+	background: #fff;
+	color: #511212;
+}
+.l .apply-user-list .price {
+	color: #FFE200;
+}
+.l .apply-user-list .name {
+	color: #fff;
+}
+.l .groupBooking-list-item .list-item-right{background-color: #ff0000;}
+.l .groupBooking-wrapper .groupBooking-list .list-item-left * {color: #D82930!important;}
+.l .foot-wrapper{background-color: #fff;}
+

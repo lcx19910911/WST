@@ -1,0 +1,138 @@
+/*model css*/
+html {
+	/* background: #FFFAEE; */
+	background: url(/Template/pintuan/pintuan4/img/index_foot.png) no-repeat center bottom+7em ;
+	background-size: 20em;
+	background-color: #000000;
+	width: auto;
+}
+
+.l .title-wrapper {
+	margin-top: 0;
+	/* background: #94256a; */
+	padding: 1em 0 4em;
+	background: url(/Template/pintuan/pintuan4/img/title_bg.gif) repeat;
+	background-repeat: no-repeat;
+	background-size: 100%;
+}
+.l #title, .l #title * {
+	color: #ffcc33!important;
+	
+}
+.l .activity-wrapper {
+	/*width: 80%;*/
+	margin: -2em auto 0;
+	padding: 2em 0 2.3em;
+	line-height: 1.8em;
+	/*background-size: 100%;
+	background: #ff0;*/
+	
+	background: url(/Template/pintuan/pintuan4/img/time_bg.png) center no-repeat;
+	background-size: 100%;
+}
+.activity-wrapper * {
+	color: rgb(255, 255, 255)!important;
+	/*font-weight: bold;*/
+}
+
+.activity-wrapper h3 {
+	padding-top: 1em;
+	margin-top: -1.3em;
+	font-size: 1.3em;
+}
+.l .groupBooking-wrapper {
+	/* box-shadow: 0.3em 0.3em 1em 0px rgba(0,0,0,0.5); */
+	width: auto;
+	padding: 1em 0.2em;
+	margin:0em 1.5em;
+	background: #FFFCE9;
+	border-radius:0.8em;
+
+}
+.groupBooking-wrapper .sub-group {
+	background: #FCE8C9!important;
+}
+.groupBooking-wrapper .groupBooking-list:nth-child(1) * {
+	color: #000!important;
+	font-weight: bold;
+}
+.l .groupBooking-wrapper .groupBooking-list .list-item-right * {
+	color: #eeff00!important;
+}
+.l .groupBooking-wrapper .groupBooking-list * {
+	color: #f00!important;
+}
+
+
+.l .model-list-body {
+	width:78%;
+	margin-top: -0.01em;
+	background-size: 100%;
+	padding: 2% 4% 0%;
+	box-shadow: 0.3em 0.3em 1em 0px rgba(0,0,0,0.5);
+	border-radius:0em;
+}
+.l .model-list-title {
+	width: 100%;
+	padding-bottom: 1em;
+	height: auto;
+	line-height: 2.3em; 
+	text-indent: 0;
+	background: none;
+	background: url(/Template/pintuan/pintuan4/img/title_bottom.png) center bottom no-repeat;
+	background-size: 94% auto;
+	
+	margin: 0 auto;
+}
+.l .model-list-title span {
+	width: 100%;
+	padding-right: 2.3em;
+	padding-top: 2em;
+	text-indent:0;
+	color: #ffcc33;
+	background: url(/Template/pintuan/pintuan4/img/title_top.png) left+1.5em top no-repeat;
+	background-size: 5em;
+	text-align: right;
+}
+
+.l .add-child span {
+	background: #bc7744;
+	color: #eeff00;
+	border-color: #D82930;
+}
+.l .foot-wrapper {
+	border-color: #D82930;
+}
+.l .foot-wrapper .button {
+	background: #bc7744;
+	color: #fff;
+	border-color: #bc7744;
+}
+.l .foot-wrapper .view-btn {
+	background: #fff;
+	color: #bc7744;
+}
+.music-component-wrapper ul .play {
+	color: #bc7744;
+}
+.l .textarea, .l .input, .v-p, .v-span, .phone-number {
+	color: #bc7744;
+}
+.music-component-wrapper .btn span, .l .button {
+	background: #bc7744;
+	color: rgb(255, 255, 255);
+}
+.music-component-wrapper .btn .cancel {
+	background: #fff;
+	color: #511212;
+}
+.l .apply-user-list .price {
+	color: #FFE200;
+}
+.l .apply-user-list .name {
+	color: #fff;
+}
+.l .groupBooking-list-item .list-item-right{background-color: #bc7744;}
+.l .groupBooking-wrapper .groupBooking-list .list-item-left * {color: #D82930!important;}
+.l .foot-wrapper{background-color: #fff;}
+.l .body-wrapper{margin-bottom: 10em;}

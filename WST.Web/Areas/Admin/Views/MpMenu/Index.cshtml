@@ -1,0 +1,329 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "微信菜单管理";
+}
+
+<div class="am-cf am-padding">
+    <div class="am-fl am-cf"><a href="/"><strong class="am-text-primary am-text-lg">首页</strong></a> /<small>微信菜单管理</small></div>
+</div>
+<div id="searchDomain">
+
+    <div class="am-g">   
+        <div class="am-u-lg-6 am-u-end">
+            <div class="am-input-group am-input-group-sm">
+                <span class="am-input-group-label">名称：</span>
+                <input type="text" class="am-form-field" placeholder="按微信菜单名称搜索" style="width:100px;" name="name" ;>
+                <span class="am-input-group-btn am-margin-left-sm">
+                    <button class="am-btn am-btn-default" id="btnSearch" type="button">搜索</button>
+                    <button class="am-btn am-btn-default" onclick="ClearFilter()" type="button">清除</button>
+                </span>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="am-g am-margin-top-sm">
+        <div class="am-u-lg-6">
+            <div class="am-btn-toolbar">
+                <div class="am-btn-group am-btn-group-xs">
+                    <button onclick="add()" type="button" class="am-btn am-btn-default"><span class="am-icon-plus"></span> 新增</button>
+                    <button onclick="batchDelete()" type="button" class="am-btn am-btn-default"><span class="am-icon-trash-o"></span> 删除</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<div class="grid_container">
+    <table id="dataTable" class="am-table am-table-compact am-table-hover table-main">
+        <thead>
+            <tr>
+                <th dataname="ID" type="checkbox"></th>
+                <th dataname="Name">微信菜单名称</th>
+                <th dataname="ParentName">一级微信菜单</th>
+                <th render="showEvent">触发类型</th>
+                <th dataname="EventKey">事件Key值</th>
+                <th render="showKeyType">key类型</th>
+                <th dataname="LinkUrl">跳转URL</th>
+                <th dataname="SortIndex">排序</th>
+                <th dataname="CreatedTime" datatype="jsondate">创建日期</th>
+                <th dataname="UpdatedTime" datatype="jsondate">编辑日期</th>
+                <th type="eventlist"></th>
+            </tr>
+        </thead>
+        <tbody></tbody>
+    </table>
+</div>
+@section scripts
+{
+    <script type="text/javascript">
+
+        function ClearFilter() {
+            $("#searchDomain input").val("");
+        }
+
+        function showEvent(item)  
+        {
+            return item.EventType == 1 ? "点击事件" : "跳转页面";
+        }
+
+        function showKeyType(item)
+        {
+            if (item.KeyType == 1)
+                return "文本消息";
+            else if (item.KeyType == 2)
+                return "图片消息";
+            else if (item.KeyType == 3)
+                return "语音消息";
+            else if (item.KeyType == 4)
+                return "视频消息";
+            else if (item.KeyType == 5)
+                return "音乐消息";
+            else
+                return "图文消息";
+            
+        }
+
+
+        function showDiv(obj)
+        {
+            var value = $(obj).val();
+            if (value == "1")
+            {
+
+            }
+        }
+
+
+
+        //演讲者弹窗
+        var mpNewsGrid;
+        function SelectRelationMpNews(obj, index) {
+            $.Nuoya.ajaxDialog({
+                closeViaDimmer: false,
+                width: "1200px",
+                height: "800px",
+                ajaxUrl: "/Areas/Admin/HtmlTemplates/MpNews/Index.html",
+                title: index == 0 ? "选择图文" : "选择转图文",
+                callback: function (e) {
+                    umpNewsGrid = $.Nuoya.grid({
+                        tableId: "mpNewsDataTable",
+                        //表格id
+                        search: {
+                            domainId: "searchMpNewsDomain",
+                            subId: "btnMpNewsSearch"
+                        },
+                        ajaxUrl: "/Admin/MpNews/GetPageList",
+                        //数据请求地址
+                        pageSize: 10,
+                        events: [
+                            {
+                                className: "am-text-secondary",
+                                icon: "icon-pencil-square-o",
+                                name: "选择",
+                                click: function (item) {
+                                    $(obj).prev().html(item.Title);
+                                    $(obj).prev().prev().val(item.ID);
+                                    e.hide();
+                                }
+                            }
+                        ]
+                    });
+                }
+            });
+            event.preventDefault();
+        }
+
+        function UploadImg() {
+            var headimgbtn = $("#imageFile").uploadFile({
+                url: '/admin/upload/uploadimage?mark=user',
+                fileSuffixs: ["jpg", "png", 'jpeg'],
+                maximumFilesUpload: 1,//最大文件上传数       ]
+                isGetFileSize: true,
+                maxFileSize: 200 * 1024 * 1024,
+                onComplete: function (data) {
+                    if (data) {
+                        $("[name='HeadImgUrl']").val(data);
+                        $("#imageDiv").show().find("img").attr("src", data);
+                    }
+                    else {
+                        $.Nuoya.alert("上传错误");
+                    }
+
+                },
+                onChosen: function (file, obj, fileSize, errorText) {
+                    if (errorText) {
+                        $.Nuoya.alert(errorText);
+                        return false;
+                    }
+                    //Loading("图片正在上传中...", "请稍等");
+                    uploadheadimg.submitUpload();
+                    return true;//返回false将取消当前选择的文件
+                },
+            });
+            var uploadheadimg = headimgbtn.data("uploadFileData");
+        }
+
+
+        //批量删除
+        function batchDelete() {
+            $.Nuoya.confirm("确认删除？", function () {
+                grid.del({
+                    ajaxUrl: "/Admin/MpMenu/Delete",
+                    callback: function (json) {
+                        grid.reload();
+                    }
+                });
+            });
+        }
+        function formInit(dataitem) {
+
+            $.Nuoya.action("/Admin/MpMenu/GetSelectItem", {}, function (json) {
+                $(json).each(function () {
+                    if (dataitem != null && dataitem.CategoryID == this.Value) {
+                        $("#form select[name='ParentID']").append("<option  value='" + this.Value + "' selected='selected' >" + this.Text + "</option>");
+                    }
+                    else {
+                        $("#form select[name='ParentID']").append("<option  value='" + this.Value + "' >" + this.Text + "</option>");
+                    }
+                });
+            });
+
+            //添加表单验证
+            $.Nuoya.form("form").validate({
+                rules: {
+                    Name: {
+                        required: true,
+                        maxlength: 32
+                    },
+                    EventType: {
+                        required: true,
+                    },
+                    SortIndex: {
+                        digits: true,
+                        max: 100,
+                        min: 0
+                    }
+                },
+                messages: {
+                    Name: {
+                        required: "不允许为空",
+                        maxlength: "最多{0}个字符"
+                    },
+                    EventType: {
+                        required: "不允许为空",
+                    },
+                    Sort: {
+                        digits: "请输入数字",
+                        max: "必须小于{0}",
+                        min: "必须大于{0}"
+                    }
+                }
+            });
+        }
+
+        //新增
+        function add() {
+            $.Nuoya.ajaxDialog({
+                closeViaDimmer: false,
+                ajaxUrl: "/Areas/Admin/HtmlTemplates/MpMenu/Update.html",
+                title: "添加微信菜单",
+                width: "1000px",
+                height: "420px",
+                callback: function (e) {
+                    formInit();//表单初始化
+                },
+                buttons: [{
+                    label: "保存",
+                    callback: function (e) {
+                        $.Nuoya.form("form").ajaxSubmit({
+                            ajaxUrl: "/Admin/MpMenu/Add",
+                            callback: function (data) {
+                                if (!data.ErrorDesc) {
+                                    e.hide();
+                                    grid.reload();
+                                }
+                                else
+                                    $.Nuoya.alert(data.ErrorDesc);
+                            }
+                        });
+                    }
+                }]
+            })
+        }
+
+        var grid = $.Nuoya.grid({
+            tableId: "dataTable",
+            //表格id
+            search: {
+                domainId: "searchDomain",
+                subId: "btnSearch"
+            },
+            ajaxUrl: "/Admin/MpMenu/GetPageList",
+            //数据请求地址
+            
+            events: [
+                {
+                    className: "am-text-secondary",
+                    icon: "icon-pencil-square-o",
+                    name: "编辑",
+                    click: function (item) {
+                        $.Nuoya.ajaxDialog({
+                            closeViaDimmer: false,
+                            ajaxUrl: "/Areas/Admin/HtmlTemplates/MpMenu/Update.html",
+                            title: "编辑微信菜单",
+                            width: "1000px",
+                            height: "420px",
+                            callback: function (e) {
+                                $.Nuoya.action("/Admin/MpMenu/Find", { id: item.ID }, function (model) {
+                                    //载入数据
+                                    $.Nuoya.form("form").dataLoad({
+                                        data: model
+                                    });
+                                    formInit(model);//表单初始化
+                                });
+                            },
+                            buttons: [{
+                                label: "保存",
+                                callback: function (e) {
+
+                                    $.Nuoya.form("form").ajaxSubmit({
+                                        ajaxUrl: "/Admin/MpMenu/Update",
+                                        params: {
+                                            ID: item.ID
+                                        },
+                                        callback: function (data) {
+                                            if (!data.ErrorDesc) {
+                                                e.hide();
+                                                grid.reload();
+                                            }
+                                            else
+                                                $.Nuoya.alert(data.ErrorDesc);
+                                        }
+                                    });
+                                }
+                            }]
+                        })
+                    }
+                },
+                {
+                    className: "am-text-danger",
+                    icon: "icon-trash-o",
+                    name: "删除",
+                    click: function (item) {
+                        $.Nuoya.confirm("确认删除？", function () {
+                            $.Nuoya.deleteAction("/Admin/MpMenu/Delete", {
+                                ids: item.ID
+                            },
+                            function () {
+                                grid.reload();
+                            });
+                        });
+                    }
+                }
+            ]
+        });
+
+    </script>
+}

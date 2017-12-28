@@ -1,0 +1,146 @@
+﻿@model List<Template>
+@{
+    ViewBag.Title = "制作活动";
+    Layout = null;
+}
+@section linkcss
+{
+   
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>@ViewBag.Title
+    </title>
+    <meta name="viewport" content="width=device-width,user-scalable=no">
+    <meta name="format-detection" content="telephone=no" />
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache, must-revalidate">
+    <meta http-equiv="expires" content="0">
+    <link rel="stylesheet" href="~/assets/css/reset.css">
+    <script src="~/assets/js/jquery-2.1.4.min.js"></script>
+    <style>
+        html {
+            background: #efefff;
+        }
+
+        .activity-list {
+            margin-bottom: 1em;
+            background: #fff;
+            padding: 1em 0;
+        }
+
+        .list-item-top {
+            overflow: hidden;
+        }
+
+        .list-item-bottom {
+            overflow: hidden;
+            margin-top: 1em;
+        }
+
+        .list-item-top img {
+            display: block;
+            width: 75%;
+            margin: 0.3em auto;
+            border-radius: 5px;
+        }
+
+        .list-item-top p {
+            /*padding: 0.5em;*/
+        }
+
+        .list-item-bottom .button {
+            width: 80%;
+            float: none;
+            margin: 0 auto;
+            padding: 0;
+            height: 2.2em;
+            line-height: 2.2em;
+            border-radius: 0.5em;
+            background: #eee;
+            color: #777;
+            border: 1px solid #aaa;
+        }
+
+        .list-item-bottom > div:nth-child(2) .button {
+            background: #608DA4;
+            color: #fff;
+            border-color: #608DA4;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap l">
+
+        @if (Model != null && Model.Count > 0)
+        {
+            foreach (var item in Model)
+            {
+                <div class="activity-list">
+                    <div class="list-item-top">
+                        <div class="w50 fl">
+                            <img src="@(item.Picture)" />
+                        </div>
+                        <div class="w50 fl p05">
+                            <h3>@item.Name</h3>
+                            <p class="c-999 f08">@item.Introduce</p>
+                        </div>
+                    </div>
+                    <div class="list-item-bottom">
+                        <div class="w50 fl">
+                            <div class="button"><a href="@item.DemoUrl">查看示例</a></div>
+                        </div>
+                        <div class="w50 fl">
+                            <div class="button"><a href="/@(item.RotueName)/Manage?TemplateUrl=@(item.TemplateUrl)">马上制作</a></div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        @*<div class="activity-list">
+            <div class="list-item-top">
+                <div class="w50 fl">
+                    <img src="~/images/kanjia.jpg" />
+                </div>
+                <div class="w50 fl p05">
+                    <h3>全民拼团</h3>
+                    <p class="c-999 f08">规则玩法：通过好友拼团的形式购买商品或服务。商家自行设置不同等级团的人数要求及对应优惠。人数达标自动升级下一团，人越多越优惠</p>
+                </div>
+            </div>
+            <div class="list-item-bottom">
+                <div class="w50 fl">
+                    <div class="button"><a href="#">查看示例</a></div>
+                </div>
+                <div class="w50 fl">
+                    <div class="button"><a href="/pintuan/Manage">马上制作</a></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="activity-list">
+            <div class="list-item-top">
+                <div class="w50 fl">
+                    <img src="~/images/12.png" />
+                </div>
+                <div class="w50 fl p05">
+                    <h3>双十二砍价</h3>
+                    <p class="c-999 f08">规则玩法：商家设定原价底价，以及每一刀砍掉的金额，报名者邀请好友帮助砍价直到砍至底价；</p>
+                </div>
+            </div>
+            <div class="list-item-bottom">
+                <div class="w50 fl">
+                    <div class="button"><a href="#">查看示例</a></div>
+                </div>
+                <div class="w50 fl">
+                    <div class="button"><a href="/kanjia/Manage">马上制作</a></div>
+                </div>
+            </div>
+        </div>*@
+
+
+    </div>
+</body>
+</html>

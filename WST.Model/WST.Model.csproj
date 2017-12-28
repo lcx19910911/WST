@@ -62,6 +62,8 @@
     <Compile Include="FolllowRedPack.cs" />
     <Compile Include="FolllowRedPackUserJoin.cs" />
     <Compile Include="MiaoSha.cs" />
+    <Compile Include="MpAutoReply.cs" />
+    <Compile Include="MpMenu.cs" />
     <Compile Include="Music.cs" />
     <Compile Include="KanJia.cs" />
     <Compile Include="PinTuan.cs" />

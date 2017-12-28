@@ -41,7 +41,7 @@
             height: 9em;
             padding: 0.6em 1em;
             background: #fff;
-            background: url(./assets/img/banner/BG1.png) center center no-repeat;
+            background: url(/assets/img/banner/BG1.png) center center no-repeat;
             background-size: 100% 100%;
             border-bottom: 0.2em solid #fff;
         }
@@ -170,9 +170,10 @@
         }
 
         .foot-wrapper {
-            padding-bottom: 2em;
-            margin-top: 2.5em;
-            overflow: hidden;
+	    position: fixed;
+	    left: 0;
+	    bottom: 1.7em;
+	    width: 100%;
         }
 
             .foot-wrapper .button {
@@ -194,7 +195,6 @@
                 text-align: center;
                 color: #fff;
                 padding: 0;
-                margin-top: 1em;
                 background: #56B6C4;
                 box-shadow: 0 2px 3px 0 #2b6a73;
                 border-radius: 1em;

@@ -105,7 +105,7 @@ namespace WST.Service
             var cacheDic = CacheDic();
             if (cacheDic.ContainsKey(code))
             {
-                var areas = cacheDic[code].Values.OrderByDescending(x => x.Sort).ToList().AsQueryable();
+                var areas = cacheDic[code].Values.Where(x=>!x.IsDelete).OrderByDescending(x => x.Sort).ToList().AsQueryable();
                 if (!string.IsNullOrEmpty(value) && !value.Equals("-1"))
                     areas = areas.Where(x => !string.IsNullOrEmpty(x.ParentKey) && x.ParentKey.Trim().Equals(value));
                 else
