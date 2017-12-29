@@ -118,7 +118,7 @@ namespace WST.Web.Controllers
             //lcx oZe9g0tkskZx51DFih_hKm_GIYS0
             //lzy 
             //shop 
-            var user = IUserService.FindByOpenId("oZe9g0j_qUSBPIvxi9Fdx3S3thbs");
+            var user = IUserService.FindByOpenId("oZe9g0pyZyvXx2MCC1MS9bcx-aQM");
             if (user != null)
             {
                 //user.IsMember = false;

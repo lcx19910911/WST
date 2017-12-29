@@ -210,7 +210,7 @@
                             if (item.Type == "txt")
                             {
                                 <div class="uploadImgLabel">
-                                    <div contenteditable="true" id="subIntro_@(index)" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@item.Content</div>
+                                    <div contenteditable="true" id="subIntro_@(index)" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@Html.Raw(item.Content)</div>
                                     <p class="v-p"></p><span class="close">x</span>
                                 </div>
                             }
