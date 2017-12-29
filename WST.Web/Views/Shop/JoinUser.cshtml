@@ -177,7 +177,8 @@
 			        data: {
 			            pageIndex: ++pageIndex,
 			            pageSize: pageSize,
-			            targetId: '@(Request["ID"])'
+			            targetId: '@(Request["ID"])',
+                        isPrize:true
 			        },
 			        success: function (data) {
 			            if (data.Code == 0) {
@@ -186,7 +187,8 @@
 			                PageCount = data.Result.PageCount;
 			                var list = data.Result.List;
 			                $.each(list, function (i, obj) {
-			                    $('.apply-items ul').append('<li><span class="name">' + obj.JoinUserName + '</span><span class="phone">' + obj.Mobile + '</span><span class="remark">' + obj.Amount + '</span></li>');
+                               
+			                    $('.apply-items ul').append('<li><span class="name">' + obj.JoinUserName + '</span><span class="phone">' + (obj.Mobile!=null?obj.Mobile:"无") + '</span><span class="remark">' + obj.Amount + '</span></li>');
 			                })
 			            }
 			            else

@@ -92,7 +92,7 @@ namespace WST.Web.Controllers
         /// <returns></returns>
         public ActionResult GetPageList(int pageIndex, int pageSize, string targetId)
         {
-            return JResult(IUserActivityService.GetPageList(pageIndex, pageSize, targetId,LoginUser.ID, "","", null));
+            return JResult(IUserActivityService.GetPageList(pageIndex, pageSize, targetId,LoginUser.ID, "","", null,null));
         }
 
 

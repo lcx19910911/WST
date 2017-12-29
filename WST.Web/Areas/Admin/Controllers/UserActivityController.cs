@@ -35,7 +35,7 @@ namespace WST.Web.Areas.Admin.Controllers
         /// <returns></returns>
         public ActionResult GetPageList(int pageIndex, int pageSize,string targetId, string joinUserName,TargetCode? code)
         {
-            return JResult(IUserActivityService.GetPageList(pageIndex, pageSize, targetId,"","", joinUserName, code));
+            return JResult(IUserActivityService.GetPageList(pageIndex, pageSize, targetId,"","", joinUserName,null, code));
         }
         /// <summary>
         /// 删除

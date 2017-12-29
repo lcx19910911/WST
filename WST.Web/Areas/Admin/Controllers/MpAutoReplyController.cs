@@ -35,6 +35,14 @@ namespace WST.Web.Areas.Admin.Controllers
             ModelState.Remove("IsDelete");
             if (ModelState.IsValid)
             {
+                if (IMpAutoReplyService.IsExits(x => !x.IsDelete && x.AutoReplyType == Enum_AutoReplay_Type.关注))
+                {
+                    return JResult(Core.Code.ErrorCode.subscribe_exit);
+                }
+                if (IMpAutoReplyService.IsExits(x => !x.IsDelete && x.AutoReplyType == Enum_AutoReplay_Type.关键字 && x.Keyword == entity.Keyword))
+                {
+                    return JResult(Core.Code.ErrorCode.keyword_exit);
+                }
                 entity.PerfectMatch = true;
                 var result = IMpAutoReplyService.Add(entity);
                 return JResult(result);
@@ -57,6 +65,15 @@ namespace WST.Web.Areas.Admin.Controllers
             ModelState.Remove("IsDelete");
             if (ModelState.IsValid)
             {
+
+                if (IMpAutoReplyService.IsExits(x => !x.IsDelete && x.AutoReplyType == Enum_AutoReplay_Type.关注 && x.ID != entity.ID))
+                {
+                    return JResult(Core.Code.ErrorCode.subscribe_exit);
+                }
+                if (IMpAutoReplyService.IsExits(x => !x.IsDelete && x.AutoReplyType == Enum_AutoReplay_Type.关键字 && x.Keyword == entity.Keyword && x.ID != entity.ID))
+                {
+                    return JResult(Core.Code.ErrorCode.keyword_exit);
+                }
                 var result = IMpAutoReplyService.Update(entity);
                 return JResult(result);
             }

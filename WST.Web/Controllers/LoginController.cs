@@ -118,7 +118,7 @@ namespace WST.Web.Controllers
             //lcx oZe9g0tkskZx51DFih_hKm_GIYS0
             //lzy 
             //shop 
-            var user = IUserService.FindByOpenId("oZe9g0tkskZx51DFih_hKm_GIYS0");
+            var user = IUserService.FindByOpenId("oZe9g0j_qUSBPIvxi9Fdx3S3thbs");
             if (user != null)
             {
                 //user.IsMember = false;
@@ -170,9 +170,15 @@ namespace WST.Web.Controllers
                                     IsMember = false,
                                     //EndTime=DateTime.Now.AddDays(1)
                                 };
-                                IUserService.Add(model);
-                                this.LoginUser = new Core.Model.LoginUser(model);
-                                this.Response.Redirect(redirecturl);
+                                var result = IUserService.Add(model);
+                                if (result > 0)
+                                {
+                                    this.LoginUser = new Core.Model.LoginUser(model);
+                                    this.Response.Redirect(redirecturl);
+                                }else
+                                {
+                                    this.Response.Redirect("/base/Forbidden");
+                                }
                             }
                             else
                             {

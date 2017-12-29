@@ -160,7 +160,7 @@
                 maximumFilesUpload: 1,//最大文件上传数
                 onComplete: function (data) {
                     if (data) {
-                        $("[name='Picture']").val(data);
+                        $("[name='FilePath']").val(data);
                         $("#imageDiv").show().find("img").attr("src", data);
                     }
                     else {

@@ -157,6 +157,16 @@ namespace WST.Core.Code
         /// </summary>
         [Description("路径下的模板代号已存在已存在.")]
         route_class_name_already_exist = 213,
+
+
+
+        /// </summary>
+        [Description("关注回复已存在.")]
+        subscribe_exit = 215,
+
+        /// </summary>
+        [Description("关键字已存在.")]
+        keyword_exit = 216,
         #endregion
 
 

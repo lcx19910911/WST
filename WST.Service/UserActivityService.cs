@@ -35,7 +35,7 @@ namespace WST.Service
         /// <param name="pageSize">分页大小</param>
         /// <param name="title">标题 - 搜索项</param>
         /// <returns></returns>
-        public PageList<UserActivity> GetPageList(int pageIndex, int pageSize,string targetId,string userId,string joinUserId,string joinUserName, TargetCode? code)
+        public PageList<UserActivity> GetPageList(int pageIndex, int pageSize,string targetId,string userId,string joinUserId,string joinUserName,bool? isPrize, TargetCode? code)
         {
             using (DbRepository db = new DbRepository())
             {
@@ -47,6 +47,10 @@ namespace WST.Service
                 if (userId.IsNotNullOrEmpty())
                 {
                     query = query.Where(x => x.ShopUserID.Equals(userId));
+                }
+                if (isPrize != null)
+                {
+                    query = query.Where(x => x.IsPrize == isPrize);
                 }
                 if (joinUserId.IsNotNullOrEmpty())
                 {

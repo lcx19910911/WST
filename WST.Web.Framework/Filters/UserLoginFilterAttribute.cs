@@ -25,20 +25,16 @@ namespace WST.Web.Framework.Filters
 
             if (areaName != null)
             {
-                    RedirectResult redirectResult = new RedirectResult("/admin/login/index?redirecturl=" + requestUrl);
-                    filterContext.Result = redirectResult;
+                RedirectResult redirectResult = new RedirectResult("/admin/login/index?redirecturl=" + requestUrl);
+                filterContext.Result = redirectResult;
             }
 
             if (controller.LoginUser == null)
             {
                 if (!controllerName.Equals("login", StringComparison.OrdinalIgnoreCase))
                 {
-                    var actionMethod = actionMethodList.Where(x => x.Name.Equals(actionName, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
-                    if (actionMethod != null)
-                    {
-                        RedirectResult redirectResult = new RedirectResult("/login/Index?redirecturl=" + requestUrl);
-                        filterContext.Result = redirectResult;
-                    }
+                    RedirectResult redirectResult = new RedirectResult("/login/Index?redirecturl=" + requestUrl);
+                    filterContext.Result = redirectResult;
                 }
             }
         }

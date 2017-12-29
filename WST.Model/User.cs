@@ -71,7 +71,7 @@ namespace WST.Model
         /// <summary>
         /// 昵称
         /// </summary>
-        [Display(Name = "昵称"), MaxLength(32)]
+        [Display(Name = "昵称"), MaxLength(64)]
         public string NickName { get; set; }
 
         /// <summary>

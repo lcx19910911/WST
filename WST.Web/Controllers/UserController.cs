@@ -102,7 +102,7 @@ namespace WST.Web.Controllers
         /// <returns></returns>
         public ActionResult GetActPageList(int pageIndex, int pageSize, string targetId)
         {
-            return JResult(IUserActivityService.GetPageList(pageIndex, pageSize, targetId, "", LoginUser.ID, "", null));
+            return JResult(IUserActivityService.GetPageList(pageIndex, pageSize, targetId, "", LoginUser.ID, "", null,null));
         }
 
 
@@ -261,9 +261,9 @@ namespace WST.Web.Controllers
         /// <param name="key"> 搜索项</param>
         /// <param name="value">搜索项</param>
         /// <returns></returns>
-        public ActionResult GetUserPageList(int pageIndex, int pageSize, string targetId)
+        public ActionResult GetUserPageList(int pageIndex, int pageSize, string targetId,bool? isPrize)
         {
-            return JResult(IUserActivityService.GetPageList(pageIndex, pageSize, targetId, "", "", "", null));
+            return JResult(IUserActivityService.GetPageList(pageIndex, pageSize, targetId, "", "", "",isPrize,null));
         }
         #endregion
 
