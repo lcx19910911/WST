@@ -98,6 +98,7 @@ namespace WST.Web.Controllers
                     model.MusicUrl = entity.MusicUrl;
                     model.FunctionName = entity.FunctionName;
                     model.OldPrice = entity.OldPrice;
+                    model.LessPrice = entity.LessPrice;
                     model.IntroduceTxtJson = entity.IntroduceTxtJson;
                     model.IntroducePicturesJson = entity.IntroducePicturesJson;
                     model.IntroduceVediosJson = entity.IntroduceVediosJson;
