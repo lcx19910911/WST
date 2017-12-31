@@ -35,7 +35,7 @@ namespace WST.Service
         /// <param name="pageSize">分页大小</param>
         /// <param name="title">标题 - 搜索项</param>
         /// <returns></returns>
-        public PageList<UserActivity> GetPageList(int pageIndex, int pageSize,string targetId,string userId,string joinUserId,string joinUserName,bool? isPrize, TargetCode? code)
+        public PageList<UserActivity> GetPageList(int pageIndex, int pageSize,string targetId,string userId,string joinUserId,string joinUserName,bool? isPrize, TargetCode? code, bool? isUser = null, bool? isOther = null, string targetUserId = "")
         {
             using (DbRepository db = new DbRepository())
             {
@@ -64,6 +64,28 @@ namespace WST.Service
                 if (code!=null&&(int)code!=-1)
                 {
                     query = query.Where(x => x.Code== code);
+                }
+
+                if (isUser != null&&isUser.Value)
+                {
+                    if (isOther != null)
+                    {
+                        if (isOther.Value)
+                        {
+                            query = query.Where(x => x.TargetUserID == targetUserId);
+                        }
+                        else
+                        {
+                            query = query.Where(x => string.IsNullOrEmpty(x.TargetUserID));
+                        }
+                    }
+                }
+                else
+                {
+                    if (targetUserId.IsNotNullOrEmpty())
+                    {
+                        query = query.Where(x =>x.TargetUserID==targetUserId);
+                    }
                 }
                 var count = query.Count();
                 var list = query.OrderByDescending(x => x.CreatedTime).Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();

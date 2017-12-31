@@ -636,7 +636,10 @@
                         data: {
                             pageIndex: ++pageIndex,
                             pageSize: pageSize,
-                            targetId: '@(Model.ID)'
+                            targetId: '@(Model.ID)',
+                            isOther:isOther,
+                            isUser:isUser,
+                            targetUserId:'@(ViewBag.JoinUserID)'
                         },
                         success: function (data) {
                             if (data.Code == 0) {
@@ -645,14 +648,16 @@
                                 PageCount = data.Result.PageCount;
                                 var list = data.Result.List;
                                 $.each(list, function (i, obj) {
-                                    //判断是否是创建者自身的
+                                    $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="price">'+obj.Amount+'元</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
+                                            
+                                    @*//判断是否是创建者自身的
                                     if(isUser)
                                     {
                                         //判断当前活动是否是别人参与的砍价
                                         if(isOther)
                                         {
                                             //展示当前活动的砍价记录
-                                            if(obj.TargetUserID=='@(ViewBag.JoinUserID )')
+                                            if(obj.TargetUserID=='@(ViewBag.JoinUserID)')
                                             {
                                                 $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="price">'+obj.Amount+'元</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
                                             }
@@ -674,7 +679,7 @@
                                         {
                                             $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="price">'+obj.Amount+'元</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
                                         }
-                                    }
+                                    }*@
                                 })
                             }
                             else

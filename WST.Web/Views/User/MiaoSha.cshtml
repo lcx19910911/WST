@@ -496,11 +496,11 @@
             }
         </div>
 
-	<div class="toBuild">
-		<a href="/User/TryFree">
-			<span>我也要制作发布营销活动 -> </span><span class="c-ff0 f11">沃商通</span>
-		</a>
-	</div>
+        <div class="toBuild">
+            <a href="/User/TryFree">
+                <span>我也要制作发布营销活动 -> </span><span class="c-ff0 f11">沃商通</span>
+            </a>
+        </div>
 
     </div>
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
@@ -616,11 +616,11 @@
                                 $.each(list, function (i, obj) {
                                     if(isUser)
                                     {
-                                            $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="price">'+obj.Amount+'元</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
-                                        }
+                                        $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="price">'+obj.Amount+'元</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
+                                    }
                                     else
                                     {
-                                            $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="price">'+obj.Amount+'元</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
+                                        $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="price">'+obj.Amount+'元</span><span class="phone">' + RenderDate(obj.CreatedTime) + '</span></div>')
                                     }
                                 })
                             }
@@ -677,45 +677,50 @@
             @{
                 DateTime origin = new DateTime(1970, 1, 1, 0, 0, 0, 0);
 
-                TimeSpan endDiff = Model.StartTime - origin;
-                var endimeStamp = Math.Floor(endDiff.TotalSeconds);
+                DateTime d1 = Model.StartTime.ToUniversalTime();
+                TimeSpan t1 = new TimeSpan(d1.Ticks - origin.Ticks);
+                var startTimeStamp=(long)t1.TotalSeconds;
 
+
+                DateTime d2 = Model.EndTime.ToUniversalTime();
+                TimeSpan t2 = new TimeSpan(d2.Ticks - origin.Ticks);
+                var endTimeStamp = (long)t2.TotalSeconds;
             }
+
+            
             //倒计时
-            var startTimeStamp = new Date(@(Model.StartTime.AddMonths(-1).ToString("yyyy,MM,dd,HH,mm,ss"))).getTime();
-            var endTimeStamp = new Date(@(Model.EndTime.AddMonths(-1).ToString("yyyy,MM,dd,HH,mm,ss"))).getTime();
-	    console.log(endTimeStamp);
-            cutDown(startTimeStamp, endTimeStamp);
+            //console.log(endTimeStamp);
+            cutDown(@startTimeStamp, @endTimeStamp);
 
             function cutDown(target, over) {
-		var t,start,timer1;
+                var t,start,timer1;
                 timer1 = setInterval(function() {
-		    start = new Date().getTime();
-		    t = parseInt(target) - parseInt(start);
-		    if(start >= over) {
-			console.log(over);
-			t = 0;
-			$('#countDown span').text('秒杀结束');
-			clearInterval(timer1);
-			return false;
-		    }
+                    start = Math.round(new Date() / 1000);
+                    t = parseInt(target) - parseInt(start);
+                    if(start >= over) {
+                        console.log(over);
+                        t = 0;
+                        $('#countDown span').text('秒杀结束');
+                        clearInterval(timer1);
+                        return false;
+                    }
                     if(t <= 0) {
-			t = 0;
-			$('#countDown span').text('秒杀开始');
-		    } else {
+                        t = 0;
+                        $('#countDown span').text('秒杀开始');
+                    } else {
 
-			    var d = parseInt(t / 1000 / 60 / 60 / 24 , 10); //计算剩余的天数
-			    var h = parseInt(t / 1000 / 60 / 60 % 24 , 10); //计算剩余的小时
-			    var m = parseInt(t / 1000 / 60 % 60, 10);//计算剩余的分钟
-			    var s = parseInt(t / 1000 % 60, 10);//计算剩余的秒数
-			    d = d < 10 ? '0'+d : d;
-			    h = h < 10 ? '0'+h : h;
-			    m = m < 10 ? '0'+m : m;
-			    s = s < 10 ? '0'+s : s;
-			    var str = d+' 天 '+h+' 小时 '+m+' 分钟 '+s+' 秒';
-			    console.log(str);
-			    $('#countDown span').text(str);
-			}
+                        var d = parseInt(t  / 60 / 60 / 24 , 10); //计算剩余的天数
+                        var h = parseInt(t  / 60 / 60 % 24 , 10); //计算剩余的小时
+                        var m = parseInt(t  / 60 % 60, 10);//计算剩余的分钟
+                        var s = parseInt(t  % 60, 10);//计算剩余的秒数
+                        d = d < 10 ? '0'+d : d;
+                        h = h < 10 ? '0'+h : h;
+                        m = m < 10 ? '0'+m : m;
+                        s = s < 10 ? '0'+s : s;
+                        var str = d+' 天 '+h+' 小时 '+m+' 分钟 '+s+' 秒';
+                        console.log(str);
+                        $('#countDown span').text(str);
+                    }
                 }, 1000)
             }
 

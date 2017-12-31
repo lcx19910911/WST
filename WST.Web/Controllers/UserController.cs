@@ -261,9 +261,9 @@ namespace WST.Web.Controllers
         /// <param name="key"> 搜索项</param>
         /// <param name="value">搜索项</param>
         /// <returns></returns>
-        public ActionResult GetUserPageList(int pageIndex, int pageSize, string targetId,bool? isPrize)
+        public ActionResult GetUserPageList(int pageIndex, int pageSize, string targetId,bool? isPrize,bool? isUser=null,bool? isOther=null,string targetUserId="")
         {
-            return JResult(IUserActivityService.GetPageList(pageIndex, pageSize, targetId, "", "", "",isPrize,null));
+            return JResult(IUserActivityService.GetPageList(pageIndex, pageSize, targetId, "", "", "",isPrize,null,isUser,isOther,targetUserId));
         }
         #endregion
 
@@ -420,7 +420,7 @@ namespace WST.Web.Controllers
             if (userActId.IsNotNullOrEmpty())
             {
                 var userAct = IUserActivityService.Find(x => x.ID == userActId);
-                if (userAct == null || userAct.IsDelete)
+                if (userAct == null)
                 {
                     return Forbidden();
                 }
@@ -626,7 +626,7 @@ namespace WST.Web.Controllers
         public ActionResult MiaoSha(string id)
         {
             var model = IMiaoShaService.Find(id);
-            if (model == null || model.IsDelete)
+            if (model == null)
             {
                 return Forbidden();
             }

@@ -20,7 +20,7 @@ namespace WST.IService
         /// <param name="pageSize">分页大小</param>
         /// <param name="title">标题 - 搜索项</param>
         /// <returns></returns>
-        PageList<UserActivity> GetPageList(int pageIndex, int pageSize, string targetId, string userId, string joinUserId, string joinUserName, bool? isPrize, TargetCode? code);
+        PageList<UserActivity> GetPageList(int pageIndex, int pageSize, string targetId, string userId, string joinUserId, string joinUserName, bool? isPrize, TargetCode? code, bool? isUser = null, bool? isOther = null, string targetUserId = "");
 
         List<UserActivity> GetSelectList(TargetCode code, string targetId);
     }
