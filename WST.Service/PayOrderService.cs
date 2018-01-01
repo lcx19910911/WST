@@ -50,11 +50,11 @@ namespace WST.Service
                     var userIDList = db.User.Where(x => !x.IsDelete && x.NickName.Contains(userName)).Select(x => x.ID).Distinct().ToList();
                     query = query.Where(x => userIDList.Contains(x.UserID));
                 }
-                if (code != null)
+                if (code != null&&(int)(code)!=-1)
                 {
                     query = query.Where(x => x.Code==code);
                 }
-                if (state != null)
+                if (state != null && (int)(state) != -1)
                 {
                     query = query.Where(x => x.State == state);
                 }
@@ -79,6 +79,7 @@ namespace WST.Service
                         x.UserName = userDic[x.UserID];
                     }
                     x.TypeStr = x.Type.GetDescription();
+                    x.CodeStr = x.Code.GetDescription();
                     x.StateStr = x.State.GetDescription();
                 });
                 return CreatePageList(list, pageIndex, pageSize, count);

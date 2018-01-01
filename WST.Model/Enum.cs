@@ -27,14 +27,14 @@ namespace WST.Model
 
     public enum PayCode
     {
-        [Description("未知")]
+        [Description("支付宝")]
         Alipay = 0,
 
-        [Description("未知")]
+        [Description("微信")]
         WechatPay = 1,
 
         [Description("余额")]
-        Recharge = 2
+        Recharge =2
     }
     
 
@@ -96,9 +96,9 @@ namespace WST.Model
     public enum OrderCode
     {
         /// <summary>
-        /// 会员卡
+        /// 套餐
         /// </summary>
-        [Description("会员卡")]
+        [Description("套餐")]
         Time = 0,
         /// <summary>
         /// 充值

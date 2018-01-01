@@ -259,6 +259,7 @@
     <Content Include="Areas\Admin\HtmlTemplates\Adviser\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Admin\ChangePassword.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Admin\Update.html" />
+    <Content Include="Areas\Admin\HtmlTemplates\PayOrder\Pay.html" />
     <Content Include="Areas\Admin\HtmlTemplates\SyllabusItem\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\Syllabus\Update.html" />
     <Content Include="Areas\Admin\HtmlTemplates\StoreCategory\Update.html" />
@@ -933,6 +934,7 @@
     <Compile Include="Areas\Admin\Controllers\MpMenuController.cs" />
     <Compile Include="Areas\Admin\Controllers\MusicController.cs" />
     <Compile Include="Areas\Admin\Controllers\KanJiaController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PayOrderController.cs" />
     <Compile Include="Areas\Admin\Controllers\PinTuanController.cs" />
     <Compile Include="Areas\Admin\Controllers\TemplateCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\TemplateController.cs" />
@@ -1030,6 +1032,7 @@
     <Content Include="Areas\Admin\Views\MiaoSha\Index.cshtml" />
     <Content Include="Areas\Admin\Views\MpAutoReply\Index.cshtml" />
     <Content Include="Areas\Admin\Views\MpMenu\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PayOrder\Index.cshtml" />
     <None Include="Properties\PublishProfiles\WST.pubxml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />

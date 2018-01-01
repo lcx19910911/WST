@@ -30,6 +30,8 @@ namespace WST.Model
         /// 订单类型
         /// </summary>
         public OrderCode Code { get; set; }
+        [NotMapped]
+        public string CodeStr { get; set; }
 
         public string TargetID { get; set; }
 
