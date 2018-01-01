@@ -74,7 +74,7 @@ namespace WST.Service
                 var userDic = db.User.Where(x => !x.IsDelete && selectUserIDList.Contains(x.ID)).ToDictionary(x => x.ID, x => x.NickName);
                 list.ForEach(x =>
                 {
-                    if (x.UserID.IsNullOrEmpty() && userDic.ContainsKey(x.UserID))
+                    if (x.UserID.IsNotNullOrEmpty() && userDic.ContainsKey(x.UserID))
                     {
                         x.UserName = userDic[x.UserID];
                     }
