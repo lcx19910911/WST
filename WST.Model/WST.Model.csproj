@@ -66,6 +66,7 @@
     <Compile Include="MpMenu.cs" />
     <Compile Include="Music.cs" />
     <Compile Include="KanJia.cs" />
+    <Compile Include="PinTu.cs" />
     <Compile Include="PinTuan.cs" />
     <Compile Include="Adviser.cs" />
     <Compile Include="BaseEntity.cs" />

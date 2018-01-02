@@ -26,12 +26,13 @@ namespace WST.Web.Controllers
         public IRechargePlanService IRechargePlanService;
         public IPayOrderService IPayOrderService;
         public IPinTuanService IPinTuanService;
+        public IPinTuService IPinTuService;
         public IUserActivityService IUserActivityService;
         public IKanJiaService IKanJiaService;
         public IAdviserService IAdviserService;
         public IMiaoShaService IMiaoShaService;
 
-        public UserController(IUserService _IUserService, IRechargePlanService _IRechargePlanService, IPayOrderService _IPayOrderService,
+        public UserController(IUserService _IUserService, IRechargePlanService _IRechargePlanService, IPayOrderService _IPayOrderService, IPinTuService _IPinTuService,
             IPinTuanService _IPinTuanService, IUserActivityService _IUserActivityService, IKanJiaService _IKanJiaService, IAdviserService _IAdviserService,
             IMiaoShaService _IMiaoShaService)
         {
@@ -40,6 +41,7 @@ namespace WST.Web.Controllers
             this.IPayOrderService = _IPayOrderService;
             this.IUserActivityService = _IUserActivityService;
             this.IPinTuanService = _IPinTuanService;
+            this.IPinTuService = _IPinTuService;
             this.IKanJiaService = _IKanJiaService;
             this.IAdviserService = _IAdviserService;
             this.IMiaoShaService = _IMiaoShaService;
@@ -249,6 +251,16 @@ namespace WST.Web.Controllers
                 }
                 miaosha.ShareCount++;
                 return JResult(IMiaoShaService.Update(miaosha));
+            }
+            else if (code == TargetCode.Pintu)
+            {
+                var pintu = IPinTuService.Find(id);
+                if (pintu == null || pintu.IsDelete)
+                {
+                    return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
+                }
+                pintu.ShareCount++;
+                return JResult(IPinTuService.Update(pintu));
             }
             return DataErorrJResult();
         }
@@ -654,6 +666,129 @@ namespace WST.Web.Controllers
         }
         #endregion
 
+        #region 拼图
+        /// <summary>
+        ///参加人数
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult ToPinTu(string id, string mobile, string name, string filedJson)
+        {
+            var model = IPinTuService.Find(x => x.ID == id);
+            if (model == null || model.IsDelete)
+            {
+                return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
+            }
+            var itemList = model.PinTuItemJson.DeserializeJson<List<PinTuItem>>();
+            if (itemList == null || itemList.Count == 0)
+            {
+                return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
+            }
+            if ((model.StartTime < DateTime.Now && model.EndTime > DateTime.Now))
+            {
+                var result = 0;
+                var newId = Guid.NewGuid().ToString("N");
+                //如果用户拼图第一关过了
+                if (IUserActivityService.IsExits(x => x.TargetID == id && x.JoinUserID == LoginUser.ID && string.IsNullOrEmpty(x.TargetUserID)))
+                {
+                    var count = IUserActivityService.GetCount(x => x.TargetID == id && x.JoinUserID == LoginUser.ID);
+                    if (count >= itemList.Count)
+                    {
+                        return JResult(Core.Code.ErrorCode.pintu_count_limit_error, "");
+                    }
+                    result = IUserActivityService.Add(new UserActivity()
+                    {
+                        ID = newId,
+                        Code = TargetCode.Pintu,
+                        Openid = LoginUser.Openid,
+                        JoinUserID = LoginUser.ID,
+                        TargetUserID = LoginUser.ID,
+                        JoinUserName = LoginUser.Account,
+                        Amount = model.OldPrice,
+                        IsPrize = false,
+                        IsUsedOnLine = false,
+                        PrizeInfo = $"用户{LoginUser.Account}完成{model.Name}拼图第{count}关卡，当前价格{itemList[count-1].Amount}",
+                        ShopUserID = model.UserID,
+                        TargetID = id,
+                        FiledItemJson = filedJson
+                    });
+                }
+                else {
+
+                    if (model.ReportCount == model.PrizeCount)
+                    {
+                        return JResult(Core.Code.ErrorCode.prize_not_had, "");
+                    }
+
+                    model.ReportCount++;
+                    IPinTuService.Update(model);
+
+                    result = IUserActivityService.Add(new UserActivity()
+                    {
+                        ID = newId,
+                        Code = TargetCode.Pintu,
+                        Openid = LoginUser.Openid,
+                        JoinUserID = LoginUser.ID,
+                        JoinUserName = name,
+                        Amount = model.OldPrice,
+                        IsPrize = true,
+                        IsUsedOnLine = false,
+                        PrizeInfo = $"用户{LoginUser.Account}完成{model.Name}拼图第一关卡，当前价格{itemList[0].Amount}",
+                        ShopUserID = model.UserID,
+                        Mobile = mobile,
+                        TargetID = id,
+                        FiledItemJson = filedJson
+                    });
+
+                }
+                if (result > 0)
+                {
+                    return JResult(newId);
+                }
+                else
+                    return DataErorrJResult();
+            }
+            else
+            {
+                return JResult(Core.Code.ErrorCode.activity_time_out, "");
+            }
+        }
+       
+        /// <summary>
+        /// 砍价活动页面
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="userActId"></param>
+        /// <returns></returns>
+        public ActionResult PinTu(string id)
+        {
+            var model = IPinTuService.Find(id);
+            if (model == null)
+            {
+                return Forbidden();
+            }
+            model.ClickCount++;
+            IPinTuService.Update(model);
+            var itemList = model.PinTuItemJson.DeserializeJson<List<PinTuItem>>();
+            var count = IUserActivityService.GetCount(x => x.TargetID == id && x.JoinUserID == LoginUser.ID && !string.IsNullOrEmpty(x.TargetUserID) && x.TargetUserID == LoginUser.ID);
+            if (count >= itemList.Count)
+            {
+                return JResult(Core.Code.ErrorCode.pintu_count_limit_error, "");
+            }
+            ViewBag.NowCount = count;
+            ViewBag.IsReport = IUserActivityService.IsExits(x => x.TargetID == id && x.JoinUserID == LoginUser.ID);
+            ViewBag.ItemList = itemList;
+            ViewBag.AppId = Params.WeixinAppId;
+            string cacheToken = WxPayApi.GetCacheToken(Params.WeixinAppId, Params.WeixinAppSecret);
+            ViewBag.TimeStamp = WxPayApi.GenerateTimeStamp();
+            ViewBag.NonceStr = WxPayApi.GenerateNonceStr();
+            ViewBag.Signature = WxPayApi.GetSignature(Request.Url.ToString().Split('#')[0], cacheToken, ViewBag.TimeStamp, ViewBag.NonceStr);
+            return View(model);
+        }
+
+        #endregion
+
         #region 用户中心
 
         /// <summary>
@@ -747,6 +882,25 @@ namespace WST.Web.Controllers
                 }).ToList();
                 model.AddRange(miaoshaList);
             }
+
+
+            var pintuIdList = actIdList.Where(x => x.Code == TargetCode.Pintu).Select(x => x.TargetID).Distinct().ToList();
+            if (pintuIdList != null && pintuIdList.Count > 0)
+            {
+                var pintuDic = actIdList.Where(x => x.Code == TargetCode.Pintu).ToDictionary(x => x.TargetID);
+                var pintuList = IPinTuService.GetList(x => pintuIdList.Contains(x.ID)).Select(x =>
+                {
+                    if (pintuDic.ContainsKey(x.ID))
+                    {
+                        var item = pintuDic[x.ID];
+                        return new Tuple<string, string, string, string, DateTime?, bool, TargetCode>(x.Name, x.Picture, x.ID, item.ID, item.UsedTime, item.IsUsedOnLine, TargetCode.Pintu);
+                    }
+                    else
+                        return null;
+                }).ToList();
+                model.AddRange(pintuList);
+            }
+
             ViewBag.List = model.Where(x => x != null).ToList();
             return View();
         }

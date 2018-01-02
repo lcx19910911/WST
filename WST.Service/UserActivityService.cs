@@ -79,6 +79,10 @@ namespace WST.Service
                             query = query.Where(x => string.IsNullOrEmpty(x.TargetUserID));
                         }
                     }
+                    else
+                    {
+                        query = query.Where(x => string.IsNullOrEmpty(x.TargetUserID));
+                    }
                 }
                 else
                 {

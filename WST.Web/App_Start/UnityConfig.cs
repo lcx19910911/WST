@@ -68,7 +68,8 @@ namespace WST.Web.App_Start
             container.RegisterType<IMiaoShaService, MiaoShaService>();
             container.RegisterType<IMpAutoReplyService, MpAutoReplyService>();
             container.RegisterType<IMpMenuService, MpMenuService>();
-
+            container.RegisterType<IPinTuService, PinTuService>();
+            
         }
         
     }

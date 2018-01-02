@@ -244,5 +244,10 @@ namespace WST.Core.Code
         /// </summary>
         [Description("结束时间小于当前时间.")]
         end_time_error = 812,
+        /// <summary>
+        /// 已过所有关卡
+        /// </summary>
+        [Description("已过所有关卡.")]
+        pintu_count_limit_error = 813,
     }
 }

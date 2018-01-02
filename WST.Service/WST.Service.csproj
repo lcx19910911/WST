@@ -71,6 +71,7 @@
     <Compile Include="OperateService.cs" />
     <Compile Include="MenuService.cs" />
     <Compile Include="PayOrderService.cs" />
+    <Compile Include="PinTuService.cs" />
     <Compile Include="PinTuanService.cs" />
     <Compile Include="RechargePlanService.cs" />
     <Compile Include="RoleService.cs" />

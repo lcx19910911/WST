@@ -593,6 +593,7 @@
     <Content Include="assets\css\common.css" />
     <Content Include="assets\css\edit.css" />
     <Content Include="assets\css\editkanjia.css" />
+    <Content Include="assets\css\editpintu.css" />
     <Content Include="assets\css\fonts1\icomoon.svg" />
     <Content Include="assets\css\fonts\icomoon.svg" />
     <Content Include="assets\css\index - 副本.css" />
@@ -685,11 +686,13 @@
     <Content Include="assets\img\banner\shareInfo.png" />
     <Content Include="assets\img\banner\咨询图标.gif" />
     <Content Include="assets\img\center.png" />
+    <Content Include="assets\img\gameBtn.png" />
     <Content Include="assets\img\logo.png" />
     <Content Include="assets\js\common.js" />
     <Content Include="assets\js\edit.js" />
     <Content Include="assets\js\editkanjia.js" />
     <Content Include="assets\js\editmiaosha.js" />
+    <Content Include="assets\js\editpintu.js" />
     <Content Include="assets\js\import.js" />
     <Content Include="assets\js\importkanjia.js" />
     <Content Include="assets\js\index - 副本 %282%29.js" />
@@ -935,6 +938,7 @@
     <Compile Include="Areas\Admin\Controllers\MusicController.cs" />
     <Compile Include="Areas\Admin\Controllers\KanJiaController.cs" />
     <Compile Include="Areas\Admin\Controllers\PayOrderController.cs" />
+    <Compile Include="Areas\Admin\Controllers\PinTuController.cs" />
     <Compile Include="Areas\Admin\Controllers\PinTuanController.cs" />
     <Compile Include="Areas\Admin\Controllers\TemplateCategoryController.cs" />
     <Compile Include="Areas\Admin\Controllers\TemplateController.cs" />
@@ -961,6 +965,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\MiaoShaController.cs" />
+    <Compile Include="Controllers\PinTuController.cs" />
     <Compile Include="Controllers\PinTuanController.cs" />
     <Compile Include="Controllers\ShopController.cs" />
     <Compile Include="Controllers\UserWechatController.cs" />
@@ -1033,6 +1038,7 @@
     <Content Include="Areas\Admin\Views\MpAutoReply\Index.cshtml" />
     <Content Include="Areas\Admin\Views\MpMenu\Index.cshtml" />
     <Content Include="Areas\Admin\Views\PayOrder\Index.cshtml" />
+    <Content Include="Areas\Admin\Views\PinTu\Index.cshtml" />
     <None Include="Properties\PublishProfiles\WST.pubxml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\_ViewStart.cshtml" />
@@ -1082,6 +1088,8 @@
     <Content Include="Template\pintuan\pintuan3\model.json" />
     <Content Include="Template\pintuan\pintuan4\model.json" />
     <Content Include="Views\Home\Index1.cshtml" />
+    <Content Include="Views\PinTu\Manage.cshtml" />
+    <Content Include="Views\User\PinTu.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

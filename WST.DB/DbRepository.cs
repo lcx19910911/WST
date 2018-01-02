@@ -80,6 +80,7 @@ namespace WST.DB
 
         public virtual DbSet<MiaoSha> MiaoSha { get; set; }
         public virtual DbSet<PinTuan> PinTuan { get; set; }
+        public virtual DbSet<PinTu> PinTu { get; set; }
         public virtual DbSet<Carousel> Carousel { get; set; }
         public virtual DbSet<UserActivity> UserActivity { get; set; }
         public virtual DbSet<KanJia> KanJia { get; set; }

@@ -133,15 +133,20 @@ namespace WST.Model
         [Description("秒杀")]
         Miaosha = 2,
         /// <summary>
-        /// 助力
-        /// </summary>
-        [Description("助力")]
-        Zhuli = 3,
-        /// <summary>
         /// 砍价
         /// </summary>
         [Description("砍价")]
         Kanjia = 3,
+        /// <summary>
+        /// 拼图
+        /// </summary>
+        [Description("拼图")]
+        Pintu = 4,
+        /// <summary>
+        /// 助力
+        /// </summary>
+        [Description("助力")]
+        Zhuli = 5,
     }
 
     /// <summary>

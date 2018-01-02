@@ -70,6 +70,7 @@
     <Compile Include="IOperateService.cs" />
     <Compile Include="IMenuService.cs" />
     <Compile Include="IPayOrderService.cs" />
+    <Compile Include="IPinTuService.cs" />
     <Compile Include="IPinTuanService.cs" />
     <Compile Include="IRechargePlanService.cs" />
     <Compile Include="IRoleService.cs" />

@@ -7,13 +7,13 @@ namespace WST.DB.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class dsd1 : IMigrationMetadata
+    public sealed partial class sdjksjd434 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(dsd1));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(sdjksjd434));
         
         string IMigrationMetadata.Id
         {
-            get { return "201712261445269_dsd1"; }
+            get { return "201801021344488_sdjksjd434"; }
         }
         
         string IMigrationMetadata.Source

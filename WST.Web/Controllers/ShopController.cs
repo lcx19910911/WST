@@ -24,11 +24,12 @@ namespace WST.Web.Controllers
         public IRechargePlanService IRechargePlanService;
         public IPayOrderService IPayOrderService;
         public IPinTuanService IPinTuanService;
+        public IPinTuService IPinTuService;
         public IKanJiaService IKanJiaService;
         public IUserActivityService IUserActivityService;
         public IMiaoShaService IMiaoShaService;
 
-        public ShopController(IUserService _IUserService, IRechargePlanService _IRechargePlanService, IPayOrderService _IPayOrderService,
+        public ShopController(IUserService _IUserService, IRechargePlanService _IRechargePlanService, IPayOrderService _IPayOrderService, IPinTuService _IPinTuService,
             IPinTuanService _IPinTuanService, IUserActivityService _IUserActivityService, IKanJiaService _IKanJiaService, IMiaoShaService _IMiaoShaService)
         {
             this.IUserService = _IUserService;
@@ -38,6 +39,7 @@ namespace WST.Web.Controllers
             this.IPinTuanService = _IPinTuanService;
             this.IKanJiaService = _IKanJiaService;
             this.IMiaoShaService = _IMiaoShaService;
+            this.IPinTuService = _IPinTuService;
         }
 
         // GET: User
@@ -152,7 +154,27 @@ namespace WST.Web.Controllers
             else if (userActivityModel.Code == TargetCode.Kanjia)
             {
                 var model = IKanJiaService.Find(x => x.ID == userActivityModel.TargetID);
-                if (model == null || model.IsDelete || userActivityModel.Code != TargetCode.Kanjia)
+                if (model == null || model.IsDelete || userActivityModel.Code != TargetCode.Kanjia || userActivityModel.TargetUserID.IsNullOrEmpty())
+                {
+                    return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
+                }
+                userActivityModel.IsUsedOnLine = true;
+                userActivityModel.UsedTime = DateTime.Now;
+            }
+            else if (userActivityModel.Code == TargetCode.Miaosha)
+            {
+                var model = IMiaoShaService.Find(x => x.ID == userActivityModel.TargetID);
+                if (model == null || model.IsDelete || userActivityModel.Code != TargetCode.Miaosha)
+                {
+                    return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
+                }
+                userActivityModel.IsUsedOnLine = true;
+                userActivityModel.UsedTime = DateTime.Now;
+            }
+            else if (userActivityModel.Code == TargetCode.Miaosha)
+            {
+                var model = IMiaoShaService.Find(x => x.ID == userActivityModel.TargetID);
+                if (model == null || model.IsDelete || userActivityModel.Code != TargetCode.Pintu||userActivityModel.TargetUserID.IsNullOrEmpty())
                 {
                     return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
                 }
@@ -191,6 +213,11 @@ namespace WST.Web.Controllers
                 model.Add(new Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, TargetCode.Miaosha));
             });
 
+            var pintuList = IPinTuService.GetList(x => x.UserID == LoginUser.ID);
+            pintuList.ForEach(x =>
+            {
+                model.Add(new Tuple<string, string, string, DateTime, DateTime, bool, TargetCode>(x.Name, x.Picture, x.ID, x.StartTime, x.EndTime, x.IsDelete, TargetCode.Pintu));
+            });
 
             ViewBag.AppId = Params.WeixinAppId;
             string cacheToken = WxPayApi.GetCacheToken(Params.WeixinAppId, Params.WeixinAppSecret);

@@ -10,14 +10,14 @@ using WST.Core.Extensions;
 
 namespace WST.Web.Controllers
 {
-    public class PinTuanController : BaseShopController
+    public class PinTuController : BaseShopController
     {
-        public IPinTuanService IPinTuanService;
+        public IPinTuService IPinTuService;
         public IUserActivityService IUserActivityService;
 
-        public PinTuanController(IPinTuanService _IPinTuanService, IUserActivityService _IUserActivityService)
+        public PinTuController(IPinTuService _IPinTuService, IUserActivityService _IUserActivityService)
         {
-            this.IPinTuanService = _IPinTuanService;
+            this.IPinTuService = _IPinTuService;
             this.IUserActivityService = _IUserActivityService;
         }
 
@@ -29,9 +29,9 @@ namespace WST.Web.Controllers
         public ViewResult Manage(string id)
         {
             if (id.IsNullOrEmpty())
-                return View(new PinTuan());
+                return View(new PinTu());
             else
-                return View(IPinTuanService.Find(id));
+                return View(IPinTuService.Find(id));
         }
         /// <summary>
         /// 编辑
@@ -40,7 +40,7 @@ namespace WST.Web.Controllers
         /// <returns></returns>
         [ValidateInput(false)]
         [HttpPost]
-        public JsonResult Manage(PinTuan entity)
+        public JsonResult Manage(PinTu entity)
         {
             ModelState.Remove("CreatedTime");
             ModelState.Remove("UpdatedTime");
@@ -66,7 +66,7 @@ namespace WST.Web.Controllers
                     entity.CreatedTime = entity.UpdatedTime = DateTime.Now;
                     var guid = Guid.NewGuid().ToString("N");
                     entity.ID = guid;
-                    if (IPinTuanService.Add(entity) > 0)
+                    if (IPinTuService.Add(entity) > 0)
                         return JResult(entity.ID.IsNullOrEmpty() ? guid : entity.ID);
                     else
                         return DataErorrJResult();
@@ -77,7 +77,7 @@ namespace WST.Web.Controllers
                     {
                         return JResult(Core.Code.ErrorCode.end_time_error, "");
                     }
-                    var model = IPinTuanService.Find(entity.ID);
+                    var model = IPinTuService.Find(entity.ID);
                     if (model == null || (model != null && model.IsDelete))
                     {
                         return DataErorrJResult();
@@ -87,7 +87,7 @@ namespace WST.Web.Controllers
                         return DataErorrJResult();
                     }
 
-                    //if (IPinTuanService.IsExits(x => x.Name == entity.Name && x.ID != entity.ID))
+                    //if (IPinTuService.IsExits(x => x.Name == entity.Name && x.ID != entity.ID))
                     //{
                     //    return JResult(Core.Code.ErrorCode.system_name_already_exist, "");
                     //}
@@ -102,13 +102,14 @@ namespace WST.Web.Controllers
                     model.MusicUrl = entity.MusicUrl;
                     model.FunctionName = entity.FunctionName;
                     model.OldPrice = entity.OldPrice;
+                    model.LessPrice = entity.LessPrice;
                     model.IntroduceTxtJson = entity.IntroduceTxtJson;
+                    model.PinTuItemJson = entity.PinTuItemJson;
                     model.IntroducePicturesJson = entity.IntroducePicturesJson;
                     model.IntroduceVediosJson = entity.IntroduceVediosJson;
                     model.Direction = entity.Direction;
                     model.GoodsItemsJson = entity.GoodsItemsJson;
-                    model.PinTuanItemJson = entity.PinTuanItemJson;
-                    var result = IPinTuanService.Update(model);
+                    var result = IPinTuService.Update(model);
                     return JResult(result);
                 }
             }
@@ -130,7 +131,7 @@ namespace WST.Web.Controllers
         /// <returns></returns>
         public ActionResult GetPageList(int pageIndex, int pageSize, string name)
         {
-            return JResult(IPinTuanService.GetPageList(pageIndex, pageSize,LoginUser.ID, name,""));
+            return JResult(IPinTuService.GetPageList(pageIndex, pageSize,LoginUser.ID, name,""));
         }
 
 
@@ -141,10 +142,10 @@ namespace WST.Web.Controllers
         /// <returns></returns>
         public ActionResult Find(string ID)
         {
-            var model = IPinTuanService.Find(ID);
+            var model = IPinTuService.Find(ID);
             //if (model != null)
             //{
-            //    model.PriceList = IPinTuanPriceService.GetListByPinTuanID(ID);
+            //    model.PriceList = IPinTuPriceService.GetListByPinTuID(ID);
             //}         
             return JResult(model);
         }
@@ -156,10 +157,10 @@ namespace WST.Web.Controllers
         /// <returns></returns>
         public ActionResult Delete(string id)
         {
-            var model = IPinTuanService.Find(id);
+            var model = IPinTuService.Find(id);
             if (model != null && model.UserID == LoginUser.ID)
             {
-                IPinTuanService.Delete(id);
+                IPinTuService.Delete(id);
                 return Redirect("/shop/actList");
             }
             else
