@@ -108,6 +108,7 @@ namespace WST.Web.Controllers
                     model.Direction = entity.Direction;
                     model.GoodsItemsJson = entity.GoodsItemsJson;
                     model.PinTuanItemJson = entity.PinTuanItemJson;
+                    model.PrizeCount = entity.PrizeCount;
                     var result = IPinTuanService.Update(model);
                     return JResult(result);
                 }

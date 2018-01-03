@@ -103,6 +103,7 @@ namespace WST.Web.Controllers
                     model.IntroducePicturesJson = entity.IntroducePicturesJson;
                     model.IntroduceVediosJson = entity.IntroduceVediosJson;
                     model.Direction = entity.Direction;
+                    model.PrizeCount = entity.PrizeCount;
                     model.GoodsItemsJson = entity.GoodsItemsJson;
                     var result = IMiaoShaService.Update(model);
                     return JResult(result);

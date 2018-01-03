@@ -673,7 +673,7 @@ namespace WST.Web.Controllers
         /// <param name="ids"></param>
         /// <returns></returns>
         [HttpPost]
-        public ActionResult ToPinTu(string id, string mobile, string name, string filedJson)
+        public ActionResult ToPinTu(string id)
         {
             var model = IPinTuService.Find(x => x.ID == id);
             if (model == null || model.IsDelete)
@@ -692,11 +692,14 @@ namespace WST.Web.Controllers
                 //如果用户拼图第一关过了
                 if (IUserActivityService.IsExits(x => x.TargetID == id && x.JoinUserID == LoginUser.ID && string.IsNullOrEmpty(x.TargetUserID)))
                 {
+                    var userAct = IUserActivityService.Find(x => x.TargetID == id && x.JoinUserID == LoginUser.ID && string.IsNullOrEmpty(x.TargetUserID));
                     var count = IUserActivityService.GetCount(x => x.TargetID == id && x.JoinUserID == LoginUser.ID);
-                    if (count >= itemList.Count)
+                    if (count > itemList.Count)
                     {
                         return JResult(Core.Code.ErrorCode.pintu_count_limit_error, "");
                     }
+                    userAct.Amount = itemList[count - 1].Amount;
+                    IUserActivityService.Update(userAct);
                     result = IUserActivityService.Add(new UserActivity()
                     {
                         ID = newId,
@@ -705,17 +708,52 @@ namespace WST.Web.Controllers
                         JoinUserID = LoginUser.ID,
                         TargetUserID = LoginUser.ID,
                         JoinUserName = LoginUser.Account,
-                        Amount = model.OldPrice,
+                        Amount = itemList[count - 1].Amount,
                         IsPrize = false,
                         IsUsedOnLine = false,
-                        PrizeInfo = $"用户{LoginUser.Account}完成{model.Name}拼图第{count}关卡，当前价格{itemList[count-1].Amount}",
+                        PrizeInfo = $"用户{LoginUser.Account}{model.Name}拼图第{count}关卡，当前价格{itemList[count-1].Amount}",
                         ShopUserID = model.UserID,
                         TargetID = id,
-                        FiledItemJson = filedJson
                     });
                 }
-                else {
+                if (result > 0)
+                {
+                    return JResult(newId);
+                }
+                else
+                    return DataErorrJResult();
+            }
+            else
+            {
+                return JResult(Core.Code.ErrorCode.activity_time_out, "");
+            }
+        }
 
+        /// <summary>
+        ///参加人数
+        /// </summary>
+        /// <param name="ids"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult JoinPinTu(string id, string mobile, string name, string filedJson)
+        {
+            var model = IPinTuService.Find(x => x.ID == id);
+            if (model == null || model.IsDelete)
+            {
+                return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
+            }
+            var itemList = model.PinTuItemJson.DeserializeJson<List<PinTuItem>>();
+            if (itemList == null || itemList.Count == 0)
+            {
+                return JResult(Core.Code.ErrorCode.sys_param_format_error, "");
+            }
+            if ((model.StartTime < DateTime.Now && model.EndTime > DateTime.Now))
+            {
+                var result = 0;
+                var newId = Guid.NewGuid().ToString("N");
+                //如果用户拼图第一关过了
+                if (!IUserActivityService.IsExits(x => x.TargetID == id && x.JoinUserID == LoginUser.ID && string.IsNullOrEmpty(x.TargetUserID)))
+                {
                     if (model.ReportCount == model.PrizeCount)
                     {
                         return JResult(Core.Code.ErrorCode.prize_not_had, "");
@@ -734,13 +772,17 @@ namespace WST.Web.Controllers
                         Amount = model.OldPrice,
                         IsPrize = true,
                         IsUsedOnLine = false,
-                        PrizeInfo = $"用户{LoginUser.Account}完成{model.Name}拼图第一关卡，当前价格{itemList[0].Amount}",
+                        PrizeInfo = $"用户{LoginUser.Account}参加{model.Name}拼图，当前价格{itemList[0].Amount}",
                         ShopUserID = model.UserID,
                         Mobile = mobile,
                         TargetID = id,
                         FiledItemJson = filedJson
                     });
 
+                }
+                else
+                {
+                    return JResult(true);
                 }
                 if (result > 0)
                 {
@@ -754,7 +796,7 @@ namespace WST.Web.Controllers
                 return JResult(Core.Code.ErrorCode.activity_time_out, "");
             }
         }
-       
+
         /// <summary>
         /// 砍价活动页面
         /// </summary>
@@ -772,10 +814,10 @@ namespace WST.Web.Controllers
             IPinTuService.Update(model);
             var itemList = model.PinTuItemJson.DeserializeJson<List<PinTuItem>>();
             var count = IUserActivityService.GetCount(x => x.TargetID == id && x.JoinUserID == LoginUser.ID && !string.IsNullOrEmpty(x.TargetUserID) && x.TargetUserID == LoginUser.ID);
-            if (count >= itemList.Count)
-            {
-                return JResult(Core.Code.ErrorCode.pintu_count_limit_error, "");
-            }
+            //if (count >= itemList.Count)
+            //{
+            //    return JResult(Core.Code.ErrorCode.pintu_count_limit_error, "");
+            //}
             ViewBag.NowCount = count;
             ViewBag.IsReport = IUserActivityService.IsExits(x => x.TargetID == id && x.JoinUserID == LoginUser.ID);
             ViewBag.ItemList = itemList;

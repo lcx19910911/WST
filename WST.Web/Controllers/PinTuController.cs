@@ -109,6 +109,7 @@ namespace WST.Web.Controllers
                     model.IntroduceVediosJson = entity.IntroduceVediosJson;
                     model.Direction = entity.Direction;
                     model.GoodsItemsJson = entity.GoodsItemsJson;
+                    model.PrizeCount = entity.PrizeCount;
                     var result = IPinTuService.Update(model);
                     return JResult(result);
                 }

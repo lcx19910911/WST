@@ -1,11 +1,11 @@
 ﻿@using WST.Core.Extensions
 @model PinTu
-@{ 
+@{
     ViewBag.Title = Model?.Name.NoHTML();
     Layout = null;
     var itemList = ViewBag.ItemList as List<PinTuItem>;
     var nowCount = (int)ViewBag.NowCount;
-    var user = LoginHelper.GetCurrentUser();
+    var isUser = LoginHelper.GetCurrentUser().ID==Model.UserID;
 }
 
 <!DOCTYPE html>
@@ -190,18 +190,18 @@
         </div>
         <div class="global-component-wrapper">
 
-		<div class="global-orderBtn-wrapper">
-			<!-- 音乐开关 有音乐类名为play 没有为pause -->
-			<div class="btn player-btn play" data-status="play"></div>
-			<!-- 分享提示 -->
-			<div class="btn share-info"></div>
-			<!-- 联系商家 -->
-			<div class="btn contact-merchant"><a href="tel:@(Model.PhoneNumber)"></a></div>
-		</div>
+            <div class="global-orderBtn-wrapper">
+                <!-- 音乐开关 有音乐类名为play 没有为pause -->
+                <div class="btn player-btn play" data-status="play"></div>
+                <!-- 分享提示 -->
+                <div class="btn share-info"></div>
+                <!-- 联系商家 -->
+                <div class="btn contact-merchant"><a href="tel:@(Model.PhoneNumber)"></a></div>
+            </div>
 
-		<div class="share-page-wrapepr hidden">
-			<div class="amask"></div>
-		</div>
+            <div class="share-page-wrapepr hidden">
+                <div class="amask"></div>
+            </div>
 
             <div class="audio-component-wrapper hidden">
                 <audio id="audio" oldsrc="@(Model.MusicUrl)" src="@(Model.MusicUrl)" autoplay="autoplay" preload="preload" loop="loop"></audio>
@@ -239,17 +239,17 @@
                             <div class="clearfix">
                                 <p class="w50 txt-center">
                                     <span>共</span>
-                                    <span class="allLevel">@(itemList.Count)</span>
+                                    <span class="allLevel"></span>
                                     <span>关</span>
                                     <br>
                                     <span>第</span>
-                                    <span class="button currentLevel">@nowCount</span>
+                                    <span class="button currentLevel"></span>
                                     <span>关</span>
                                 </p>
                                 <p class="w50 txt-right">
                                     <span>闯关优惠价</span>
                                     <br>
-                                    <span class="button currentPrice c-f00">@(itemList[nowCount].Amount)</span>
+                                    <span class="button currentPrice c-f00"></span>
                                     <span>元</span>
                                 </p>
                             </div>
@@ -302,9 +302,9 @@
         <div class="groupBooking-wrapper mt15 w90 m10 f11">
             <div class="groupBooking-list">
                 <span>当前参与人数：</span>
-                <span class="c-f00">@(Model.JoinCount)</span>
-                <span>共砍价：</span>
-                <span class="c-f00">@(itemList.GetRange(0,nowCount).Sum(x=>x.Amount))</span>
+                <span class="c-f00">@(Model.ReportCount)</span>
+                <span>你的价格：</span>
+                <span class="c-f00">@(nowCount==0?Model.OldPrice:itemList[nowCount-1].Amount)</span>
                 <span>元</span>
             </div>
             <div class="groupBooking-list">
@@ -324,8 +324,8 @@
                 <span class="v-span w20 input"></span>
                 <span class="">元</span>
             </div> -->
-             @foreach (var item in Model.PinTuItemJson.DeserializeJson<List<PinTuItem>>())
-             {
+            @foreach (var item in Model.PinTuItemJson.DeserializeJson<List<PinTuItem>>())
+            {
 
                 <div class="groupBooking-list sub-group">
                     <div class="groupBooking-list-item">
@@ -350,8 +350,8 @@
                         </div>
                     </div>
                 </div>
-                
-                }
+
+            }
         </div>
 
         <!-- body -->
@@ -384,14 +384,14 @@
                     }
 
                     @*<!-- 文本类型 -->
-                    <div class="uploadImgLabel">
-                        <div id="subIntro0" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">商品描述内容填充</div>
-                    </div>
+                        <div class="uploadImgLabel">
+                            <div id="subIntro0" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">商品描述内容填充</div>
+                        </div>
 
-                    <!-- 图片类型 -->
-                    <label for="uploadImg" data-target="subIntro1" class="uploadImgLabel">
-                        <img id="subIntro1" class="sub-intro nosrc" data-type="img" src="图片路径" alt="图片丢失">
-                    </label>*@
+                        <!-- 图片类型 -->
+                        <label for="uploadImg" data-target="subIntro1" class="uploadImgLabel">
+                            <img id="subIntro1" class="sub-intro nosrc" data-type="img" src="图片路径" alt="图片丢失">
+                        </label>*@
 
                 </div>
 
@@ -441,14 +441,14 @@
                         }
                     }
                     @*<!-- 文本 -->
-                    <div class="uploadImgLabel">
-                        <div id="subIntro4" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">商家介绍内容填充</div>
-                    </div>
+                        <div class="uploadImgLabel">
+                            <div id="subIntro4" contenteditable="false" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">商家介绍内容填充</div>
+                        </div>
 
-                    <!-- 图片 -->
-                    <label for="uploadImg" data-target="subIntro1" class="uploadImgLabel">
-                        <img id="subIntro4" class="sub-intro nosrc" data-type="img" src="" alt="图片丢失">
-                    </label>*@
+                        <!-- 图片 -->
+                        <label for="uploadImg" data-target="subIntro1" class="uploadImgLabel">
+                            <img id="subIntro4" class="sub-intro nosrc" data-type="img" src="" alt="图片丢失">
+                        </label>*@
 
                 </div>
             </div>
@@ -481,34 +481,53 @@
                         <span class="phone">手机号</span>
                     </div>
                     <!-- <div class="apply-user-list">
-                    <span class="name">龙傲天</span>
-                    <span class="phone">15000000000</span>
-                </div> -->
+                        <span class="name">龙傲天</span>
+                        <span class="phone">15000000000</span>
+                    </div> -->
                 </div>
             </div>
 
         </div>
 
 
-            @if (!ViewBag.IsReport)
+        @if (!isUser)
+        {
+            if (!ViewBag.IsReport)
             {
-		<div class="foot-btn-wrapper">
-			<div class="button apply-btn">我要报名</div>
-		</div>
+            <div class="foot-btn-wrapper">
+                <div class="button apply-btn">我要报名</div>
+            </div>
+            }
+            else
+            {
+            <div class="foot-btn-wrapper">
+                <div class="button continu-btn">接着拼图</div>
+            </div>
+            }
         }
-
-	<div class="toBuild">
-		<a href="/User/TryFree">
-			<span>我也要制作发布营销活动 -> </span><span class="c-ff0 f11">沃商通</span>
-		</a>
-	</div>
+        <div class="toBuild">
+            <a href="/User/TryFree">
+                <span>我也要制作发布营销活动 -> </span><span class="c-ff0 f11">沃商通</span>
+            </a>
+        </div>
 
     </div>
 
     <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js" type="text/javascript"></script>
     <script src="~/Areas/Admin/Scripts/utility.js"></script>
     <script>
+        var gameJson = new Array();</script>
+    @foreach (var item in Model.PinTuItemJson.DeserializeJson<List<PinTuItem>>())
+    {
+        <script>
+            gameJson.push({
+                "level":@item.Sort,"img":"@item.Picture","col":@item.ColumnNum,"row":@item.RowNum,"price":@item.Amount,
+            })
+        </script>
+    }
 
+
+    <script>
         wx.config({
             debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
             appId: "@ViewBag.AppId", // 必填，公众号的唯一标识
@@ -572,108 +591,273 @@
                     if (data.Code == 0) {
                         alert("分享成功");
                         location.href = location.href+'&datetime='+new Date().getTime();
-			window.location = location;
+                        window.location = location;
                     }
                     else
                         alert(data.ErrorDesc);
                 }
             })
         }
-		$(function() {
-			var pageIndex = 0, // 当前页索引
+        $(function() {
+            var pageIndex = 0, // 当前页索引
 					pageSize = 10, // 每页数量
 					RecordCount, // 全部数据总数
 					PageCount, // 总页面数
 					IsLastPage = false; // 最后一页
 
-			var timer,
+            var timer,
 					loadJudge = true;
 
-			// 下拉加载
-			$('.app').scroll(function(e) {
+            // 下拉加载
+            $('.app').scroll(function(e) {
 
-				if(IsLastPage) {
-					console.log('IsLastPage');
-					return false;
-				}
-				if(!loadJudge) {
-					console.log('loadJudge');
-					return false;
-				}
-				if(this.scrollHeight < this.scrollTop + this.clientHeight + 20) {
-					loadJudge = false;
-					setTimeout(function() {
-						loadJudge = true;
-					}, 2000)
+                if(IsLastPage) {
+                    console.log('IsLastPage');
+                    return false;
+                }
+                if(!loadJudge) {
+                    console.log('loadJudge');
+                    return false;
+                }
+                if(this.scrollHeight < this.scrollTop + this.clientHeight + 20) {
+                    loadJudge = false;
+                    setTimeout(function() {
+                        loadJudge = true;
+                    }, 2000)
 
-					$.ajax({
-					    url: '/user/GetUserPageList',
-					    data: {
-					        pageIndex: ++pageIndex,
-					        pageSize: pageSize,
-					        targetId: '@(Model.ID)',
-					        isUser:isUser
-					    },
-					    success: function (data) {
-					        if (data.Code == 0) {
-					            IsLastPage = data.Result.IsLastPage;
-					            RecordCount = data.Result.RecordCount;
-					            PageCount = data.Result.PageCount;
-					            var list = data.Result.List;
-					            $.each(list, function (i, obj) {
-					                $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="phone">' + obj.Mobile + '</span></div>')
-					            })
-					        }
-					        else
-					            alert(data.ErrorDesc);
-					    }
-					})
+                    $.ajax({
+                        url: '/user/GetUserPageList',
+                        data: {
+                            pageIndex: ++pageIndex,
+                            pageSize: pageSize,
+                            targetId: '@(Model.ID)',
+                            isUser:true
+                        },
+                        success: function (data) {
+                            if (data.Code == 0) {
+                                IsLastPage = data.Result.IsLastPage;
+                                RecordCount = data.Result.RecordCount;
+                                PageCount = data.Result.PageCount;
+                                var list = data.Result.List;
+                                $.each(list, function (i, obj) {
+                                    $('.apply-item .model-list-body').append('<div class="apply-user-list"><span class="name">' + obj.JoinUserName + '</span><span class="phone">' + obj.Mobile + '</span></div>')
+                                })
+                            }
+                            else
+                                alert(data.ErrorDesc);
+                        }
+                    })
 
-				}
-			})
+                }
+            })
 
-			// 点击报名
-			$(document).on('click', '.apply-btn', function() {
-				$('.apply-info-wrapper').removeClass('hidden');
-			})
+            // 点击报名
+            $(document).on('click', '.apply-btn', function() {
+                $('.apply-info-wrapper').removeClass('hidden');
+            })
 			//.on('click', '.apply-info-wrapper .amask', function() {
 				//$('.apply-info-wrapper').addClass('hidden');
 			//})
 			// 提交报名信息
 			.on('click', '.submitUserInfo', function() {
-				for(var i = 0; i < $('.apply-info-wrapper input').length; i++) {
-					if($('.apply-info-wrapper input').eq(i).val().length < 2) {
-						$('.apply-info-wrapper .msg').text($('.apply-info-wrapper input').eq(i).attr('data-rules'));
-						if(timer) clearTimeout(timer);
-						timer = setTimeout(function() {
-							$('.apply-info-wrapper .msg').text('');
-						}, 5000)
-						return false;
-					}
-				}
-				$('.apply-info-wrapper .msg').text('');
-				console.log('pass');
+			    for(var i = 0; i < $('.apply-info-wrapper input').length; i++) {
+			        if($('.apply-info-wrapper input').eq(i).val().length < 2) {
+			            $('.apply-info-wrapper .msg').text($('.apply-info-wrapper input').eq(i).attr('data-rules'));
+			            if(timer) clearTimeout(timer);
+			            timer = setTimeout(function() {
+			                $('.apply-info-wrapper .msg').text('');
+			            }, 5000)
+			            return false;
+			        }
+			    }
+			    $('.apply-info-wrapper .msg').text('');
+			    console.log('pass');
 
 			    $.ajax({
-			        url: '/user/toPinTu',
+			        url: '/user/joinPinTu',
+			        method:'post',
 			        data: {
-				    id: '@(Model.ID)',
-					mobile: $('#userPhone').val(),
-					name: $('#userName').val(),
-				    filedJson:''
+			            id: '@(Model.ID)',
+			            mobile: $('#userPhone').val(),
+			            name: $('#userName').val(),
+			            filedJson:''
 			        },
 			        success: function (data) {
+			            debugger
 			            if (data.Code == 0) {
-			                alert("报名成功");
-			                location.href = location.href+'&datetime='+new Date().getTime();
-					window.location = location;
+			                $('.global-gamepage-wrapper').removeClass('hidden');
 			            }
 			            else
 			                alert(data.ErrorDesc);
 			        }
 			    })
 			})
-		})
+			.on('click', '.continu-btn', function() {
+
+			    $('.global-gamepage-wrapper').removeClass('hidden');
+			})
+
+            gameJson.sort(function(a, b) {
+                return (parseInt(a.level) > parseInt(b.level)) ? 1 : -1;
+            })
+            console.log(gameJson);
+            $('.global-gamepage-wrapper .allLevel').text(gameJson.length);
+
+            var level = @(nowCount);
+
+            var len,
+                itemObj = new Array();
+
+            var start,
+                target,
+                indexStart,
+                indexTarget,
+                clickJudge = true,
+                intervalJudge = true,
+                intervalTime = 200;
+            // $('#gameImg').load(function() {
+            game(gameJson[level].level, gameJson[level].price, gameJson[level].col, gameJson[level].row, gameJson[level].img);
+            // window.game = game;
+
+            /*
+			 * hNum: 横向方块数量
+			 * vNum: 纵向方块数量
+			 * imgUrl: 图片路径
+             */
+            function game(level, price, hNum, vNum, imgUrl) {
+                console.log(level);
+                len = hNum * vNum;
+                itemObj = [];
+                $('.gameImg').height($('.gameImg').width());
+                $('.gameImg').html('');
+                $('#gameImg').attr('src', imgUrl);
+                $('.bgBlur').css({"background-image":"url("+ imgUrl +")"});
+                $('.global-gamepage-wrapper .currentLevel').text(level);
+                $('.global-gamepage-wrapper .currentPrice').text(price);
+
+                var imgW = $('.gameImg').width(),
+					imgH = $('.gameImg').height();
+                var itemW = parseInt(imgW)/hNum,
+                    itemH = parseInt(imgH)/vNum;
+                console.log(imgW,imgH)
+                for(var i = 0; i < len; i++) {
+                    var item = document.createElement('div');
+                    item.className = 'item';
+                    var obj = {
+                        width: itemW,
+                        height: itemH,
+                        positionX: itemW*(i%hNum),
+                        positionY: itemH*parseInt(i/hNum),
+                        dataNum: i
+                    };
+                    $(item).css({
+                        'left': obj.positionX + 'px',
+                        'top': obj.positionY + 'px',
+                        'width': obj.width + 'px',
+                        'height': obj.height + 'px',
+                        'background-image': 'url(' + imgUrl + ')',
+                        'background-position': -obj.positionX + 'px ' + -obj.positionY + 'px',
+                        'background-size': imgW + 'px ' + imgH + 'px'
+                    });
+                    $(item).attr('data-num', '['+parseInt(i/hNum)+','+i%hNum+']')
+                    $('.gameImg').append(item);
+                    itemObj.push(obj);
+                }
+                // console.log(itemObj);
+                itemObj.sort(randomsort);
+                // console.log(itemObj);
+                $.each(itemObj, function(i, obj) {
+                    $('.gameImg .item').eq(i).css({
+                        'background-position': -obj.positionX + 'px ' + -obj.positionY + 'px'
+                    });
+                })
+
+            };
+            $(document).on('click', '.gameImg .item', function() {
+                if(!intervalJudge) return false;
+                intervalJudge = false;
+                setTimeout(function() {
+                    intervalJudge = true;
+                }, intervalTime);
+                console.log(JSON.parse($(this).attr('data-num')));
+                if(clickJudge) {//第一次点击
+                    $(this).addClass('select');
+                    start = this;
+                    indexStart = $(this).index();
+                    clickJudge = false;
+                } else {//第二次点击
+                    $(this).addClass('select');
+                    target = this;
+                    indexTarget = $(this).index();
+                    clickJudge = true;
+
+                    var s = JSON.parse($(start).attr('data-num')),
+                        t = JSON.parse($(target).attr('data-num'));
+
+                    //边界判定
+                    if(((s[0] == t[0]) && Math.abs(s[1] - t[1]) == 1) || ((s[1] == t[1]) && Math.abs(s[0] - t[0]) == 1)) {
+                        //开始交换位置
+                        setTimeout(function() {
+                            $('.gameImg .select').removeClass('select');
+                            var temp = itemObj[indexStart];
+                            itemObj[indexStart] = itemObj[indexTarget];
+                            itemObj[indexTarget] = temp;
+                            $(start).css({
+                                'background-position': -itemObj[indexStart].positionX + 'px ' + -itemObj[indexStart].positionY + 'px',
+                            });
+                            $(target).css({
+                                'background-position': -itemObj[indexTarget].positionX + 'px ' + -itemObj[indexTarget].positionY + 'px',
+                            })
+                            for(var i = 0; i < itemObj.length; i++) {
+                                if(itemObj[i].dataNum != i) return false;
+                            }
+                            // 完成拼图
+                            $('.gameImg .item').addClass('noShadow').removeClass('item');
+                            // 开启下一关
+                            setTimeout(function() {
+                                level++; //关卡上升
+                                if(level >= gameJson.length) { //关卡边界判定
+                                    alert('恭喜您完成所有关卡');
+                                    return false;
+                                }
+                                game(gameJson[level].level, gameJson[level].price, gameJson[level].col, gameJson[level].row, gameJson[level].img);
+                            }, 1000)
+
+                            $.ajax({//完成当前一轮拼图 提交数据
+                                url: '/user/toPinTu',
+                                method:'post',
+                                data: {
+                                    id: '@(Model.ID)'
+                                },
+                                success: function (data) {
+                                    if (data.Code == 0) {
+
+                                    }
+                                    else
+                                        alert(data.ErrorDesc);
+                                }
+                            });
+                        }, 100);
+                    } else {
+                        $('.gameImg .select').removeClass('select');
+                        $(this).addClass('select');
+                        start = this;
+                        indexStart = $(this).index();
+                        clickJudge = false;
+                    }
+
+
+                }
+            })
+			// 关闭游戏界面
+			.on('click', '.comeback', function() {
+			    $('.global-gamepage-wrapper').addClass('hidden');
+			})
+
+            function randomsort(a, b) {
+                return Math.random()>0.5 ? -1 : 1;
+            }
+        })
     </script>
 
 </body>
