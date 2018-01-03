@@ -38,10 +38,7 @@ namespace WST.Web.Controllers
             {
                 return Redirect("/login/index");
             }
-            if ((userModel.IsMember && !LoginUser.IsMember) || (userModel.EndTime.HasValue&&userModel.EndTime.Value < DateTime.Now && LoginUser.IsMember))
-            {
-                this.LoginUser = new Core.Model.LoginUser(userModel);
-            }
+          
             ViewBag.CarouseList = ICarouselService.GetList(x=>!x.IsDelete).OrderByDescending(x=>x.Sort).ToList();
             var tempelateList = ITemplateService.GetList(x=>!x.IsDelete);
             var categoryIdList = tempelateList.Select(x => x.CategoryID).Distinct().ToList();

@@ -55,10 +55,6 @@ namespace WST.Web.Controllers
             var userModel = IUserService.Find(LoginUser.ID);
             if (userModel != null)
             {
-                if ((userModel.IsMember && !LoginUser.IsMember) || (userModel.EndTime < DateTime.Now && LoginUser.IsMember))
-                {
-                    this.LoginUser = new Core.Model.LoginUser(userModel);
-                }
             }
             else
             {
@@ -73,6 +69,10 @@ namespace WST.Web.Controllers
         // GET: User
         public ActionResult BuyTime()
         {
+            if (LoginUser == null)
+            {
+                return Redirect("/login/index?redirect_uri=" + this.Request.Url.ToString());
+            }
             var user = IUserService.Find(LoginUser.ID);
             if (user.Password.IsNullOrEmpty())
             {
@@ -146,6 +146,10 @@ namespace WST.Web.Controllers
 
         public   ActionResult TryFree()
         {
+            if (LoginUser == null)
+            {
+                return Redirect("/login/index?redirect_uri=" + this.Request.Url.ToString());
+            }
             var user = IUserService.Find(LoginUser.ID);
             if (user == null && user.IsDelete)
             {
