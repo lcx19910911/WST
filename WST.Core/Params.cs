@@ -25,7 +25,7 @@ namespace WST.Core
         /// <summary>
         /// 登陆cookie
         /// </summary>
-        public static readonly string UserCookieName = "webuser_cookie_ten";
+        public static readonly string UserCookieName = "webuser_cookie_2018_1_4";
         /// <summary>
         /// 登陆cookie
         /// </summary>

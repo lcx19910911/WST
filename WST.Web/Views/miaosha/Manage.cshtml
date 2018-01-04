@@ -121,7 +121,7 @@
         <!-- head -->
         <div class="head-wrapper">
             <div class="head-bg-wrapper">
-                <img id="banner" src="@(Model.Picture.IsNullOrEmpty()?"../../assets/images/kanjia/banner5.gif":Model.Picture)">
+                <img id="banner" src="@(Model.Picture.IsNullOrEmpty()?"":Model.Picture)">
             </div>
             <div class="head-bg-edit">
                 <!-- <div class="w47 fl">
@@ -138,7 +138,7 @@
         <div class="title-wrapper mt15">
             <div class="m00 w90">
                 <!-- <textarea id="title" class="textarea e-textarea f16 fB txt-center" value="喜迎购物节，课程低价疯狂抢">喜迎购物节，课程低价疯狂抢</textarea> -->
-                <div id="title" contenteditable="true" class="textarea e-textarea f16 fB txt-center">@(Model.ID.IsNullOrEmpty() ? "喜迎购物节，课程低价疯狂抢" : Model.Name)</div>
+                <div id="title" contenteditable="true" class="textarea e-textarea f16 fB txt-center">@Html.Raw(Model.ID.IsNullOrEmpty() ? "喜迎购物节，课程低价疯狂抢" : Model.Name)</div>
 
                 <!-- <p class="v-p f16 fB txt-center"></p> -->
             </div>
@@ -236,7 +236,7 @@
                 </div>
                 <div class="model-list-body">
                     <!-- <textarea id="rules" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本"></textarea> -->
-                    <div id="rules" contenteditable="true" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@(Model.Rules)</div>
+                    <div id="rules" contenteditable="true" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@Html.Raw(Model.Rules)</div>
                     <!-- <textarea id="" class="textarea e-textarea">1、点击底部按钮“我要开团”进行开团报名					2、注意填写真实姓名和电话。					3、评团成功联系商家安平图案价格消费。					4、本次活动优惠限量，超出无效。</textarea> -->
                     <!-- <p class="v-p"></p> -->
                 </div>
@@ -248,7 +248,7 @@
                 </div>
                 <div class="model-list-body">
                     <!-- <textarea id="connact" class="textarea e-textarea" placeholder="输入领奖信息方便用户领奖，例：领奖时间、领奖地址、领奖电话"></textarea> -->
-                    <div id="connact" contenteditable="true" class="textarea e-textarea" placeholder="输入领奖信息方便用户领奖，例：领奖时间、领奖地址、领奖电话">@(Model.Connact)</div>
+                    <div id="connact" contenteditable="true" class="textarea e-textarea" placeholder="输入领奖信息方便用户领奖，例：领奖时间、领奖地址、领奖电话">@Html.Raw(Model.Connact)</div>
                     <!-- <p class="v-p"></p> -->
                 </div>
             </div>
@@ -266,7 +266,7 @@
                             if (item.Type == "txt")
                             {
                                 <div class="uploadImgLabel">
-                                    <div contenteditable="true" id="subIntro_@(index)" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@item.Content</div>
+                                    <div contenteditable="true" id="subIntro_@(index)" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@Html.Raw(item.Content)</div>
                                     <p class="v-p"></p><span class="close">x</span>
                                 </div>
                             }
@@ -381,8 +381,11 @@
         </form>
     </div>
     <script type="text/javascript" src="~/assets/js/renderPage.js"></script>
-    <script type="text/javascript">
-	renderPage('@(Model.ID.IsNullOrEmpty()?Request["TemplateUrl"]:Model.TemplateUrl)');
-    </script>
+    @if (Model.ID.IsNullOrEmpty())
+    {
+        <script type="text/javascript">
+	renderPage('@(Model.ID.IsNullOrEmpty() ? Request["TemplateUrl"] : Model.TemplateUrl)');
+        </script>
+    }
 </body>
 </html>

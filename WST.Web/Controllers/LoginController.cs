@@ -114,24 +114,24 @@ namespace WST.Web.Controllers
 
         public ActionResult DefaultUser()
         {
-            var model = new Model.User()
-            {
-                ID="11111",
-                NickName = "lcsdsdx",
-                OpenID = "343fdfdfdzzsdsdscdsc",
-                HeadImgUrl = "http://wx.qlogo.cn/mmopen/vi_32/XayCtyvRZwdrXnPgD1WtDL2TY4Ztz3tHLlT8oah80Lec1LnmyLK4dFhxL5tNxl5pFeDlRg8fQwaoFHmA9U692w/0",
-                Country = "中国",
-                Province = "福建",
-                City = "福州",
-                Sex = Model.SexCode.Man,
-                IsMember = false,
-                //EndTime=DateTime.Now.AddDays(1)
-            };
+            //var model = new Model.User()
+            //{
+            //    ID="11111",
+            //    NickName = "lcsdsdx",
+            //    OpenID = "343fdfdfdzzsdsdscdsc",
+            //    HeadImgUrl = "http://wx.qlogo.cn/mmopen/vi_32/XayCtyvRZwdrXnPgD1WtDL2TY4Ztz3tHLlT8oah80Lec1LnmyLK4dFhxL5tNxl5pFeDlRg8fQwaoFHmA9U692w/0",
+            //    Country = "中国",
+            //    Province = "福建",
+            //    City = "福州",
+            //    Sex = Model.SexCode.Man,
+            //    IsMember = false,
+            //    //EndTime=DateTime.Now.AddDays(1)
+            //};
             //var result = IUserService.Add(model);
             //lcx oZe9g0tkskZx51DFih_hKm_GIYS0
             //lzy  oZe9g0hGp6RNI67KQ1WahfbO0e4Q
             //shop  oZe9g0pyZyvXx2MCC1MS9bcx-aQM
-            var user = IUserService.FindByOpenId("oZe9g0g5WubCAiPgbW8xQnr6dHM0");
+            var user = IUserService.FindByOpenId("oZe9g0hGp6RNI67KQ1WahfbO0e4Q");
             if (user != null)
             {
                 //user.IsMember = false;

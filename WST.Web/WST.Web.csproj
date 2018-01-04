@@ -1108,7 +1108,6 @@
     <Folder Include="assets\img\temp\" />
     <Folder Include="Lib\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\Course\" />
     <Folder Include="Views\Store\" />
     <Folder Include="Views\WxAdmin\" />
   </ItemGroup>
