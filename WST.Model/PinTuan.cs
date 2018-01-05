@@ -19,7 +19,7 @@ namespace WST.Model
         /// <summary>
         /// 拼团人数和价格json集合
         /// </summary>
-        [MaxLength(256)]
+        [MaxLength(2560)]
         public string PinTuanItemJson { get; set; }
 
         /// <summary>
