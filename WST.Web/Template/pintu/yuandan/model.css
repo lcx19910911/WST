@@ -1,0 +1,126 @@
+/*model css*/
+html {
+	background: #FFFAEE;
+}
+.l .title-wrapper {
+	margin-top: 0;
+	background: #9E0008;
+	padding: 1em 0 4em;
+	background: url(/Template/pintu/yuandan/img/title_bg.png) repeat;
+	background-size: 100%;
+}
+#title, #title * {
+	color: #F9E900!important;
+}
+.l .activity-wrapper {
+	/*width: 80%;*/
+	margin: -3em auto 0;
+	padding: 1em 0 1.3em;
+	line-height: 1.8em;
+	/*background-size: 100%;
+	background: #ff0;*/
+	
+	background: url(/Template/pintu/yuandan/img/time_bg.png) center no-repeat;
+	background-size: 100%;
+}
+.activity-wrapper * {
+	color: #D82930!important;
+	/*font-weight: bold;*/
+}
+
+.activity-wrapper h3 {
+	font-size: 1.3em;
+}
+.l .groupBooking-wrapper {
+	width: 100%;
+	padding: 1em;
+	background: #f9f0da;
+}
+.l .groupBooking-wrapper-view {
+	padding: 0;
+}
+.groupBooking-wrapper .sub-group {
+	/* background: #FCE8C9!important; */
+}
+.l .groupBooking-wrapper .add-layout-body {
+	background: none;
+	border-color: #f00;
+}
+.l .groupBooking-wrapper .add-layout-body .bc-theme1 {
+	background:rgba(255,255,255,.6);
+}
+.groupBooking-wrapper .groupBooking-list-item p:nth-child(1) {
+	padding-right: 0.3em;
+}
+.groupBooking-wrapper .groupBooking-list-item {
+	border-color: #f00;
+}
+.groupBooking-wrapper .groupBooking-list:nth-child(1) * {
+	color: #000!important;
+	font-weight: bold;
+}
+.l .groupBooking-wrapper .groupBooking-list * {
+	color: #D82930!important;
+}
+
+.l .model-list-body {
+	border: 0.2rem solid transparent;
+	background: #D82930;
+}
+.l .model-list-title {
+	height: 4.5em;
+	line-height: 2.3em;
+	text-indent: 3.5em;
+	/*background: url(/Template/pintu/yuandan/img/title_bottom.png) center bottom no-repeat;*/
+	background-size: 100% auto;
+}
+.l .model-list-title span {
+	width: 100%;
+	padding: 1em 1em 0;
+	margin-bottom: 0;
+	text-align: right;
+	color: #D82930;
+	background: url(/Template/pintu/yuandan/img/title_top.png) 1em center no-repeat;
+	background-size: 9em;
+}
+
+.l .add-child span {
+	background: #fffaee;
+	color: #D82930;
+	border-color: #fffaee;
+}
+.l .foot-wrapper {
+	border-color: #D82930;
+}
+.l .foot-wrapper .button {
+	background: #D82930;
+	color: #fff;
+	border-color: #D82930;
+}
+.l .foot-wrapper .view-btn {
+	background: #fff;
+	color: #D82930;
+}
+.music-component-wrapper ul .play {
+	color: #D82930;
+}
+.title-wrapper *, .l .textarea, .l .input, .v-p, .v-span, .phone-number {
+	color: #fff;
+}
+.music-component-wrapper .btn span, .l .button {
+	background: #D82930;
+	color: #fff;
+}
+.l .groupBooking-wrapper .groupBooking-list .button {
+	color: #fff!important;
+}
+.music-component-wrapper .btn .cancel {
+	background: #fff;
+	color: #D82930!important;
+}
+.l .apply-user-list .price {
+	color: #FFE200;
+}
+.l .apply-user-list .name {
+	color: #fff;
+}

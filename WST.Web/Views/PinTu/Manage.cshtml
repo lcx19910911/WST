@@ -132,220 +132,229 @@
         </div>
 
         <!-- groupBooking -->
-        <div class="groupBooking-wrapper mt15 w90 m10 f11">
-            <div class="groupBooking-list clearfix">
-                <div class="w100 fl">
-                    <span>原价与底价：</span>
-                </div>
-                <div class="w50 fl pl10">
-                    <span>原价：</span>
-                    <input type="number" id="oldPrice" name="oldPrice" class="input e-input w40" value="@(Model.OldPrice==0?999:Model.OldPrice)">
-                    <span class="">元</span>
-                </div>
-                <div class="w50 fl">
-                    <span>底价：</span>
-                    <input type="number" id="lessPrice" name="lessPrice" class="input e-input w40" value="@(Model.LessPrice==0?20:Model.LessPrice)">
-                    <span class="">元</span>
-                </div>
-            </div>
-            <div class="groupBooking-list mt10">
-                <span>奖品数量：</span>
-                <input type="number" id="prizeCount" name="prizeCount" class="input e-input w20" value="@(Model.PrizeCount==0?10:Model.PrizeCount)">
-                <span class="">件</span>
-            </div>
-            <div class="groupBooking-list mt10 game-settings-title">
-                <span>拼图设置：</span>
-                <br />
-                <span class="f09">建议图片尺寸比例1:1，否则图片会被拉伸变形</span>
-            </div>
-            <div class="groupBooking-list game-level-settings">
-            @if (Model.ID.IsNullOrEmpty())
-            {
-                    <div class="level-items" data-level="1">
-                        <h3>关卡1：</h3>
-                        <div class="game-settings">
-                            <div class="settings-item settings-item-img">
-                                <label for="uploadImg" data-target="gameImg1" class="uploadImgLabel">
-                                    <img id="gameImg1" class="sub-intro nosrc" data-type="img" src="" alt="上传图片">
-                                </label>
-                            </div>
-                            <div class="settings-item">
-                                <span>分割列数：</span>
-                                <input type="number" class="col-num input e-input w30" value="4" max="20" min="2">
-                                <br />
-                                <span>分割行数：</span>
-                                <input type="number" class="row-num input e-input w30" value="4" max="20" min="2">
-                                <br />
-                                <span>关卡价格：</span>
-                                <input type="number" class="price-num input e-input w30" value="99">
-                            </div>
-                        </div>
+        <div class="groupBooking-wrapper mt15 m10 f11">
+            <div class="add-layout-head"></div>
+            <div class="add-layout-body">
+                <div class="groupBooking-list clearfix">
+                    <div class="w100 fl">
+                        <span>原价与底价：</span>
                     </div>
-            }
-            else
-            {
-                    foreach (var item in Model.PinTuItemJson.DeserializeJson<List<PinTuItem>>())
-                    {
-                        <div class="level-items" data-level="@(item.Sort)">
-                            <h3>关卡@(item.Sort)：</h3>
+                    <div class="w50 fl pl10">
+                        <span>原价：</span>
+                        <input type="number" id="oldPrice" name="oldPrice" class="input e-input w40" value="@(Model.OldPrice==0?999:Model.OldPrice)">
+                        <span class="">元</span>
+                    </div>
+                    <div class="w50 fl">
+                        <span>底价：</span>
+                        <input type="number" id="lessPrice" name="lessPrice" class="input e-input w40" value="@(Model.LessPrice==0?20:Model.LessPrice)">
+                        <span class="">元</span>
+                    </div>
+                </div>
+                <div class="groupBooking-list mt10">
+                    <span>奖品数量：</span>
+                    <input type="number" id="prizeCount" name="prizeCount" class="input e-input w20" value="@(Model.PrizeCount==0?10:Model.PrizeCount)">
+                    <span class="">件</span>
+                </div>
+                <div class="groupBooking-list mt10 game-settings-title">
+                    <span>拼图设置：</span>
+                    <br />
+                    <span class="f09">建议上传正方形图片，否则图片可能变形</span>
+                </div>
+                <div class="groupBooking-list game-level-settings">
+                @if (Model.ID.IsNullOrEmpty())
+                {
+                        <div class="level-items" data-level="1">
+                            <h3>关卡1：</h3>
                             <div class="game-settings">
                                 <div class="settings-item settings-item-img">
                                     <label for="uploadImg" data-target="gameImg1" class="uploadImgLabel">
-                                        <img id="gameImg1" class="sub-intro nosrc" data-type="img" src="@(item.Picture)" alt="上传图片">
+                                        <img id="gameImg1" class="sub-intro nosrc" data-type="img" src="" alt="上传图片">
                                     </label>
                                 </div>
                                 <div class="settings-item">
                                     <span>分割列数：</span>
-                                    <input type="number" class="col-num input e-input w30" value="@(item.ColumnNum)" max="20" min="2">
+                                    <input type="number" class="col-num input e-input w30" value="4" max="20" min="2">
                                     <br />
                                     <span>分割行数：</span>
-                                    <input type="number" class="row-num input e-input w30" value="@(item.RowNum)" max="20" min="2">
+                                    <input type="number" class="row-num input e-input w30" value="4" max="20" min="2">
                                     <br />
                                     <span>关卡价格：</span>
-                                    <input type="number" class="price-num input e-input w30" value="@(item.Amount)">
+                                    <input type="number" class="price-num input e-input w30" value="99">
                                 </div>
                             </div>
                         </div>
-                    }
-             }
+                }
+                else
+                {
+                        foreach (var item in Model.PinTuItemJson.DeserializeJson<List<PinTuItem>>())
+                        {
+                            <div class="level-items" data-level="@(item.Sort)">
+                                <h3>关卡@(item.Sort)：</h3>
+                                <div class="game-settings">
+                                    <div class="settings-item settings-item-img">
+                                        <label for="uploadImg" data-target="gameImg1" class="uploadImgLabel">
+                                            <img id="gameImg1" class="sub-intro nosrc" data-type="img" src="@(item.Picture)" alt="上传图片">
+                                        </label>
+                                    </div>
+                                    <div class="settings-item">
+                                        <span>分割列数：</span>
+                                        <input type="number" class="col-num input e-input w30" value="@(item.ColumnNum)" max="20" min="2">
+                                        <br />
+                                        <span>分割行数：</span>
+                                        <input type="number" class="row-num input e-input w30" value="@(item.RowNum)" max="20" min="2">
+                                        <br />
+                                        <span>关卡价格：</span>
+                                        <input type="number" class="price-num input e-input w30" value="@(item.Amount)">
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                }
+                </div>
+                <div class="groupBooking-list mt10 setting-levels clearfix">
+                    <div class="btn button remove-level">删除关卡</div>
+                    <div class="btn button add-level">添加关卡</div>
+                </div>
             </div>
-            <div class="groupBooking-list mt10 setting-levels clearfix">
-                <div class="btn button remove-level">删除关卡</div>
-                <div class="btn button add-level">添加关卡</div>
-            </div>
+            <div class="add-layout-foot"></div>
         </div>
 
         <!-- body -->
         <div class="body-wrapper">
 
             <div class="model-list goodsDescribe-item">
-                <div class="model-list-title">
-                    <span>商品描述</span>
-                </div>
-                <div class="model-list-body">
-                    @if (Model.ID.IsNotNullOrEmpty())
-                    {
-                        var index = 0;
-                        foreach (var item in Model.GoodsItemsJson.DeserializeJson<List<TypeContentItem>>())
+                <div class="add-layout-head"></div>
+				<div class="add-layout-body">
+                    <div class="model-list-title">
+                        <span>商品描述</span>
+                    </div>
+                    <div class="model-list-body">
+                        @if (Model.ID.IsNotNullOrEmpty())
                         {
-                            if (item.Type == "txt")
+                            var index = 0;
+                            foreach (var item in Model.GoodsItemsJson.DeserializeJson<List<TypeContentItem>>())
                             {
-                                <div class="uploadImgLabel">
-                                    <div contenteditable="true" id="subIntro_@(index)" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@Html.Raw(item.Content)</div>
-                                    <p class="v-p"></p><span class="close">x</span>
-                                </div>
-                            }
-                            else
-                            {
-                                <label for="uploadImg" data-target="subIntro_@(index)" class="uploadImgLabel">
-                                    <img id="subIntro_@(index)" class="sub-intro nosrc" data-type="img" src="@(item.Content)" alt="上传图片">
-                                    <span class="close">x</span>
-                                </label>
+                                if (item.Type == "txt")
+                                {
+                                    <div class="uploadImgLabel">
+                                        <div contenteditable="true" id="subIntro_@(index)" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@Html.Raw(item.Content)</div>
+                                        <p class="v-p"></p><span class="close">x</span>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <label for="uploadImg" data-target="subIntro_@(index)" class="uploadImgLabel">
+                                        <img id="subIntro_@(index)" class="sub-intro nosrc" data-type="img" src="@(item.Content)" alt="上传图片">
+                                        <span class="close">x</span>
+                                    </label>
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                    <!-- sub-intro: 数据载体  data-type：类型-->
-                        <!-- <div class="uploadImgLabel">
-                            <textarea id="subIntro0" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本"></textarea>
-                            <div id="subIntro0" contenteditable="true" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本"></div>
-                            <p class="v-p"></p>
-                            <span class="close">x</span>
-                        </div>
-                        <label for="uploadImg" data-target="subIntro1" class="uploadImgLabel">
-                            <img id="subIntro1" class="sub-intro nosrc" data-type="img" src="" alt="上传图片">
-                            <span class="close">x</span>
-                        </label> -->
-                    }
-                    <!-- <textarea id="goodsDescribe3" data-type="video" class="sub-intro textarea e-textarea" placeholder="请输入视频地址"></textarea> -->
-                    <!-- <p class="v-p"></p> -->
+                        else
+                        {
+                            
+                        }
 
-                    <div class="add-child">
-                        <span class="addtxt" add-type="txt">添加文本</span>
-                        <span class="addimg" add-type="img">添加图片</span>
-                        <!-- <span class="addvideo" add-type="video">添加视频</span> -->
+                        <div class="add-child">
+                            <span class="addtxt" add-type="txt">添加文本</span>
+                            <span class="addimg" add-type="img">添加图片</span>
+                        </div>
                     </div>
                 </div>
+                <div class="add-layout-foot"></div>
             </div>
 
             <div class="model-list activityRule-item">
-                <div class="model-list-title">
-                    <span>活动规则</span>
+                <div class="add-layout-head"></div>
+				<div class="add-layout-body">
+                    <div class="model-list-title">
+                        <span>活动规则</span>
+                    </div>
+                    <div class="model-list-body">
+                        <!-- <textarea id="rules" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本"></textarea> -->
+                        <div id="rules" contenteditable="true" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@Html.Raw(Model.Rules)</div>
+                        <!-- <textarea id="" class="textarea e-textarea">1、点击底部按钮“我要开团”进行开团报名					2、注意填写真实姓名和电话。					3、评团成功联系商家安平图案价格消费。					4、本次活动优惠限量，超出无效。</textarea> -->
+                        <!-- <p class="v-p"></p> -->
+                    </div>
                 </div>
-                <div class="model-list-body">
-                    <!-- <textarea id="rules" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本"></textarea> -->
-                    <div id="rules" contenteditable="true" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@Html.Raw(Model.Rules)</div>
-                    <!-- <textarea id="" class="textarea e-textarea">1、点击底部按钮“我要开团”进行开团报名					2、注意填写真实姓名和电话。					3、评团成功联系商家安平图案价格消费。					4、本次活动优惠限量，超出无效。</textarea> -->
-                    <!-- <p class="v-p"></p> -->
-                </div>
+                <div class="add-layout-foot"></div>
             </div>
 
             <div class="model-list acceptPrize-item">
-                <div class="model-list-title">
-                    <span>领取信息</span>
+                <div class="add-layout-head"></div>
+				<div class="add-layout-body">
+                    <div class="model-list-title">
+                        <span>领取信息</span>
+                    </div>
+                    <div class="model-list-body">
+                        <!-- <textarea id="connact" class="textarea e-textarea" placeholder="输入领奖信息方便用户领奖，例：领奖时间、领奖地址、领奖电话"></textarea> -->
+                        <div id="connact" contenteditable="true" class="textarea e-textarea" placeholder="输入领奖信息方便用户领奖，例：领奖时间、领奖地址、领奖电话">@Html.Raw(Model.Connact)</div>
+                        <!-- <p class="v-p"></p> -->
+                    </div>
                 </div>
-                <div class="model-list-body">
-                    <!-- <textarea id="connact" class="textarea e-textarea" placeholder="输入领奖信息方便用户领奖，例：领奖时间、领奖地址、领奖电话"></textarea> -->
-                    <div id="connact" contenteditable="true" class="textarea e-textarea" placeholder="输入领奖信息方便用户领奖，例：领奖时间、领奖地址、领奖电话">@Html.Raw(Model.Connact)</div>
-                    <!-- <p class="v-p"></p> -->
-                </div>
+                <div class="add-layout-foot"></div>
             </div>
 
             <div class="model-list introduce-item">
-                <div class="model-list-title">
-                    <span>商家介绍</span>
-                </div>
-                <div class="model-list-body">
-                    @if (Model.ID.IsNotNullOrEmpty())
-                    {
-                        var index = 0;
-                        foreach (var item in Model.IntroduceTxtJson.DeserializeJson<List<TypeContentItem>>())
+                <div class="add-layout-head"></div>
+				<div class="add-layout-body">
+                    <div class="model-list-title">
+                        <span>商家介绍</span>
+                    </div>
+                    <div class="model-list-body">
+                        @if (Model.ID.IsNotNullOrEmpty())
                         {
-                            if (item.Type == "txt")
+                            var index = 0;
+                            foreach (var item in Model.IntroduceTxtJson.DeserializeJson<List<TypeContentItem>>())
                             {
-                                <div class="uploadImgLabel">
-                                    <div contenteditable="true" id="subIntro_@(index)" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@Html.Raw(item.Content)</div>
-                                    <p class="v-p"></p><span class="close">x</span>
-                                </div>
-                            }
-                            else if (item.Type == "img")
-                            {
-                                <label for="uploadImg" data-target="subIntro_@(index)" class="uploadImgLabel">
-                                    <img id="subIntro_@(index)" class="sub-intro nosrc" data-type="img" src="@(item.Content)" alt="上传图片">
-                                    <span class="close">x</span>
-                                </label>
+                                if (item.Type == "txt")
+                                {
+                                    <div class="uploadImgLabel">
+                                        <div contenteditable="true" id="subIntro_@(index)" data-type="txt" class="sub-intro textarea e-textarea" placeholder="请输入文本">@Html.Raw(item.Content)</div>
+                                        <p class="v-p"></p><span class="close">x</span>
+                                    </div>
+                                }
+                                else if (item.Type == "img")
+                                {
+                                    <label for="uploadImg" data-target="subIntro_@(index)" class="uploadImgLabel">
+                                        <img id="subIntro_@(index)" class="sub-intro nosrc" data-type="img" src="@(item.Content)" alt="上传图片">
+                                        <span class="close">x</span>
+                                    </label>
+                                }
                             }
                         }
-                    }
-                    else
-                    {
-                        <!-- <div class="uploadImgLabel">
-                            <div id="subIntro3" contenteditable="true" data-type="txt" class="sub-intro textarea e-textarea" placeholder="此处填写机构介绍"></div>
-                            <span class="close">x</span>
-                        </div> -->
-                    }
-                    <div class="add-child">
-                        <span class="addtxt" add-type="txt">添加文本</span>
-                        <span class="addimg" add-type="img">添加图片</span>
-                        <!-- <span class="addvideo" add-type="video">添加视频</span> -->
+                        else
+                        {
+                            
+                        }
+                        <div class="add-child">
+                            <span class="addtxt" add-type="txt">添加文本</span>
+                            <span class="addimg" add-type="img">添加图片</span>
+                        </div>
                     </div>
                 </div>
+                <div class="add-layout-foot"></div>
             </div>
 
             <div class="model-list phone-item">
-                <div class="model-list-title">
-                    <span>咨询电话</span>
-                </div>
-                <div class="model-list-body pb10">
-                    <div class="phone-number txt-left">
-                        <i class="icon icon-hotline f12"></i>
-                        <input id="phoneNumber" type="number" class="input e-input" min="199999999999" max="199999999999" placeholder="请输入手机号码" value="@(Model.PhoneNumber)">
-                        <!-- <span class="v-span"></span> -->
+                <div class="add-layout-head"></div>
+				<div class="add-layout-body">
+                    <div class="model-list-title">
+                        <span>咨询电话</span>
+                    </div>
+                    <div class="model-list-body pb10">
+                        <div class="phone-number txt-left">
+                            <i class="icon icon-hotline f12"></i>
+                            <input id="phoneNumber" type="number" class="input e-input" min="199999999999" max="199999999999" placeholder="请输入手机号码" value="@(Model.PhoneNumber)">
+                            <!-- <span class="v-span"></span> -->
+                        </div>
                     </div>
                 </div>
+                <div class="add-layout-foot"></div>
             </div>
         </div>
+
+        <div class="html-add-layout-foot"></div>
 
         <!-- foot -->
         <div class="foot-wrapper">

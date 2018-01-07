@@ -96,6 +96,7 @@ html {
     width: 100%;
     min-height: 15em;
     font-size: 1em;
+    z-index: -1;
 }
 /* .head-bg-wrapper {
     
@@ -149,13 +150,28 @@ html {
 }
 .activity-wrapper .timeinput {
     color: #0594F5;
-    font-size: 0.8em;
+    font-size: 1em;
+    font-weight: bold;
 }
 
 /*groupBooking-wrapper*/
 /* .groupBooking-wrapper {
     overflow: hidden;
 } */
+
+.add-layout-head {
+    
+}
+.add-layout-body {
+    
+}
+.add-layout-foot {
+    
+}
+.groupBooking-wrapper .add-layout-body {
+    
+}
+
 .groupBooking-list {
     /*margin-top: 1em;*/
     /*height: 2.3em;*/
@@ -163,9 +179,14 @@ html {
 }
 .groupBooking-list-item {
     overflow: hidden;
-    border: 1px solid #f00;
+    float: left;
+    width: 30%;
+    line-height: 1.5em;
+    border: 1px solid #189FBD;
     border-radius: 5px;
     background: none;
+    margin-bottom: 1em;
+    margin-left: 2.5%;
 }
 .groupBooking-list-item .input {
     width: 3em;
@@ -422,7 +443,7 @@ html {
     width: 100%;
     height: 100%;
     background: #fff;
-    z-index: 1000;
+    z-index: 10000;
 }
 .global-gamepage-wrapper .bgBlur {
     position: absolute;
@@ -468,7 +489,7 @@ html {
 .gameImg {
     position: relative;
     width: 85%;
-    margin: 1em auto 2em;
+    margin: 1em auto 1em;
     box-shadow: 0 0 0em 0.8em rgba(255,255,255,0.5);
     border-radius: 5px;
     overflow: hidden;

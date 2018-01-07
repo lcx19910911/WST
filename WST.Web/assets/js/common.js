@@ -17,6 +17,7 @@ $(function() {
 	
 	function audioAutoPlay(id){  
 	    var audio = document.getElementById(id);  
+		if(!Boolean(audio.getAttribute('src'))) return false;
 	    audio.play();  
 	    document.addEventListener("WeixinJSBridgeReady", function () {  
 	            audio.play();  

@@ -52,6 +52,7 @@ namespace WST.Web.Controllers
                     //ITemplateService.Update(x);
                 }
             });
+            ViewBag.CategoryIdList = dic.Values.ToList() ;
             return View(tempelateList);
         }
 

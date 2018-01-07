@@ -22,191 +22,153 @@
     <script src="~/assets/js/jquery-2.1.4.min.js"></script>
     <script src="~/assets/js/my.js"></script>
     <style>
-        html {
-            background: #fff;
-        }
+        @@font-face{
+			font-family: 'impact';
+			src : url('/assets/css/ttf/impact.ttf');
+		}
+		.impact {
+			font-family: 'impact';
+			font-weight: bold;
+		}
 
-        .wrap {
-            /*padding-bottom: 3.87em;*/
-        }
-        /*头部*/
-        .icon {
-            position: relative;
-            top: 0.08em;
-        }
+		html {
+			background: #fff;
+		}
+		.wrap {
+			padding-bottom: 6em;
+		}
+		/*头部*/
+		.icon {
+			position: relative;
+			top: 0.08em;
+		}
+		.my-portrait {
+			position: absolute;
+			overflow: hidden;
+			left: 23%;
+			bottom: -5%;
+			margin-left: -2em;
+			width: 30em;
+			height: 8em;
+		}
+		.my-portrait .headimg {
+			overflow: hidden;
+			float: left;
+			width: 7em;
+			height: 7em;
+			border-radius: 50%;
+			border: 2px solid #608DA4;
+		}
+		.my-portrait .headimg img {
+			display: block;
+			width: 100%;
+			height: 100%;
+			line-height: 6em;
+			text-align: center;
+			color: #f00;
+			border: 0.27em solid #fff;
+			border-radius: 50%;
+			box-sizing: border-box;
+		}
+		.head img {
+			display: block;
+			width: 100%;
+		}
 
-        .head {
-            position: relative;
-            overflow: hidden;
-            height: 9em;
-            padding: 0.6em 1em;
-            background: #fff;
-            background: url(/assets/img/banner/BG1.png) center center no-repeat;
-            background-size: 100% 100%;
-            border-bottom: 0.2em solid #fff;
-        }
+		.favorite-wrapper {
+			padding: 0 4%;
+			overflow: hidden;
+		}
+		.package-list {
+			position: relative;
+			float: left;
+			width: 47%;
+			/* height: 10em; */
+			margin-top: 2em;
+			border: 2px solid #01AFD5;
+			background: #fff;
+			border-radius: 0.8em;
+			transition: all 0.5s;
+			text-align: center;
+			padding-top: 1.5em;
+		}
+		.package-list:nth-child(even) {
+			float: right;
+		}
 
-        .my-portrait {
-            position: absolute;
-            overflow: hidden;
-            left: 23%;
-            bottom: -5%;
-            margin-left: -2em;
-            width: 30em;
-            height: 8em;
-        }
+		.package-list .price {
+			font-size: 1.5em;
+			color: #01AFD5;
+			line-height: 2em;
+		}
+		.package-list .price span {
+			font-size: 1.9em;
+		}
+		.package-list .name {
+			background: #01AFD5;
+			color: #fff;
+			line-height: 2em;
+			font-weight: bold;
+			font-size: 1.1em;
+		}
+		.package-list .time {
+			color: #01AFD5;
+			line-height: 2em;
+			font-weight: bold;
+			font-size: 1.2em;
+		}
 
-            .my-portrait .headimg {
-                overflow: hidden;
-                float: left;
-                width: 7em;
-                height: 7em;
-                border-radius: 50%;
-                border: 2px solid #608DA4;
-            }
+		.package-list .hot {
+			position: absolute;
+			right: -0.7em;
+			top: -1.5em;
+			width: 3em;
+			height: 3em;
+			background: url(/assets/img/banner/hot.png) center no-repeat;
+			background-size: 100%;
+		}
 
-                .my-portrait .headimg img {
-                    display: block;
-                    width: 100%;
-                    height: 100%;
-                    line-height: 6em;
-                    text-align: center;
-                    color: #f00;
-                    border: 0.27em solid #fff;
-                    border-radius: 50%;
-                    box-sizing: border-box;
-                }
-
-        .head p {
-            float: left;
-            height: 1.3em;
-            padding: 0 0.2em;
-            margin-top: 2em;
-            margin-left: 0.5em;
-            font-size: 1.1em;
-            color: #608DA4;
-        }
-
-        .head a {
-            position: absolute;
-            left: 1em;
-            top: 0.5em;
-            width: 4em;
-            height: 3em;
-            line-height: 3em;
-            font-size: 1em;
-            color: #016776;
-        }
-
-        .head h3 {
-            line-height: 5em;
-            text-align: center;
-            font-size: 2em;
-            color: #016776;
-        }
-
-        .favorite-wrapper {
-            padding: 0 0;
-            overflow: hidden;
-        }
-
-        .package-list {
-            float: left;
-            width: 50%;
-            height: 10em;
-            border-bottom: 1px solid #ddd;
-            border-right: 1px solid #ddd;
-            background: #B6F0F2;
-            transition: all 0.5s;
-        }
-
-            .package-list.select {
-                background: #56B6C4;
-            }
-
-            .package-list:nth-child(even) {
-                border-right: 0;
-            }
-
-            .package-list h3 {
-                color: #56B6C4;
-                line-height: 2.5em;
-                padding: 0 1em;
-            }
-
-            .package-list.select h3 {
-                color: #fff;
-            }
-
-            .package-list p {
-                text-align: center;
-            }
-
-            .package-list .btn {
-                display: inline-block;
-                background: #56B6C4;
-                text-align: center;
-                color: #fff;
-                padding: 0.2em 0.8em;
-                border-radius: 2em;
-                margin-left: 0.3em;
-            }
-
-        .select .btn {
-            color: #56B6C4;
-            background: #fff;
-        }
-
-        .package-list .selBtn2 {
-            display: none;
-        }
-
-        .select .selBtn1 {
-            display: none;
-        }
-
-        .select .selBtn2 {
-            display: inline-block;
-        }
-
-        .foot-wrapper {
-	    position: fixed;
-	    left: 0;
-	    bottom: 1.7em;
-	    width: 100%;
-        }
-
-            .foot-wrapper .button {
-                background: #608DA4;
-                width: 79%;
-                color: #fff;
-                text-align: center;
-                font-weight: bold;
-                line-height: 2.5em;
-                height: 2.5em;
-                padding: 0;
-                border-radius: 0.5em;
-            }
-
-            .foot-wrapper .button {
-                float: none;
-                margin: 0 auto;
-                width: 90%;
-                text-align: center;
-                color: #fff;
-                padding: 0;
-                background: #56B6C4;
-                box-shadow: 0 2px 3px 0 #2b6a73;
-                border-radius: 1em;
-            }
+		.package-list.select {
+			background: #01AFD5;
+		}
+		.select .price, .select .time {
+			color: #fff;
+		}
+		.select .name {
+			color: #01AFD5;
+			background: #fff;
+		}
+		
+		
+		.foot-wrapper {
+			position: fixed;
+			bottom: 1em;
+			width: 100%;
+			left: 0;
+		}
+		.foot-wrapper .button {
+			float: none;
+			margin: 0 auto;
+			width: 95%;
+			line-height: 2.5em;
+			height: 2.5em;
+			text-align: center;
+			color: #2CA7C1;
+			padding: 0;
+			font-weight: bold;
+			font-size: 1.2em;
+			background: url(/assets/img/banner/button.png) center repeat-x;
+			background-size: auto 100%;
+			box-shadow: 0 0 2px 2px #0FFEFE;
+			border-radius: 0.5em;
+		}
     </style>
 </head>
 <body>
     <div class="wrap l">
-        <div class="head clearfix">
-            <h3>请选择适合您的套餐</h3>
-            <a href="/user/index" class="fl"><i class="icon icon icon-loginout"></i> 返回</a>
-        </div>
+        <div class="head">
+		<img src="/assets/img/banner/title.gif" alt="">
+	</div>
         <div class="favorite-wrapper">
 
             @if (Model != null && Model.Count > 0)
@@ -214,11 +176,11 @@
                 foreach (var item in Model)
                 {
                     <div class="package-list" data-id="@(item.ID)" data-fee="@(item.Money)" data-name="@(item.Name)" data-day="@(item.Day)">
-                        <h3 class="txt-hidden">@item.Name</h3>
-                        <input type="hidden" name="Introduce" value="@item.Introduce"/>
-                        <p><span class="fT"> @(item.Day) 天</span> <span class="btn">5折优惠</span></p>
-                        <p class="f12 fB mt05"><span>活动价</span> <span class="c-f00">￥@(item.Money)</span></p>
-                        <p class="f11 mt05"><span class="btn selBtn1">点击选择</span><span class="btn selBtn2">当前选择</span></p>
+                        <p class="price">￥<span class="impact">@(item.Money)</span></p>
+                        <p class="name">@(item.Name)</p>
+                        <input type="hidden" name="Introduce" value="@(item.Introduce)"/>
+                        <p class="time">总共<span>@(item.Day)</span>天</p>
+                        <span class="hot"></span>
                     </div>
                 }
             }

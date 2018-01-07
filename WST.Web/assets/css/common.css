@@ -1,6 +1,18 @@
 /* CSS edit */
 @charset 'utf-8';
 
+@font-face{
+    font-family: 'impact';
+    src : url('./ttf/impact.ttf');
+}
+.impact {
+    font-family: 'impact';
+    font-weight: 100;
+    font-size: 2em;
+}
+.bc-theme1 {
+    background-color: #199FBC;
+}
 @keyframes rotation {
     0% {
         -webkit-transform: rotate(0deg);
@@ -107,10 +119,10 @@
     height: 100%;
     background: rgba(0,0,0,0.8) url(../img/banner/shareInfo.png) right top no-repeat;
     background-size: 90% auto;
-    z-index: 1000;
+    z-index: 10000;
 }
 /*music-component-wrapper*/
-.music-component-wrapper {
+.music-component-wrapper, .effectItems-component-wrapper {
     overflow: hidden;
     position: fixed;
     top: 0;
@@ -121,7 +133,7 @@
     background: rgba(0,0,0,.6);
     z-index: 1000;
 }
-.music-component-wrapper ul {
+.music-component-wrapper ul, .effectItems-component-wrapper ul {
     position: relative;
     background: #fff;
     width: 100%;
@@ -130,7 +142,7 @@
     overflow-y: auto;
     padding: 0 1em;
 }
-.music-component-wrapper ul li {
+.music-component-wrapper ul li, .effectItems-component-wrapper ul li  {
     line-height: 2.5em;
     text-align: left;
     font-size: 1.2em;
@@ -141,34 +153,64 @@
     white-space: nowrap;
 }
 
-.music-component-wrapper ul li h3 {
+.music-component-wrapper ul li h3, .effectItems-component-wrapper ul li h3  {
     color: #333;
 }
-.music-component-wrapper ul li h3:before {
+.music-component-wrapper ul li h3:before, .effectItems-component-wrapper ul li h3:before  {
     display: inline-block;
     content: '+';
     width: 2em;
     text-indent: 1em;
 }
-.music-component-wrapper ul .open h3:before {
+.music-component-wrapper ul .open h3:before, .effectItems-component-wrapper ul .open h3:before  {
     content: '-';
 }
-.music-component-wrapper .music-item {
+.music-component-wrapper .music-item, .effectItems-component-wrapper .effectItems-item  {
     text-indent: 2em;
 }
-.music-component-wrapper ul li .box {
+.music-component-wrapper ul li .box, .effectItems-component-wrapper ul li .box  {
     display: none;
 }
-.music-component-wrapper ul .open .box {
+.music-component-wrapper ul .open .box, .effectItems-component-wrapper ul .open .box  {
     display: block;
 }
 
-.music-component-wrapper .icom {
+.music-component-wrapper .icom, .effectItems-component-wrapper .icom  {
     color: inherit;
 }
-.music-component-wrapper ul li .icon {
+.music-component-wrapper ul li .icon, .effectItems-component-wrapper ul li .icon  {
     margin-right: 0.5em;
 }
+.music-component-wrapper ul .play, .effectItems-component-wrapper ul .play {
+    color: #0594F5;
+}
+
+.music-component-wrapper .btn, .effectItems-component-wrapper .btn {
+    position: absolute;
+    overflow: hidden;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 3em;
+    line-height: 3em;
+    border-top: 1px solid #608DA4;
+}
+.music-component-wrapper .btn span, .effectItems-component-wrapper .btn span {
+    float: left;
+    width: 50%;
+    text-align: center;
+    font-size: 1.1em;
+    background: #608DA4;
+    color: #fff;
+}
+.music-component-wrapper .btn .cancel, .effectItems-component-wrapper .btn .cancel {
+    -webkit-box-shadow: 1px 0 0 0 #608DA4;
+    box-shadow: 1px 0 0 0 #608DA4;
+    background: #fff;
+    color: #608DA4;
+}
+
+
 
 #countDown {
     text-align: center;
@@ -198,4 +240,81 @@ div.app {
     display: block;
     width: 100%;
     height: 100%;
+}
+.effect-component-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 0;
+    z-index: 10000;
+}
+.effect-component-wrapper .effect-item {
+    position: fixed;
+    top: -3em;
+    width: 3em;
+    height: 3em;
+    background: url() center no-repeat;
+    background-size: 100% 100%;
+    z-index: 10000;
+}
+.effect-component-wrapper .icon1 {
+    animation: icon1 15s linear infinite;
+    transform-origin: 0 -3em;
+}
+.effect-component-wrapper .icon2 {
+    /* animation: icon2 5s linear infinite; */
+    /* transform-origin: 0.5em -5em; */
+}
+.effect-component-wrapper .icon3 {
+    animation: icon1 15s linear infinite;
+    transform-origin: 0.5em -5em;
+}
+.effectItems-component-wrapper ul .effectItems-direction {
+    text-indent: 1em;
+    color: #000;
+}
+.effectItems-direction span {
+    margin-right: 1em;
+}
+.e-radio i {
+    display: inline-block;
+    width: 0.7em;
+    height: 0.7em;
+    border: 1px solid #ccc;
+    background: #fff;
+}
+
+
+@keyframes icon1 {
+    0% {
+        -webkit-transform:  rotate(0deg);
+        transform:  rotate(0deg);
+    }
+    25% {
+        -webkit-transform:  rotate(-45deg);
+        transform:  rotate(-45deg);
+    }
+    50% {
+        -webkit-transform:  rotate(0deg);
+        transform:  rotate(0deg);
+    }
+    75% {
+        -webkit-transform:  rotate(45deg);
+        transform:  rotate(45deg);
+    }
+    100% {
+        -webkit-transform:  rotate(0deg);
+        transform:  rotate(0deg);
+    }
+}
+@keyframes icon2 {
+    0% {
+        -webkit-transform:  rotate(0deg);
+        transform:  rotate(0deg);
+    }
+    100% {
+        -webkit-transform:  rotate(360deg);
+        transform:  rotate(360deg);
+    }
 }

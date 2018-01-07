@@ -3,6 +3,7 @@
     ViewBag.Title = "制作活动";
     Layout = null;
     var carouselList = ViewBag.CarouseList as List<Carousel>;
+    var categoryList = ViewBag.CategoryIdList as List<TemplateCategory>;
 }
 @section linkcss
 {
@@ -43,9 +44,13 @@
         <div class="lib_Menubox">
             <ul>
                 <li class="lib_M_title_item hover" data-type="all">全部</li>
-                <li class="lib_M_title_item" data-type="pintuan">团购类</li>
-                <li class="lib_M_title_item" data-type="miaosha">秒杀类</li>
-                <li class="lib_M_title_item" data-type="kanjia">砍价类</li>
+                @if (categoryList != null && categoryList.Count > 0)
+                {
+                    foreach (var item in categoryList)
+                    {
+                    <li class="lib_M_title_item" data-type="@(item.Name)">@(item.Name)类</li>
+                    }
+                }
             </ul>
         </div>
         <div class="anli">
@@ -74,67 +79,31 @@
                             </div> }
                     }
                 </div>
-                <!-- 秒杀 -->
-                <div class="lib_C_cont_box" data-type="pintuan">
 
-                    @if (Model != null && Model.Count > 0)
+                @if (categoryList != null && categoryList.Count > 0)
+                {
+                    foreach (var categoryItem in categoryList)
                     {
-                        foreach (var item in Model.Where(x => x.CategoryID == "be87127377de40f3989f8e5133586968").OrderByDescending(x => x.CreatedTime).ToList())
-                        {
-                            <div class="lib_Contentbox_li">
-                                <!-- 头像 -->
-                                <img class="lib_Contentbox_img1" src="@item.Picture" />
-                                <dl>
-                                    <h3>@item.Name<img class="lib_Contentbox_img2" src="/assets/img/banner/ico1.gif" /></h3>
-                                    <dt>@item.Introduce</dt>
-                                    <dd><span><a href="/@(item.RotueName)/manage?TemplateUrl=@(item.TemplateUrl)">马上制作</a></span></dd>
-                                    <dd><a href="@item.DemoUrl">查看示例</a></dd>
-                                </dl>
-                            </div>
-                        }
+                        <div class="lib_C_cont_box" data-type="@(categoryItem.Name)">
+                            @if (Model != null && Model.Count > 0)
+                            {
+                                foreach (var item in Model.Where(x => x.CategoryID == categoryItem.ID).OrderByDescending(x => x.CreatedTime).ToList())
+                                {
+                                    <div class="lib_Contentbox_li">
+                                        <!-- 头像 -->
+                                        <img class="lib_Contentbox_img1" src="@item.Picture" />
+                                        <dl>
+                                            <h3>@item.Name<img class="lib_Contentbox_img2" src="/assets/img/banner/ico1.gif" /></h3>
+                                            <dt>@item.Introduce</dt>
+                                            <dd><span><a href="/@(item.RotueName)/manage?TemplateUrl=@(item.TemplateUrl)">马上制作</a></span></dd>
+                                            <dd><a href="@item.DemoUrl">查看示例</a></dd>
+                                        </dl>
+                                    </div>
+                                }
+                            }
+                        </div>
                     }
-
-                </div>
-
-                <div class="lib_C_cont_box" data-type="miaosha">
-                    @if (Model != null && Model.Count > 0)
-                    {
-                        foreach (var item in Model.Where(x => x.CategoryID == "8a4fe232dd1a48008ccac30d97b5febb").OrderByDescending(x => x.CreatedTime).ToList())
-                        {
-                            <div class="lib_Contentbox_li">
-                                <!-- 头像 -->
-                                <img class="lib_Contentbox_img1" src="@item.Picture" />
-                                <dl>
-                                    <h3>@item.Name<img class="lib_Contentbox_img2" src="/assets/img/banner/ico1.gif" /></h3>
-                                    <dt>@item.Introduce</dt>
-                                    <dd><span><a href="/@(item.RotueName)/manage?TemplateUrl=@(item.TemplateUrl)">马上制作</a></span></dd>
-                                    <dd><a href="@item.DemoUrl">查看示例</a></dd>
-                                </dl>
-                            </div>
-                        }
-                    }
-
-                </div>
-                <div class="lib_C_cont_box" data-type="kanjia">
-                    @if (Model != null && Model.Count > 0)
-                    {
-                        foreach (var item in Model.Where(x => x.CategoryID == "d2bc6f3ca4444715855be7999bebed90").OrderByDescending(x => x.CreatedTime).ToList())
-                        {
-                            <div class="lib_Contentbox_li">
-                                <!-- 头像 -->
-                                <img class="lib_Contentbox_img1" src="@item.Picture" />
-                                <dl>
-                                    <h3>@item.Name<img class="lib_Contentbox_img2" src="/assets/img/banner/ico1.gif" /></h3>
-                                    <dt>@item.Introduce</dt>
-                                    <dd><span><a href="/@(item.RotueName)/manage?TemplateUrl=@(item.TemplateUrl)">马上制作</a></span></dd>
-                                    <dd><a href="@item.DemoUrl">查看示例</a></dd>
-                                </dl>
-                            </div>
-                        }
-                    }
-
-                </div>
-
+                }
             </div>
         </div>
     </div>
